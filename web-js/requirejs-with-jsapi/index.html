@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>RequireJS w/ JSAPI</title>
+    
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9amd/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.9amd/js/esri/css/esri.css">
+    <link rel="stylesheet" href="./css/layout.css"/>
+
+    
+    <style>
+      html, body, #map {
+        height:100%;
+        width:100%;
+        margin:0;
+        padding:0;
+      }
+      #search {
+        display: block;
+        position: absolute;
+        z-index: 2;
+        top: 20px;
+        left: 74px;
+      }
+    </style>
+    
+    <script src="./libs/require.js"></script>
+    
+    <script>
+      /*****************************
+       * Bootstrap RequireJS loader 
+       *****************************/
+    
+      var baseUrlHasCors = true;
+      var hasCors = false;
+      
+      if (baseUrlHasCors && typeof XMLHttpRequest !== "undefined") {
+        var xhr = new XMLHttpRequest();
+        
+        if ("withCredentials" in xhr) {
+          hasCors = true;
+        }
+      }
+      
+      require.config({
+    	//Load 3.9amd cdn 4/25/2014
+        baseUrl: "http://js.arcgis.com/3.9amd/js/dojo",
+        
+        paths: {
+          "esri":         "../esri",
+          "dgrid":        "../dgrid",
+          "xstyle":       "../xstyle",
+          "put-selector": "../put-selector",
+          
+          "text": "/work/dev/requirejs-jboss/dev/libs/plugins/text"
+        },
+        
+        /*deps: [ "esri/jsapi" ],
+        
+        bundles: {
+          "esri/jsapi": [ "esri/map" ]
+        },*/
+       
+        // Use RequireJS text plugin instead of dojo/text plugin
+        // http://requirejs.org/docs/api.html#config
+        map: {
+          "*": {
+            "dojo/text": "text"
+          }
+        },
+        
+        // https://github.com/requirejs/text#custom-xhr-hooks
+        config: {
+          text: {
+            
+            // https://github.com/requirejs/text/blob/master/text.js#L129
+            useXhr: function(url) {
+              // Allow cross domain XHR requests:
+              // We will route them through a proxy in onXhr below.
+
+              console.log("useXhr = ", url);
+              return true;
+            },
+            
+            // In IE 9, text plugin fails even before onXhr is called:
+            // It fails right when calling xhr.open:
+            // https://github.com/requirejs/text/blob/master/text.js#L267
+            // - This is different from other browsers which appear to fail 
+            // much later, allowing us a chance to append proxy below.
+            // -- Probably because IE 9 does not support CORS as opposed to 
+            // other modern browsers that have CORS support.
+            openXhr: false, // ESRI mod: let's take over xhr.open below
+            
+            onXhr: function(xhr, url) {
+              // Route cross domain XHR through a proxy
+              
+              console.log("onXhr= ", xhr, url);
+              xhr.open(
+                "GET", 
+                hasCors ? url : ("/proxy/proxy.jsp?" + url), 
+                true
+              );
+            }
+          }
+        }
+      });
+      
+      /*******************
+       * Application Code 
+       *******************/
+
+      var map;
+
+      require([
+        "esri/map", "dojo/parser",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/layout/TabContainer",
+        "dojo/domReady!"
+      ], function(Map, parser) {
+        
+        parser.parse();
+        
+        map = new Map("map",{
+          basemap: "topo",
+          center: [-120.435, 46.159], // lon, lat
+          zoom: 7,
+          showAttribution: true
+        });
+
+      });
+      
+    </script>
+  </head>
+  
+  <body class="claro">
+    <!--div id="search"></div>
+    <div id="map"></div-->
+    
+    <div id="mainWindow" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline'"
+     style="width:100%; height:100%;">
+
+      <div id="header" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'">
+        <div id="title">
+        Example showing RequreJS with ArcGIS API for JavaScript!
+        </div>
+      </div>
+      
+      <div data-dojo-type="dijit.layout.ContentPane" id="leftPane" data-dojo-props="region:'left'">
+        <div data-dojo-type="dijit.layout.TabContainer">
+          <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tab 1', selected:'true'">
+            Content for the first tab
+          </div>
+          <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Tab 2'">
+            Content for the second tab
+          </div>
+        </div>
+      </div>
+
+      <div id="map" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'"></div>
+
+      <div id="footer" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'bottom'">
+        <span id="dataSource">
+        </span>
+      </div>
+    </div>
+
+  </body>
+</html>
