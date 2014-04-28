@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Geoenrichment API</title>
+    <link href="//js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css" rel="stylesheet" />
+    <link href="//js.arcgis.com/3.8/js/esri/css/esri.css" rel="stylesheet" />
+
+    <style>
+        html, body, .app, .map {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+        td {
+            padding-top: 10px;
+        }
+        #infoContainer {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #F7F7F7;
+            width: 300px;
+            height: 180px;
+            padding:10px;
+        }
+
+        #infoContainer > div {
+            margin: 10px;
+        }
+        #title {
+            text-align:center;
+            width:290px;
+        } 
+        #result {
+            width: 290px;
+            height: 140px;
+            max-height: 140px;
+            overflow:auto;
+            border:1px solid #eaeaea;
+        }
+
+    </style>
+    <script src="//js.arcgis.com/3.8"></script>
+</head>
+<body class="claro">
+    <script>
+        var task;
+        var countriesSelect;
+        var dataCollectionsSelect;
+        var ready = false;
+
+        /*this sample was provided by JS team to demonstrate how to work with Geoenrichment Tasks to make calls to generate reports.  
+        
+        these methods have not been documented in Resource Center yet and are subject to change*/
+        
+        //TODO: change references from "esri-report" to "esri" when JS API is updated with latest fixes        
+        require([
+            "dojo/dom-style",
+            "dijit/form/Select",
+            "esri/map",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/graphic",
+            "esri/tasks/geoenrichment/GeoenrichmentTask",
+            "esri/tasks/geoenrichment/RingBuffer",
+            "esri/units",
+            "esri/IdentityManager",
+            "esri/InfoTemplate"
+        ], function (
+            domStyle,
+            Select,
+            Map,
+            SimpleFillSymbol,
+            SimpleMarkerSymbol,
+            Graphic,
+            GeoenrichmentTask,
+            RingBuffer,
+            Units,
+            id,
+            InfoTemplate
+            ) {
+
+            var map = new Map("map", {
+                basemap: "streets",
+                center: [-122.435, 37.785],
+                zoom: 12,
+                sliderStyle: "small"
+            });
+
+            countriesSelect = new Select({ maxHeight: 300 }, "stepOne");
+            reportSelect = new Select({ maxHeight: 300 }, "stepTwo");
+
+            task = new GeoenrichmentTask("https://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer");
+
+            task.onGetReportsComplete = bindReports;
+
+            task.getAvailableCountries().then(bindCountries);
+  
+            var graphic;
+            map.on("click", function (e) {
+                if (!ready) {
+                    return;
+                }
+                
+                var point = e.mapPoint;
+                if (!graphic) {
+                    graphic = new Graphic(point, new SimpleMarkerSymbol());
+                    map.graphics.add(graphic);
+                } else {
+                    graphic.setGeometry(point);
+                }                 
+                 
+                console.log(point, countriesSelect.get("value"), reportSelect.get("value"));
+                task.createReport({
+                    studyAreas: [{ "geometry": point }],
+                    studyAreaOptions: new RingBuffer({ radii: [1, 3, 5], units: Units.MILES }),
+                    fields: { subtitle: "Custom subtitle here" },
+                    countryID: countriesSelect.get("value"),
+                    reportID: reportSelect.get("value")
+                });
+            });
+           
+            function bindCountries(countries) {
+                var countriesOptions = [{ label: "- select -", value: "" }];
+                
+                for (var i = 0; i < countries.length; i++) {
+                    var country = countries[i];
+                    countriesOptions.push({ label: country.name, value: country.id });
+                }
+             
+                domStyle.set("infoContainer", "display", "");
+                domStyle.set("stepOneInfo", "display", "");
+
+                countriesSelect.set("options", countriesOptions);
+                countriesSelect.set("value", "");
+
+                countriesSelect.onChange = function (selectedCountry) {
+                    ready = false;
+                    domStyle.set("stepTwoInfo", "display", "none");
+                    domStyle.set("stepThreeInfo", "display", "none");
+
+                    if (selectedCountry) {
+                        reportSelect.set("options", []);
+                        task.getReports(selectedCountry);
+                    }
+                };
+            }
+
+            function bindReports(reports) {
+                var options = [{ label: "- select -", value: "" }];
+ 
+                for (var i = 0; i < reports.length; i++) {
+                    options.push({
+                        value: reports[i].id,
+                        label: reports[i].metadata.title
+                    });
+                }
+              
+                domStyle.set("stepTwoInfo", "display", "");
+                reportSelect.set("options", options);
+                reportSelect.set("value", "");
+
+                reportSelect.onChange = function (reportID) {
+                    if (reportID) {
+                        domStyle.set("stepThreeInfo", "display", "");
+                        ready = true;
+                    }
+                };
+            }
+        });
+    </script>
+    <div id="map"></div>
+    <div id="infoContainer" style="display: none;">
+        <div id="title">Geoenrichment Task</div>
+        <div id="stepOneInfo" style="display: none;">
+            <div>1. Select country</div>
+            <div id="stepOne"></div>
+        </div>
+        <div id="stepTwoInfo" style="display: none;">
+            <div>2. Select report</div>
+            <div id="stepTwo"></div>
+        </div>
+        <div id="stepThreeInfo" style="display: none;">3. Click on the map</div>
+    </div>
+</body>
+</html>
