@@ -1,7 +1,7 @@
-global-support-repository
+ArcPy & Python Sample Scripts
 =========================
 
-Proof of concept developer code and samples to help be successful with ArcGIS developer products.  Share your coding conventions and wisdom with us! 
+This is a collection of Python scripts and tools used for managing maps and data, and for publishing data to ArcGIS Online or ArcGIS Server.
 
 ## Instructions
 
