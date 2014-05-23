@@ -1,4 +1,4 @@
-Count Multipart Features
+Create Sync Replica from Rest
 =========================
 
 ## Instructions
