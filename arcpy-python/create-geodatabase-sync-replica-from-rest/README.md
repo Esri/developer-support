@@ -1,4 +1,4 @@
-Create Sync Replica from Rest
+Create Sync Replica from REST
 =========================
 
 ## Instructions
