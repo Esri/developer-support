@@ -8,8 +8,8 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>PopupDropdownZoom</title>
 
-    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/tundra/tundra.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
     <style>
     html,
     body,
@@ -33,7 +33,7 @@
         z-index: 40;
     }
     </style>
-    <script src="http://js.arcgis.com/3.9/"></script>
+    <script src="http://js.arcgis.com/3.10/"></script>
     <script>
     var map, featureLayer, features, query, mySelect;
 
@@ -44,7 +44,6 @@
         "esri/symbols/SimpleLineSymbol",
         "esri/Color",
         "dojo/dom-style",
-        //"esri/InfoTemplate",  
         "dojo/dom",
         "dojo/on",
         "dojo/dom-construct",
@@ -65,7 +64,6 @@
         SimpleLineSymbol,
         Color,
         domStyle,
-        //InfoTemplate, 
         dom,
         on,
         domConstruct,
@@ -92,8 +90,7 @@
         map = new Map("mapDiv", {
             basemap: "gray",
             extent: initExtent,
-            slider: false,
-            infoWindow: infoWindow
+            slider: false
         });
 
         featureLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2", {
@@ -112,8 +109,6 @@
         }
 
 
-        /*map.on("click", function(evt) { map.infoWindow.hide(); featureLayer.clearSelection(); mapPoint = evt.map })
-         */
 
         //QUERY AND ZOOM TO FEATURE
         function zoomFeature(selectedValue) {
@@ -127,8 +122,8 @@
             var point = new Point();
             featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW, function(features) {
                 var featureExtent = features[0].geometry.getExtent().expand(2);
-                Config.defaults.map.zoomDuration = 800; //time in milliseconds; default is 250
-                Config.defaults.map.zoomRate = 50; //refresh rate of zoom animation; default is 25
+                //Config.defaults.map.zoomDuration = 80000; //time in milliseconds; default is 250
+                //Config.defaults.map.zoomRate = 500; //refresh rate of zoom animation; default is 25
                 deffered = map.setExtent(initExtent);
                 centerPoint(featureExtent, point);
 

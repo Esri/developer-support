@@ -1,18 +1,25 @@
 #ArcGIS API for JavaScript Zoom to Feature via Dropdown
 
-This is a sample app that displays the current basemap, zoom level and centerpoint (in WGS84) for ease of copy/paste into your own map constructor within your application.
+This is a sample app that creates a dropdown of features that when selected, are zoomed to, and a pop is shown.
 
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 
-[zoomRate|zoomDuration](https://developers.arcgis.com/javascript/jshelp/inside_defaults.html)
+
+
+[expand()](https://developers.arcgis.com/javascript/jsapi/extent-amd.html#expand)
 
 
 
 ## Features
 
 * written in AMD
-* A red cursor is drawn at the current map center each time the extent changes or someone clicks on the map
-* The clientside utility webMercatorUtils.webMercatorToGeographic() is used to convert the web mercator mapPoint to the WGS84 coordinates which can be conveniently inserted in the map constructor.
-* uses version 3.8 of the JS API, but should be able to be upgraded conveniently. 
+* A <select> DOM element is populated with features from a featureLayer to create a dropdown
+* When a feature is selected, the map zooms out to the initial extent, then in to the feature
+* To control the extent after the map zooms in, the method feature.geometry.getExtent().expand() is used to find the extent of the feature, and then zoom out a specified amount.
+* The selected feature's symbology is changed
+* The feature's popup is programatically displayed
+* uses version 3.10 of the JS API, but should be able to be upgraded conveniently. 
 
-NOTE: Feel free to contribute new templates to this repo!
+NOTE: Feel free to update to this repo, especially if you are aware of any methods to make the zooming smoother!
+
+
