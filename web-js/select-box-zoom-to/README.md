@@ -21,5 +21,3 @@ This is a sample app that creates a dropdown of features that when selected, are
 * uses version 3.10 of the JS API, but should be able to be upgraded conveniently. 
 
 NOTE: Feel free to update to this repo, especially if you are aware of any methods to make the zooming smoother!
-
-
