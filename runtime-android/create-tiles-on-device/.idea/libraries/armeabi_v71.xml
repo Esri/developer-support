@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="armeabi-v71">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tilecachetask/libs/armeabi-v71.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

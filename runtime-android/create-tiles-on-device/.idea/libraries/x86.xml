@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="x86">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tilecachetask/libs/x86.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

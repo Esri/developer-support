@@ -1,0 +1,63 @@
+﻿<Window x:Class="multiproject.MainWindow"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+      <!--<Grid.Resources>
+            <esri:LocalMapService x:Key="localMapService" Path="C:\Program Files (x86)\ArcGIS SDKs\WPF10.2\SDK\Samples\Data\MPKs\USCitiesStates.mpk" MaxRecords="1000000"/>
+            <esri:LocalFeatureService x:Key="localFeatureService" Path="C:\Program Files (x86)\ArcGIS SDKs\WPF10.2\SDK\Samples\Data\MPKs\USCitiesStates.mpk" MaxRecords="1000000"/>
+        </Grid.Resources>--> 
+ 
+        <esri:Map x:Name="MyMap" UseAcceleratedDisplay="True">
+            <!-- ArcGIS Online Tiled Basemap Layer -->
+            <!--<esri:ArcGISTiledMapServiceLayer ID="World Topo Map" 
+                       Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>-->
+
+            <!-- Local Tiled Basemap Layer -->
+            <!--<esri:ArcGISLocalTiledLayer ID="Topographic USA" Path="C:\Program Files (x86)\ArcGIS SDKs\WPF10.2\SDK\Samples\Data\TPKs\Topographic.tpk"/>-->
+
+            <!-- ArcGIS Online Dynamic Map Service Layer -->
+            <!--<esri:ArcGISDynamicMapServiceLayer ID="USA Demographic"                      
+Url="http://services.arcgisonline.com/ArcGIS/rest/services/Demographics/USA_Recent_Population_Change/MapServer"/>-->
+
+            <!--Local Dynamic Layer-->
+            <!--<esri:ArcGISLocalDynamicMapServiceLayer ID="USA" Path="C:\Program Files (x86)\ArcGIS SDKs\WPF10.2\SDK\Samples\Data\MPKs\USCitiesStates.mpk"/>-->
+
+            <!--Local Dynamic Layer from Resource (alternative to using Path property) -->
+            <!--<esri:ArcGISLocalDynamicMapServiceLayer ID="USA" Service="{StaticResource localMapService}" />-->
+
+            <!-- Online Feature Layer -->
+            <!--<esri:FeatureLayer ID="Fire Incidents" 
+                      Url="http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Fire/Sheep/FeatureServer/0" 
+                                />-->
+
+            <!--Local Feature Layer-->
+            <!--<esri:ArcGISLocalFeatureLayer ID="arcGISLocalFeatureLayer"
+                      Path="C:\Program Files (x86)\ArcGIS SDKs\WPF10.2\SDK\Samples\Data\MPKs\USCitiesStates.mpk" 
+                      LayerName="States"/>-->
+
+            <!--Local Feature Layer from Resource (alternative to using Path property) -->
+            <!--<esri:ArcGISLocalFeatureLayer ID="arcGISLocalFeatureLayer" Service="{StaticResource localFeatureService}" LayerName="States"/>-->
+
+            <!--Graphics Layer-->
+            <!--<esri:GraphicsLayer ID="Example Graphic">
+                <esri:Graphic>
+                    <esri:Graphic.Symbol>
+                        <esri:SimpleMarkerSymbol Style="Circle" Color="Red"/>
+                    </esri:Graphic.Symbol>
+                    <esri:Graphic.Geometry>
+                        <esri:MapPoint  X="0" Y="0" >
+                            <esri:MapPoint.SpatialReference>
+                                <esri:SpatialReference WKID="3857"/>
+                            </esri:MapPoint.SpatialReference>
+                        </esri:MapPoint>                    
+                        </esri:Graphic.Geometry>                  
+                </esri:Graphic>
+            </esri:GraphicsLayer>-->
+        </esri:Map>
+    </Grid>
+</Window>
+
+
+

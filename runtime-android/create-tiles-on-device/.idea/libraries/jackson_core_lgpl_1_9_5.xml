@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jackson-core-lgpl-1.9.5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/tilecachetask/libs/jackson-core-lgpl-1.9.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
