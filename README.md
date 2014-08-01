@@ -1,4 +1,4 @@
-global-support-repository
+Global support repository
 =========================
 
-Proof of concept developer code and samples to help be successful with ArcGIS developer products.  Share your coding conventions and wisdom with us! 
+![alt text](https://content.screencast.com/users/globebeta/folders/Snagit/media/d150ce2e-f03e-47e4-81e0-c3c9020f965b/2014-07-31_23-01-37.png "Everything Esri ++")
