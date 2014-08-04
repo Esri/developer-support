@@ -3,8 +3,8 @@
 This is a sample app that retrieves all records from a service.
 
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
-
-
+[Class: QueryTask](https://developers.arcgis.com/javascript/jsapi/querytask-amd.html)
+[dojo/promise/all](http://dojotoolkit.org/reference-guide/1.10/dojo/promise/all.html)
 
 ## Features
 
