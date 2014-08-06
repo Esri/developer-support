@@ -1,14 +1,14 @@
-#Connect to your 10.0 SP5 and Under ArcGIS Server and Services
+#Authenticate to your ArcGIS Online / ArcGIS Portal via OAuth
 
-Proof of concept Java console code that uses ArcObjects to connect to ArcGIS Server 10.0 SP5 or older.  
+Sample showing how to signin to ArcGIS Online / Portal using built in ArcGIS iOS SDK OAuth components.  
 
-[ArcObjects SDK 10 Java Platform](http://help.arcgis.com/en/sdk/10.0/java_ao_adf/ao_home.html)
+[AGSOAuthLoginViewController Class Reference](https://developers.arcgis.com/ios/api-reference/interface_a_g_s_o_auth_login_view_controller.html)
 
 
 ## Features
 
-* Simple way to connect to a server via code
-* Report list of running services based on Service Type 
+* Authenticate and show logged in username
+* Uses AGSPortalDelegates to check for failed login or successful login
 
 
-NOTE: This only works with 10.0 SP 5 servers and older.  If you are a Java programer consider working with the Runtime SDK for Java or REST.
+NOTE: This sample is a proof of concept.  To see a more advanced sample look at the [OAuth Login Sample](https://github.com/Esri/arcgis-runtime-samples-ios/tree/5e2729274f34c02fa3221797bde3f1f98ee4fc7f/OAuth%20Login%20Sample) originally created by Divesh.
