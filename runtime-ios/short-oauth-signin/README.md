@@ -1,12 +1,14 @@
-#ArcGIS Runtime for iOS Sample to change symbology based on a map scale range
+#Authenticate to your ArcGIS Online / ArcGIS Portal via OAuth
 
+Sample showing how to signin to ArcGIS Online / Portal using built in ArcGIS iOS SDK OAuth components.  
 
-[ArcGIS Runtime SDK for iOS](https://developers.arcgis.com/ios/)
+[AGSOAuthLoginViewController Class Reference](https://developers.arcgis.com/ios/api-reference/interface_a_g_s_o_auth_login_view_controller.html)
+
 
 ## Features
 
-* Simple sample showing how to use [AGSLayerDelegate](https://developers.arcgis.com/ios/api-reference/protocol_a_g_s_layer_delegate-p.html)
-* Code snippet shows how to change the min/max Scale of Dynamic Map Service using AGSLayer class
-* There is a subview on the map to show the current scale of the map
+* Authenticate and show logged in username
+* Uses AGSPortalDelegates to check for failed login or successful login
 
-NOTE: Feel free to contribute new templates to this repo!
+
+NOTE: This sample is a proof of concept.  To see a more advanced sample look at the [OAuth Login Sample](https://github.com/Esri/arcgis-runtime-samples-ios/tree/5e2729274f34c02fa3221797bde3f1f98ee4fc7f/OAuth%20Login%20Sample) originally created by Divesh.

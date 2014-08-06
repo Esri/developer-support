@@ -1,5 +1,4 @@
 //  ShortOauthSample
-//  Created by Doug Carroll on 8/5/14.
 
 #import "ViewController.h"
 #import "AppDelegate.h"
