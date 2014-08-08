@@ -1,11 +1,8 @@
 Global support repository
 =========================
 
-![alt text](https://raw.githubusercontent.com/Esri/global-support-repository/master/repository-images/supportdeskdrawer.png?token=2159502__eyJzY29wZSI6IlJhd0Jsb2I6RXNyaS9nbG9iYWwtc3VwcG9ydC1yZXBvc2l0b3J5L21hc3Rlci9yZXBvc2l0b3J5LWltYWdlcy9zdXBwb3J0ZGVza2RyYXdlci5wbmciLCJleHBpcmVzIjoxNDA3NDc5OTc3fQ%3D%3D--b74323336123fa727f1fc9bf2e8843b4289a7c55 "Everything Esri ++")
+![SDK Team, Redlands, CA](https://raw.githubusercontent.com/Esri/global-support-repository/master/repository-images/us_redlands_ca_sdk.png?token=2159502__eyJzY29wZSI6IlJhd0Jsb2I6RXNyaS9nbG9iYWwtc3VwcG9ydC1yZXBvc2l0b3J5L21hc3Rlci9yZXBvc2l0b3J5LWltYWdlcy91c19yZWRsYW5kc19jYV9zZGsucG5nIiwiZXhwaXJlcyI6MTQwODEyOTk5MX0%3D--ddc5ad9f2db28f0dc8df28460fd11d2e9eb26c07)
 
-## Issues
-
-Find a bug or want to request a new feature?  Please let us know by submitting an issue.
 
 ## Contributing
 
