@@ -1,10 +1,11 @@
 Global support repository
 =========================
+###SDK Support Team, Redlands, CA
 
 ![SDK Team, Redlands, CA](https://raw.githubusercontent.com/Esri/global-support-repository/master/repository-images/us_redlands_ca_sdk.png?token=2159502__eyJzY29wZSI6IlJhd0Jsb2I6RXNyaS9nbG9iYWwtc3VwcG9ydC1yZXBvc2l0b3J5L21hc3Rlci9yZXBvc2l0b3J5LWltYWdlcy91c19yZWRsYW5kc19jYV9zZGsucG5nIiwiZXhwaXJlcyI6MTQwODEyOTk5MX0%3D--ddc5ad9f2db28f0dc8df28460fd11d2e9eb26c07)
 
 
-## Contributing
+## Engage and contribute with us
 
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
