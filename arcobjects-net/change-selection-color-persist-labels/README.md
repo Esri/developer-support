@@ -19,5 +19,6 @@ Note: please note this is a proof of concept code and have to be used with utmos
 * Uses IActiveView:PartialRefresh
 * Uses ISelectionSet
 
+![selection output](https://raw.githubusercontent.com/Esri/global-support-repository/master/repository-images/ArcMapSelection.png?token=5691765__eyJzY29wZSI6IlJhd0Jsb2I6RXNyaS9nbG9iYWwtc3VwcG9ydC1yZXBvc2l0b3J5L21hc3Rlci9yZXBvc2l0b3J5LWltYWdlcy9BcmNNYXBTZWxlY3Rpb24ucG5nIiwiZXhwaXJlcyI6MTQwODEyMTkzNn0%3D--43c4d5c1670f49a8ab6287b956914bab0aa3ce4d)
 
 
