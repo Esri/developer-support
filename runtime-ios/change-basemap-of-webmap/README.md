@@ -2,7 +2,7 @@
 
 Demonstrates how we can use switchBaseMapOnMapView method of AGSWebMap class in order to change the basemap of a web map. 
 
-In AGSWebMap class, switchBaseMapOnMapView method takes AGSWebMapBaseMap object as a single parameter. AGSWebMapBaseMap is a class that represents the basemap layer(s) of a webmap. You can create an instance of AGSWebMapBaseMap class by using initWithJSON method. When you pass AGSWebMapBaseMap object (new basemap for the webmap) as an argument in switchBaseMapOnMapView and call the method, you will be able to switch the basemap of your webmap. The AGSWebmap class adheres to <AGSWebmapDelegate> protocol. You can implement appropriate methods of <AGSWebmapDelegate> in order to respond to events such as failure to load layers.
+In AGSWebMap class, switchBaseMapOnMapView method takes AGSWebMapBaseMap object as a single parameter. AGSWebMapBaseMap is a class that represents the basemap layer(s) of a webmap. You can create an instance of AGSWebMapBaseMap class by using initWithJSON method. When you pass AGSWebMapBaseMap object (new basemap for the webmap) as an argument in switchBaseMapOnMapView and call the method, you will be able to switch the basemap of your webmap. The AGSWebmap class adheres to AGSWebmapDelegate protocol. You can implement appropriate methods of AGSWebmapDelegate in order to respond to events such as failure to load layers.
 
 #User interaction
 
