@@ -10,7 +10,7 @@ Global support repository
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 
-## [Wiki](https://github.com/Esri/global-support-repository/wiki/Windows-Operating-System) - A one-stop shop list of SDK resources.
+## [Wiki](https://github.com/Esri/global-support-repository/wiki) - A one-stop shop list of SDK resources.
 
 * [Guides and Documentation](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation)
 * [Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services)
