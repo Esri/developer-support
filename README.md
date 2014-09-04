@@ -9,6 +9,17 @@ Global support repository
 
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
+
+## [Wiki](https://github.com/Esri/global-support-repository/wiki/Windows-Operating-System) - A one-stop shop list of SDK resources.
+
+* [Guides and Documentation](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation)
+* [Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services)
+ * [Unique Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services#unique-layer-services)
+ * [Servers](https://github.com/Esri/global-support-repository/wiki/Layer-Services#servers)
+* [Geoprocessing Services](https://github.com/Esri/global-support-repository/wiki/Geoprocessing-Services)
+* [Data Resources](https://github.com/Esri/global-support-repository/wiki/Data-Resources)
+* [Windows Operating System](https://github.com/Esri/global-support-repository/wiki/Windows-Operating-System)
+
 ## Licensing
 Copyright 2014 Esri
 
