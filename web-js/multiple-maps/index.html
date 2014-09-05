@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>TEST</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 1%;
+    }
+    #map1Div,
+    #map2Div,
+    #map3Div,
+    #map4Div,
+    #map5Div,
+    #map0Div {
+        padding: 3%;
+    }
+    #one,
+    #two,
+    #three,
+    #four,
+    #five,
+    #zero {
+        width: 29%;
+        height: 90%;
+    }
+    #zero,
+    #one,
+    #three,
+    #four {
+        float: left;
+    }
+    #two,
+    #five {
+        float: left;
+        clear: none;
+    }
+    </style>
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+    var mapCount = 6;
+    var mapArray = [];
+    var handleArray = [];
+    var selectedMap;
+    var mapDiv;
+    var handle = [];
+    var tempHandle;
+
+
+    require([
+        "esri/map",
+        "dojo/parser",
+        "dojo/Deferred",
+        "dojo/dom",
+        "dojo/on",
+        "dojo/mouse",
+        "esri/layers/FeatureLayer",
+
+
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+
+        "dojo/domReady!"
+    ], function(
+        Map,
+        parser,
+        Deferred,
+        dom,
+        on,
+        mouse,
+        FeatureLayer
+    ) {
+
+        parser.parse();
+
+
+        function createMaps() {
+            var deferred = new Deferred();
+            console.log("> map creation loop");
+            for (var i = 0; i < mapCount; i++) {
+                mapArray[i] = "map" + (i);
+                //console.log(mapArray);
+                var mapDiv = "map" + i + "Div";
+                mapArray[i] = new Map(mapDiv, {
+                    center: [-85, 43],
+                    zoom: 5,
+                    basemap: "streets"
+                });
+            }
+
+            deferred.resolve("maps created!");
+            return deferred.promise;
+        }
+
+
+
+        var promise = createMaps();
+        promise.then(setAllListners());
+
+        function setAllListners() {
+            modifyMaps();
+            mapArray[1].on("load", function() {
+                console.log("loaded");
+
+                for (var i = 0; i < mapCount; i++) {
+                    var divId = "map" + i + "Div";
+                    //console.log(dom.byId(divId));
+                    on(document.getElementById(divId), "mouseover", function(e) {
+                        //console.log(this.id);
+                        var num = this.id.slice(3, 4);
+                        //console.log(mapArray[num]);
+                        console.log("mouse has entered map " + num);
+                        console.log("map's initial center: ");
+                        console.log(mapArray[num].extent.getCenter());
+                        tempHandle = mapArray[num].on("extent-change", setMapExt);
+                    });
+                }
+            });
+        }
+
+
+
+        function setMapExt(evt) {
+            console.log(tempHandle);
+            //for (var j = 0; j < mapCount; j++) {
+            //console.log(handle[0]);
+            tempHandle.remove();
+            //}
+            console.log(tempHandle);
+            var newExtent = evt.extent;
+            var newCenter = evt.extent.getCenter();
+            var newLevel = evt.lod.level;
+            //console.log(newLevel);
+            var selectedDiv = evt.target.container.id;
+            var i = selectedDiv.slice(3, 4);
+            //if (mapArray[0] != mapArray[1]) {
+            console.log(">>>>>> set extent loop");
+            for (var j = 0; j < mapCount; j++) {
+                if (j != i) {
+                    console.log("change extent for map " + j);
+                    mapArray[j].centerAndZoom(newCenter, newLevel);
+
+                    //console.log("Map " + j + " center:");
+                    console.log(evt.extent.getCenter());
+                }
+            }
+            //}
+        }
+
+        function modifyMaps() {
+
+            var mapModArray = 1;
+            mapArray[0].on("load", function() {
+
+            });
+
+            mapArray[1].on("load", function() {
+                mapArray[1].setBasemap("satellite");
+                var cities = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+                mapArray[1].addLayer(cities);
+            });
+
+
+            mapArray[2].on("load", function() {
+                mapArray[2].setBasemap("topo");
+            });
+
+
+            mapArray[3].on("load", function() {
+                mapArray[3].setBasemap("gray");
+                var counties = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2");
+                mapArray[3].addLayer(counties);
+            });
+
+
+            mapArray[4].on("load", function() {
+                mapArray[4].setBasemap("oceans");
+            });
+
+
+            mapArray[5].on("load", function() {
+                mapArray[5].setBasemap("national-geographic");
+            });
+        }
+
+
+
+    });
+    </script>
+</head>
+
+<body class="claro">
+    <div id="main" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false" style="width: 100%; height: 100%; margin: 0%;">
+
+
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'" id="top" style="width: 100%; height: 40%;">
+
+            <div id="zero" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
+                <div id="map0Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right' ">
+                </div>
+            </div>
+
+            <div id="one" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
+                <div id="map1Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center' ">
+                </div>
+            </div>
+
+            <div id="two" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
+                <div id="map2Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'left' ">
+                </div>
+            </div>
+            <span class="stretch"></span>
+        </div>
+
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'" id="bottom" style="width: 100%; height: 40%;">
+
+
+            <div id="three" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'left'">
+                <div id="map3Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right' ">
+                </div>
+            </div>
+
+            <div id="four" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'center'">
+                <div id="map4Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center' ">
+                </div>
+            </div>
+
+            <div id="five" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'right'">
+                <div id="map5Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'left' ">
+                </div>
+            </div>
+            <span class="stretch"></span>
+
+        </div>
+
+    </div>
+</body>
+
+</html>
