@@ -14,7 +14,6 @@
         height: 100%;
         width: 100%;
         margin: 0;
-        padding: 1%;
     }
     #map1Div,
     #map2Div,
@@ -22,25 +21,27 @@
     #map4Div,
     #map5Div,
     #map0Div {
-        padding: 3%;
+        width: 100%;
+        height: 100%;
+        margin: 0%;
     }
-    #one,
-    #two,
-    #three,
-    #four,
-    #five,
-    #zero {
-        width: 29%;
+    #box0,
+    #box1,
+    #box2,
+    #box3,
+    #box4,
+    #box5 {
+        width: 30%;
         height: 90%;
     }
-    #zero,
-    #one,
-    #three,
-    #four {
+    #box0,
+    #box1,
+    #box3,
+    #box4 {
         float: left;
     }
-    #two,
-    #five {
+    #box2,
+    #box5 {
         float: left;
         clear: none;
     }
@@ -49,17 +50,19 @@
     <script>
     var mapCount = 6;
     var mapArray = [];
-    var handleArray = [];
-    var selectedMap;
     var mapDiv;
-    var handle = [];
-    var tempHandle;
+    var handle;
+    var f = 0;
+    var bool1 = true;
+    var bool2;
+    var myBox;
+    var handleOver;
+    var handleOut;
 
 
     require([
         "esri/map",
         "dojo/parser",
-        "dojo/Deferred",
         "dojo/dom",
         "dojo/on",
         "dojo/mouse",
@@ -73,7 +76,6 @@
     ], function(
         Map,
         parser,
-        Deferred,
         dom,
         on,
         mouse,
@@ -82,13 +84,15 @@
 
         parser.parse();
 
+        createMaps();
+        modifyMaps();
+        //setAllListners(bool1);
 
+        //***********************************************************
         function createMaps() {
-            var deferred = new Deferred();
-            console.log("> map creation loop");
+            console.log(">>>> create maps");
             for (var i = 0; i < mapCount; i++) {
                 mapArray[i] = "map" + (i);
-                //console.log(mapArray);
                 var mapDiv = "map" + i + "Div";
                 mapArray[i] = new Map(mapDiv, {
                     center: [-85, 43],
@@ -96,146 +100,155 @@
                     basemap: "streets"
                 });
             }
-
-            deferred.resolve("maps created!");
-            return deferred.promise;
         }
 
+        //***********************************************************
+        function setAllListners(bool) {
+            console.log(bool);
 
-
-        var promise = createMaps();
-        promise.then(setAllListners());
-
-        function setAllListners() {
-            modifyMaps();
-            mapArray[1].on("load", function() {
-                console.log("loaded");
-
-                for (var i = 0; i < mapCount; i++) {
+            console.log(">>>>>>>>>>>>>>>>>> set listeners");
+            for (var i = 0; i < mapCount; i++) {
+                if (bool == true) {
                     var divId = "map" + i + "Div";
-                    //console.log(dom.byId(divId));
-                    on(document.getElementById(divId), "mouseover", function(e) {
-                        //console.log(this.id);
-                        var num = this.id.slice(3, 4);
-                        //console.log(mapArray[num]);
-                        console.log("mouse has entered map " + num);
-                        console.log("map's initial center: ");
-                        console.log(mapArray[num].extent.getCenter());
-                        tempHandle = mapArray[num].on("extent-change", setMapExt);
+                    /*on(document.getElementById(divId), "mouse-up", function(e) {
+                    bool1 = true;
+                    on(document.getElementById(divId), "mouse-down", function(e) {
+                        bool1 = false;
                     });
+                });*/
+                    handleOver = on(document.getElementById(divId), "mouseover", function(e) {
+                        var num = this.id.slice(3, 4);
+                        var hoverBox = "box" + num;
+                        document.getElementById(hoverBox).style.background = "#0ff";
+                        handle = mapArray[num].on("extent-change", setMapExt);
+                    });
+                    handleOut = on(document.getElementById(divId), "mouseout", function(e) {
+                        handle.remove();
+                        var num = this.id.slice(3, 4);
+                        var hoverBox = "box" + num;
+                        document.getElementById(hoverBox).style.background = "";
+                    });
+                    /*                } else {
+                    console.log(bool);
+                    var divId = "map" + i + "Div";
+                    handleOver.remove();
+                    handleOut.remove();
+                    handle.remove();
+                */
                 }
-            });
+            }
         }
 
-
-
+        //***********************************************************
         function setMapExt(evt) {
-            console.log(tempHandle);
-            //for (var j = 0; j < mapCount; j++) {
-            //console.log(handle[0]);
-            tempHandle.remove();
-            //}
-            console.log(tempHandle);
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>> map was moved");
             var newExtent = evt.extent;
-            var newCenter = evt.extent.getCenter();
-            var newLevel = evt.lod.level;
-            //console.log(newLevel);
+            f = f + 1;
+            console.log("number of setMapExt calls: " + f)
             var selectedDiv = evt.target.container.id;
             var i = selectedDiv.slice(3, 4);
-            //if (mapArray[0] != mapArray[1]) {
-            console.log(">>>>>> set extent loop");
             for (var j = 0; j < mapCount; j++) {
                 if (j != i) {
                     console.log("change extent for map " + j);
-                    mapArray[j].centerAndZoom(newCenter, newLevel);
-
-                    //console.log("Map " + j + " center:");
-                    console.log(evt.extent.getCenter());
+                    mapArray[j].setExtent(newExtent);
                 }
             }
-            //}
         }
 
-        function modifyMaps() {
 
-            var mapModArray = 1;
+        //***********************************************************
+        //***********************************************************
+        function modifyMaps() {
+            console.log(">>>>>>>>>> add basemaps and layers");
+
             mapArray[0].on("load", function() {
 
             });
-
+            ////////////////////////////////////////////////////////////////////////////////////
             mapArray[1].on("load", function() {
+
                 mapArray[1].setBasemap("satellite");
                 var cities = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
                 mapArray[1].addLayer(cities);
             });
-
-
+            ////////////////////////////////////////////////////////////////////////////////////
             mapArray[2].on("load", function() {
-                mapArray[2].setBasemap("topo");
+
+                mapArray[2].setBasemap("hybrid");
             });
-
-
+            ////////////////////////////////////////////////////////////////////////////////////
             mapArray[3].on("load", function() {
+
                 mapArray[3].setBasemap("gray");
                 var counties = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2");
                 mapArray[3].addLayer(counties);
             });
-
-
+            ////////////////////////////////////////////////////////////////////////////////////
             mapArray[4].on("load", function() {
+
                 mapArray[4].setBasemap("oceans");
             });
-
-
+            ////////////////////////////////////////////////////////////////////////////////////
             mapArray[5].on("load", function() {
+
                 mapArray[5].setBasemap("national-geographic");
             });
         }
+        //***********************************************************        //***********************************************************
 
-
+        mapArray[0].on("load", function() {
+            myBox = document.getElementById("CheckBox");
+            myBox.checked = true;
+            setAllListners(myBox.checked);
+            on(dom.byId("CheckBox"), "change", function() {
+                setAllListners(myBox.checked);
+                console.log(myBox.checked);
+            });
+        });
 
     });
     </script>
 </head>
 
 <body class="claro">
-    <div id="main" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false" style="width: 100%; height: 100%; margin: 0%;">
+    <div id="main" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false" style="width: 100%; height: 100%; margin: 0%; padding: 3%;">
+        <input type='checkbox' class='list_item' id='CheckBox' value=0 />Connect extents
 
 
-        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'" id="top" style="width: 100%; height: 40%;">
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'" id="top" style="width: 94%; height: 45%;">
 
-            <div id="zero" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
-                <div id="map0Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right' ">
+            <div id="box0" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
+                <div id="map0Div">
                 </div>
             </div>
 
-            <div id="one" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
-                <div id="map1Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center' ">
+            <div id="box1" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
+                <div id="map1Div">
                 </div>
             </div>
 
-            <div id="two" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
-                <div id="map2Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'left' ">
+            <div id="box2" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;">
+                <div id="map2Div">
                 </div>
             </div>
             <span class="stretch"></span>
         </div>
 
-        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'" id="bottom" style="width: 100%; height: 40%;">
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'top'" id="bottom" style="width: 100%; height: 43%;">
 
 
-            <div id="three" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'left'">
-                <div id="map3Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right' ">
+            <div id="box3" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'left'">
+                <div id="map3Div">
                 </div>
             </div>
 
-            <div id="four" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'center'">
-                <div id="map4Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center' ">
+            <div id="box4" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'center'">
+                <div id="map4Div">
                 </div>
             </div>
 
-            <div id="five" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'right'">
-                <div id="map5Div" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region: 'left' ">
+            <div id="box5" data-dojo-type="dijit/layout/ContentPane" style="margin: .1%; border: 1px solid #000;region:'right'">
+                <div id="map5Div">
                 </div>
             </div>
             <span class="stretch"></span>
