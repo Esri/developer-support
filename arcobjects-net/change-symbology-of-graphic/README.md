@@ -17,7 +17,7 @@ Author: Sami E.
 
 ## Features
 
-* Uses IGraphicsContainer
+*Uses IGraphicsContainer
 *Uses IRgbColor
 *Uses ISimpleMarkerSymbol
 *Uses ISimpleRenderer
