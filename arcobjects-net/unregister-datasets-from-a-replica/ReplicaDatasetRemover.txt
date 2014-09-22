@@ -1,7 +1,7 @@
 Attribute VB_Name = "ReplicaDatasetRemover"
 
 ''location of connection file
-Public Const m_connectionfile As String = "C:\Users\shri7493\AppData\Roaming\ESRI\Desktop10.2\ArcCatalog\Connection to Csc-thomas7d1.sde"
+Public Const m_connectionfile As String = "C:\..................\Roaming\ESRI\Desktop10.2\ArcCatalog\Connection to Csc-thomas7d1.sde"
 ''name of the replica
 Public Const m_replicaName As String = "TestReplica2"
 ''if to unregister all dataset (TRUE) or just unregister first (FALSE)
