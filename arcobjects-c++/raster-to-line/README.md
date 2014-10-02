@@ -1,14 +1,8 @@
-#ArcGIS API for JavaScript Point Clustering with a FeatureLayer
+#Converts Raster Image to Feature Data (Lines)
 
-This is a sample app that modifies the Point Clustering sample to use a featureLayer instead of a JSON request to create dynamically clustering point features.
+This C++ sample converts a Raster Image to lines.
 
-[ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
-
-
-
-[update-end](https://developers.arcgis.com/javascript/jsapi/featurelayer-amd.html#event-update-end)
-
-[Based off of this sample:](https://developers.arcgis.com/javascript/jssamples/layers_point_clustering.html)
+[ArcObjects RasterDataToLineFeatureData](http://resources.arcgis.com/en/help/arcobjects-net/componenthelp/index.html#//002400000014000000)
 
 
 ## Features
