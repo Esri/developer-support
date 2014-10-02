@@ -2,7 +2,7 @@ Global support repository
 =========================
 ###SDK Support Team, Redlands, CA
 
-![SDK Team, Redlands, CA](https://github.com/Esri/global-support-repository/blob/master/repository-images/us_redlands_ca_sdk.png)
+![SDK Team, Redlands, CA](https://github.com/Esri/global-support-repository/blob/master/repository-images/us_redlands_ca_sdk.jpeg)
 
 ## Engage and contribute
 
