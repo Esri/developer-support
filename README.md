@@ -13,6 +13,9 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 ## [Wiki](https://github.com/Esri/global-support-repository/wiki) - A one-stop shop list of SDK resources.
 
 * [Guides and Documentation](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation)
+ * [Forums](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation#forums)
+ * [Server SDK](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation#server-sdk)
+ * [Desktop SDK](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation#desktop-sdk)
 * [Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services)
  * [Unique Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services#unique-layer-services)
  * [Servers](https://github.com/Esri/global-support-repository/wiki/Layer-Services#servers)
