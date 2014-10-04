@@ -12,15 +12,16 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 ## [Wiki](https://github.com/Esri/global-support-repository/wiki) - A one-stop shop list of SDK resources.
 
 * [Guides and Documentation](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation)
- * [Forums](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation#forums)
- * [Server SDK](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation#server-sdk)
- * [Desktop SDK](https://github.com/Esri/global-support-repository/wiki/Guides-and-Documentation#desktop-sdk)
-* [Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services)
- * [Unique Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services#unique-layer-services)
+ * [Forums](https://github.com/Esri/global-support-repository/wiki/Forums)
+ * [Web and Mobile Runtime SDKs](https://github.com/Esri/global-support-repository/wiki/Web-and-Mobile-Runtime-SDKs)
+ * [Desktop SDKs](https://github.com/Esri/global-support-repository/wiki/Desktop-SDKs)
+* [Services](https://github.com/Esri/global-support-repository/wiki/Services)
+ * [Layer Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services#layer-services)
+ * [Geoprocessing Services](https://github.com/Esri/global-support-repository/wiki/Layer-Services#geoprocessing-services)
  * [Servers](https://github.com/Esri/global-support-repository/wiki/Layer-Services#servers)
-* [Geoprocessing Services](https://github.com/Esri/global-support-repository/wiki/Geoprocessing-Services)
 * [Data Resources](https://github.com/Esri/global-support-repository/wiki/Data-Resources)
 * [Windows Operating System](https://github.com/Esri/global-support-repository/wiki/Windows-Operating-System)
+
 
 ## Licensing
 Copyright 2014 Esri
