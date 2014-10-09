@@ -9,7 +9,7 @@ Developer Support Repository
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 
-## [Wiki](https://github.com/Esri/global-support-repository/wiki) - An open staging ground for samples and content planned for the ArcGIS for Developers site.
+## [Wiki](https://github.com/Esri/global-support-repository/wiki) - An open staging ground for developer self-help, samples and content planned for the ArcGIS for Developers site.
 
 * [Forums](https://github.com/Esri/global-support-repository/wiki/Forums)
 * [Web and Mobile Runtime SDKs](https://github.com/Esri/global-support-repository/wiki/Web-and-Mobile-Runtime-SDKs)
