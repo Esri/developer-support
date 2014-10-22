@@ -1,5 +1,0 @@
-This sample demonstrates how to perform a tile cache task. 
-It first performs an estiamte of how big the cache will be and returns it in bytes (in Log Cat) using estimateTileCacheSize
-Then it downloads the tiles using submitTileCacheJobAndDownload
-This sample will be updated more frequently at:
-https://github.com/andr7430/tilecachetask

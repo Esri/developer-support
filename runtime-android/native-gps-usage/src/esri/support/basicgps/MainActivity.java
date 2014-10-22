@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements GpsStatus.Listener {
 		locationManager.requestLocationUpdates("gps",1000, 5, listener);
 	}
 
-	//May need to narrow this down to hit only what's used in Phase 1 (
+
 	public void startUpdatesWithCriteria(Criteria c){
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 	    listener = new LocationListener(){

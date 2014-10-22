@@ -1,25 +1,17 @@
-#ArcGIS API for JavaScript Point Clustering with a FeatureLayer
+#How to perform a tile cache task
 
-This is a sample app that modifies the Point Clustering sample to use a featureLayer instead of a JSON request to create dynamically clustering point features.
+This sample demonstrates how to perform a tile cache task. It first performs an estiamte of how big the cache will 
+be and returns it in bytes (in Log Cat) using estimateTileCacheSize.
+Then it downloads the tiles using submitTileCacheJobAndDownload.
 
-[ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
+[Additional Tile Cache Sample](https://developers.arcgis.com/android/sample-code/export-tile-cache/)
 
-
-
-[update-end](https://developers.arcgis.com/javascript/jsapi/featurelayer-amd.html#event-update-end)
-
-[Based off of this sample:](https://developers.arcgis.com/javascript/jssamples/layers_point_clustering.html)
 
 
 ## Features
 
-* The following modifications were made to the app:
-* written in AMD
-* A feature layer is turned into a JSON object
-* Uses the featureLayer update-end event to wait until features and their attributes are loaded 
-* Then the JSON object is constructed by creating an array objects containing the attributes and lat, long of all of the features
-* The featureLayer is hidden, so that only the custom clusterLayer is shown
-* uses version 3.9 of the JS API, but should be able to be upgraded conveniently. 
+* Shows how to use estimateTileCacheSize
+* Shows how to use submitTileCacheJobAndDownload
 
 NOTE: Feel free to update to this repo!
 
