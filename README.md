@@ -21,6 +21,7 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 * [Data Resources](https://github.com/Esri/global-support-repository/wiki/Data-Resources)
 * [Windows Operating System](https://github.com/Esri/global-support-repository/wiki/Windows-Operating-System)
 * [Enable IIS Directory Browsing](https://github.com/Esri/developer-support/wiki/Enable-IIS-Directory-Browsing)
+* [Creating a custom WKID](https://github.com/Esri/developer-support/wiki/Creating-a-custom-WKID)
 
 
 ## Licensing
