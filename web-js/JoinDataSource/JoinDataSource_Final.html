@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Layer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <style>
+    html, body, #mapDiv, .map.container {
+      padding:0;
+      margin:0;
+      height:100%;
+    }
+	#title {
+        position: relative;
+        top: 0;
+        padding: 10px;
+        background-color: #999;
+        font: 30px Segoe UI;
+        text-align: left;
+		border-style: solid;
+		border-width: medium;
+		border-left-style: hidden;
+		border-top-style: hidden;
+		border-right-style: hidden;
+    }
+	
+    </style>
+
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+    var map;
+	var AGDynamicLayer;
+    require([
+      "esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/layers/DynamicLayerInfo",
+      "esri/layers/TableDataSource", "esri/layers/LayerDataSource", "esri/layers/LayerMapSource",
+      "esri/symbols/SimpleFillSymbol",
+	  "esri/tasks/GenerateRendererParameters", "esri/tasks/ClassBreaksDefinition", "esri/tasks/AlgorithmicColorRamp", 
+	  "esri/tasks/GenerateRendererTask", "esri/layers/LayerDrawingOptions",
+	  "esri/symbols/SimpleLineSymbol",
+	  "esri/layers/JoinDataSource",
+	  "esri/config",
+      "esri/Color", "dojo/domReady!"
+    ], function(
+      Map, ArcGISDynamicMapServiceLayer, DynamicLayerInfo,
+      TableDataSource, LayerDataSource, LayerMapSource,
+      SimpleFillSymbol,
+	  GenerateRendererParameters, ClassBreaksDefinition, AlgorithmicColorRamp,
+	  GenerateRendererTask, LayerDrawingOptions, SimpleLineSymbol,
+	  JoinDataSource,
+      esriConfig, 
+      Color
+    ) {
+      esriConfig.defaults.io.proxyUrl = "http://akshayh/proxy.proxy.ashx";
+	  //esriConfig.defaults.io.alwaysUseProxy = true;
+      map = new Map("mapDiv", {
+        basemap: "streets",
+        center: [-97.453079, 37.696775],
+        zoom: 6
+      });
+      //create a new ArcGISDynamicMapServiceLayer layer based on DynamicLayerInfos. 
+        AGDynamicLayer = new ArcGISDynamicMapServiceLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer",{
+		id: "states",
+		opacity: 0.7,
+		visible: false
+		});
+		AGDynamicLayer.setVisibleLayers([3]);
+			
+		map.addLayer(AGDynamicLayer);
+		map.on("update-start", addJoin);
+	   
+	  function addJoin(){
+	 
+		var joinDataSource = new JoinDataSource();
+		//Using LayerMapSource	
+		var layerMapSource = new LayerMapSource({mapLayerId:3});
+				
+		var rightTableSource  = new LayerDataSource({
+		"dataSource": {
+                    "type": "table",
+                    "dataSourceName": "ancestry",
+                    "workspaceId": "CensusFileGDBWorkspaceID"
+                }
+		});
+			 
+		joinDataSource.leftTableSource = layerMapSource;
+        joinDataSource.rightTableSource = rightTableSource;
+        joinDataSource.leftTableKey = "STATE_NAME";
+        joinDataSource.rightTableKey = "State";
+        joinDataSource.joinType = "left-outer-join";
+
+        //source for dynamic layer with join
+        var joinLayerDataSource = new LayerDataSource();
+        joinLayerDataSource.dataSource = joinDataSource;
+        
+		//Create DynamicLayerInfo and set it's source to joinLayerDataSource
+		var dynamicLayerInfos = [];
+		var dynamicLayerInfo = new DynamicLayerInfo;
+		dynamicLayerInfo.id = 3;
+		
+		dynamicLayerInfo.source = joinLayerDataSource;
+		dynamicLayerInfos.push(dynamicLayerInfo);
+		
+		AGDynamicLayer.setDynamicLayerInfos(dynamicLayerInfos);
+		generateRenderer(joinLayerDataSource);
+		}
+		
+		function generateRenderer(joinLayerDataSource){
+		//make the default symbol
+		var symbol = new SimpleFillSymbol(
+            SimpleFillSymbol.STYLE_SOLID,
+            new SimpleLineSymbol(
+              SimpleLineSymbol.STYLE_SOLID,
+              new Color([150, 150, 150, 0.5])));
+       
+		
+		var classDef = new ClassBreaksDefinition();
+	    classDef.classificationField = "ancestry.American";
+	    classDef.classificationMethod = "natural-breaks";
+		classDef.normalizationField = "states.POP07_SQMI";
+	    classDef.breakCount = 7;
+	    //classDef.baseSymbol = symbol;
+	    
+	    var colorRamp = new AlgorithmicColorRamp();
+	    colorRamp.fromColor = Color.fromHex("#edf8fb");
+	    colorRamp.toColor = Color.fromHex("#005824");
+	    colorRamp.algorithm = "hsv";
+	    classDef.colorRamp = colorRamp;
+		var CencusUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/dynamicLayer";
+		var generateRendererTask = new GenerateRendererTask(CencusUrl);
+		
+		var generateRendererParameters = new GenerateRendererParameters();
+		generateRendererParameters.classificationDefinition = classDef;
+				
+		generateRendererTask.source = joinLayerDataSource;
+		generateRendererTask.execute(generateRendererParameters, applyRenderer, errorHandler);
+		
+		function applyRenderer(renderer){
+			var optionsArray = [];
+			var lyrdrawingOptions = new LayerDrawingOptions();
+			//lyrDrawingOptions.layerId = 3;
+			lyrdrawingOptions.renderer = renderer; 
+			// set the drawing options for the relevant layer
+			// optionsArray index corresponds to layer index in the map service
+			optionsArray[3] = lyrdrawingOptions;
+			map.getLayer("states").setLayerDrawingOptions(optionsArray);
+			map.getLayer("states").show();
+			
+		}
+				
+		function errorHandler(err) {
+          // console.log("Something broke, error: ", err);
+          console.log("error: ", JSON.stringify(err));
+        }
+
+     }
+	 
+
+
+});
+    </script>
+  </head>
+  
+  <body class="claro">
+	<div id="mapDiv"><div id="title">Using Join Data Source</div></div>
+	
+</body>
+
+</html>
