@@ -8,10 +8,10 @@ This sample displays an image in the pop-up, which will redirect to [Esri's home
 
 #Differences between sourceURL and linkURL when using mediaInfos[] property
 
-Please refer to code implementation in lines 90-97, which shows both sourceURL and linkURL in action. sourceURL points to the [Media's URL](http://images6.alphacoders.com/316/316963.jpg) whereas linkURL points to the redirect URL when the media item is clicked, in our case [Esri's homepage](http://www.esri.com/). In the popup, sourceURL is used to display an image whereas linkURL is used to make the image clickable so that we can re-direct to a new URL when the image is clicked. On the other hand, we can point both sourceURL and linkURL to the same (i.e. to the media's URL) as well. 
+Please refer to code implementation in lines 90-97, which shows both sourceURL and linkURL in action. sourceURL points to the [Media's URL](http://images6.alphacoders.com/316/316963.jpg) whereas linkURL points to the redirect URL when the media item is clicked, in our case [Esri's homepage](http://www.esri.com/). In the popup, sourceURL is used to display an image whereas linkURL is used to make the image clickable. When the image is clicked, it will then re-direct to a new URL. Here, we can make both sourceURL and linkURL point to the same address as well. 
 
 Please note that the linkURL is optional but the sourceURL is mandatory to display an image.  
 
 #Usage 
 
-With the use of sourceURL and linkURL, we can also display other content such as PDF via pop-up. As mentioned above, you can display an image in the pop-up by providing source URL of the image. Then, you can point to the PDF’s hyperlink in the linkURL. This way, you will be able to click the image and open the associated PDF in a new tab.
+With the use of sourceURL and linkURL, we can also display other content such as PDF via pop-up. As mentioned above, you can display an image in the pop-up by providing sourceURL of the image. Then, you can point to the PDF’s hyperlink in the linkURL. This way, you will be able to click the image and open the associated PDF in a new tab.
