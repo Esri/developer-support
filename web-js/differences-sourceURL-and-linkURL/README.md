@@ -1,6 +1,6 @@
 #Background information
 
-I have used [Popup widget](https://developers.arcgis.com/javascript/jssamples/widget_popupfl.html) sample to demonstrate the differences between sourceURL and linkURL that are part of mediaInfos structure. Please refer to [Format Popup Content](https://developers.arcgis.com/javascript/jshelp/intro_popuptemplate.html) to know about mediaInfos property. 
+I have used [Popup widget](https://developers.arcgis.com/javascript/jssamples/widget_popupfl.html) sample to demonstrate differences between sourceURL and linkURL that are part of mediaInfos structure. Please refer to [Format Popup Content](https://developers.arcgis.com/javascript/jshelp/intro_popuptemplate.html) to know about mediaInfos property. 
 
 #User interaction
 
@@ -14,4 +14,4 @@ Please note that the linkURL is optional but the sourceURL is mandatory to displ
 
 #Usage 
 
-With the use of sourceURL and linkURL, we can also display other content such as PDF via pop-up. As mentioned above, you can display an image in the pop-up by providing sourceURL of the image. Then, you can point to the PDF’s hyperlink in the linkURL. This way, you will be able to click the image and open the associated PDF in a new tab.
+With the use of sourceURL and linkURL, we can also display other content such as PDF via pop-up. As mentioned above, you can display an image in the pop-up by providing sourceURL of the image. Then, you can point to the PDF’s hyperlink in the linkURL. This way you will be able to click the image and open the associated PDF in a new tab.
