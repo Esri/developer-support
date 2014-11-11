@@ -8,7 +8,9 @@ This sample displays an image in the pop-up, which will redirect to [Esri's home
 
 #Differences between sourceURL and linkURL when using mediaInfos[] property
 
-Please refer to code implementation in lines 90-97, which shows both sourceURL and linkURL in action. sourceURL points to the URL of the image, in our case [Media's URL](http://images6.alphacoders.com/316/316963.jpg) whereas linkURL points to the redirect URL when the media item is clicked, in our case [Esri's homepage](http://www.esri.com/). Here, sourceURL is used to display an image in the popup whereas linkURL is used to make the image clickable and re-direct to a new URL. On the other hand, you can make both sourceURL and linkURL point to the same as well. Please note that the linkURL is optional but the sourceURL is mandatory to display an image.  
+Please refer to code implementation in lines 90-97, which shows both sourceURL and linkURL in action. sourceURL points to the [Media's URL](http://images6.alphacoders.com/316/316963.jpg) whereas linkURL points to the redirect URL when the media item is clicked, in our case [Esri's homepage](http://www.esri.com/). In the popup, sourceURL is used to display an image whereas linkURL is used to make the image clickable so that we can re-direct to a new URL when the image is clicked. On the other hand, we can point both sourceURL and linkURL to the same (i.e. to the media's URL) as well. 
+
+Please note that the linkURL is optional but the sourceURL is mandatory to display an image.  
 
 #Usage 
 
