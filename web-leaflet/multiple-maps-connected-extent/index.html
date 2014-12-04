@@ -1,0 +1,292 @@
+<!--To modify the default number of maps, simply change the value for the <input id="numOfMaps".-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MultMaps</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
+    <!-- MapBox -->
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.Default.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
+
+    <!-- custom -->
+    <!--<link rel="stylesheet" href="/css/style.css">-->
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+body {
+    margin: 10px
+}
+.mapClass {
+    margin: 10px;
+    height: 400px;
+}
+</style>
+
+<body>
+    This sample demonstrates how to add multiple maps with linked extents. The application can be easily modified to increase or decrease the number of maps displayed in the browser.
+    </hr>
+    <br /><b>Connect maps</b>
+    <input type='checkbox' class='list_item' id='ToggleBox' value=0 checked=true />
+    </br>
+    <b>How many maps would you like?</b>
+    <input type="number" id="numOfMaps" value=6 max="10" onkeypress="return enterPress(event)" length=2>
+    <input id="executeButton" type="button" value="Go!" onclick="updateMaps()" />
+    </form>
+    </br>
+    <span id="mapSpan">
+    </span>
+
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
+    <!-- Esri Leaflet -->
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/1.0.0-rc.4/esri-leaflet.js"></script>
+    <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.3"></script>
+    <!-- Include Leaflet.markercluster via rawgit.com, do not use in production -->
+
+    <script src="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/leaflet.markercluster.js"></script>
+
+    <!-- Load Clustered Feature Layer from CDN -->
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-clustered-feature-layer/1.0.0-rc.1/esri-leaflet-clustered-feature-layer.js"></script>
+    <!-- Load Geocoder -->
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
+    <!-- Include Leaflet.heat via rawgit.com, do not use in production -->
+    <script src="https://rawgit.com/Leaflet/Leaflet.heat/gh-pages/dist/leaflet-heat.js"></script>
+    <!-- Load Heatmap Feature Layer from CDN -->
+    <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-heatmap-feature-layer/1.0.0-rc.1/esri-leaflet-heatmap-feature-layer.js"></script>
+
+
+    <script>
+    var mapCount = document.getElementById("numOfMaps").value;
+    var mapArray = [];
+    var lastMap = 0;
+    var updated = false;
+
+
+    //add a toggle to disconnect/connect the map extents
+    var mapToggle = document.getElementById("ToggleBox");
+    mapToggle.addEventListener('change', onMapMove);
+
+    //create the initial divs based on the input div id=numOfMaps
+    updateMaps();
+    //create the maps and add their layers
+    createMaps();
+    //start the maps as connected
+    onMapMove();
+
+
+    //################################################################################################################################
+    //################################################################################################################################
+
+    //if enter key is pressed, update maps
+    function enterPress(e) {
+        e = e || event;
+        var keycode = e.keyCode
+        if (keycode === 13) {
+            console.log("enter");
+            updateMaps();
+        }
+    }
+
+    //update number of maps from input
+    function updateMaps() {
+        console.log("update");
+        mapCount = document.getElementById("numOfMaps").value;
+        //limit the number of maps to 15
+        if (mapCount > 10) {
+            alert("Please choose a number less than 15.");
+        } else {
+            var parent = document.getElementById("mapSpan");
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild);
+            }
+            var spanInnerHtml;
+            var mapDivA;
+            var mapDivB;
+            var j = 0;
+            for (var i = 0; i < mapCount; i++) {
+                var spanRow = document.createElement("span");
+                spanRow.id = "row" + j;
+                spanRow.class = "row-fluid";
+                var mapHtml = "<div class=\"col-md-4 col-sm-6 height-css\"><div id=\"map" + i + "\"  class=\"mapClass\"></div></div>";
+                spanRow.innerHTML = mapHtml;
+                parent.appendChild(spanRow);
+                j = j + 1;
+            }
+            createMaps();
+            onMapMove();
+        }
+    }
+
+    //################################################################################################################################
+    //################################################################################################################################
+
+    function onMapMove() {
+        //when reconnecting the maps, set extents to last modified map
+        if (mapToggle.checked == true) {
+            for (var i = 0; i < mapCount; i++) {
+                mapArray[i].on('moveend', onMapMove);
+                var mapNum = lastMap;
+                //console.log(lastMap);
+                var newZoom = mapArray[mapNum].getZoom();
+                var newCenter = mapArray[mapNum].getCenter();
+
+                //prevent other maps from changing the extent of active map
+                for (var i = 0; i < mapCount; i++) {
+                    // console.log(i);
+                    mapArray[i].off('moveend', onMapMove);
+                    mapArray[i].setView(newCenter, newZoom);
+                }
+            }
+            //turn mapMove listeners back on
+            for (var i = 0; i < mapCount; i++) {
+                mapArray[i].on('moveend', onMapMove);
+            }
+        }
+        //disconnect the maps
+        else {
+            for (var i = 0; i < mapCount; i++) {
+                mapArray[i].off('moveend', onMapMove);
+            }
+        }
+        console.log(mapToggle.checked);
+    }
+
+    //################################################################################################################################
+    //################################################################################################################################
+
+    function createMaps() {
+        console.log(">>>> create maps");
+        for (var i = 0; i < mapCount; i++) {
+            mapArray[i] = L.map('map' + i).setView([42.3314, -83.0458], 8);
+            ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+            if (i == 0) {
+                L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+                    id: 'examples.map-i875mjb7'
+                }).addTo(mapArray[i]);
+
+                //Add geocoder to map
+                var searchMap = mapArray[i];
+                var searchControl = new L.esri.Controls.Geosearch({
+                    zoomToResult: true
+                }).addTo(mapArray[i]);
+                var results = new L.LayerGroup().addTo(mapArray[i]);
+
+                searchControl.on('results', function(data) {
+                    results.clearLayers();
+                    results.addLayer(L.marker(data.results[0].latlng));
+                    searchMap.fitBounds(data.results[0].bounds);
+                });
+
+            } ///////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (i == 1) {
+                mapArray[i].addLayer(new L.StamenTileLayer("watercolor", {
+                    detectRetina: true
+                }));
+
+            } ///////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (i == 2) {
+                L.esri.basemapLayer("Imagery").addTo(mapArray[i]);
+                L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+                    layers: 'nexrad-n0r-900913',
+                    format: 'image/png',
+                    transparent: true
+                }).addTo(mapArray[i]);
+
+            } ///////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (i == 3) {
+                var darkGray = new L.esri.Layers.TiledMapLayer("http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer", {
+                    style: function() {
+                        return {
+                            color: "#70ca49",
+                            weight: 2
+                        };
+                    }
+                }).addTo(mapArray[i]);
+                var highways = new L.esri.FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1", {
+                    style: function() {
+                        return {
+                            color: "#70ca49",
+                            weight: 2
+                        };
+                    }
+                }).addTo(mapArray[i]);
+                var cities = new L.esri.clusteredFeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0", {
+                    style: function() {
+                        return {
+                            color: "blue",
+                            weight: 4
+                        };
+                    }
+                }).addTo(mapArray[i]);
+                cities.bindPopup(function(feature) {
+                    return L.Util.template('<p><b>{areaname}, {st}</b><br>Population: {pop2000}</p>', feature.properties);
+                });
+
+            } ///////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (i == 4) {
+                L.esri.basemapLayer("NationalGeographic").addTo(mapArray[i]);
+                var USA = new L.esri.dynamicMapLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer", {
+                    style: function() {
+                        return {
+                            color: "blue",
+                            weight: 2
+                        };
+                    },
+                    opacity: .7
+                }).addTo(mapArray[i]);
+                USA.bindPopup(function(error, featureCollection) {
+                    if (error || featureCollection.features.length === 0) {
+                        return false;
+                    } else {
+                        return featureCollection.features[0].properties.NAME + ' County';
+                    }
+                });
+
+            } ///////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (i == 5) {
+                L.esri.basemapLayer("Gray").addTo(mapArray[i]);
+                L.esri.heatmapFeatureLayer('http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0', {
+                    radius: 12,
+                    opacity: .7
+                }).addTo(mapArray[i]);
+
+            } ///////////////////////////////////////////////////////////////////////////////////////////////////
+            //Create extra blank maps if the user chooses over 6 maps.  To modify the maps, add extra else if statements
+            else if (i > 5) {
+                L.esri.basemapLayer("Topographic").addTo(mapArray[i]);
+            }
+        }
+        //find first modified map
+        for (var i = 0; i < mapCount; i++) {
+            mapArray[i].on('moveend', function(e) {
+                var clickedMap = e.target._container.id;
+                var mapNum = clickedMap.slice(3, 4);
+                lastMap = mapNum;
+                //console.log(mapNum);
+            });
+        }
+    }
+    </script>
+</body>
+
+</html>
