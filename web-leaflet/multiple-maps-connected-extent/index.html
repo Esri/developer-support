@@ -47,7 +47,7 @@ body {
     <input type='checkbox' class='list_item' id='ToggleBox' value=0 checked=true />
     </br>
     <b>How many maps would you like?</b>
-    <input type="number" id="numOfMaps" value=6 max="10" onkeypress="return enterPress(event)" length=2>
+    <input type="number" id="numOfMaps" value=6 max="9" step="1" onkeypress="return enterPress(event)" length=2>
     <input id="executeButton" type="button" value="Go!" onclick="updateMaps()" />
     </form>
     </br>
@@ -85,7 +85,16 @@ body {
     var mapToggle = document.getElementById("ToggleBox");
     mapToggle.addEventListener('change', onMapMove);
 
-    //create the initial divs based on the input div id=numOfMaps
+    window.onload = function() {
+            //create the initial divs based on the input div id=numOfMaps
+            updateMaps();
+            //create the maps and add their layers
+            createMaps();
+            //start the maps as connected
+            onMapMove();
+
+        }
+        //create the initial divs based on the input div id=numOfMaps
     updateMaps();
     //create the maps and add their layers
     createMaps();
@@ -106,14 +115,15 @@ body {
         }
     }
 
-    //update number of maps from input
+    //update maps from input
     function updateMaps() {
         console.log("update");
         mapCount = document.getElementById("numOfMaps").value;
-        //limit the number of maps to 15
-        if (mapCount > 10) {
-            alert("Please choose a number less than 15.");
-        } else {
+        //limit the number of maps to 9
+        if (mapCount > 10 || mapCount.length > 1) {
+            alert("Please choose an integer less than 10.");
+        } 
+        else {
             var parent = document.getElementById("mapSpan");
             while (parent.firstChild) {
                 parent.removeChild(parent.firstChild);
@@ -127,6 +137,16 @@ body {
                 spanRow.id = "row" + j;
                 spanRow.class = "row-fluid";
                 var mapHtml = "<div class=\"col-md-4 col-sm-6 height-css\"><div id=\"map" + i + "\"  class=\"mapClass\"></div></div>";
+
+
+
+
+
+
+
+
+
+                /*                "<div id=\"map" + i + "\" style=\"width: 45%; height: 200px\" class=\"left\"></div><div id=\"map" + (i + 1) + "\" style=\"width: 45%; height: 200px\" class=\"right\"></div></br>";*/
                 spanRow.innerHTML = mapHtml;
                 parent.appendChild(spanRow);
                 j = j + 1;
