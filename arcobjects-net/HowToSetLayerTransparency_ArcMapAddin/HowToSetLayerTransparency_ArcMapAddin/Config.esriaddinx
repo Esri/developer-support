@@ -1,0 +1,20 @@
+﻿<ESRI.Configuration xmlns="http://schemas.esri.com/Desktop/AddIns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>HowToSetLayerTransparency_ArcMapAddin</Name>
+  <AddInID>{4f6d7757-ed49-4c97-b51c-188a674da072}</AddInID>
+  <Description>Type in a description for this Add-in.</Description>
+  <Version>1.0</Version>
+  <Image>Images\HowToSetLayerTransparency_ArcMapAddin.png</Image>
+  <Author>Freddie Gibson</Author>
+  <Company>esri</Company>
+  <Date>12/31/2014</Date>
+  <Targets>
+    <Target name="Desktop" version="10.3" />
+  </Targets>
+  <AddIn language="CLR4.5" library="HowToSetLayerTransparency_ArcMapAddin.dll" namespace="HowToSetLayerTransparency_ArcMapAddin">
+    <ArcMap>
+      <Commands>
+        <Button id="esri_HowToSetLayerTransparency_ArcMapAddin_ModifyTransparency" class="ModifyTransparency" message="Changes the transparency of the first layer in the map to 0% or 75%." caption="Modify Transparency" tip="Changes the transparency of the first layer in the map document." category="Add-In Controls" image="Images\ModifyTransparency.png" />
+      </Commands>
+    </ArcMap>
+  </AddIn>
+</ESRI.Configuration>
