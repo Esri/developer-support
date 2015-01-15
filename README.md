@@ -1,6 +1,21 @@
 Developer Support Repository
 =========================
-###SDK Support Team, Redlands, CA
+
+The vision behind this project is to connect GIS developers together by providing a place to share code.  
+
+## Use this check list:
+Organize code samples according to programing languages
+If a programing language folder is missing create one
+We like lower case and dashes when defining folder names
+Create a new folder for each sample 
+Add a readme file to the project folder describing what the code does
+Accept that code samples are not always plug and play
+Remove framework files and unnecessary files before contributing*
+
+*Java, iOS, Android and .NET projects often come with files used by the IDE or compiler.  Additionally, there are many frameworks out there like JQuery.  These files should be removed before making a contribution.   
+
+
+###Esri developers helping developers, Redlands, CA
 
 ![SDK Team, Redlands, CA](https://github.com/Esri/global-support-repository/blob/master/repository-images/us_redlands_ca_sdk.jpeg)
 
