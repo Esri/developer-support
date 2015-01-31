@@ -58,4 +58,4 @@ A copy of the license is available in the repository's [license.txt](/license.tx
 
 
 [](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets)
-[](Esri Language: All)
+[](Esri Language: Mixed)
