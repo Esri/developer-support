@@ -1,18 +1,17 @@
 Developer Support Repository
 =========================
 
-The vision behind this project is to connect GIS developers together by providing a place to share code.  
+The vision behind this project is help support GIS developers and providing a place to share code.   
 
-## Use this check list:
-Organize code samples according to programing languages
-If a programing language folder is missing create one
-We like lower case and dashes when defining folder names
-Create a new folder for each sample 
-Add a readme file to the project folder describing what the code does
-Accept that code samples are not always plug and play
-Remove framework files and unnecessary files before contributing*
+## Conventions and Guidelines
 
-*Java, iOS, Android and .NET projects often come with files used by the IDE or compiler.  Additionally, there are many frameworks out there like JQuery.  These files should be removed before making a contribution.   
+###Follow these guidelines when making a contribution
+
+* Place code samples in folders according to programing language
+* Use lower case and dashes when creating new folder names
+* Always create a new folder for each new sample 
+* Add a readme along with each sample you share
+* Remove framework files and unnecessary files before contributing
 
 
 ###Esri developers helping developers, Redlands, CA
