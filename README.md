@@ -7,10 +7,10 @@ This project is a place to collaborate and support GIS developers working with E
 
 ###Follow these guidelines when making a contribution
 
-* Place code samples in folders according to programing language
-* Use lower case and dashes when creating new folder names
+* Place code in folders according to programing language
+* Use lowercase and dashes when creating new folder names
 * Always create a new folder for each new sample 
-* Add a readme along with each sample you share
+* Add a readme file with each sample describing what the code achieves 
 * Remove framework files and unnecessary files before contributing
 
 
