@@ -1,0 +1,14 @@
+{
+  "name": "FeatureLayer",
+  "platform": "HTML",
+  "version": "0.0.1",
+  "author": "Esri Support",
+  "description": "This is the widget used to add feature layer support.",
+  "copyright": "",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "properties": {
+    "inPanel": true,
+    "hasLocale": false,
+    "hasUIFile": true
+  }  
+}
