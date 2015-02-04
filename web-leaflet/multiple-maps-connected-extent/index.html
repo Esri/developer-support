@@ -7,28 +7,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- REFERENCE STYLES/////////////////////////////////////////////////////////////////////////////////// -->
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <!-- Leaflet -->
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
     <!-- MapBox -->
     <link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.css' rel='stylesheet' />
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.Default.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/MarkerCluster.css">
+    <!-- Marker Cluster - LOCAL -->
+    <link rel="stylesheet" type="text/css" href="./markerCluster/MarkerCluster.Default.css">
+    <!-- Esri Leaflet Geocoder -->
     <link rel="stylesheet" type="text/css" href="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
-
     <!-- custom -->
     <!--<link rel="stylesheet" href="/css/style.css">-->
-
-
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <style>
 body {
@@ -53,23 +44,23 @@ body {
     </br>
     <span id="mapSpan">
     </span>
-
-
+    <!-- REFERENCE SCRIPTS/////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- Leaflet -->
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <!-- MapBox -->
     <script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.4/mapbox.js'></script>
     <!-- Esri Leaflet -->
     <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet/1.0.0-rc.4/esri-leaflet.js"></script>
+    <!-- Stamen -->
     <script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.3"></script>
-    <!-- Include Leaflet.markercluster via rawgit.com, do not use in production -->
-
-    <script src="https://cdn.rawgit.com/Leaflet/Leaflet.markercluster/v0.4.0/dist/leaflet.markercluster.js"></script>
-
+    <!-- markerCluster - LOCAL -->
+    <script src="./markerCluster/leaflet.markercluster.js"></script>
     <!-- Load Clustered Feature Layer from CDN -->
     <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-clustered-feature-layer/1.0.0-rc.1/esri-leaflet-clustered-feature-layer.js"></script>
     <!-- Load Geocoder -->
     <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
-    <!-- Include Leaflet.heat via rawgit.com, do not use in production -->
-    <script src="https://rawgit.com/Leaflet/Leaflet.heat/gh-pages/dist/leaflet-heat.js"></script>
+    <!-- Include heat map - LOCAL -->
+    <script src="./heat/leaflet-heat.js"></script>
     <!-- Load Heatmap Feature Layer from CDN -->
     <script src="http://cdn-geoweb.s3.amazonaws.com/esri-leaflet-heatmap-feature-layer/1.0.0-rc.1/esri-leaflet-heatmap-feature-layer.js"></script>
 
@@ -79,7 +70,6 @@ body {
     var mapArray = [];
     var lastMap = 0;
     var updated = false;
-
 
     //add a toggle to disconnect/connect the map extents
     var mapToggle = document.getElementById("ToggleBox");
@@ -92,7 +82,6 @@ body {
             createMaps();
             //start the maps as connected
             onMapMove();
-
         }
         //create the initial divs based on the input div id=numOfMaps
     updateMaps();
@@ -122,8 +111,7 @@ body {
         //limit the number of maps to 9
         if (mapCount > 10 || mapCount.length > 1) {
             alert("Please choose an integer less than 10.");
-        } 
-        else {
+        } else {
             var parent = document.getElementById("mapSpan");
             while (parent.firstChild) {
                 parent.removeChild(parent.firstChild);
@@ -137,16 +125,6 @@ body {
                 spanRow.id = "row" + j;
                 spanRow.class = "row-fluid";
                 var mapHtml = "<div class=\"col-md-4 col-sm-6 height-css\"><div id=\"map" + i + "\"  class=\"mapClass\"></div></div>";
-
-
-
-
-
-
-
-
-
-                /*                "<div id=\"map" + i + "\" style=\"width: 45%; height: 200px\" class=\"left\"></div><div id=\"map" + (i + 1) + "\" style=\"width: 45%; height: 200px\" class=\"right\"></div></br>";*/
                 spanRow.innerHTML = mapHtml;
                 parent.appendChild(spanRow);
                 j = j + 1;
