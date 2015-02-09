@@ -8,3 +8,9 @@ This is a sample app with multiple maps that have linked extents.  The applicati
 * Written in pure JavaScript using [Leaflet](http://leafletjs.com/index.html) and the [Esri Leaflet Library](https://github.com/Esri/esri-leaflet)
 * Uses current versions of Leaflet and Esri Leaflet, 0.7.3 and 1.0.0-rc.4, respectively.
 * Responsive design via Bootstrap
+
+
+heatMap code via:
+ (c) 2014, Vladimir Agafonkin
+ simpleheat, a tiny JavaScript library for drawing heatmaps with Canvas
+ https://github.com/mourner/simpleheat
