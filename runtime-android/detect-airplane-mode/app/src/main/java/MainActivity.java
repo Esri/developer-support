@@ -43,9 +43,9 @@ public class MainActivity extends ActionBarActivity {
 
                 boolean isAirplaneModeOn = MainActivity.this.isAirplaneModeOn();
 
-                if(isAirplaneModeOn){
+                if(isAirplaneModeOn){ //This check could also be done when associating the MapView with the layout in onCreate
 
-                    Log.d(TAG,"Application has detected your in airplane mode.");
+                    Log.d(TAG,"Application has detected that your device is in airplane mode.");
 
                 }
 
