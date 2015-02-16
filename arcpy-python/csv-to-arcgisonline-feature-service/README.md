@@ -6,9 +6,15 @@ Python Script to publish a feature service in ArcGIS Online from CSV (proof of c
 1. This script relies on the "Requests" python module, see [Requests API](http://docs.python-requests.org/en/latest/)
 2. This script is designed to be run through the command prompt window or unix terminal
 
-Command for the command prompt:
+##Windows Command Prompt
+```
+csv-to-arcgisonline-feature-service.py
+```
 
+##Terminal
+```
 python csv-to-arcgisonline-feature-service.py
+```
 
 
 ## Use Case

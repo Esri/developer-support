@@ -14,6 +14,9 @@
 import requests
 import os
 import json
+import tempfile
+import time
+
 
 def generateToken(username, password):
     '''Generate a token using the requests module for the input
@@ -212,8 +215,8 @@ if __name__ == '__main__':
 
     commit(Short, username, ItemID, token)
 
-    while StatusTest('CSV', short, username, ItemID, token)['status']!='completed':
-        if StatusTest('CSV', short, username, ItemID, token)['status'] == 'failed':
+    while StatusTest('CSV', Short, username, ItemID, token)['status']!='completed':
+        if StatusTest('CSV', Short, username, ItemID, token)['status'] == 'failed':
             print "CSV upload failed"
             break
         time.sleep(5)
