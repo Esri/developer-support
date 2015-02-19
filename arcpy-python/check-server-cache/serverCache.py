@@ -1,6 +1,3 @@
-## ** THIS SCRIPT IS NOT SUPPORTED BY ESRI SUPPORT SERVICES ** ##
-#################################################################
-##
 ## serverCache.py
 ##
 ## Module that will allow you to use the RESTFul endpoints on the
@@ -9,7 +6,8 @@
 ## Written By:  Alexander N. & Scott P.
 ##
 ## Created On: August 18, 2014
-#################################################################
+
+
 """  This script is designed to generate a token login and then reach out
 to a server service passing that token and retrieve
 server items.

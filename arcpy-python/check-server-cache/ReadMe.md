@@ -7,6 +7,12 @@ cache to the server and gets a JSON response.
 This should work with vanilla installs of python version 2.7.x.
 ArcPy is not required.
 
+##What is required to run this script?
+* ArcGIS Server
+* ArcGIS Server credentials
+* A map service or image service that has tiles that need to be created (Not dynamic creation of tiles)
+* (optional) A GMail account to email the server status
+
 ##Sample syntax
 ```python
 sv = serverPython('ServerUsername', 'ServerPassword', 'ServerRestURL', 'ServerTokenURL')
