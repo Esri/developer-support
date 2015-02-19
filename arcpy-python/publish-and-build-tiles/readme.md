@@ -16,7 +16,7 @@
    http://desktop.arcgis.com/en/desktop/latest/map/working-with-arcmap/how-to-create-a-tile-package.htm
 
 #Example workflow
-```
+```python
 # Instantiate the object
 >>> test = AGOL(username, password)
 
