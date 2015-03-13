@@ -1,0 +1,462 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>StreamLayer Using Stream Service</title>
+	 <link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css">
+    <style type="text/css">
+      html, body {
+        height: 100%; width: 100%;
+        margin: 0; padding: 0;
+      }
+      body{
+        background-color: #fff; overflow:hidden;
+        font-family: sans-serif;
+      }
+      h4 {
+        margin: 2px;
+      }
+      p {
+        margin: 2px;
+      }
+      .controls {
+        position: relative;
+        float: left;
+        top: 0px;
+        margin-right: 20px;
+      }
+      .heading{
+        font-size: medium;
+      }
+      .label{
+        font-size: small;
+      }
+      #map {
+        width: 100%;
+        height: 70%;
+      }
+      #divFilterControls{
+        margin-top: 10px;
+        position: absolute;
+        border:#808080 solid thin;
+        padding: 10px;
+      }
+    </style>
+  <script src="http://js.arcgis.com/3.12/"></script>
+  </head>
+  <body class="claro">
+      <div id="map"></div>
+      <div style="padding: 10px">
+        <div>
+          <h4>Stream Layer</h4>
+          <div style="padding-left: 10px;">
+            <span class="label">Stream service url: </span><input type="text" id="txtWsUrl" value="http://supt02558:6080/arcgis/rest/services/EMEA-StreamService/StreamServer" style="color:#ffffff; width:450px; background-color: #8b0000"/>
+            <input type="button" id="cmdNewStream" value="Make Stream Layer" />
+            <input type="button" id="cmdClearGraphics" value="Clear Graphics" />
+          </div>
+        </div>
+        <div id="divFilterControls">
+          <div class="controls">
+            <h4>Spatial Filter</h4>
+            <input type="button" id="cmdSetSpatialFilt" value="Draw Extent" />
+          </div>
+          <div class="controls">
+            <h4>Where Clause</h4>
+            <p><input type="text" id="txtWhere" style="width: 200px" value="CategoryCode=5"/></p>
+            <input type="button" id="cmdApplyWhere" value="Set Where" />
+          </div>
+          <div class="controls">
+            <h4>Outfields (Comma delimited list):</h4>
+            <p><input type="text" id="txtOutfields" style="width: 200px" value="CategoryCode"/></p>
+            <input type="button" id="cmdApplyOutfields" value="Set Outfields" />
+          </div>
+          <div id="divError" class="controls" style="display: none">
+            <h4>Error:</h4>
+            <textarea id="txtError" style="font-size: 8pt" cols="20" rows="5">Error goes here</textarea>
+          </div>
+          <!--<table>
+            <tr>
+              <td>
+                <div>
+                  <h4>Spatial Filter</h4>
+                  <span style="margin-left: 10px">
+                    <input type="button" id="cmdSetSpatialFilt" value="Draw Extent" />
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div style="margin-left: 20px">
+                  <span class="heading">Where Clause</span><br/>
+                  <input type="text" id="txtWhere" style="width: 250px" value="CategoryCode<5"/>
+                  <span style="margin-left: 10px">
+                    <input type="button" id="cmdApplyWhere" value="Set Where" />
+                  </span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <div style="margin-left: 20px">
+                  <span class="heading">Outfields (Comma delimited list):</span><br/>
+                  <input type="text" id="txtOutfields" style="width: 250px" value="CategoryCode"/>
+                  <span style="margin-left: 10px">
+                    <input type="button" id="cmdApplyOutfields" value="Set Outfields" />
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </table>-->
+        </div>
+      </div>
+  </body>
+
+  <script>
+      require([
+
+	  "esri/renderers/UniqueValueRenderer",
+	    "esri/renderers/TemporalRenderer",
+	   "esri/symbols/SimpleLineSymbol",
+	   "esri/symbols/SimpleMarkerSymbol",
+	   "esri/renderers/SimpleRenderer",
+	  "esri/map",
+        "esri/toolbars/draw",
+        "esri/layers/StreamLayer",
+        "esri/layers/FeatureLayer",
+        "esri/InfoTemplate",
+        "esri/graphic",
+        "dojo/_base/Color",
+        "dojo/_base/connect",
+        "dojo/domReady!"
+      ], function(
+	  
+	  UniqueValueRenderer,
+	  TemporalRenderer,
+	  SimpleLineSymbol,
+	  SimpleMarkerSymbol,
+	  SimpleRenderer,
+	  Map, Draw, StreamLayer, FeatureLayer, InfoTemplate, Graphic, Color, connect){
+          var map,
+            drawTools,
+            streamLayer,
+            filterObj = {
+              outFields: null,
+              geometry: null,
+              where: null
+            };
+
+          map = new Map("map",{
+            basemap: "gray",
+            center: [23, 48],
+            zoom: 3
+          });
+
+          drawTools = new Draw(map);
+
+          //connect click events to buttons
+          connect.connect(dojo.byId("cmdNewStream"), "onclick", toggleStreamLayer);
+          connect.connect(dojo.byId("cmdClearGraphics"), "onclick", clearFlightGraphics);
+          connect.connect(dojo.byId("cmdSetSpatialFilt"), "onclick", toggleSpatialFilter);
+          connect.connect(dojo.byId("cmdApplyWhere"), "onclick", toggleWhere);
+          connect.connect(dojo.byId("cmdApplyOutfields"), "onclick", toggleOutFields);
+          connect.connect(drawTools, "onDrawEnd", drawComplete);
+
+          /**********************************************************************************************
+           *
+           * Functions to make new Streamlayer and to disconnect the StreamLayer's web socket connection
+           *
+           **********************************************************************************************/
+          function makeStreamLayer(){
+            //url to stream service
+            var svcUrl = dojo.byId("txtWsUrl").value;
+
+            //construct Stream Layer
+            streamLayer = new StreamLayer(svcUrl, {
+              purgeOptions: { displayCount: 75000 },
+              filter: filterObj,
+              infoTemplate: new InfoTemplate("Attributes","${*}") //"Time Stamp: ${TimeStamp}<br>Category Code: ${CategoryCode}")
+            });
+
+            //When layer loads, register listeners for layer events and add layer to map
+            streamLayer.on("load", function(lyr){
+              //connect event and disconnect event
+              streamLayer.on("connect", processConnect);
+              streamLayer.on("disconnect", processDisconnect);
+
+              //FilterChange event and error event
+              streamLayer.on("FilterChange", processFilterChange);
+              streamLayer.on("error", processError);
+
+			  //Make renderer and apply it to StreamLayer
+         
+			var uniqueValueRenderer = new UniqueValueRenderer(new SimpleMarkerSymbol("circle", 8,
+              new SimpleLineSymbol("solid",
+              new Color( [255, 0, 0, 0] ), 1),
+              new Color( [255, 0, 0, 0.4] )
+            ), "CatergoryCode");
+			
+		 uniqueValueRenderer.addValue("14", new SimpleMarkerSymbol().setColor(new Color([255, 0, 0, 0.5])));
+          uniqueValueRenderer.addValue("11", new SimpleMarkerSymbol().setColor(new Color([0, 255, 0, 0.5])));
+          uniqueValueRenderer.addValue("3", new SimpleMarkerSymbol().setColor(new Color([0, 0, 255, 0.5])));
+          uniqueValueRenderer.addValue("7", new SimpleMarkerSymbol().setColor(new Color([255, 0, 255, 0.5])));
+          uniqueValueRenderer.addValue("1", new SimpleMarkerSymbol().setColor(new Color([255, 255, 255, 0.75])));
+          uniqueValueRenderer.addValue("11", new SimpleMarkerSymbol().setColor(new Color([0, 255, 255, 0.5])));
+          uniqueValueRenderer.addValue("12", new SimpleMarkerSymbol().setColor(new Color([255, 255, 0, 0.5])));
+          uniqueValueRenderer.addValue("10", new SimpleMarkerSymbol().setColor(new Color([127, 127, 127, 0.5])));
+          uniqueValueRenderer.addValue("6", new SimpleMarkerSymbol().setColor(new Color([0, 0, 0, 0.5])));
+			
+			
+            streamLayer.setRenderer(uniqueValueRenderer);
+			
+		
+			  
+              //add layer to map
+              map.addLayer(streamLayer);
+            });
+          }
+
+          function disconnectStreamLayer(){
+            if (streamLayer && ! streamLayer.suspended){
+              streamLayer.suspend();
+              streamLayer.disconnect();
+              map.removeLayer(streamLayer);
+              streamLayer = null;
+            }
+          }
+
+
+          /***************************************************************************
+           *
+           * Event handlers for stream layer
+           *
+           ***************************************************************************/
+          function processConnect(){
+            dojo.byId("cmdNewStream").value = "Disconnect Stream Layer";
+            dojo.byId("txtWsUrl").style.backgroundColor = "#008000";
+          }
+
+          function processDisconnect(){
+            dojo.byId("cmdNewStream").value = "Make Stream Layer";
+            dojo.byId("txtWsUrl").style.backgroundColor = "#8b0000";
+
+            //in case web socket connection closed unexpectedly, remove Stream Layer
+            if (streamLayer){
+              disconnectStreamLayer();
+            }
+          }
+
+          function processFilterChange(m){
+            //console.log("Filter change - Message: ", m);
+            filterObj = streamLayer.getFilter();
+            //need to parse geometry string to work around bug in StreamLayer
+            if (filterObj.geometry && typeof filterObj.geometry === "string"){
+              filterObj.geometry = JSON.parse(filterObj.geometry);
+            }
+            //console.log("Filter change - filterObj: ", filterObj);
+            setUI();
+          }
+
+          function processError(e){
+            console.log("Layer error: ", e);
+            dojo.byId("divError").style.display = "block";
+            dojo.byId("txtError").innerHTML = e.error;
+            setUI();
+          }
+
+
+          /****************************************************************************
+           *
+           * Functions for setting properties of stream layer filter - null value
+           *  signals Stream Service to clear the property of the filter
+           *
+           ****************************************************************************/
+
+          //set "where" property
+          function setWhere(where){
+            var f = {
+              where: filterObj.where,
+              geometry: filterObj.geometry,
+              outFields: filterObj.outFields
+            };
+            f.where = where;
+            applyFilter(f);
+          }
+
+          //set "outFields" property
+          function setOutfields(outfields){
+            var f = {
+              where: filterObj.where,
+              geometry: filterObj.geometry,
+              outFields: filterObj.outFields
+            };
+            f.outFields = outfields;
+            applyFilter(f);
+          }
+
+          //set "geometry" property
+          function setSpatialFilter(bbox){
+            var f = {
+              where: filterObj.where,
+              geometry: filterObj.geometry,
+              outFields: filterObj.outFields
+            };
+            f.geometry = bbox;
+            applyFilter(f);
+
+            //update map graphic to show current spatial filter
+            makeBBoxGraphic(bbox);
+          }
+
+          //apply the filter to the StreamLayer
+          function applyFilter(filter){
+            if (! streamLayer){
+              console.log("No Stream Layer created. Filter stored and will be applied on layer creation");
+              filterObj = filter;
+              setUI();
+              return false;
+            }
+            console.log("applyFilter: ", filter);
+            streamLayer.setFilter(filter);
+          }
+
+
+          /**************************************************************************
+           *
+           * UI Related functions
+           *
+           **************************************************************************/
+          function toggleStreamLayer(evt){
+            hideError();
+            if (! streamLayer){
+              makeStreamLayer();
+            }
+            else{
+              disconnectStreamLayer();
+            }
+          }
+
+          function clearFlightGraphics(){
+            if (streamLayer){
+              streamLayer.clear();
+            }
+          }
+
+          function toggleWhere(evt){
+            hideError();
+            var where = null,
+              disabled = false;
+            if (! filterObj.where){
+              evt.srcElement.value = "Clear Where";
+              disabled = true;
+              where = dojo.byId("txtWhere").value;
+            }
+            else{
+              evt.srcElement.value = "Set Where";
+            }
+            setWhere(where);
+            //dojo.byId("txtWhere").disabled = disabled;
+          }
+
+          function toggleOutFields(evt){
+            hideError();
+            var outfields = null,
+              disabled = false;
+            if (! filterObj.outFields){
+              evt.srcElement.value = "Clear Outfields";
+              disabled = true;
+              outfields = dojo.byId("txtOutfields").value;
+            }
+            else{
+              evt.srcElement.value = "Set Outfields";
+            }
+            setOutfields(outfields);
+            //dojo.byId("txtOutfields").disabled = disabled;
+          }
+
+          function toggleSpatialFilter(evt){
+            hideError();
+            if (! filterObj.geometry){
+              activateDrawTools();
+            }
+            else{
+              evt.srcElement.value = "Draw Extent";
+              setSpatialFilter(null);
+            }
+          }
+
+          //activate draw tools so user can draw bounding box
+          function activateDrawTools(){
+            drawTools.activate(Draw.EXTENT);
+          }
+
+          function drawComplete(s){
+            hideError();
+            drawTools.deactivate();
+            setSpatialFilter(s);
+            dojo.byId("cmdSetSpatialFilt").value = "Clear Spatial Filter";
+          }
+
+          function makeBBoxGraphic(bbox){
+            var graphic;
+            if (bbox){
+              if (map.graphics.graphics.length > 1){
+                graphic = map.graphics.graphics[1];
+                graphic.setGeometry(bbox);
+              }
+              else{
+                graphic = new Graphic(bbox,
+                  new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_NULL,
+                  new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+                  new dojo.Color( [6, 110, 180] ), 2),
+                  new dojo.Color( [6, 110, 180] )));
+                map.graphics.add(graphic);
+              }
+            }
+            else{
+              if (map.graphics.graphics.length > 1){
+                graphic = map.graphics.graphics[1];
+                map.graphics.remove(graphic);
+              }
+            }
+          }
+
+          function setUI(){
+            var val = "Draw Extent",
+              disabled;
+            if (filterObj.geometry !== null && filterObj.geometry){
+              val = "Clear Spatial Filter";
+            }
+            dojo.byId("cmdSetSpatialFilt").value = val;
+
+            val = "Set Where";
+            disabled = false;
+            if (filterObj.where !== null && filterObj.where){
+              val = "Clear Where";
+              disabled = true;
+            }
+            dojo.byId("cmdApplyWhere").value = val;
+            dojo.byId("txtWhere").disabled = disabled;
+
+            val = "Set Outfields";
+            disabled = false;
+            if (filterObj.outFields !== null && filterObj.outFields){
+              val = "Clear Outfields";
+              disabled = true;
+            }
+            dojo.byId("cmdApplyOutfields").value = val;
+            dojo.byId("txtOutfields").disabled = disabled;
+          }
+
+          function hideError(){
+            dojo.byId("divError").style.display = "none";
+          }
+
+          function showError(){
+            dojo.byId("divError").style.display = "block";
+          }
+        });
+  </script>
+</html>
