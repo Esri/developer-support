@@ -8,19 +8,9 @@ This project is a place to collaborate and support GIS developers working with E
 This repository is designed to contain resources for troubleshooting as well as proof of concept samples to support developers!
 Much of the code contained in this repository is samples created by Esri staff to help developers understand how to develop against all aspects of Esri’s Location Platform – desktop, mobile devices and for the web.  It’s a great place to copy and paste code you may need or search for lesser-known methods or classes to see how they are implemented.  Despite the name however, this repository is not intended as a place to replace community and paid support offered by Esri.  For community support, check out our [Esri’s GeoNet site](https://geonet.esri.com/welcome).  For paid support check out [http://support.esri.com](http://support.esri.com) or contact your regional distributor.
 
+## Contributing
 
-
-## Conventions and Guidelines
-
-###Follow these guidelines when making a contribution
-
-* Place code in folders according to programing language
-* Use lowercase and dashes when creating new folder names
-* Always create a new folder for each new sample 
-* Add a readme file with each sample describing what the code achieves 
-* Remove framework files and unnecessary files before contributing
-
-
+Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md).
 
 ## Licensing
 Copyright 2015 Esri
