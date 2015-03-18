@@ -16,7 +16,7 @@ A dataset has records that are hidden.
 - The Attribute Table will show x amount of records. After scrolling, the table shows a different amount of records (i.e. Jumps from 353 records to 183 records).
 
 ## Steps
-1. Create a new dataset with the same schema as the "corrupt" dataset (we are able to Import the schema from the New Feature Class wizard).
+1. Create a new dataset with the same schema as the "corrupt" dataset (we are able to import the schema from the *New Feature Class* wizard).
 2. Change appropriate parameters at end of script:
 ```python
 if __name__ == "__main__":
