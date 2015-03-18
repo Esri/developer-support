@@ -20,4 +20,8 @@ A dataset has records that are hidden.
 2. Change appropriate parameters at end of script:
 ```python
 if __name__ == "__main__":
+
+    #Change these two parameters
+    corrupted = r"C:\path\to\corrupted.gdb\featureClass"
+    repaired = r"C:\path\to\repaired.gdb\featureClass"
 ```
