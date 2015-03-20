@@ -1,4 +1,4 @@
-﻿--PostGIS (ppg_geometry)
+﻿--PostGIS (pg_geometry)
 -- http://www.postgis.org/docs/ST_GeomFromText.html
 DO 
 $$DECLARE 
