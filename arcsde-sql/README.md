@@ -10,3 +10,4 @@
 - A SQL Editor that can connect to a Postgres database and run PG/PLSql
 - For pg_geometry, use the PG_Geometry script.
 - For ST_Geometry, Use the Esri ST_Geometry script.
+- Ensure the proper SRID is input into the calls for ST_Point or ST_GeomFromText.
