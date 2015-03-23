@@ -12,6 +12,8 @@ In general, we enforce a [fork and pull](https://help.github.com/articles/using-
 
 If you're new to forking, you can find an excellent resource to get more familiar with the general steps [here](https://guides.github.com/activities/contributing-to-open-source/).
 
+Also, this [guide](SUBMITPR.md) outlines the steps for submitting a pull request.
+
 Feel free to file an [issue](https://github.com/Esri/developer-support/issues/new) if you get stuck, we're happy to help!
 
 ### Conventions and Guidelines
