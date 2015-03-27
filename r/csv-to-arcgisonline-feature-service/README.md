@@ -3,7 +3,6 @@ R Script to publish a feature service in ArcGIS Online from CSV (proof of concep
 
 ## Instructions
 
-1. This script relies on the "Requests", see [Requests API](http://docs.python-requests.org/en/latest/)
 In order to run R from Windows Command Prompt you need to use Rscript, that comes with the installation of R. 
 
 ##Windows Command Prompt
