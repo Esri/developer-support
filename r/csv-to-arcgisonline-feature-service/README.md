@@ -4,16 +4,17 @@ R Script to publish a feature service in ArcGIS Online from CSV (proof of concep
 ## Instructions
 
 1. This script relies on the "Requests", see [Requests API](http://docs.python-requests.org/en/latest/)
-2. This script is designed to be run through R Console or RStudio.
+In order to run R from Windows Command Prompt you need to use Rscript, that comes with the installation of R. 
 
 ##Windows Command Prompt
 ```
-to be finished
+>"C:\Program Files\R\R-3.1.2\bin\i386\Rscript.exe" Upload-csv-to-arcGis-with-R.R <username> <password> <ItemName> <CSV_File> <latitude_field_name> <longitude_field_name> <Tag>
 ```
 
-##Terminal
+
+##Example:
 ```
-to be finished
+>"C:\Program Files\R\R-3.1.2\bin\i386\Rscript.exe" Upload-csv-to-arcGis-with-R.R aruizga ***password*** ItemName C:/data.csv latitude longitude MyTag
 ```
 
 
