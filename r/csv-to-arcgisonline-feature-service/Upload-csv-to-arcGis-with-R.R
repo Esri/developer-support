@@ -31,11 +31,12 @@ tags<- args[7]
 
 #username<-c('aruizga')
 #password<-c('*******')
-#ItemName<-"item85"
+#ItemName<-"itemName"
 #CSVfile<-"C:/data.csv"
 #XField<- "latitude"
 #YField<- "longitude"
 #tags<-"SPSS"
+
 #Generate Token
 url = "https://arcgis.com/sharing/rest/generateToken"
 data = list('username'= username,
@@ -71,8 +72,6 @@ ItemID
 
 
 #addPart
-#data<-read.csv("C:/data.csv")
-#CSV1<-"C:/data.csv"
 CSV1<-CSVfile
 URL1 <- paste('http://',short,'.maps.arcgis.com/sharing/rest/content/users/',username,'/items/',ItemID,'/addPart?f=json&token=',token,sep = "")
 URL<-paste(URL1,"&file=",CSV1,"&partNum=",1,sep="")
@@ -83,7 +82,7 @@ print("Part Added")
 #Commit
 commitURL <- paste('http://',short,'.maps.arcgis.com/sharing/rest/content/users/',username,'/items/',ItemID,'/commit?f=json&token=',token,sep = "")
 t <- getURL(commitURL)
-#t  
+ 
 
 #Status Test CSV
 Type<-"CSV"
@@ -97,11 +96,8 @@ while (accepted != 'completed'){
   Sys.sleep(5)
 }
 
-#ItemID<-'f08e06c90be3439cbddbf1c03331cfe3'
-
 
 #UpdateItem
-
 URL <- paste('http://',short,'.maps.arcgis.com/sharing/content/users/',username,'/items/',ItemID,'/update?f=json&token=',token,sep = "")
 filename=CSV1
 data = list(title= itemName,
@@ -110,7 +106,6 @@ data = list(title= itemName,
             typeKeywords= 'CSV',
             type= 'CSV')
 w<-POST(URL,body = data)
-#content(w)
 
 
 
@@ -124,7 +119,6 @@ data = list('f'= 'JSON',
             'file'= FileName,
             'filetype'='csv')
 a<-POST(URL,body = data)
-content(a)
 x <- fromJSON((content(a)))
 analyzed<-x$publishParameters
 #analyzed
@@ -172,5 +166,5 @@ URL <- paste(serviceurl,'/0/query?where=1=1&returnCountOnly=True&f=json&token=',
 x <- getURL(URL)
 x <- fromJSON(((x)))
 count<-x[1]
-print("count:")
+print("Number of records:")
 print(count)
