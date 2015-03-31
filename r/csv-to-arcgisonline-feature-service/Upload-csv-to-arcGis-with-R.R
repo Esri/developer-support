@@ -14,10 +14,6 @@ if (!require("rjson")) {
   install.packages("rjson", repos="http://cran.rstudio.com/") 
   library("rjson")
 }
-if (!require("RJSONIO")) {
-  install.packages("rjson", repos="http://cran.rstudio.com/") 
-  library("rjson")
-}
 
 #Arguments from CMD
 args <- commandArgs(trailingOnly = TRUE)
