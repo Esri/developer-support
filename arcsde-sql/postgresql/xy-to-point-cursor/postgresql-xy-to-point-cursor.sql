@@ -5,6 +5,7 @@
 
 */
 
+-- PostGIS pg_geometry
 DO 
 $$DECLARE 
 	pt_curse CURSOR FOR SELECT x_coord, y_coord FROM sde.test_xy;
