@@ -1,6 +1,5 @@
 postgresql-xy-to-point-cursor.sql
 ===================
-
 The anonymous pg/plsql scripts allow one to use the existing X and Y coordinates of a table to insert geometry column into an empty feature class.  Uses ST_GeomFromText for PostGIS data or ST_point 	for Esri ST_Geometry features.
 
 ----------
@@ -44,4 +43,3 @@ Insert some initial values into the new test_xy table created above.
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
 		VALUES ( '800 22nd Avenue', 2160559.50579430, 618667.01873098, 5);
-
