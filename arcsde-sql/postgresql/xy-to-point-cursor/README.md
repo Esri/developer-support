@@ -7,10 +7,14 @@ The anonymous pg/plsql scripts allow one to use the existing X and Y coordinates
 
 REQUIRED:
 Enterprise PostgreSQL geodatabase.
+
 Existing table with X and Y column (sample SQL to create this below).
+
 Empty feature class to receive the calculation of X, Y values (Create this in ArcGIS).
 
+
 DOCUMENTATION:
+
 [PostGIS (pg_geometry)][1]
 
 [Esri(ST_Geometry)][2]
