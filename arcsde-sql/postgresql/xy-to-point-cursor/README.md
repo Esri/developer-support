@@ -13,19 +13,20 @@ Empty feature class to receive the calculation of X, Y values (Create this in Ar
 
 DOCUMENTATION:
 PostGIS (pg_geometry)
-		  http://www.postgis.org/docs/ST_GeomFromText.html
+http://www.postgis.org/docs/ST_GeomFromText.html
 	
-Esri(ST_Geometry)		  http://resources.arcgis.com/en/help/main/10.2/index.html#/ST_Geometry_storage_in_PostgreSQL/002p0000006s000000/
+Esri(ST_Geometry)
+http://resources.arcgis.com/en/help/main/10.2/index.html#/ST_Geometry_storage_in_PostgreSQL/002p0000006s000000/
 
 TESTING SAMPLE DATA:
 Create the test.xy table containing the coordinate values.
 
-			CREATE TABLE sde.test_xy
-			(
-			  name character varying(255),
-			  x_coord numeric(38,8),
-			  y_coord numeric(38,8)
-			)
+		CREATE TABLE sde.test_xy
+		(
+		  name character varying(255),
+		  x_coord numeric(38,8),
+		  y_coord numeric(38,8)
+		)
 		
 Insert some initial values into the new test_xy table created above.
 
