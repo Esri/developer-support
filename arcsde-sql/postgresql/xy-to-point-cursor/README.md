@@ -11,11 +11,10 @@ Existing table with X and Y column (sample SQL to create this below).
 Empty feature class to receive the calculation of X, Y values (Create this in ArcGIS).
 
 DOCUMENTATION:
-PostGIS (pg_geometry)
-http://www.postgis.org/docs/ST_GeomFromText.html
-	
-Esri(ST_Geometry)
-http://resources.arcgis.com/en/help/main/10.2/index.html#/ST_Geometry_storage_in_PostgreSQL/002p0000006s000000/
+[PostGIS (pg_geometry)][1]
+
+[Esri(ST_Geometry)][2]
+
 
 TESTING SAMPLE DATA:
 Create the test.xy table containing the coordinate values.
@@ -43,3 +42,7 @@ Insert some initial values into the new test_xy table created above.
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
 		VALUES ( '800 22nd Avenue', 2160559.50579430, 618667.01873098, 5);
+		
+		
+[1]:http://resources.arcgis.com/en/help/main/10.2/index.html#/ST_Geometry_storage_in_PostgreSQL/002p0000006s000000/
+[2]:http://www.postgis.org/docs/ST_GeomFromText.html
