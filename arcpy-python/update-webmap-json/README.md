@@ -26,7 +26,7 @@ This is often required if a service that was previously accessible has been turn
 NOTE: This script assumes that there is ONLY one web map in your content(all folders) with this title.
 
 ## Sample JSON
-
+```javascript
 {
     "applicationProperties": {
         "viewing": {
@@ -57,3 +57,4 @@ NOTE: This script assumes that there is ONLY one web map in your content(all fol
     "version": "1.9"
 }
 
+```
