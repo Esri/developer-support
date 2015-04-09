@@ -11,6 +11,10 @@ Python Script to update a web map (proof of concept)
   ``` 
 	 http://www.arcgis.com/sharing/rest/content/items/<web map ID>/data?f=pjson
   ```
+  NOTE:  The above link will only work if the web map is public.  If the webmap is not public, a token would need to be appended to the end of the link.  To generate a token, run the script and use ArcGISOnline.generateToken passing in your username and password to the method.  This will allow a token to be generated for consumption in this request.
+  ```
+	 http://www.arcgis.com/sharing/rest/content/items/<web map ID>/data?f=pjson&token=<INSERT_TOKEN>
+  ```
 
 4. The JSON file that was downloaded should be modified.  In order to delete an entire layer from the webmap, the entire dictionary definition for that layer should be removed.
 
