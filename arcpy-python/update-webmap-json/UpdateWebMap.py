@@ -19,60 +19,83 @@ import urllib
 import urllib2
 import json
 
-def generateToken(username, password):
-    '''Generate a token using urllib modules for the input
-    username and password'''
+class ArcGISOnline(object):
 
-    url = "https://arcgis.com/sharing/generateToken"
-    data = {'username': username,
-        'password': password,
-        'referer' : 'https://arcgis.com',
-        'expires' : 1209600,
-        'f': 'json'}
-    data = urllib.urlencode(data)
-    request = urllib2.Request(url, data)
-    response = urllib2.urlopen(request)
+    def __init__(self, Username, Password):
+        self.username = Username
+        self.password = Password
+        self.__token = self.generateToken(self.username, self.password)['token']
+        self.__protocol = self.__useProtocol()
+        self.__short = self.__GetInfo()['urlKey']
 
-    return json.loads(response.read())
+    @staticmethod
+    def generateToken(username, password):
+        '''Generate a token using urllib modules for the input
+        username and password'''
 
-def GetInfo(ssl, token):
-    '''Get information about the specified organization
-    this information includes the Short name of the organization (['urlKey'])
-    as well as the organization ID ['id']'''
+        url = "https://arcgis.com/sharing/generateToken"
+        data = {'username': username,
+            'password': password,
+            'referer' : 'https://arcgis.com',
+            'expires' : 1209600,
+            'f': 'json'}
+        data = urllib.urlencode(data)
+        request = urllib2.Request(url, data)
+        response = urllib2.urlopen(request)
 
-    URL= '{}://arcgis.com/sharing/rest/portals/self?f=json&token={}'.format(ssl,token)
-    request = urllib2.Request(URL)
-    response = urllib2.urlopen(request)
-    return json.loads(response.read())
+        return json.loads(response.read())
 
-def findWebMap(ssl, short, username, token, webmapName):
-    '''Returns the details for the item returned that
-    matches the itemname and has a type of web map.
-    To access the webmap ID, use the key ['id']'''
+    @property
+    def token(self):
+        '''Makes the non-public token read-only as a public token property'''
+        return self.__token
 
-    ItemsURL = '{}://{}.maps.arcgis.com/sharing/rest/content/users/{}?f=json&token={}'.format(ssl, short, username, token)
-    Request = urllib2.Request(ItemsURL)
-    Response = urllib2.urlopen(Request)
-    items = json.loads(Response.read())['items']
-    for item in items:
-        if item['title'] == webmapName and item['type'] == 'Web Map':
-            return item
+    def __useProtocol(self):
+        tokenResponse = self.generateToken(self.username, self.password)
+        if tokenResponse['ssl']:
+            ssl = 'https'
+        else:
+            ssl = 'http'
+        return ssl
 
-def updateItem(ssl, Short, username, itemID, token, JSON):
-    '''Updates the input webmap with the new JSON loaded,
-    uses urllib as a get request'''
+    def __GetInfo(self):
+        '''Get information about the specified organization
+        this information includes the Short name of the organization (['urlKey'])
+        as well as the organization ID ['id']'''
 
-    url = '{}://{}.maps.arcgis.com/sharing/rest/content/users/{}/items/{}/update?token={}&f=json'.format(ssl, Short, username, itemID, token)
+        URL= '{}://arcgis.com/sharing/rest/portals/self?f=json&token={}'.format(self.__protocol,self.__token)
+        request = urllib2.Request(URL)
+        response = urllib2.urlopen(request)
+        return json.loads(response.read())
 
-    dumped = json.dumps(JSON)
-    data = {'async': 'True',
-            'text': dumped}
+    def FindWebMap(self, webmapName):
+        '''Returns the details for the item returned that
+        matches the itemname and has a type of web map.
+        To access the webmap ID, use the key ['id']'''
 
-    data = urllib.urlencode(data)
-    request = urllib2.Request(url, data)
-    response = urllib2.urlopen(request)
+        ItemsURL = '{}://{}.maps.arcgis.com/sharing/rest/content/users/{}?f=json&token={}'.format(self.__protocol, self.__short, self.username, self.__token)
+        Request = urllib2.Request(ItemsURL)
+        Response = urllib2.urlopen(Request)
+        items = json.loads(Response.read())['items']
+        for item in items:
+            if item['title'] == webmapName and item['type'] == 'Web Map':
+                return item
 
-    return json.loads(response.read())
+    def UpdateItem(self, itemID, JSON):
+        '''Updates the input webmap with the new JSON loaded,
+        uses urllib as a get request'''
+
+        url = '{}://{}.maps.arcgis.com/sharing/rest/content/users/{}/items/{}/update?token={}&f=json'.format(self.__protocol, self.__short, self.username, itemID, self.__token)
+
+        dumped = json.dumps(JSON)
+        data = {'async': 'True',
+                'text': dumped}
+
+        data = urllib.urlencode(data)
+        request = urllib2.Request(url, data)
+        response = urllib2.urlopen(request)
+
+        return json.loads(response.read())
 
 
 if __name__ == '__main__':
@@ -80,18 +103,9 @@ if __name__ == '__main__':
     username = raw_input("Please enter your username: ")
     password = raw_input("Please enter your password: ")
     webmapName = raw_input("What is the title of the web map?: ")
-
-
-    tokenResponse = generateToken(username, password)
-    token = tokenResponse['token']
-    if tokenResponse['ssl']:
-        ssl = 'https'
-    else:
-        ssl = 'http'
-    Info = GetInfo(ssl, token)
-    Short = Info['urlKey']
-
-    itemID = findWebMap(ssl, Short, username, token, webmapName)['id']
-
     JSON = "Replace with JSON, remove the quotes"
-    WebMap = updateItem(ssl, Short, username, itemID, token, JSON)
+    
+    onlineAccount = ArcGISOnline(username, password)
+    webMapID = onlineAccount.FindWebMap(webmapName)
+    print webMapID
+    onlineAccount.UpdateItem(webMapID, JSON)
