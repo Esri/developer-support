@@ -35,19 +35,14 @@
     <script src="http://js.arcgis.com/3.13/"></script>
     <script>
       var map, grid;
-    /*
-    optional:
-    1. make field heading color rusty brown (and white on hover)
-    2. make sure odd selected rows turn blue too
-    3. figure out how to make zoom label the image (can't inject button in the constructor)
-    */
+
         require([
         "esri/map", "esri/layers/FeatureLayer", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", 
         "esri/tasks/query", "esri/Color",
         "dgrid/OnDemandGrid", "dgrid/Selection", "dojo/store/Memory",
         "dojo/_base/array", "dojo/dom", "dijit/form/Button",
         "dojo/parser", "dojo/_base/declare", 
-		 "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
+	"dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
       ], function(
         Map, FeatureLayer, SimpleMarkerSymbol, SimpleLineSymbol,
         Query, Color,
@@ -59,16 +54,17 @@
         parser.parse();
 
         var StatesGrid = declare([Grid, Selection]);
-
+        
+        //create three columns to display magnifying glass, objectId and state
         var columns = [{
-          label: "",  //wasn't able to inject an HTML <div> with image here
+          label: "",  
           field: "objectid",
           formatter: makeZoomButton
         }, {
-          label: "objectid",
+          label: "Object ID",
           field: "objectid"
         }, {
-          label: "st",
+          label: "State",
           field: "st"
         }];
 
@@ -91,15 +87,19 @@
           center: [-97.031, 42.618],
           zoom: 7
         });
-
+        
+        //create feature layer
         var statesLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0", {
           mode: FeatureLayer.MODE_SELECTION,
           outFields: ["objectid", "st"]
         });
-		
-		var highlightSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10,
-																	new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]), 1),
-															        new Color([0,255,0,0.25]));
+	
+	//create a symbol to display point geometry 	
+	var highlightSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10,
+			               new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]), 1),
+				       new Color([0,255,0,0.25]));
+        
+        //set the selection symbol of the feature layer 
         statesLayer.setSelectionSymbol(highlightSymbol);
 
         statesLayer.on("load", function(evt) {
@@ -109,14 +109,14 @@
             var items = array.map(featureSet.features, function(feature) {
               return feature.attributes;
             });
-
-            //idProperty must be set manually if value is something other than 'id'
+	    
+	    //idProperty must be set manually if value is something other than 'id'
             var memStore = new Memory({
               data: items,
               idProperty: "objectid"
             });
-            window.grid.set("store", memStore);
-            window.grid.set("sort", "st");
+            window.grid.set("store", memStore); //populate data in the grid
+            window.grid.set("sort", "st"); //sort data according to State attribute
 
             grid.on(".field-objectid:click", function(e) {
               //retrieve the ObjectId when someone clicks on the magnifying glass
@@ -127,11 +127,13 @@
           });
         });
 		
-		map.addLayers([statesLayer]);
+	map.addLayers([statesLayer]);
 
         function makeZoomButton(id) {
-          //set the feature 'id' as the alt value for the image so that it can be used to query below
-          var zBtn = "<div data-dojo-type='dijit/form/Button'><img src='images/zoom.png' alt='" + id + "'";
+         /*create magnifying glass button using image URL:http://upload.wikimedia.org/wikipedia/commons/7/70/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Zoom_%E2%80%93_Media_%E2%80%93_White.png
+	  *set the feature 'id' as the alt value for the image so that it can be used to query below
+	  */
+          var zBtn = "<div data-dojo-type='dijit/form/Button'><img src='http://upload.wikimedia.org/wikipedia/commons/7/70/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Zoom_%E2%80%93_Media_%E2%80%93_White.png' alt='" + id + "'";
           zBtn = zBtn + " width='18' height='18'></div>";
           return zBtn;
         }
@@ -141,8 +143,9 @@
           var query = new Query();
           query.objectIds = [id];
           statesLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(features) {
-            map.centerAt(features[0].geometry);
-			//map.centerAndZoom(features[0].geometry, 14);
+            //re-centre map to zoom to the selected feature
+            map.centerAt(features[0].geometry); //using centerAt() 
+	    //map.centerAndZoom(features[0].geometry, 14); //using centerAndZoom()
           });
         }
 		
