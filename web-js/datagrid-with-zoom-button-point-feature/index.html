@@ -1,0 +1,163 @@
+<!-- Thanks to Akshay -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Add zoom button to dgrid</title>    
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dojo/resources/dojo.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dgrid/css/dgrid.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+    <style>
+      body,html,#main{
+        margin:0;
+        padding:0;
+        height:100%;
+        width:100%;
+        font: 16px Geneva, Arial, Helvetica, sans-serif;
+      }
+      #map{
+        padding:0;
+        border: 1px solid #b5bcc7;
+      }
+      .dgrid { border: none; height: 100%; }
+      .dgrid-column-0 {
+        width: 35px;
+      }
+      .dgrid-row-odd {
+        background: #FFFDF3;
+      }
+      td div img:hover {
+        cursor: pointer;
+      }
+    </style>    
+    <script src="http://js.arcgis.com/3.13/"></script>
+    <script>
+      var map, grid;
+
+        require([
+        "esri/map", "esri/layers/FeatureLayer", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", 
+        "esri/tasks/query", "esri/Color",
+        "dgrid/OnDemandGrid", "dgrid/Selection", "dojo/store/Memory",
+        "dojo/_base/array", "dojo/dom", "dijit/form/Button",
+        "dojo/parser", "dojo/_base/declare", 
+	"dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
+      ], function(
+        Map, FeatureLayer, SimpleMarkerSymbol, SimpleLineSymbol,
+        Query, Color,
+        Grid, Selection, Memory,
+        array, dom, Button,
+        parser, declare
+      ) {
+
+        parser.parse();
+
+        var StatesGrid = declare([Grid, Selection]);
+        
+        //create three columns to display magnifying glass, objectId and state
+        var columns = [{
+          label: "",  
+          field: "objectid",
+          formatter: makeZoomButton
+        }, {
+          label: "Object ID",
+          field: "objectid"
+        }, {
+          label: "State",
+          field: "st"
+        }];
+
+        //restrict sorting to the state name field
+        for (var i = 0; i < columns.length; i++) {
+          if (i == 1) {
+            columns[i].sortable = true;
+          } else {
+            columns[i].sortable = false;
+          }
+        }
+
+        grid = new StatesGrid({
+          bufferRows: Infinity,
+          columns: columns
+        }, "grid");
+
+        map = new Map("map", {
+          basemap: "gray",
+          center: [-97.031, 42.618],
+          zoom: 7
+        });
+        
+        //create feature layer
+        var statesLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0", {
+          mode: FeatureLayer.MODE_SELECTION,
+          outFields: ["objectid", "st"]
+        });
+	
+	//create a symbol to display point geometry 	
+	var highlightSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10,
+			               new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,new Color([255,0,0]), 1),
+				       new Color([0,255,0,0.25]));
+        
+        //set the selection symbol of the feature layer 
+        statesLayer.setSelectionSymbol(highlightSymbol);
+
+        statesLayer.on("load", function(evt) {
+          var query = new Query();
+          query.where = "1=1";
+          evt.layer.queryFeatures(query, function(featureSet) {
+            var items = array.map(featureSet.features, function(feature) {
+              return feature.attributes;
+            });
+	    
+	    //idProperty must be set manually if value is something other than 'id'
+            var memStore = new Memory({
+              data: items,
+              idProperty: "objectid"
+            });
+            window.grid.set("store", memStore); //populate data in the grid
+            window.grid.set("sort", "st"); //sort data according to State attribute
+
+            grid.on(".field-objectid:click", function(e) {
+              //retrieve the ObjectId when someone clicks on the magnifying glass
+              if (e.target.alt) {
+                zoomRow(e.target.alt);
+              }
+            });
+          });
+        });
+		
+	map.addLayers([statesLayer]);
+
+        function makeZoomButton(id) {
+         /*create magnifying glass button using image URL:http://upload.wikimedia.org/wikipedia/commons/7/70/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Zoom_%E2%80%93_Media_%E2%80%93_White.png
+	  *set the feature 'id' as the alt value for the image so that it can be used to query below
+	  */
+          var zBtn = "<div data-dojo-type='dijit/form/Button'><img src='http://upload.wikimedia.org/wikipedia/commons/7/70/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_Zoom_%E2%80%93_Media_%E2%80%93_White.png' alt='" + id + "'";
+          zBtn = zBtn + " width='18' height='18'></div>";
+          return zBtn;
+        }
+        
+        function zoomRow(id) {
+          statesLayer.clearSelection();
+          var query = new Query();
+          query.objectIds = [id];
+          statesLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(features) {
+            //re-centre map to zoom to the selected feature
+            map.centerAt(features[0].geometry); //using centerAt() 
+	    //map.centerAndZoom(features[0].geometry, 14); //using centerAndZoom()
+          });
+        }
+		
+      });
+    </script>
+  </head>
+  <body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="width:100%; height:100%;">
+      <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" >
+      </div>
+      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width:275px">
+      <div id="grid"></div>
+    </div>
+  </body>
+</html>
