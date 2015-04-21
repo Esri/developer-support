@@ -2,6 +2,11 @@
 
 Pull requests let you tell others about changes you've pushed to a repository on GitHub. Once a pull request is created, interested parties can review the set of changes, discuss potential modifications, and even push follow-up commits if necessary. Anyone can submit a pull request and they're useful in the shared repository model where they're used to initiate code review and general discussion about a set of changes before being merged into a mainline branch.
 
+#### Guidelines for Esri Staff
+- Do not upload code provided by a user unless you have received explicit permission.
+- If a user is looking for a specific sample that does not exist in our resource center and you are able to create it, then you can upload this sample. However, this sample should not include any names, comments, namespaces that are related with the user.
+
+
 This guide outlines the step by step instructions for submitting a pull request using the SourceTree desktop client application (http://www.sourcetreeapp.com/) 
 
 * Before you start the process, make sure that you have set up remote tracking. This is what allows you to keep abreast of changes to the fork and origin repositories that Github is hosting and push your changes up. In order to do this, you can simply right-click on the remotes in SourceTree and select "New remote". One will point to your remote fork (for example: afili/developer-support) and one will point to the original repository (esri/developer-support) as shown in the picture below. Note: You can name them whatever you want, but it has become a convention to name the fork 'origin' and the original repository 'upstream', so its helpful to use those names if you plan on perusing StackOverflow for help.
