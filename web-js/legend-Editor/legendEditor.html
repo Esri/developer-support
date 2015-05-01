@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Edit rivers and waterbodies</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css" />
+    <style>
+        html,
+        body {
+            height: 99%;
+            width: 99%;
+        }
+        #map {
+            padding: 0;
+        }
+        #leftPane {
+            width: 20%;
+        }
+        #legendPane {
+            border: solid #97DCF2 1px;
+        }
+        .templatePicker {
+            border: none;
+        }
+        .dj_ie .infowindow .window .top .right .user .content {
+            position: relative;
+        }
+        .dj_ie .simpleInfoWindow .content {
+            position: relative;
+        }
+    </style>
+
+    <script src="http://js.arcgis.com/3.13/"></script>
+    <script>
+        var map;
+
+        require([
+            "esri/map",
+            "esri/tasks/GeometryService",
+            "esri/toolbars/edit",
+            "esri/layers/ArcGISTiledMapServiceLayer",
+            "esri/layers/FeatureLayer",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/dijit/editing/Editor",
+            "esri/dijit/editing/TemplatePicker",
+            "esri/dijit/Legend",
+            "esri/config",
+            "dojo/i18n!esri/nls/jsapi",
+            "dojo/_base/array",
+            "dojo/parser",
+            "dojo/keys",
+            "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+            "dijit/layout/AccordionContainer",
+            "dojo/domReady!"
+        ], function(
+            Map, GeometryService, Edit,
+            ArcGISTiledMapServiceLayer, FeatureLayer,
+            SimpleMarkerSymbol, SimpleLineSymbol,
+            Editor, TemplatePicker,
+            Legend,
+            esriConfig,
+            jsapiBundle,
+            arrayUtils,
+            parser,
+            keys
+        ) {
+            parser.parse();
+
+
+            // snapping is enabled for this sample - change the tooltip to reflect this
+            jsapiBundle.toolbars.draw.start = jsapiBundle.toolbars.draw.start + "<br>Press <b>ALT</b> to enable snapping";
+
+            // refer to "Using the Proxy Page" for more information:  https://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
+            esriConfig.defaults.io.proxyUrl = "http://marlak/DotNet4/proxy.ashx";
+
+            //This service is for development and testing purposes only. We recommend that you create your own geometry service for use within your applications. 
+            esriConfig.defaults.geometryService = new GeometryService("http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+
+            map = new Map("map", {
+                basemap: "satellite",
+                center: [-96.53, 38.374],
+                zoom: 13,
+                slider: false
+            });
+
+            //add boundaries and place names 
+            var labels = new ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer");
+            map.addLayer(labels);
+
+            var rivers = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Hydrography/Watershed173811/FeatureServer/1", {
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"]
+            });
+            var waterbodies = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Hydrography/Watershed173811/FeatureServer/0", {
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"]
+            });
+
+            map.on("layers-add-result", initEditor);
+
+
+            map.addLayers([waterbodies, rivers]);
+
+            //add the legend
+            map.on("layers-add-result", function(evt) {
+                var layerInfo = arrayUtils.map(evt.layers, function(layer, index) {
+                    return {
+                        layer: layer.layer,
+                        title: layer.layer.name
+                    };
+                });
+                if (layerInfo.length > 0) {
+                    var legendDijit = new Legend({
+                        map: map,
+                        layerInfos: layerInfo
+                    }, "legendDiv");
+                    legendDijit.startup();
+                }
+            });
+
+            function initEditor(evt) {
+                var templateLayers = arrayUtils.map(evt.layers, function(result) {
+                    return result.layer;
+                });
+                var templatePicker = new TemplatePicker({
+                    featureLayers: templateLayers,
+                    grouping: true,
+                    rows: "auto",
+                    columns: 3
+                }, "templateDiv");
+                templatePicker.startup();
+
+                var layers = arrayUtils.map(evt.layers, function(result) {
+                    return {
+                        featureLayer: result.layer
+                    };
+                });
+                var settings = {
+                    map: map,
+                    templatePicker: templatePicker,
+                    layerInfos: layers,
+                    toolbarVisible: true,
+                    createOptions: {
+                        polylineDrawTools: [Editor.CREATE_TOOL_FREEHAND_POLYLINE],
+                        polygonDrawTools: [Editor.CREATE_TOOL_FREEHAND_POLYGON,
+                            Editor.CREATE_TOOL_CIRCLE,
+                            Editor.CREATE_TOOL_TRIANGLE,
+                            Editor.CREATE_TOOL_RECTANGLE
+                        ]
+                    },
+                    toolbarOptions: {
+                        reshapeVisible: true
+                    }
+                };
+
+                var params = {
+                    settings: settings
+                };
+                var myEditor = new Editor(params, 'editorDiv');
+                //define snapping options
+                var symbol = new SimpleMarkerSymbol(
+                    SimpleMarkerSymbol.STYLE_CROSS, 15,
+                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, 5), null);
+                map.enableSnapping({
+                    snapPointSymbol: symbol,
+                    tolerance: 20,
+                    snapKey: keys.ALT
+                });
+                myEditor.startup();
+            }
+        });
+    </script>
+
+</head>
+
+<body class="claro">
+    <div id="main" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="height:width:100%;height:100%;">
+        <div data-dojo-type="dijit.layout.ContentPane" id="header" data-dojo-props="region:'top'">
+            Edit Hydrography
+        </div>
+
+        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
+
+            <div data-dojo-type="dijit/layout/AccordionContainer">
+                <div data-dojo-type="dijit/layout/ContentPane" id="legendPane" data-dojo-props="title:'Legend'">
+                    <div id="legendDiv"></div>
+                </div>
+
+                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Editing Tools', selected:true">
+                    Editing Tool Pane
+                    <div id="templateDiv"></div>
+                    <div id="editorDiv"></div>
+                </div>
+            </div>
+        </div>
+
+        <div data-dojo-type="dijit/layout/ContentPane" id="map" data-dojo-props="region:'center'"></div>
+    </div>
+</body>
+
+</html>
