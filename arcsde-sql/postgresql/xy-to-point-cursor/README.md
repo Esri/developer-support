@@ -35,19 +35,19 @@ Create the test.xy table containing the coordinate values.
 Insert some initial values into the new test_xy table created above.
 
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
-		VALUES ( 'Iowa Heartland Development', 1601700.38827856, 592924.23589906, 1);
+		VALUES ( 'Iowa Heartland Development', 1601700.38827856, 592924.23589906);
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
-		VALUES ('Lumbermans Wholesale Company', 2303800.33381338, 501097.06751965, 2);
+		VALUES ('Lumbermans Wholesale Company', 2303800.33381338, 501097.06751965);
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
-		VALUES ( 'Plain Talk Publishing', 1610249.93843664, 579937.75662273, 3);
+		VALUES ( 'Plain Talk Publishing', 1610249.93843664, 579937.75662273);
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
-		VALUES ( 'Burlington Northern Sante Fe', 2180668.53184913, 359288.89378747, 4);
+		VALUES ( 'Burlington Northern Sante Fe', 2180668.53184913, 359288.89378747);
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
-		VALUES ( '800 22nd Avenue', 2160559.50579430, 618667.01873098, 5);
+		VALUES ( '800 22nd Avenue', 2160559.50579430, 618667.01873098);
 		
 Run one of the snippets	in xy-to-point-cursor.sql depending on which spatial type the target feature class uses.
 
