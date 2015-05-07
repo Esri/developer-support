@@ -25,6 +25,10 @@ namespace ConsoleApplication1
         {
             AGOL.AGOL agol = new AGOL.AGOL("username", "password");
             Console.WriteLine(agol.Token);
+            string creditInfo = String.Format("Our organization currently has {0} credits available",
+                agol.orgInfo.availableCredits);
+            Console.WriteLine(creditInfo);
+            Console.WriteLine(string.Format("{0} active users are in our organization",agol.users.total));
             Console.ReadKey();
         }
     }
