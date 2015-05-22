@@ -79,7 +79,7 @@ class ArcGISOnline(object):
         items = json.loads(Response.read())['items']
         for item in items:
             if item['title'] == webmapName and item['type'] == 'Web Map':
-                return item
+                return item['id']
 
     def UpdateItem(self, itemID, JSON):
         '''Updates the input webmap with the new JSON loaded,
