@@ -3,7 +3,7 @@
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>FeatureLayer using HeatmapRenderer</title>
+  <title>HeatmapRenderer Clientside</title>
   <link rel="stylesheet" href="//js.arcgis.com/3.13/dijit/themes/claro/claro.css">
   <link rel="stylesheet" href="//js.arcgis.com/3.13/esri/css/esri.css">
   <style>
@@ -55,7 +55,7 @@
         		var heatmapRenderer = new HeatmapRenderer();
         		var heatmapDefinition = heatmapRenderer.toJson();
         		
-        		/**
+        		/**  hey this json right here is the result of what toJson() will yield when called on a renderer object
 	        	var simpleJson = {
 	        		    "type": "simple",
 	        		    "label": "",
@@ -103,7 +103,7 @@
 	        			};
 	        	
 	        	clientLayer = new FeatureLayer(featureCollection, {id: 'clientLayer'});
-	        	clientLayer.setRenderer(heatmapRenderer);
+	        	clientLayer.setRenderer(heatmapRenderer); //apply the renderer to the layer 
 
         		map.addLayer(clientLayer);
         		console.log(clientLayer);
