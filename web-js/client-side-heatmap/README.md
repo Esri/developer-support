@@ -3,6 +3,7 @@
 This is a sample shows how to use the Heatmap Renderer against a layer completely constructed on the client.
 
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
+
 [HeatmapRender](https://developers.arcgis.com/javascript/jsapi/heatmaprenderer-amd.html)
 
 
