@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dynamic Layer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dojox/grid/resources/Grid.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dojox/grid/resources/claroGrid.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+    <style>
+    html, body, #mapDiv, .map.container {
+      padding:0;
+      margin:0;
+      height:100%;
+    }
+    </style>
+
+    <script src="http://js.arcgis.com/3.13/"></script>
+    <script>
+    require([
+      "esri/map", "esri/layers/FeatureLayer", "esri/tasks/query","esri/InfoTemplate",
+      "esri/tasks/GeometryService", "esri/layers/LayerMapSource",
+      "esri/layers/TableDataSource", "esri/layers/LayerDataSource", "esri/layers/JoinDataSource",
+      "esri/symbols/SimpleFillSymbol", "esri/renderers/SimpleRenderer", 
+      "esri/config",
+    
+      "esri/Color", 
+      "dojo/on",
+      "dojo/dom",
+      "dijit/registry",
+      "dojo/_base/array",
+      "dojo/parser",
+      "dojox/grid/DataGrid", 
+      "dojo/data/ItemFileReadStore",
+      "dijit/layout/BorderContainer",
+      "dijit/layout/ContentPane",
+      "dojo/domReady!"
+    ], function(
+      Map, FeatureLayer, Query, InfoTemplate,
+      GeometryService, LayerMapSource,
+      TableDataSource, LayerDataSource, JoinDataSource,
+      SimpleFillSymbol, SimpleRenderer, 
+      esriConfig,
+      Color,on,dom,registry,arrayUtils,parser,DataGrid,ItemFileReadStore
+    ) {
+      var map, zoom;
+       parser.parse();
+
+      esriConfig.defaults.geometryService = new GeometryService("http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+
+      map = new Map("map", {
+          basemap: "dark-gray",
+          center: [-120.837449,35.356079],
+          zoom: 13
+      });
+        
+      map.on("load", initOperationalLayer);
+
+      function initOperationalLayer() {
+          
+        //infoTemplate display style  
+        var content = "<b>ObjectID</b>: ${DOTNET.DBO.Polygon_test.OBJECTID}" + "<br /><b>Link</b>: ${test.DBO.Data_No_Spatial.link}";
+        var infoTemplate = new InfoTemplate("Dynamic Layer", content);
+
+          
+        //definte the layer's data source from a table 
+        var rightTableSource = new LayerDataSource();
+        rightTableSource.dataSource = new TableDataSource({
+            workspaceId: "tableDataLink",
+            dataSourceName: "test.DBO.Data_No_Spatial"
+        });
+          
+        //point to the jointed Table related to specific FeatureLayer ID
+        var leftTableSource = new LayerMapSource({
+            mapLayerId: 2
+        });
+        //create a layerDataSource to storage on the fly "join" data
+        var joinDataSource = new JoinDataSource({
+            joinType: "left-outer-join",
+            leftTableKey: "OBJECTID",
+            rightTableKey: "test.DBO.Data_No_Spatial.OBJECTID",
+            leftTableSource: leftTableSource,
+            rightTableSource: rightTableSource
+        });
+                  
+        //query the featurelayer with layerDataSource and list out all data in grid 
+        var layerDataSource = new LayerDataSource();
+        layerDataSource.dataSource = joinDataSource;
+            
+          
+        //create a new feature layer based on the table data source 
+        var featureLayer = new FeatureLayer("http://yuew.esri.com/arcgis/rest/services/JoinDataSource/MapServer/dynamicLayer", {
+          mode: FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"],
+          source: layerDataSource,
+          infoTemplate: infoTemplate,
+          id: "datalayer"
+        });
+
+        featureLayer.on("load", function(evt){
+          //project the extent if the map's spatial reference is different that the layer's extent.
+ 
+              var query = new Query();
+              query.where = "1=1";
+              query.outFields = ["*"];
+              featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(results){
+
+              var items = [];
+			  for (var i = 0; i < results.length; i++){
+					items[i] = results[i].attributes;	
+				}
+				
+				var data = {
+					identifier: "DOTNET.DBO.Polygon_test.OBJECTID",
+					label: "DOTNET.DBO.Polygon_test.OBJECTID",
+					items: items
+				};
+				
+				var store = new ItemFileReadStore({
+					data: data
+				});
+				
+				var grid = registry.byId("grid");
+				grid.setStore(store);
+				grid.on("rowclick");
+           }); 
+          
+          var gs = esriConfig.defaults.geometryService;
+
+        });
+
+        var renderer = new SimpleRenderer(
+          new SimpleFillSymbol("solid", null, new Color([255, 0, 255, 0.75]) // fuschia lakes!
+        ));
+
+        featureLayer.setRenderer(renderer);
+        featureLayer.setAutoGeneralize(false);
+        map.addLayer(featureLayer);
+        map.infoWindow.resize(250, 150);
+    }
+    });
+    </script>
+  </head>
+  
+  <body class="claro">
+  <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'"  style="width:100%;height:100%;margin:0;">
+    
+    <div id="map" data-dojo-props="region:'center'" data-dojo-type="dijit/layout/ContentPane" style="border:1px solid #000;"></div>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" style="height:150px;">
+     <table data-dojo-type="dojox/grid/DataGrid" data-dojo-id="grid"  id="grid" data-dojo-props="rowsPerPage:'5', rowSelector:'20px'">
+      <thead>
+        <tr>
+          <th field="DOTNET.DBO.Polygon_test.OBJECTID">OBJECTID</th>
+          <th field="DOTNET.DBO.Polygon_test.Location" >Location</th>
+		  <th field="test.DBO.Data_No_Spatial.link">Link<th>
+        </tr>
+      </thead>
+    </table>
+    </div>
+  </div>
+  </body>
+
+</html>
