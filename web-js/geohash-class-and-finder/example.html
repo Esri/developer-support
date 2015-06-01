@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GeohashEx</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+<script>
+var dojoConfig = { paths: { extras: location.pathname.replace(/\/[^/]+$/, "") + "/extras" }};
+</script>
+
+<style>
+html, body, #map {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+#info {
+	top: 20px;
+	height: auto;
+	font-family: arial;
+	right: 20px;
+	margin: 5px;
+	padding: 10px;
+	position: absolute;
+	width: 385px;
+	z-index: 40;
+	border-radius: 4px;
+}
+      
+#create{
+	display:none;
+}
+span.btn, span.btn:link, span.btn:visited {
+	font-family: Montserrat,Verdana , Geneva, Tahoma, Arial, Helvetica, sans-serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    background-color: #555555;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 1px solid #555555;
+    border-radius: 0;
+    margin-top: 10px;
+    font-size: 16px;
+    padding: 8px 26px;
+    font-weight: normal;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+span.btn:hover, span.btn:active {
+    background-color:#ffffff;
+    color:#555555;            
+}
+span.btn:hover, span.btn:active {
+    background-color:#ffffff;
+    color:#555555;            
+}
+</style>
+<script src="http://js.arcgis.com/3.13/"></script>
+
+<script>
+	var map, tb, editor, sfs;
+	var hashbucket = [];
+	require([ "esri/map", "esri/geometry/Extent", "esri/graphic","esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color", "esri/toolbars/draw","esri/toolbars/edit","esri/geometry/webMercatorUtils","esri/geometry/geometryEngine", "dojo/on", "dojo/query", "extras/GeohashEx" ], function(
+			Map, Extent, Graphic, SimpleFillSymbol, SimpleLineSymbol, Color, Draw, Edit, GeoUtils, geometryEngine, on, $, GeohashEx) {
+		map = new Map("map", {
+			center : [ -73.985428, 40.748817 ],
+			zoom : 14,
+			basemap : "gray"
+		});
+		
+		sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+			    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+			    new Color([50,50,50, 0.80]), 2),new Color([200,200,200,.5])
+			  );
+		
+		
+		$('#draw').on("click", initDraw);
+		
+		function initDraw(evt){
+			map.graphics.clear();
+			tb = new Draw(map);
+			tb.on("draw-end", getHashes);
+			map.disableMapNavigation();
+            tb.activate(Draw.FREEHAND_POLYGON);	
+		}
+		
+		function getHashes(evt){
+			tb.deactivate();
+			if(editor){
+				editor.deactivate();
+			}
+			var graphic = new Graphic(evt.geometry, sfs, {id:1});
+			editor = new Edit(map);
+			editor.activate(Edit.EDIT_VERTICES , graphic);
+			map.graphics.add(graphic);
+			var geom = GeoUtils.webMercatorToGeographic(evt.geometry.getExtent());
+			var geohash = new GeohashEx();
+			var minLat = geom.ymin;
+			var minLon = geom.xmin;
+			var maxLat = geom.ymax;
+			var maxLon = geom.xmax;
+            var numberOfChars = 8;
+			var hashes = geohash.bboxes(minLat, minLon, maxLat, maxLon, numberOfChars);
+			for(i=0;i<hashes.length;i++){
+				var hash = hashes[i];
+				displayHash(hash);
+			}
+			console.log(hashbucket);
+			map.enableMapNavigation();
+			map.graphics.clear();
+			var geoms = [];
+			for(i=0;i<hashbucket.length;i++){
+				map.graphics.add(hashbucket[i]);
+				geoms.push(hashbucket[i].geometry);
+			}
+			var union = geometryEngine.union(geoms);
+			console.log(union);
+			var union = GeoUtils.geographicToWebMercator(union);
+			map.setExtent(union.getExtent(), true);
+		}
+
+		function displayHash(hash) {
+			var geohash = new GeohashEx();
+			var hashPoints = geohash.decode_bbox(hash);
+			var extent = new Extent({
+				"xmin" : hashPoints[1],
+				"ymin" : hashPoints[0],
+				"xmax" : hashPoints[3],
+				"ymax" : hashPoints[2],
+				"spatialReference" : {
+					"wkid" : 4326
+				}
+			});
+			var graphic = new Graphic(extent, sfs, {"geohash": hash});
+			hashbucket.push(graphic);
+		}
+	});
+</script>
+</head>
+<body>
+    <div id="info">
+        <span class="btn" id="draw">Find Geohashes Tool</span>
+    </div>
+	<div id="map"></div>
+</body>
+</html>
