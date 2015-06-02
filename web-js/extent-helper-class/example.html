@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>Extent Chopper</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+
+<style>
+html, body, #map {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+</style>
+
+<script>
+var dojoConfig = { paths: { extras: location.pathname.replace(/\/[^/]+$/, "") + "/extras" }};
+</script>
+
+<script src="http://js.arcgis.com/3.13/"></script>
+
+<script>
+	var map, tb, editor, sfs, sms;
+	var hashbucket = [];
+	require([ "esri/map", "esri/geometry/Extent", "extras/ExtentEx", "esri/graphic","esri/symbols/SimpleFillSymbol", "esri/symbols/SimpleLineSymbol", "esri/Color", "esri/toolbars/draw","esri/toolbars/edit","esri/geometry/webMercatorUtils","esri/geometry/geometryEngine", "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol","esri/SpatialReference", "dojo/on", "dojo/query" ], function(
+			Map, Extent, ExtentEx, Graphic, SimpleFillSymbol, SimpleLineSymbol, Color, Draw, Edit, GeoUtils, geometryEngine, Point, SimpleMarkerSymbol, SpatialReference, on, $) {
+		
+		//setSearchExtent - https://developers.arcgis.com/android/api-reference/reference/com/esri/core/tasks/geocode/LocatorFindParameters.html#setSearchExtent(com.esri.core.geometry.Envelope, com.esri.core.geometry.SpatialReference)
+		
+		var initialExtent = new esri.geometry.Extent({"xmin":244598,"ymin":6241389,"xmax":278995,"ymax":6264320,"spatialReference":{"wkid":102100}});
+		
+		map = new Map("map", {
+			extent: initialExtent,
+			basemap : "topo"
+		});
+		
+		sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+			    new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+			    new Color([50,50,50, 0.80]), 2),new Color([200,200,200,.5])
+			  );
+		
+		map.on("extent-change", function(evt){
+			createKeyGeometries(evt.extent);
+		});
+		
+		function createKeyGeometries(extent){
+			map.graphics.clear();
+			var extentEx = new ExtentEx(extent);
+			var extents = extentEx.getQuardrants();
+			for (var property in extents) {
+			    if (extents.hasOwnProperty(property)) {
+			    		var geom = extents[property];
+			    		var graphic = new Graphic(geom, sfs);
+					map.graphics.add(graphic);
+			    }
+			}
+			//Dice up the top left extent envelope further
+			var topLeftExtent = extentEx.getTopLeftQuadrant();
+			var extentEx = new ExtentEx(topLeftExtent); //Passing in the top left extent envelope quadrant
+			var extents = extentEx.getQuardrants();
+			for (var property in extents) {
+			    if (extents.hasOwnProperty(property)) {
+			    		var geom = extents[property];
+			    		var graphic = new Graphic(geom, sfs);
+					map.graphics.add(graphic);
+			    }
+			}
+			//Dice up the lower right extent envelop further within the topLeftExent (created just before)
+			var bottomRightExtent = extentEx.getBottomRightQuadrant();
+			var extentEx = new ExtentEx(bottomRightExtent); //Passing in the top left extent envelope quadrant
+			var extents = extentEx.getQuardrants();
+			for (var property in extents) {
+			    if (extents.hasOwnProperty(property)) {
+			    		var geom = extents[property];
+			    		var graphic = new Graphic(geom, sfs);
+					map.graphics.add(graphic);
+			    }
+			}
+			
+		}
+
+		});
+
+</script>
+</head>
+<body>
+	<div id="map"></div>
+</body>
+</html>
