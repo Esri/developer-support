@@ -23,6 +23,7 @@ Feel free to file an [issue](https://github.com/Esri/developer-support/issues/ne
 * Create a new folder for each new sample
 * Add a readme file describing what the code achieves and how to run it
 * Remove framework files and unnecessary files
+* Try to keep screenshots under 1MB (~800px) whenever possible
 
 ### Resources
 
