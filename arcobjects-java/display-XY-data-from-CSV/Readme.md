@@ -5,7 +5,8 @@ You have a CSV or text file that you would like to display in ArcMap after click
 * Change lines 52-55 to point to your feature data location and to point to your X and Y Fields.
 * Using an Add-in button, insert the code into the add-in.
 * Run
-####Authors
+
+######Authors
 Kwasi Asante
 
 Alexander Nohe
