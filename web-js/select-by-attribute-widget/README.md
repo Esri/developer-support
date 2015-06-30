@@ -44,21 +44,21 @@ map.on("layers-add-result", function () {
 	myWidget.startup();
 });
 ```
-Constructor:
-SelectByAtt(options, "Html Element Id")
-options = {
-	map: <Map object>
-	layers: <FeatureLayer []>
-}
+Constructor:<br/>
+SelectByAtt(options, "Html Element Id")<br/>
+options = {<br/>
+	map: Map object<br/>
+	layers: FeatureLayer []<br/>
+}<br/>
 
-Properties:
+Properties:<br/>
 String currentAttribute = The currently selected attribute.<br/>
 FeatureSet currentResults = The results of the most recent query.<br/>
 FeatureLayer[] layers = The list of feature layers used by the widget.<br/>
 Map map = The map object the widget is associated with.<br/>
 String[] queryList = The list of saved queries.<br/>
 
-Methods:
+Methods:<br/>
 applyQuery() - Submits the query but does not close the widget.<br/>
 addLayers(FeatureLayer[]) - Adds the pushes the feature layers in the array onto the current layer list.<br/>
 clearQuery() - Clears the query text field of the widget.<br/>
