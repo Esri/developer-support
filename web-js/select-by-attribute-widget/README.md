@@ -43,7 +43,7 @@ map.on("layers-add-result", function () {
 	}, "attributeSelection");
 	myWidget.startup();
 });
-
+```
 ##Constructor
 SelectByAtt(options, "Html Element Id")
 options = {
