@@ -44,29 +44,29 @@ map.on("layers-add-result", function () {
 	myWidget.startup();
 });
 ```
-##Constructor
+Constructor:
 SelectByAtt(options, "Html Element Id")
 options = {
 	map: <Map object>
 	layers: <FeatureLayer []>
 }
 
-##Properties:
-String currentAttribute = The currently selected attribute.
-FeatureSet currentResults = The results of the most recent query.
-FeatureLayer[] layers = The list of feature layers used by the widget.
-Map map = The map object the widget is associated with.
-String[] queryList = The list of saved queries.
+Properties:
+String currentAttribute = The currently selected attribute.<br/>
+FeatureSet currentResults = The results of the most recent query.<br/>
+FeatureLayer[] layers = The list of feature layers used by the widget.<br/>
+Map map = The map object the widget is associated with.<br/>
+String[] queryList = The list of saved queries.<br/>
 
-##Methods:
-applyQuery() - Submits the query but does not close the widget.
-addLayers(FeatureLayer[]) - Adds the pushes the feature layers in the array onto the current layer list.
-clearQuery() - Clears the query text field of the widget.
-getHelp() - Opens an SQL syntax reference document in a new browser tab.
-hide() - Hides the widget.
-loadQuery() - Load the most recent saved query from memory and adds it to the query area. Clicking this button again will load the second most recent query, etc.
-removeLayers(FeatureLayer[]) - Removes the feature layers in the array from the current layer list.
-saveQuery() - Pushes the current query to the widget's query array.
-show() - Makes the widget visible.
-submitQuery() - Submits the current query and closes the widget.
-verifyQuery() - Checks to see if the current query is valid.
+Methods:
+applyQuery() - Submits the query but does not close the widget.<br/>
+addLayers(FeatureLayer[]) - Adds the pushes the feature layers in the array onto the current layer list.<br/>
+clearQuery() - Clears the query text field of the widget.<br/>
+getHelp() - Opens an SQL syntax reference document in a new browser tab.<br/>
+hide() - Hides the widget.<br/>
+loadQuery() - Load the most recent saved query from memory and adds it to the query area. Clicking this button again will load the second most recent query, etc.<br/>
+removeLayers(FeatureLayer[]) - Removes the feature layers in the array from the current layer list.<br/>
+saveQuery() - Pushes the current query to the widget's query array.<br/>
+show() - Makes the widget visible.<br/>
+submitQuery() - Submits the current query and closes the widget.<br/>
+verifyQuery() - Checks to see if the current query is valid.<br/>
