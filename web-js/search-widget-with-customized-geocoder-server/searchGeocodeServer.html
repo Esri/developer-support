@@ -94,13 +94,15 @@
 
          map = new Map("map", {
             basemap: "dark-gray",
-            center: [-84.392537,33.760878], // lon, lat
-            zoom: 12
+            center: [-122.029133,47.521962], // lon, lat
+            zoom: 10
          });
          //ArcGIS Online feature service showing ecological footprints taken from Global FootPrint Network, 
          //more information on this can be found http://jsapi.maps.arcgis.com/home/item.html?id=0f4c89208dce44b583d9219d843591c3
-         var layer = new FeatureLayer("http://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/Atlanta_City_GA/FeatureServer/0", {
-            outFields: ["*"]
+         var layer = new FeatureLayer("http://services.arcgis.com/Ej0PsM5Aw677QF1W/arcgis/rest/services/KingCountySchoolDistricts/FeatureServer/0", {
+            outFields: ["*"],
+            mode: FeatureLayer.MODE_ONDEMAND,
+            opacity: 0.3
          });
          map.addLayer(layer);
 
@@ -112,16 +114,17 @@
             //passing in empty source array to clear defaults such as 
             //"All" and the ArcGIS Online World Geocoding service
             sources: [],
-            zoomScale: 110000
+            zoomScale: 5000000
          }, "search");
 
          //listen for the load event and set the source properties 
          search.on("load", function () {
-            var sources = search.sources;
-            var locator = new Locator("http://nwu-win7.esri.com/server/rest/services/AtlantaGeolocator/GeocodeServer");
+            var sources = search.sources; 
+            // In order to make suggestion works for GeocodeServer, user need to use ArcGIS 10.3 or later version and enable "Suggest" capability when publishing services, for more information please check our online documentation: https://developers.arcgis.com/javascript/jsapi/search-amd.html#enablesuggestions
+            var locator = new Locator("http://arclogistics.arcgisonline.com/arcgis/rest/services/King_County/GeocodeServer");
             sources.push({
                locator: locator,
-               singleLineFieldName: "Single Line Input",
+               singleLineFieldName: "SingleLine",
                maxSuggestions: 3,
                placeholder: "Please type street name",
                enableLabel: false,
