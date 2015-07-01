@@ -5,7 +5,16 @@ This is a sample shows how to use Search Widget (esri/dijit/Search) to perform s
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 [Search](https://developers.arcgis.com/javascript/jsapi/search-amd.html)
 
-## Extended based on the sample 
+## Pay Attention when using Search Widget on GeocodeServer
+If you want to have auto suggestions when input an address for search widget to automatically return close result, there are two requirements need to follow:  
+1. GeocodeServer must published from ArcGIS Server 10.3 or later version
+2. The server must enabled "Suggest" capability, see the below screenshot
+
+![Alt text](https://cloud.githubusercontent.com/assets/5265346/8464836/1abf11aa-1ffa-11e5-82d1-74180a21e51b.JPG "Enable "Suggest" capability")
+
+## Extended based on the sample GeocodeServer is
+published from ArcGIS Server 10.3 or later and must enabled "Suggest"
+capability
 Search with customization
 https://developers.arcgis.com/javascript/jssamples/search_customized.html
 
@@ -15,3 +24,4 @@ https://developers.arcgis.com/javascript/jssamples/search_customized.html
 * Contains code showing how to combine search widget with locator to perform the search query on geocode server 
 
 NOTE: Feel free to update to this repo!
+EXPLICIT: This is a demo server and not intended for use for anything other than testing. The demo server within this sample is not intended for use for anything other than testing!
