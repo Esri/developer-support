@@ -57,22 +57,10 @@ public class AddXYData extends Button {
 	private static IApplication app;
 	private static IMxDocument mxDoc;
 
-	void initializeArcGISLicenses() {
-		try {
-			com.esri.arcgis.system.AoInitialize ao = new com.esri.arcgis.system.AoInitialize();
-			if (ao.isProductCodeAvailable(com.esri.arcgis.system.esriLicenseProductCode.esriLicenseProductCodeEngine) == com.esri.arcgis.system.esriLicenseStatus.esriLicenseAvailable)
-				ao.initialize(com.esri.arcgis.system.esriLicenseProductCode.esriLicenseProductCodeEngine);
-			else if (ao.isProductCodeAvailable(com.esri.arcgis.system.esriLicenseProductCode.esriLicenseProductCodeAdvanced) == com.esri.arcgis.system.esriLicenseStatus.esriLicenseAvailable)
-				ao.initialize(com.esri.arcgis.system.esriLicenseProductCode.esriLicenseProductCodeAdvanced);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public void init(IApplication app) {
 	    AddXYData.app = app;
-	    //initializeArcGISLicenses();
 	  }
 
 	public boolean isChecked() {
