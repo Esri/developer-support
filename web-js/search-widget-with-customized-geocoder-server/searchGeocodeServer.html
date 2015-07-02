@@ -84,27 +84,18 @@
 
       require([
       "esri/map",
-      "esri/layers/FeatureLayer",
       "esri/dijit/Search",
       "esri/tasks/locator",
       "esri/symbols/PictureMarkerSymbol",
       "esri/InfoTemplate",
       "dojo/domReady!"
-      ], function (Map, FeatureLayer, Search, Locator, PictureMarkerSymbol, InfoTemplate) {
+      ], function (Map, Search, Locator, PictureMarkerSymbol, InfoTemplate) {
 
          map = new Map("map", {
             basemap: "dark-gray",
             center: [-122.029133,47.521962], // lon, lat
             zoom: 10
          });
-         //ArcGIS Online feature service showing ecological footprints taken from Global FootPrint Network, 
-         //more information on this can be found http://jsapi.maps.arcgis.com/home/item.html?id=0f4c89208dce44b583d9219d843591c3
-         var layer = new FeatureLayer("http://services.arcgis.com/Ej0PsM5Aw677QF1W/arcgis/rest/services/KingCountySchoolDistricts/FeatureServer/0", {
-            outFields: ["*"],
-            mode: FeatureLayer.MODE_ONDEMAND,
-            opacity: 0.3
-         });
-         map.addLayer(layer);
 
          //Create search widget
          var search = new Search({
@@ -119,8 +110,10 @@
 
          //listen for the load event and set the source properties 
          search.on("load", function () {
+             
             var sources = search.sources; 
             // In order to make suggestion works for GeocodeServer, user need to use ArcGIS 10.3 or later version and enable "Suggest" capability when publishing services, for more information please check our online documentation: https://developers.arcgis.com/javascript/jsapi/search-amd.html#enablesuggestions
+            
             var locator = new Locator("http://arclogistics.arcgisonline.com/arcgis/rest/services/King_County/GeocodeServer");
             sources.push({
                locator: locator,
