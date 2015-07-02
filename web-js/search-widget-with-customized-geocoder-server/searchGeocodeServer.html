@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html dir="ltr">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+   <title>ArcGIS API for JavaScript | Customize Search widget for Geocode Server</title>
+   <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
+   <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
+   <style>
+      html,
+      body,
+      #map,
+      .map.container {
+         padding: 0;
+         margin: 0;
+         height: 100%;
+         width: 100%;
+      }
+      #info {
+         top: 2px;
+         color: #444;
+         height: auto;
+         font-family: arial;
+         font-weight: bold;
+         left: 69px;
+         margin: 5px;
+         padding: 10px;
+         position: absolute;
+         width: 260px;
+         z-index: 40;
+         border: solid 1px #003300;
+         border-radius: 4px;
+         background-color: #E5E5E5;
+      }
+      #search {
+         display: block;
+         position: absolute;
+         z-index: 2;
+         top: 85px;
+         left: 74px;
+      }
+      /*Beginning of search box modifications*/
+      .arcgisSearch .searchClear {
+         background-color: #E5E5E5;
+      }
+
+      .arcgisSearch .searchGroup .searchInput,
+      .arcgisSearch .searchBtn,
+      .arcgisSearch .noResultsMenu,
+      .arcgisSearch .suggestionsMenu {
+         border: 1px solid #003300;
+         background-color: #E5E5E5;
+      }
+      .arcgisSearch .noValueText {
+         color: red;
+         font-size: 14px;
+      }
+      /*Beginning of popup modifications*/
+      .esriPopup .titlePane {
+         background-color: #003300;
+         border-bottom: 1px solid #121310;
+         font-weight: bold;
+      }
+      .esriPopup a {
+         color: #DAE896;
+      }
+      .esriPopup .contentPane,
+      .esriPopup .actionsPane,
+      .esriPopup .pointer,
+      .esriPopup .outerPointer {
+         background-color: #B3B3B3;
+      }
+   </style>
+
+   <script>
+      var dojoConfig = {
+         parseOnLoad: true
+      };
+   </script>
+   <script src="http://js.arcgis.com/3.13/"></script>
+
+   <script>
+      var map;
+
+      require([
+      "esri/map",
+      "esri/dijit/Search",
+      "esri/tasks/locator",
+      "esri/symbols/PictureMarkerSymbol",
+      "esri/InfoTemplate",
+      "dojo/domReady!"
+      ], function (Map, Search, Locator, PictureMarkerSymbol, InfoTemplate) {
+
+         map = new Map("map", {
+            basemap: "dark-gray",
+            center: [-122.029133,47.521962], // lon, lat
+            zoom: 10
+         });
+
+         //Create search widget
+         var search = new Search({
+            enableLabel:false,
+            enableInfoWindow: true,
+            map: map,
+            //passing in empty source array to clear defaults such as 
+            //"All" and the ArcGIS Online World Geocoding service
+            sources: [],
+            zoomScale: 5000000
+         }, "search");
+
+         //listen for the load event and set the source properties 
+         search.on("load", function () {
+             
+            var sources = search.sources; 
+            // In order to make suggestion works for GeocodeServer, user need to use ArcGIS 10.3 or later version and enable "Suggest" capability when publishing services, for more information please check our online documentation: https://developers.arcgis.com/javascript/jsapi/search-amd.html#enablesuggestions
+            
+            var locator = new Locator("http://arclogistics.arcgisonline.com/arcgis/rest/services/King_County/GeocodeServer");
+            sources.push({
+               locator: locator,
+               singleLineFieldName: "SingleLine",
+               maxSuggestions: 3,
+               placeholder: "Please type street name",
+               enableLabel: false,
+               exactMatch: false,
+               outFields: ["*"],
+               highlightSymbol: new PictureMarkerSymbol('https://cdn0.iconfinder.com/data/icons/20-flat-icons/128/location-pointer.png',26,33).setOffset(1,1),
+               //Create an InfoTemplate and include three fields
+               infoTemplate: new InfoTemplate("Address Locator", "Address: ${Match_addr}</br>")
+            });
+            //Set the sources above to the search widget
+            search.set("sources", sources);
+         });
+         search.startup();
+      });
+   </script>
+</head>
+
+<body>
+   <div id="search"></div>
+   <div id="info">
+      <div>Using a customized Geocoder Server to find street by using JS "Search Widget"</div>
+   </div>
+   <div id="map"></div>
+</body>
+</html>
