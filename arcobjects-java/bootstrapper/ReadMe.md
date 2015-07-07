@@ -14,7 +14,7 @@ If you have ArcGIS Engine Runtime installed and are trying to use this as your r
 The bootstrapper would need to be your main class with your application being invoked from it.  To do this, you would change line 30 in the main method to reflect your class and main method.
 
 ## References
-* [Deployment guide - Bootstrapping](http://resources.esri.com/help/9.3/ArcGISengine/java/doc/08bcd66b-0018-43e1-b509-7061f9dd516e.htm#Bootstrap)
+* [Deployment guide - Bootstrapping](http://resources.arcgis.com/en/help/arcobjects-java/concepts/engine/index.html#//000100000694000000#Bootstrap)
 * [Unable to initialize ArcObjects environment (Java API)](https://geonet.esri.com/thread/16649)
 
 ###### Compiled By
