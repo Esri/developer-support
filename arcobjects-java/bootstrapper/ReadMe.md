@@ -6,9 +6,9 @@ Since all ArcGIS Engine Java applications reference class files from the arcobje
 ### Binding
 The argument on line 44 would need to be changed to reflect which library you are binding to.
 #### Desktop Binding
-If you have ArcGIS Desktop installed and are trying to use the Engine runtime that is packaged with desktop, then use the AGSDESKTOPJAVA. This environment variable will point to the runtime location of where ArcGIS Desktop is installed on the machine.
+If you have ArcGIS Desktop installed and are trying to use the Engine runtime that is packaged with desktop, then use the **AGSDESKTOPJAVA**. This environment variable will point to the runtime location of where ArcGIS Desktop is installed on the machine.
 #### Engine Binding
-If you have ArcGIS Engine Runtime installed and are trying to use this as your runtime, then use the AGSENGINEJAVA environment variable. This environment variable will point to the runtime location of where ArcGIS Engine is installed on the machine.
+If you have ArcGIS Engine Runtime installed and are trying to use this as your runtime, then use the **AGSENGINEJAVA** environment variable. This environment variable will point to the runtime location of where ArcGIS Engine is installed on the machine.
 
 ### Invoke your application within the Bootstrapper
 The bootstrapper would need to be your main class with your application being invoked from it.  To do this, you would change line 30 in the main method to reflect your class and main method.
