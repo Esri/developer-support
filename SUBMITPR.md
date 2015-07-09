@@ -18,7 +18,7 @@ This guide outlines the step by step instructions for submitting a pull request 
 ![alt text](repository-images/fork.PNG "Fork")
 
 
-* Clone a copy of the repository locally by clicking the "Clone in desktop" or "Download ZIP" button
+* Clone a copy of the repository locally by clicking the "Clone in desktop" button
 
 ![alt text](repository-images/cloneInDesktop.PNG "Clone in desktop")
 
