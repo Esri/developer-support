@@ -10,7 +10,7 @@ Much of the code contained in this repository is samples created by Esri staff t
 
 ## Contributing
 
-Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md). 
+Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md).
 
 ## Licensing
 Copyright 2015 Esri
@@ -29,6 +29,8 @@ limitations under the License.
 
 A copy of the license is available in the repository's [license.txt](/license.txt) file.
 
+## Welcome to our toolbox!
+![alt text](repository-images/supportdeskdrawer.png "Desk Drawer")
 
 [](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets)
 [](Esri Language: Mixed)
