@@ -11,10 +11,7 @@ This sample generates random points around Seattle, Washington and then geoenric
 ## Features
 
 * Shows how to geoenrich through basic HTTP requests
-* This sample uses the resource-proxy 
+* This sample uses the resource-proxy [https://github.com/Esri/resource-proxy](https://github.com/Esri/resource-proxy)
 
 
 NOTE: Feel free to contribute new templates to this repo!
-
-[Live Sample](http://esri.github.io/developer-support/web-js/geoenrich-esri-request/index.html)
-* Live sample requires user to sign in and will consume credits
