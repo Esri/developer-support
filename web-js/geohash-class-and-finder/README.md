@@ -13,7 +13,7 @@ understand and use geohashes.
 * Generated geohashes that conform to the ArcGIS Extent Geometry type
 * Enables visualization of geohashes
 * Encode geohashes
-* Decode geohashes 
+* Decode geohashes
 
 ##Credits
 
@@ -27,3 +27,5 @@ understand and use geohashes.
 ![alt text](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/geohashes.png "Client heatmap")
 
 NOTE: Feel free to update to this repo!
+
+[Live Sample](http://esri.github.io/developer-support/web-js/geohash-class-and-finder/example.html)

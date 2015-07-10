@@ -5,6 +5,7 @@ Using the ArcGIS GeoEvent Extension, you can create stream services which allows
 
 [Click here](https://server.arcgis.com/en/geoevent-extension/latest/process-event-data/stream-services.htm#GUID-B2A2BF7A-3946-4CBC-BA07-A657524EE5BE) to learn more regarding Stream Services.
 
+[Live Sample](http://esri.github.io/developer-support/web-js/stream-service-uniqueValueRenderer/streamLayerUniqueVRend.html)
 
 ##Requirements
 Please note that this sample requires you to publish your own Stream Service. For assistance please refer to the following [tutorial](http://www.arcgis.com/home/item.html?id=b087b8193b55465cb94d4c451dd541ac).

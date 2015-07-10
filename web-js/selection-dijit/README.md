@@ -1,9 +1,9 @@
 #Selection Widget / Dijit POC
 
-This is a working sample that applies the dojo dijit framework making it possible to search for location and then define a 
-distance or a drive time to generate a useful geometry to then query a layer or layers of interest.  This tool is designed to 
+This is a working sample that applies the dojo dijit framework making it possible to search for location and then define a
+distance or a drive time to generate a useful geometry to then query a layer or layers of interest.  This tool is designed to
 take the search characteristics found in the [Site Selector](http://tryitlive.arcgis.com/SiteSelector/) application
-and deliver them in a single widget, see tool usage section below.   
+and deliver them in a single widget, see tool usage section below.
 
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 
@@ -13,14 +13,14 @@ and deliver them in a single widget, see tool usage section below.
 
 [Writing widgets](http://dojotoolkit.org/reference-guide/1.9/quickstart/writingWidgets.html)
 
-
+[Live Sample](http://esri.github.io/developer-support/web-js/selection-dijit/index.html)
 
 ## Features
 
-* Lots of programatic DOM element creation using dojo/dom-construct 
+* Lots of programatic DOM element creation using dojo/dom-construct
 * Geocode Widget events like select and clear
 * Class based javascript pattern applied
-* Suggestions appear while geocoding 
+* Suggestions appear while geocoding
 * Advanced CSS rules overriding Dojo default styles
 
 
