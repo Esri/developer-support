@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thumbnails and Items</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <link href="http://js.arcgis.com/3.13/esri/css/esri.css" rel="stylesheet">
+  <style>
+      span.btn, span.btn:link, span.btn:visited {
+      display: inline-block;
+      font-family: Montserrat,Verdana , Geneva, Tahoma, Arial, Helvetica, sans-serif;
+      color: #FFFFFF;
+      text-decoration: none;
+      background-color: #555555;
+
+      border: 1px solid #555555;
+      border-radius: 0;
+      margin-top: 20px;
+      margin-left: 20px;
+      font-size: 16px;
+      padding: 8px 26px;
+      font-weight: normal;
+      -webkit-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      -o-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    span.btn:hover, span.btn:active {
+      background-color:#ffffff;
+      color:#555555;            
+    }
+    span.btn:hover, span.btn:active {
+      background-color:#ffffff;
+      color:#555555;            
+    }    
+    .failure { color: red; }
+    #status { font-size: 12px; }
+  </style>
+  <script src="http://js.arcgis.com/3.13/"></script>
+  <script>
+  require(["dojo/_base/json", "dojo/dom-construct", "esri/urlUtils", "dojo/dom", "dojo/on", "dojo/dom-class", "dojo/_base/json", "esri/request", "dojo/domReady!"], 
+            function(dojoJson, domConstruct, urlUtils, dom, on, domClass, dojoJson, esriRequest) {
+
+        esriConfig.defaults.io.proxyUrl = "../proxy/proxy.php";
+        on(dom.byId("run"), "click", getThumbnail);
+        
+          
+          /*
+          b9b1b422198944fbbd5250b3241691b6
+          6e03e8c26aad4b9c92a87c1063ddb0e3
+          86de95d4e0244cba80f0fa2c9403a7b2
+          1e126e7520f9466c9ca28b8f28b5e500
+          5605d19e7fca443492f7cd1b90675a57
+          c09e5dcdcc1c45289396a3a7d82eb782
+          */
+          
+          function getThumbnail(){
+          
+          var item = "48b8cec7ebf04b5fbdcaf70d09daff21";
+          var url = "http://startups.maps.arcgis.com/sharing/rest/content/items/" + item;
+          var requestHandle = esriRequest({
+            "url": url,
+            "content": {
+              "f": "json",
+            },
+            "handeAs": "json"
+          });
+          requestHandle.then(requestSucceeded, requestFailed);
+          
+          //http://www.arcgis.com/sharing/rest/content/items/b9b1b422198944fbbd5250b3241691b6?f=pjson
+          }
+        
+        function requestSucceeded(response, io){
+                var thumbnailUrl = "https://www.arcgis.com/sharing/rest/content/items/" + response.id + "/info/" + response.thumbnail;
+                var container = dom.byId("thumbnail-container");
+                console.log(thumbnailUrl);
+                var thumbnail = domConstruct.toDom('<img id="thumbnail1" src="'+ thumbnailUrl + '"/>');
+                domConstruct.place(thumbnail, container);
+        }
+        function requestFailed(error, io){
+
+          console.log("Error: " + error);
+
+        }
+
+    });
+  </script>
+</head>
+
+<body>
+  <span class="btn" id="run">Click here to create thumbnail</span>
+
+  <div style="margin:40px; display:block;" id="thumbnail-container"></div>
+</body>
+</html>
