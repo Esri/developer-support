@@ -6,6 +6,8 @@ This sample generates random points around Seattle, Washington and then geoenric
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 
 [webMercatorToGeographic()](https://developers.arcgis.com/javascript/jsapi/esri.geometry.webmercatorutils-amd.html#webmercatortogeographic)
+
+
 [dojo/deferred::progress](http://dojotoolkit.org/reference-guide/1.10/dojo/Deferred.html)
 
 ## Features
