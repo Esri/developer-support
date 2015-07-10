@@ -30,7 +30,7 @@ limitations under the License.
 A copy of the license is available in the repository's [license.txt](/license.txt) file.
 
 ## Welcome to our toolbox!
-![alt text](repository-images\supportdeskdrawer.png "Desk Drawer")
+![alt text](repository-images/supportdeskdrawer.png "Desk Drawer")
 
 [](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets)
 [](Esri Language: Mixed)
