@@ -8,7 +8,7 @@ This is a sample app that creates a dropdown of features that when selected, are
 
 [expand()](https://developers.arcgis.com/javascript/jsapi/extent-amd.html#expand)
 
-
+* [Live Sample](http://esri.github.io/developer-support/web-js/select-box-zoom-to/index.html)
 
 ## Features
 
@@ -18,6 +18,9 @@ This is a sample app that creates a dropdown of features that when selected, are
 * To control the extent after the map zooms in, the method feature.geometry.getExtent().expand() is used to find the extent of the feature, and then zoom out a specified amount.
 * The selected feature's symbology is changed
 * The feature's popup is programatically displayed
-* uses version 3.10 of the JS API, but should be able to be upgraded conveniently. 
+* uses version 3.10 of the JS API, but should be able to be upgraded conveniently.
 
 NOTE: Feel free to update to this repo, especially if you are aware of any methods to make the zooming smoother!
+
+
+

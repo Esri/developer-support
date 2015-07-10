@@ -28,3 +28,5 @@ https://developers.arcgis.com/javascript/jssamples/search_customized.html
 NOTE: Feel free to update to this repo!
 
 **EXPLICIT: The demo server within this sample is not intended for use for anything other than testing!**
+
+[Live Sample](http://esri.github.io/developer-support/web-js/search-widget-with-customized-geocoder-server/searchGeocodeServer.html)

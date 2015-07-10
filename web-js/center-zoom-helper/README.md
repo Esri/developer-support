@@ -11,6 +11,8 @@ This is a sample app that displays the current basemap, zoom level and centerpoi
 * written in AMD
 * A red cursor is drawn at the current map center each time the extent changes or someone clicks on the map
 * The clientside utility webMercatorUtils.webMercatorToGeographic() is used to convert the web mercator mapPoint to the WGS84 coordinates which can be conveniently inserted in the map constructor.
-* uses version 3.8 of the JS API, but should be able to be upgraded conveniently. 
+* uses version 3.8 of the JS API, but should be able to be upgraded conveniently.
 
 NOTE: Feel free to contribute new templates to this repo!
+
+[Live Sample](http://esri.github.io/developer-support/web-js/center-zoom-helper/index.html)

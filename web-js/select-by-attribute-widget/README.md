@@ -5,6 +5,8 @@ This widget attempts to recreate ArcMap's select by attributes tool as accuratel
 
 [Select by Attribute Widget Sample](https://dl.dropboxusercontent.com/u/79881075/SelectByAtt/index.html)
 
+[Live Sample](http://esri.github.io/developer-support/web-js/select-by-attribute-widget/SelectByAtt/index.html)
+
 ##Usage notes:
 The following code snippets show how to use the widget in your application
 

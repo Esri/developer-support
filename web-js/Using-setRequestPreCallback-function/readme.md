@@ -9,3 +9,5 @@ E.g Try Searching for London you will get the geocoder to locate at London Ohio,
 
 Thanks,
 Akshay H
+
+[Live Sample](http://esri.github.io/developer-support/web-js/Using-setRequestPreCallback-function/PreCallback_findAddressCandidates.html)

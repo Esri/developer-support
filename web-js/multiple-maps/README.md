@@ -14,6 +14,8 @@ This is a sample app with multiple maps that have linked extents.  The applicati
 * Uses deferred statements to manage the flow of asynchronous events
 * Written in AMD
 * Uses the map "load" and "extent-change" events
-* uses version 3.10 of the JS API, but should be able to be upgraded conveniently. 
+* uses version 3.10 of the JS API, but should be able to be upgraded conveniently.
 
 NOTE: Feel free to update to this repo!
+
+[Live Sample](http://esri.github.io/developer-support/web-js/multiple-maps/index.html)

@@ -1,6 +1,6 @@
 INTRODUCTION:
 a. This sample is a conversion of Multiple Attribute Inspector sample from Legacy to AMD.
-b. The online sample https://developers.arcgis.com/javascript/jssamples/ed_multipleAttrInspector.html is in Legacy style. 
+b. The online sample https://developers.arcgis.com/javascript/jssamples/ed_multipleAttrInspector.html is in Legacy style.
 c. This uses multiple feature layers and attribute inspector for each layer. You can edit popup content on multiple layers on the map.
 d. *** The original sample uses editor widget but this sample is more for the people who does not want a editing functionality but
 	  just want to implement multiple attribute inspector.
@@ -15,3 +15,5 @@ Thanks,
 Akshay H.
 
 *** IMPORTANT
+
+[Live Sample](http://esri.github.io/developer-support/web-js/multiple-attribute-inspector-save-noedt/MultipleAttributeInspector_AMD_save.html)

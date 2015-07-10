@@ -9,10 +9,12 @@ RequireJS helps developers load multiple files and JavaScript libraries.  Dojo h
 ## Features
 
 * Load libraries the RequireJS way
-* Use Esri's JavaScript library to create great online maps 
+* Use Esri's JavaScript library to create great online maps
 * Set yourself up for success using Facebook's JavaScript API
 * Note Esri has customized the RequireJS text plugin included in this sample
-* It's important to know that loading the JSAPI CDN along without RequireJS is faster (but this is a RequireJS / JSAPI Sample) 
+* It's important to know that loading the JSAPI CDN along without RequireJS is faster (but this is a RequireJS / JSAPI Sample)
 
 
 NOTE: Feel free to contribute new templates to this repo!
+
+[Live Sample](http://esri.github.io/developer-support/web-js/requirejs-with-jsapi/index.html)

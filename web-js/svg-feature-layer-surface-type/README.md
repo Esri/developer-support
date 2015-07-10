@@ -5,6 +5,7 @@ This is a sample app that uses SVG and demostrates the use of the graphic-draw m
 * [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 * [Class: QueryTask](https://developers.arcgis.com/javascript/jsapi/querytask-amd.html)
 * [dojo/promise/all](http://dojotoolkit.org/reference-guide/1.10/dojo/promise/all.html)
+* [Live Sample](http://esri.github.io/developer-support/web-js/svg-feature-layer-surface-type/bombs.html)
 
 ## Features
 
