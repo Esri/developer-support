@@ -1,5 +1,5 @@
-# How to programmtically discover that there are pyramids in a raster dataset
-This code sample shows how to programmtically discover that there are pyramids in a raster dataset.
+# How to programmatically discover that there are pyramids in a raster dataset
+This code sample shows how to programmatically discover that there are pyramids in a raster dataset.
 
 
 ## Features
