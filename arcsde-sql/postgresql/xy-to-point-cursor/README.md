@@ -24,16 +24,17 @@ DOCUMENTATION:
 TESTING SAMPLE DATA:
 
 Create the test.xy table containing the coordinate values.
-
+```sql
 		CREATE TABLE sde.test_xy
 		(
 		  name character varying(255),
 		  x_coord numeric(38,8),
 		  y_coord numeric(38,8)
 		)
+```
 		
 Insert some initial values into the new test_xy table created above.
-
+```sql
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
 		VALUES ( 'Iowa Heartland Development', 1601700.38827856, 592924.23589906);
 		
@@ -48,7 +49,7 @@ Insert some initial values into the new test_xy table created above.
 		
 		INSERT INTO sde.test_xy(name, x_coord, y_coord) 
 		VALUES ( '800 22nd Avenue', 2160559.50579430, 618667.01873098);
-		
+```		
 Run one of the snippets	in xy-to-point-cursor.sql depending on which spatial type the target feature class uses.
 
 [1]:http://resources.arcgis.com/en/help/main/10.2/index.html#/ST_Geometry_storage_in_PostgreSQL/002p0000006s000000/
