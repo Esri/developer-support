@@ -1,8 +1,8 @@
 #MFC Template
 ##Use Case
-Trying to figure out how to get started with an MFC Dialog using C++ can be tough and leaves many users wondering how to get started after reading the documentation.
+Trying to figure out how to get started with an MFC Dialog using C++ can be tough and leaves many users wondering how to get started.
 
-![alt text](http://i.giphy.com/PrAMyghZaYjm.gif "Confusion GIF")
+![alt text](http://i.giphy.com/wSCAy1zJbcUG4.gif "Confusion GIF")
 
 
 This is supposed to be a sample showing you what needs to be added to the blank MFC template to get started quickly and easily.  In addition, the solution file is attached so users can download and get started right away.
