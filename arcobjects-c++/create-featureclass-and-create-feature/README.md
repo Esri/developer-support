@@ -5,7 +5,7 @@ This sample is based on the "Create a shapefile from a text file with XY values"
 Author: Sami E.
 
 [Documentation]
-http://help.arcgis.com/en/sdk/10.0/arcobjects_cpp/conceptualhelp/index.html#/Create_a_shapefile_from_a_text_file_with_XY_values/000100000019000000/
+http://help.arcgis.com/en/sdk/10.0/arcobjects_cpp/conceptualhelp/index.html#/Create_a_shapefile_from_a_text_file_with_XY_values/000100000019000000/ 
 
 ## Features
 * Uses IWorkspaceFactoryPtr
