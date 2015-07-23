@@ -1,0 +1,25 @@
+HKCR
+{
+	ATLProject5.ZoomIn.1 = s 'ZoomIn Class'
+	{
+		CLSID = s '{171B0B8C-4CBE-46F1-972C-08227477BBD1}'
+	}
+	ATLProject5.ZoomIn = s 'ZoomIn Class'
+	{		
+		CurVer = s 'ATLProject5.ZoomIn.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {171B0B8C-4CBE-46F1-972C-08227477BBD1} = s 'ZoomIn Class'
+		{
+			ProgID = s 'ATLProject5.ZoomIn.1'
+			VersionIndependentProgID = s 'ATLProject5.ZoomIn'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{CC0DF067-B2F1-4125-AB9C-8A9A0B39F52F}'
+			Version = s '1.0'
+		}
+	}
+}
