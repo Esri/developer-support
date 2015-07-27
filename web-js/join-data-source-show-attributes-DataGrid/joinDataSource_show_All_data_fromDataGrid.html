@@ -65,14 +65,14 @@
         var infoTemplate = new InfoTemplate("Dynamic Layer", content);
 
           
-        //definte the layer's data source from a table 
+        //define the layer's data source from a table 
         var rightTableSource = new LayerDataSource();
         rightTableSource.dataSource = new TableDataSource({
             workspaceId: "tableDataLink",
             dataSourceName: "test.DBO.Data_No_Spatial"
         });
           
-        //point to the jointed Table related to specific FeatureLayer ID
+        //point to the joined Table related to specific FeatureLayer ID
         var leftTableSource = new LayerMapSource({
             mapLayerId: 2
         });
@@ -85,7 +85,7 @@
             rightTableSource: rightTableSource
         });
                   
-        //query the featurelayer with layerDataSource and list out all data in grid 
+        //query the feature layer with layerDataSource and list out all data in grid 
         var layerDataSource = new LayerDataSource();
         layerDataSource.dataSource = joinDataSource;
             
