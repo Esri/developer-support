@@ -1,121 +1,133 @@
 <!DOCTYPE html>
-<html>  
-  <head>
+<html>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--The viewport meta tag is used to improve the presentation and behavior of the
     samples on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title></title>
 
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
     <style>
-      html, body, #map {
-        height:100%;
-        width:100%;
-        margin:0;
-        padding:0;
-      }
-      .esriScalebar{
-        padding: 20px 20px; 
-      } 
-      #map{ 
-        padding:0;
-      }
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .esriScalebar {
+            padding: 20px 20px;
+        }
+        
+        #map {
+            padding: 0;
+        }
     </style>
 
-    <script>var dojoConfig = { parseOnLoad: true };</script>
-    <script src="http://js.arcgis.com/3.10/"></script>
     <script>
-      var map, graphicLayer;
-      require([
-        "esri/map",
-        "esri/layers/FeatureLayer",
-        "esri/dijit/PopupTemplate",
-        "esri/request",
-        "esri/geometry/Point",
-        "esri/graphic",
-		"esri/layers/GraphicsLayer",
-		 "esri/symbols/SimpleMarkerSymbol",
-        "esri/renderers/SimpleRenderer",
-		"esri/symbols/SimpleLineSymbol",
-		"esri/SpatialReference",
-		"esri/Color",
-		"esri/InfoTemplate",
-        "dojo/on",
-        "dojo/_base/array",
-        "dojo/domReady!"
-      ], function(
-        Map, 
-        FeatureLayer, 
-        PopupTemplate,
-        esriRequest,
-        Point,
-        Graphic,
-		GraphicsLayer,
-		SimpleMarkerSymbol,
-		SimpleRenderer,
-		SimpleLineSymbol,
-		SpatialReference,
-		Color,
-		InfoTemplate,
-        on,
-        array
-      ) {
-
-        var featureLayer;
-
-        map = new Map("map", {
-          basemap: "gray",
-          center: [-46.807, 32.553],
-          zoom: 4
-        });
-
-        map.on("load", addPoints);
-      function addPoints(){
-        //access the lat long data.
-        graphicLayer =  new GraphicsLayer();
-		var poinArr = [
-					[-74.049, 38.485],
-					[-78.119, 36.125],
-					[-58.189, 33.765],
-					[-59.259, 31.405],
-					[-84.329, 37.045],
-					[-64.399, 28.685],
-					[-88.469, 24.325],
-					[-65.539, 56.965],
-					[-64.609, 19.605],
-					[-65.679, 17.245],
-					[-79.749, 34.885],
-					[-76.819, 45.525],
-					[-110.889, 27.165],
-					[-105.959, 37.805],
-					[-117.029, 20.445],
-					[-110.099, 52.085],
-					[-98.169, 45.7250],
-					[-87.239, 59.635],
-					[-75.309, 58.995]
-				];
-		
-		array.forEach (poinArr, function(p){
-			var pointGeom = new Point([p[0],p[1]],new SpatialReference({ wkid:4326 }));
-			//Take a look at: https://developers.arcgis.com/javascript/jsapi/graphic-amd.html#graphic1
-			var sms = new SimpleMarkerSymbol().setStyle(
-				SimpleMarkerSymbol.STYLE_CIRCLE).setColor(
-				new Color([255,110,0,0.5]));
-			var attr = {"Xcoord":p[0],"Ycoord":p[1]}; // Set what attributes you want to add to graphics's info template.
-			var infoTemplate = new InfoTemplate("My LatLongs","Latitude: ${Ycoord} <br/>Longitude: ${Xcoord} <br/>");
-			var g = new Graphic(pointGeom, sms, attr, infoTemplate);
-				graphicLayer.add(g);
-			});		
-		
-       	map.addLayer(graphicLayer);
-        }
-
-    });
+        var dojoConfig = {
+            parseOnLoad: true
+        };
     </script>
-  </head>
-  <body >
+      <script src="http://js.arcgis.com/3.13/"></script>
+    <script>
+        var map, graphicLayer;
+        require([
+            "esri/map",
+            "esri/layers/FeatureLayer",
+            "esri/dijit/PopupTemplate",
+            "esri/request",
+            "esri/geometry/Point",
+            "esri/graphic",
+            "esri/layers/GraphicsLayer",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/renderers/SimpleRenderer",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/SpatialReference",
+            "esri/Color",
+            "esri/InfoTemplate",
+            "dojo/on",
+            "dojo/_base/array",
+            "dojo/domReady!"
+        ], function(
+            Map,
+            FeatureLayer,
+            PopupTemplate,
+            esriRequest,
+            Point,
+            Graphic,
+            GraphicsLayer,
+            SimpleMarkerSymbol,
+            SimpleRenderer,
+            SimpleLineSymbol,
+            SpatialReference,
+            Color,
+            InfoTemplate,
+            on,
+            array
+        ) {
+            var featureLayer;
+            map = new Map("map", {
+                basemap: "gray",
+                center: [-46.807, 32.553],
+                zoom: 4
+            });
+            map.on("load", addPoints);
+
+            function addPoints() {
+                //access the lat long data.
+                graphicLayer = new GraphicsLayer();
+                var poinArr = [
+                    [-74.049, 38.485],
+                    [-78.119, 36.125],
+                    [-58.189, 33.765],
+                    [-59.259, 31.405],
+                    [-84.329, 37.045],
+                    [-64.399, 28.685],
+                    [-88.469, 24.325],
+                    [-65.539, 56.965],
+                    [-64.609, 19.605],
+                    [-65.679, 17.245],
+                    [-79.749, 34.885],
+                    [-76.819, 45.525],
+                    [-110.889, 27.165],
+                    [-105.959, 37.805],
+                    [-117.029, 20.445],
+                    [-110.099, 52.085],
+                    [-98.169, 45.7250],
+                    [-87.239, 59.635],
+                    [-75.309, 58.995]
+                ];
+
+                array.forEach(poinArr, function(p) {
+                    var pointGeom = new Point([p[0], p[1]], new SpatialReference({
+                        wkid: 4326
+                    }));
+                    //Take a look at: https://developers.arcgis.com/javascript/jsapi/graphic-amd.html#graphic1
+                    var sms = new SimpleMarkerSymbol().setStyle(
+                        SimpleMarkerSymbol.STYLE_CIRCLE).setColor(
+                        new Color([255, 110, 0, 0.5]));
+                    var attr = {
+                        "Xcoord": p[0],
+                        "Ycoord": p[1]
+                    }; // Set what attributes you want to add to graphics's info template.
+                    var infoTemplate = new InfoTemplate("My LatLongs", "Latitude: ${Ycoord} <br/>Longitude: ${Xcoord} <br/>");
+                    var g = new Graphic(pointGeom, sms, attr, infoTemplate);
+                    graphicLayer.add(g);
+                });
+
+                map.addLayer(graphicLayer);
+            }
+        });
+    </script>
+</head>
+
+<body>
     <div id="map"></div>
-  </body>
+</body>
 
 </html>
