@@ -5,13 +5,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
     html, body, #mapDiv, .map.container {
       padding:0;
       margin:0;
       height:100%;
+      width:100%;
     }
 	#title {
         position: relative;
@@ -29,37 +30,54 @@
 	
     </style>
 
-    <script src="http://js.arcgis.com/3.10/"></script>
+    <script src="http://js.arcgis.com/3.14/"></script>
     <script>
     var map;
 	var AGDynamicLayer;
     require([
-      "esri/map", "esri/layers/ArcGISDynamicMapServiceLayer", "esri/layers/DynamicLayerInfo",
-      "esri/layers/TableDataSource", "esri/layers/LayerDataSource", "esri/layers/LayerMapSource",
+      "esri/map", 
+      "esri/layers/ArcGISDynamicMapServiceLayer",
+      "esri/layers/DynamicLayerInfo",
+      "esri/layers/TableDataSource",
+      "esri/layers/LayerDataSource",
+      "esri/layers/LayerMapSource",
       "esri/symbols/SimpleFillSymbol",
-	  "esri/tasks/GenerateRendererParameters", "esri/tasks/ClassBreaksDefinition", "esri/tasks/AlgorithmicColorRamp", 
-	  "esri/tasks/GenerateRendererTask", "esri/layers/LayerDrawingOptions",
+	  "esri/tasks/GenerateRendererParameters",
+      "esri/tasks/ClassBreaksDefinition",
+      "esri/tasks/AlgorithmicColorRamp",
+	  "esri/tasks/GenerateRendererTask", 
+      "esri/layers/LayerDrawingOptions",
 	  "esri/symbols/SimpleLineSymbol",
 	  "esri/layers/JoinDataSource",
 	  "esri/config",
-      "esri/Color", "dojo/domReady!"
+      "esri/Color",
+      "dojo/domReady!"
     ], function(
-      Map, ArcGISDynamicMapServiceLayer, DynamicLayerInfo,
-      TableDataSource, LayerDataSource, LayerMapSource,
+      Map, 
+      ArcGISDynamicMapServiceLayer,
+      DynamicLayerInfo,
+      TableDataSource,
+      LayerDataSource,
+      LayerMapSource,
       SimpleFillSymbol,
-	  GenerateRendererParameters, ClassBreaksDefinition, AlgorithmicColorRamp,
-	  GenerateRendererTask, LayerDrawingOptions, SimpleLineSymbol,
+	  GenerateRendererParameters,
+      ClassBreaksDefinition,
+      AlgorithmicColorRamp,
+	  GenerateRendererTask,
+      LayerDrawingOptions,
+      SimpleLineSymbol,
 	  JoinDataSource,
-      esriConfig, 
+      esriConfig,
       Color
     ) {
-      esriConfig.defaults.io.proxyUrl = "http://akshayh/proxy.proxy.ashx";
-	  //esriConfig.defaults.io.alwaysUseProxy = true;
+        
+      esriConfig.defaults.io.proxyUrl = "/sproxy/";
       map = new Map("mapDiv", {
         basemap: "streets",
         center: [-97.453079, 37.696775],
         zoom: 6
       });
+        
       //create a new ArcGISDynamicMapServiceLayer layer based on DynamicLayerInfos. 
         AGDynamicLayer = new ArcGISDynamicMapServiceLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer",{
 		id: "states",
@@ -78,11 +96,22 @@
 		var layerMapSource = new LayerMapSource({mapLayerId:3});
 				
 		var rightTableSource  = new LayerDataSource({
-		"dataSource": {
-                    "type": "table",
-                    "dataSourceName": "ancestry",
-                    "workspaceId": "CensusFileGDBWorkspaceID"
-                }
+		  "dataSource": 
+            {
+                "type": "table",
+                "dataSourceName": "ancestry",
+                "workspaceId": "CensusFileGDBWorkspaceID"
+                //the workspaceID is for the registered file geodatabase, SDE or Shapefile workspace.       
+                //Basically, there are two ways to enable this workspace ID
+                //1. From ArcMap before publishing the services
+                //For more information please take a look about this documentation talks about
+                //"Enabling dynamic layers on a map service in ArcGIS for Desktop"
+                //http://desktop.arcgis.com/en/desktop/latest/map/publish-map-services/enabling-dynamic-layers-on-a-map-service-in-arcgis-for-desktop.htm
+                
+                //2. Or you can go to the ArcGIS Server Manager to manually add workspace ID for existing services
+                //Please check this documenation as a reference: 
+                //http://desktop.arcgis.com/en/desktop/latest/map/publish-map-services/enabling-dynamic-layers-on-a-map-service-in-manager.htm
+            }
 		});
 			 
 		joinDataSource.leftTableSource = layerMapSource;
@@ -154,12 +183,8 @@
           // console.log("Something broke, error: ", err);
           console.log("error: ", JSON.stringify(err));
         }
-
      }
-	 
-
-
-});
+  });
     </script>
   </head>
   
