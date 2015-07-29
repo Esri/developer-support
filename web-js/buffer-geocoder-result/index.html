@@ -7,8 +7,8 @@
          on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>Find Address</title>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css">
+ <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
         html,
         body {
@@ -35,10 +35,9 @@
             /*letter-spacing: 0.05em;*/
         }
     </style>
-    <script src="http://js.arcgis.com/3.12/"></script>
+    <script src="http://js.arcgis.com/3.14/"></script>
     <script>
         var map, locator;
-
         require([
             "esri/map", "esri/tasks/locator", "esri/graphic", "esri/layers/FeatureLayer", "esri/geometry/Circle", "esri/tasks/query",
             "esri/InfoTemplate", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/renderers/SimpleRenderer",
@@ -49,17 +48,14 @@
             arrayUtils, Color, number, parser, dom, registry
         ) {
             parser.parse();
-
             map = new Map("map", {
                 basemap: "streets",
                 center: [-117.18402, 34.05330],
                 zoom: 14
             });
-
             var featureLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/RedlandsEmergencyVehicles/MapServer/0", {
                 outFields: ["*"]
             });
-
             var symbol = new SimpleMarkerSymbol(
                 SimpleMarkerSymbol.STYLE_CIRCLE, 12,
                 new SimpleLineSymbol(
@@ -68,22 +64,19 @@
                 ),
                 new Color([207, 34, 171, 0.5])
             );
-		
-			var circleSymb = new SimpleFillSymbol(
+
+            var circleSymb = new SimpleFillSymbol(
                 SimpleFillSymbol.STYLE_NULL,
                 new SimpleLineSymbol(
                     SimpleLineSymbol.STYLE_SHORTDASHDOTDOT,
                     new Color([105, 105, 105]), 2
-                ), 
-				new Color([255, 255, 0, 0.25])
+                ),
+                new Color([255, 255, 0, 0.25])
             );
-
             locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
             locator.on("address-to-locations-complete", showResults);
-
             // listen for button click then geocode
             registry.byId("locate").on("click", locate);
-
             map.infoWindow.resize(200, 125);
 
             function locate() {
@@ -107,7 +100,6 @@
                 );
                 symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
                 symbol.setColor(new Color([153, 0, 51, 0.75]));
-
                 var geom;
                 arrayUtils.every(evt.addresses, function(candidate) {
                     console.log(candidate.score);
@@ -122,21 +114,17 @@
                         var graphicLoc = new Graphic(geom, symbol, attributes, infoTemplate);
                         //add a graphic to the map at the geocoded location
                         map.graphics.add(graphicLoc);
-
                         var circle = new Circle({
                             center: geom,
                             geodesic: true,
                             radius: 1000,
                             radiusUnit: "esriMeters"
                         });
-
                         var graphic = new Graphic(circle, circleSymb);
                         map.graphics.add(graphic);
-
                         var query = new Query();
                         query.geometry = circle;
                         featureLayer.queryFeatures(query, selectInBuffer);
-
                         return false; //break out of loop after one candidate with score greater  than 80 is found.
                     }
                 });
@@ -151,16 +139,15 @@
                 var objectIds = [];
                 for (var i = 0; i < features.length; i++) {
                     feature = features[i];
-                    var newGraphic = new Graphic(feature.geometry,symbol);
-					map.graphics.add(newGraphic);
+                    var newGraphic = new Graphic(feature.geometry, symbol);
+                    map.graphics.add(newGraphic);
                 }
                 if (features.length > 1)
                     document.getElementById("result").innerHTML = "You are close to " + features.length + " ambulances.";
                 else
                     document.getElementById("result").innerHTML = "You are close to " + features.length + " ambulance.";
-                
-            }
 
+            }
         });
     </script>
 </head>
@@ -170,17 +157,17 @@
         <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
             Enter an address then click the locate button in order to display the location on the map. Once the location is returned, then all the ambulances within 1000 meters will display and a result will print on the left pane.
             <p>
-			<textarea cols="40" id="address">380 New York St, Redlands</textArea>
-			<br>
-			<button id="locate" data-dojo-type="dijit/form/Button">Locate</button>
-			<p>
-			<b>Sample addresses (copy one and past it in the text area above)</b>
-			<p>
-			1) 1700 Park Ave, Redlands, California, USA
-			<p>
-			2) 380 New York St, Redlands
-			<p>
-			<div id="result" style="color:#0000FF"></div>
+                <textarea cols="40" id="address">380 New York St, Redlands</textArea>
+                <br>
+                <button id="locate" data-dojo-type="dijit/form/Button">Locate</button>
+                <p>
+                    <b>Sample addresses (copy one and past it in the text area above)</b>
+                    <p>
+                        1) 1700 Park Ave, Redlands, California, USA
+                        <p>
+                            2) 380 New York St, Redlands
+                            <p>
+                                <div id="result" style="color:#0000FF"></div>
         </div>
         <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
         </div>

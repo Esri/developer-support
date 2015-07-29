@@ -2,113 +2,119 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>Popup</title>
 
-    <link rel="stylesheet" href="http://js.arcgis.com/3.11/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.11/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
-      html, body, #map {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-      }
-
-      /* Change color of icons to match bar chart and selection symbol */
-      .esriPopup.dark div.titleButton, 
-      .esriPopup.dark div.titlePane .title,
-      .esriPopup.dark div.actionsPane .action {
-        color: #A4CE67;
-      }
-      /* Additional customizations */
-      .esriPopup.dark .esriPopupWrapper {
-        border: none;
-      }
-      .esriPopup .contentPane {
-        text-align: center;
-      }
-      .esriViewPopup .gallery {
-        margin: 0 auto;
-      }
+        html,
+        body,
+        #map {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+        /* Change color of icons to match bar chart and selection symbol */
+        
+        .esriPopup.dark div.titleButton,
+        .esriPopup.dark div.titlePane .title,
+        .esriPopup.dark div.actionsPane .action {
+            color: #A4CE67;
+        }
+        /* Additional customizations */
+        
+        .esriPopup.dark .esriPopupWrapper {
+            border: none;
+        }
+        
+        .esriPopup .contentPane {
+            text-align: center;
+        }
+        
+        .esriViewPopup .gallery {
+            margin: 0 auto;
+        }
     </style>
 
-    <script src="http://js.arcgis.com/3.11/"></script>
+    <script src="http://js.arcgis.com/3.14/"></script>
     <script>
-      var map;
-      require([
-        "esri/map",
-        "esri/dijit/Popup", "esri/dijit/PopupTemplate",
-        "esri/layers/FeatureLayer",
-        "esri/symbols/SimpleFillSymbol", "esri/Color",
-        "dojo/dom-class", "dojo/dom-construct", "dojo/on",
-        "dojox/charting/Chart", "dojox/charting/themes/Dollar",
-        "dojo/domReady!"
-      ], function(
-        Map,
-        Popup, PopupTemplate,
-        FeatureLayer,
-        SimpleFillSymbol, Color,
-        domClass, domConstruct, on,
-        Chart, theme
-      ) {
-        //The popup is the default info window so you only need to create the popup and 
-        //assign it to the map if you want to change default properties. Here we are 
-        //noting that the specified title content should display in the header bar 
-        //and providing our own selection symbol for polygons.
-        var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
-        var popup = new Popup({
-            fillSymbol: fill,
-            titleInBody: false
-        }, domConstruct.create("div"));
-        //Add the dark theme which is customized further in the <style> tag at the top of this page
-        domClass.add(popup.domNode, "dark");
+        var map;
+        require([
+            "esri/map",
+            "esri/dijit/Popup", "esri/dijit/PopupTemplate",
+            "esri/layers/FeatureLayer",
+            "esri/symbols/SimpleFillSymbol", "esri/Color",
+            "dojo/dom-class", "dojo/dom-construct", "dojo/on",
+            "dojox/charting/Chart", "dojox/charting/themes/Dollar",
+            "dojo/domReady!"
+        ], function(
+            Map,
+            Popup, PopupTemplate,
+            FeatureLayer,
+            SimpleFillSymbol, Color,
+            domClass, domConstruct, on,
+            Chart, theme
+        ) {
+            //The popup is the default info window so you only need to create the popup and 
+            //assign it to the map if you want to change default properties. Here we are 
+            //noting that the specified title content should display in the header bar 
+            //and providing our own selection symbol for polygons.
+            var fill = new SimpleFillSymbol("solid", null, new Color("#A4CE67"));
+            var popup = new Popup({
+                fillSymbol: fill,
+                titleInBody: false
+            }, domConstruct.create("div"));
+            //Add the dark theme which is customized further in the <style> tag at the top of this page
+            domClass.add(popup.domNode, "dark");
 
-        map = new Map("map", {
-          basemap: "gray",
-          center: [-98.57, 39.82],
-          zoom: 4,
-          infoWindow: popup
-        });
+            map = new Map("map", {
+                basemap: "gray",
+                center: [-98.57, 39.82],
+                zoom: 4,
+                infoWindow: popup
+            });
 
-        var template = new PopupTemplate({
-          title: "Boston Marathon 2013",
-          description: "{STATE_NAME}:  {Percent_Fi} of starters finished",
-          fieldInfos: [{ //define field infos so we can specify an alias
-            fieldName: "Number_Ent",
-            label: "Entrants"
-          },{
-            fieldName: "Number_Sta",
-            label: "Starters"
-          },{
-            fieldName: "Number_Fin",
-            label: "Finishers"
-          }],
-          mediaInfos:[{ //contains both sourceURL and linkURL. This allows to click an image and redirect to www.esri.com in a new tab.
-            caption: "",
-            type:"image",
-            value:{
-              sourceURL:"http://images6.alphacoders.com/316/316963.jpg",
-			  linkURL:"http://www.esri.com"
-            }
-          }]
-        });
+            var template = new PopupTemplate({
+                title: "Boston Marathon 2013",
+                description: "{STATE_NAME}:  {Percent_Fi} of starters finished",
+                fieldInfos: [{ //define field infos so we can specify an alias
+                    fieldName: "Number_Ent",
+                    label: "Entrants"
+                }, {
+                    fieldName: "Number_Sta",
+                    label: "Starters"
+                }, {
+                    fieldName: "Number_Fin",
+                    label: "Finishers"
+                }],
+                mediaInfos: [{ //contains both sourceURL and linkURL. This allows to click an image and redirect to www.esri.com in a new tab.
+                    caption: "",
+                    type: "image",
+                    value: {
+                        sourceURL: "http://images6.alphacoders.com/316/316963.jpg",
+                        linkURL: "http://www.esri.com"
+                    }
+                }]
+            });
 
-        var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Boston_Marathon/FeatureServer/0",{
-          mode: FeatureLayer.MODE_ONDEMAND,
-          outFields: ["*"],
-          infoTemplate: template
+            var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Boston_Marathon/FeatureServer/0", {
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"],
+                infoTemplate: template
+            });
+            map.addLayer(featureLayer);
         });
-        map.addLayer(featureLayer);
-      });
     </script>
-  </head>
-  
-  <body class="claro">
+</head>
+
+<body class="claro">
     <div id="map"></div>
-  </body>
+</body>
 
 </html>

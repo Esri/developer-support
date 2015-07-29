@@ -1,168 +1,159 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
-<title>Popup - Sidebar</title>
-<link rel="stylesheet" href="http://js.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css" />
-<link rel="stylesheet" href="http://js.arcgis.com/3.8/js/esri/css/esri.css" />
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Popup - Sidebar</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans">
 
-<style type="text/css">
-    html, body {
-        height:100%;
-        width:100%;
-        margin:0;
-        padding:0;
-        margin:0;
-        font-family: "Open Sans";
-    }
-    #leftPane {
-        width:20%;
-        margin:0;
-        border:none;
-    }
-    #map {
-        padding:0;
-    }
-	.nav {
-        padding: 5px 10px;
-        background: #4479BA;
-        color: #FFF;
-        border-radius: 5px;
-        border: solid 1px #20538D;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
-        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+    <style type="text/css">
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            margin: 0;
+            font-family: "Open Sans";
+        }
+        
+        #leftPane {
+            width: 20%;
+            margin: 0;
+            border: none;
+        }
+        
+        #map {
+            padding: 0;
+        }
+        
+        .nav {
+            padding: 5px 10px;
+            background: #4479BA;
+            color: #FFF;
+            border-radius: 5px;
+            border: solid 1px #20538D;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.4);
+            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+        
+        #header {
+            text-align: center;
+            height: 60px;
+            border-bottom: solid 1px #ccc;
+        }
+    </style>
 
-    }
-    #header {
-        text-align: center;
-        height:60px;
-        border-bottom: solid 1px #ccc;
-    }
-	
-</style>
-    
-<script src="http://js.arcgis.com/3.8/"></script>
-<script>
-    require([
-        "dojo/ready", 
-        "dojo/on",
-        "dojo/_base/connect", 
-        "dojo/dom",
-        "dijit/registry",
-        "dojo/dom-construct",
-        "dojo/parser", 
-        "esri/map",
-        "esri/arcgis/utils",
-        "esri/domUtils",
-        "esri/dijit/Popup",
-		"esri/layers/FeatureLayer",
-		"esri/InfoTemplate",
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        require([
+            "dojo/ready",
+            "dojo/on",
+            "dojo/_base/connect",
+            "dojo/dom",
+            "dijit/registry",
+            "dojo/dom-construct",
+            "dojo/parser",
+            "esri/map",
+            "esri/arcgis/utils",
+            "esri/domUtils",
+            "esri/dijit/Popup",
+            "esri/layers/FeatureLayer",
+            "esri/InfoTemplate",
+            "dijit/layout/ContentPane",
+            "dijit/layout/BorderContainer"
+        ], function(
+            ready,
+            on,
+            connect,
+            dom,
+            registry,
+            domConstruct,
+            parser,
+            Map,
+            arcgisUtils,
+            domUtils,
+            Popup,
+            FeatureLayer,
+            InfoTemplate
+        ) {
+            ready(function() {
+                parser.parse();
 
-		"dijit/layout/ContentPane", 
-		"dijit/layout/BorderContainer"
-    ], function(
-        ready, 
-        on, 
-        connect,
-        dom,
-        registry,
-        domConstruct,
-        parser, 
-        Map,
-        arcgisUtils,
-        domUtils,
-        Popup,
-		FeatureLayer,
-		InfoTemplate
-    ) {
-        ready(function(){
-
-            parser.parse();
-	
-		//Create a map based on an ArcGIS Online web map id 
-			var map = new Map("map", {
-			basemap: "topo",
-			center: [-98.57, 39.82],
-			zoom: 4,
-			});
-		  		
-		map.infoWindow.set("popupWindow", false);
-		
-		
-		// Create info Template
-		var template = new InfoTemplate();
-        template.setTitle("<b>BOSTON MARATHON</b>");
-        template.setContent("<b>${STATE_NAME}</b> : is a state name.<hr>"+
-							"<b>${FID}</b> : is my id<hr>"+
-							"<b>${Percent_Fi}</b> : is a percentage");
-         //add features to map
-			var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Boston_Marathon/FeatureServer/0",{
-				mode: FeatureLayer.MODE_ONDEMAND,
-				outFields: ["STATE_NAME","FID","Percent_Fi"],
-				infoTemplate:template
-				});	
-			map.addLayer(featureLayer);
-			initializeSidebar(map);
-			
-	});
-
-            function initializeSidebar(map){
-                var popup = map.infoWindow;
-
-                //when the selection changes update the side panel to display the popup info for the 
-                //currently selected feature. 
-                connect.connect(popup, "onSelectionChange", function(){
-                    displayPopupContent(popup.getSelectedFeature());
+                //Create a map based on an ArcGIS Online web map id 
+                var map = new Map("map", {
+                    basemap: "topo",
+                    center: [-98.57, 39.82],
+                    zoom: 4,
                 });
 
+                map.infoWindow.set("popupWindow", false);
+
+
+                // Create info Template
+                var template = new InfoTemplate();
+                template.setTitle("<b>BOSTON MARATHON</b>");
+                template.setContent("<b>${STATE_NAME}</b> : is a state name.<hr>" +
+                    "<b>${FID}</b> : is my id<hr>" +
+                    "<b>${Percent_Fi}</b> : is a percentage");
+                //add features to map
+                var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Boston_Marathon/FeatureServer/0", {
+                    mode: FeatureLayer.MODE_ONDEMAND,
+                    outFields: ["STATE_NAME", "FID", "Percent_Fi"],
+                    infoTemplate: template
+                });
+                map.addLayer(featureLayer);
+                initializeSidebar(map);
+
+            });
+
+            function initializeSidebar(map) {
+                var popup = map.infoWindow;
+                //when the selection changes update the side panel to display the popup info for the 
+                //currently selected feature. 
+                connect.connect(popup, "onSelectionChange", function() {
+                    displayPopupContent(popup.getSelectedFeature());
+                });
                 //when the selection is cleared remove the popup content from the side panel. 
-                connect.connect(popup, "onClearFeatures", function(){
+                connect.connect(popup, "onClearFeatures", function() {
                     dom.byId("featureCount").innerHTML = "Click to select feature(s)";
                     registry.byId("leftPane").set("content", "");
                     domUtils.hide(dom.byId("pager"));
                 });
-
                 //When features are associated with the  map's info window update the sidebar with the new content. 
-                connect.connect(popup, "onSetFeatures", function(){
+                connect.connect(popup, "onSetFeatures", function() {
                     displayPopupContent(popup.getSelectedFeature());
                     dom.byId("featureCount").innerHTML = popup.features.length + " feature(s) selected";
-
                     //enable navigation if more than one feature is selected 
                     popup.features.length > 1 ? domUtils.show(dom.byId("pager")) : domUtils.hide(dom.byId("pager"));
                 });
             }
 
-            function displayPopupContent(feature){
-                if(feature){
+            function displayPopupContent(feature) {
+                if (feature) {
                     var content = feature.getContent();
                     registry.byId("leftPane").set("content", content);
                 }
             }
-
         });
-   
-</script>
+    </script>
 </head>
 
 <body class="claro">
-<div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" 
-    data-dojo-props="design:'headline',gutters:false" 
-    style="width:100%; height:100%;">
-    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" 
-        region="left" style="width: 20%;height:100%;">
-        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" 
-            data-dojo-props="region:'center'"></div>
-        <div id="header" data-dojo-type="dijit/layout/ContentPane" 
-            data-dojo-props="region:'top'">
-            <div id="featureCount" style="margin-bottom:5px;">Click to select feature(s)</div>
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
+        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false" region="left" style="width: 20%;height:100%;">
+            <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+            <div id="header" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+                <div id="featureCount" style="margin-bottom:5px;">Click to select feature(s)</div>
+            </div>
         </div>
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
     </div>
-    <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
-</div>
 </body>
 
-</html> 
+</html>

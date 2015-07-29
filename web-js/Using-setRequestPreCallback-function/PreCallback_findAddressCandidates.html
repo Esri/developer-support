@@ -1,77 +1,81 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
     <title>ArcGIS API for JavaScript | Simple Geocoding</title>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+     <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
-      html, body, #map {
-        height:100%;
-        width:100%;
-        margin:0;
-        padding:0;
-      }
-      #search {
-        display: block;
-        position: absolute;
-        z-index: 2;
-        top: 20px;
-        left: 74px;
-      }
-    </style>
-    <script src="http://js.arcgis.com/3.10/"></script>
-    <script>
-      var map, geocoder;
-
-      require([
-        "esri/map", "esri/dijit/Geocoder", "esri/request", "dojo/domReady!"
-      ], function(Map, Geocoder, esriRequest) {
-	  	
-		// Using PreCallback function
-		// Since the Arcgis JavaScript Api geocoder has started to use Find Address candidates instead of Find task
-		// FindAddressCandidate now uses countryCode instead of sourceCountry and the API does not have any property
-		// which can set the value of countryCode.
-		
-		esriRequest.setRequestPreCallback(myCallbackFunction);
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
         
-		map = new Map("map",{ 
-          basemap: "gray",
-          center: [-120.435, 46.159], // lon, lat
-          zoom: 7 
-        });
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 20px;
+            left: 74px;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        var map, geocoder;
+        require([
+            "esri/map", "esri/dijit/Geocoder", "esri/request", "dojo/domReady!"
+        ], function(Map, Geocoder, esriRequest) {
 
-        geocoder = new Geocoder({ 
-          map: map,
-		  arcgisGeocoder: {
-                    
+            // Using PreCallback function
+            // Since the Arcgis JavaScript Api geocoder has started to use Find Address candidates instead of Find task
+            // FindAddressCandidate now uses countryCode instead of sourceCountry and the API does not have any property
+            // which can set the value of countryCode.
+
+            esriRequest.setRequestPreCallback(myCallbackFunction);
+
+            map = new Map("map", {
+                basemap: "gray",
+                center: [-120.435, 46.159], // lon, lat
+                zoom: 7
+            });
+            geocoder = new Geocoder({
+                map: map,
+                arcgisGeocoder: {
+
                     name: "Esri World Geocoder",
                     //sourceCountry: "USA",
-					placeholder: "Enter an Address",
-				 }	
-		  
-		}, "search");
-        geocoder.startup();
-		
-	// Using this function you can add a parameter in the request url. in this case,
-	// if the index of FindAddressCandidate is > -1 meaning the request is made pass in countryCode = "USA"
-	// this will restrict the search within usa.
-		
-		function myCallbackFunction(ioArgs) {
-		// inspect ioArgs
-	    if (ioArgs.url.indexOf("findAddressCandidates")>-1){
-			ioArgs.content.countryCode = "USA"; 
-				// don't forget to return ioArgs.
-			return ioArgs;
-		}else{
-			return ioArgs;
-			}
-		}
-      });
+                    placeholder: "Enter an Address",
+                }
+
+            }, "search");
+            geocoder.startup();
+
+            // Using this function you can add a parameter in the request url. in this case,
+            // if the index of FindAddressCandidate is > -1 meaning the request is made pass in countryCode = "USA"
+            // this will restrict the search within usa.
+
+            function myCallbackFunction(ioArgs) {
+                // inspect ioArgs
+                if (ioArgs.url.indexOf("findAddressCandidates") > -1) {
+                    ioArgs.content.countryCode = "USA";
+                    // don't forget to return ioArgs.
+                    return ioArgs;
+                } else {
+                    return ioArgs;
+                }
+            }
+        });
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <div id="search"></div>
     <div id="map"></div>
-  </body>
+</body>
+
 </html>

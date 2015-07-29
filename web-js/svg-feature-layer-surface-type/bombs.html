@@ -1,157 +1,154 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10"/>
-	<title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10" />
+    <title></title>
 
-	<link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
-	<link rel="stylesheet" type="text/css" href="slider.css"/>
-	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=News+Cycle"/>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="slider.css" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=News+Cycle" />
 
-	<style>
-		html, body {
-			height: 100%;
-			width: 100%;
-			margin: 0;
-			padding: 0;
-			font-family: 'News Cycle', sans-serif;
-			font-size: 0.90em;
-		}
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 0.90em;
+        }
+        
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        
+        #legend {
+            left: 1em;
+            bottom: 1em;
+            position: absolute;
+            height: 185px;
+            width: 210px;
+            background-color: #FFFFFF;
+            opacity: 0.90;
+            border-radius: 7px;
+            z-index: 999;
+            padding: 1em;
+        }
+        
+        #copyright {
+            font-size: 0.90em;
+            bottom: 3px;
+            position: absolute;
+        }
+        
+        #header {
+            font-weight: bold;
+        }
+        
+        path[data-type="IB"] {
+            stroke: rgb(0, 89, 190);
+            stroke-width: 4pt;
+            stroke-opacity: 0.65;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        path[data-type="EB"] {
+            stroke: rgb(179, 190, 0);
+            stroke-width: 8pt;
+            stroke-opacity: 0.65;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        path[data-type="misc"] {
+            stroke: rgb(190, 2, 0);
+            stroke-width: 16pt;
+            stroke-opacity: 0.65;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    </style>
 
-		#map {
-			height: 100%;
-			width: 100%;
-		}
+    <script src="http://js.arcgis.com/3.14/"></script>
 
-		#legend {
-			left: 1em;
-			bottom: 1em;
-			position: absolute;
-			height: 185px;
-			width: 210px;
-			background-color: #FFFFFF;
-			opacity: 0.90;
-			border-radius: 7px;
-			z-index: 999;
-			padding: 1em;
-		}
+    <script>
+        require([
+            "esri/map",
+            "esri/layers/FeatureLayer",
+            "dojo/dom-construct",
+            "dojo/on",
+            "dojo/parser",
+            "dojo/ready"
+        ], function(Map, FeatureLayer, domConstruct, on, parser, ready) {
+            parser.parse();
+            var map;
+            ready(function() {
+                map = new Map("map", {
+                    basemap: "gray",
+                    center: [-0.05778942431779949, 51.47577903935503],
+                    zoom: 12
+                });
+                addLayer();
+            });
 
-		#copyright {
-			font-size: 0.90em;
-			bottom: 3px;
-			position: absolute;
-		}
-
-		#header {
-			font-weight: bold;
-		}
-
-		path[data-type="IB"] {
-			stroke: rgb(0, 89, 190);
-			stroke-width: 4pt;
-			stroke-opacity: 0.65;
-			stroke-linecap: round;
-			stroke-linejoin: round;
-		}
-
-		path[data-type="EB"] {
-			stroke: rgb(179, 190, 0);
-			stroke-width: 8pt;
-			stroke-opacity: 0.65;
-			stroke-linecap: round;
-			stroke-linejoin: round;
-		}
-
-		path[data-type="misc"] {
-			stroke: rgb(190, 2, 0);
-			stroke-width: 16pt;
-			stroke-opacity: 0.65;
-			stroke-linecap: round;
-			stroke-linejoin: round;
-
-		}
-	</style>
-
-	<script src="http://js.arcgis.com/3.10/"></script>
-
-	<script>
-		require([
-			"esri/map",
-			"esri/layers/FeatureLayer",
-			"dojo/dom-construct",
-			"dojo/on",
-			"dojo/parser",
-			"dojo/ready"
-		], function (Map, FeatureLayer, domConstruct, on, parser, ready) {
-			parser.parse();
-
-			var map;
-
-			ready(function () {
-				map = new Map("map", {
-					basemap: "gray",
-					center: [-0.05778942431779949, 51.47577903935503],
-					zoom: 12
-				});
-				addLayer();
-			});
-
-			function addLayer() {
-				var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/blitz/FeatureServer/0", {
-					id: "featureLayer",
-					styling: false,
-					dataAttributes: ["type"]
-				});
-
-				if (featureLayer.surfaceType === "svg") {
-					on(featureLayer, "graphic-draw", function (evt) {
-						var type = evt.graphic.attributes.type;
-						if (type === "EB") {
-							category = "EB";
-						} else if (type === "IB") {
-							category = "IB";
-						} else {
-							category = "misc";
-						}
-						// set the data attribute for the current feature
-						evt.node.setAttribute("data-type", category);
-					});
-				}
-				map.addLayer(featureLayer);
-				return featureLayer;
-			}
-		});
-	</script>
+            function addLayer() {
+                var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/blitz/FeatureServer/0", {
+                    id: "featureLayer",
+                    styling: false,
+                    dataAttributes: ["type"]
+                });
+                if (featureLayer.surfaceType === "svg") {
+                    on(featureLayer, "graphic-draw", function(evt) {
+                        var type = evt.graphic.attributes.type;
+                        if (type === "EB") {
+                            category = "EB";
+                        } else if (type === "IB") {
+                            category = "IB";
+                        } else {
+                            category = "misc";
+                        }
+                        // set the data attribute for the current feature
+                        evt.node.setAttribute("data-type", category);
+                    });
+                }
+                map.addLayer(featureLayer);
+                return featureLayer;
+            }
+        });
+    </script>
 </head>
 
 <body>
-<div id="map"></div>
-<div id="legend">
-	<div id="header">24 hours of Blitz Sept 7th 1940</div>
-	<hr/>
-	<div>Bomb Type</div>
-	<div>
-		<svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">
-			<path data-type="misc" d="M 11 11 L 12 11 L 12 12 L 11 12 Z"/>
-		</svg>
-		<span>Crude Oil Bomb</span>
-	</div>
-	<div>
-		<svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">
-			<path data-type="EB" d="M 11 11 L 12 11 L 12 12 L 11 12 Z"/>
-		</svg>
-		<span>High Explosive Bomb</span>
-	</div>
-	<div>
-		<svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">
-			<path data-type="IB" d="M 11 11 L 12 11 L 12 12 L 11 12 Z"/>
-		</svg>
-		<span>Incendiary Bomb</span>
-	</div>
-	<div id="copyright">Data source<br/><a href="http://www.bombsight.org/data/sources/" target="_blank">Guardian Data
+    <div id="map"></div>
+    <div id="legend">
+        <div id="header">24 hours of Blitz Sept 7th 1940</div>
+        <hr/>
+        <div>Bomb Type</div>
+        <div>
+            <svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path data-type="misc" d="M 11 11 L 12 11 L 12 12 L 11 12 Z" />
+            </svg>
+            <span>Crude Oil Bomb</span>
+        </div>
+        <div>
+            <svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path data-type="EB" d="M 11 11 L 12 11 L 12 12 L 11 12 Z" />
+            </svg>
+            <span>High Explosive Bomb</span>
+        </div>
+        <div>
+            <svg width="24" height="24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path data-type="IB" d="M 11 11 L 12 11 L 12 12 L 11 12 Z" />
+            </svg>
+            <span>Incendiary Bomb</span>
+        </div>
+        <div id="copyright">Data source
+            <br/><a href="http://www.bombsight.org/data/sources/" target="_blank">Guardian Data
 		Store & London Fire Brigade Records</a></div>
-</div>
+    </div>
 </body>
-
-</html>
