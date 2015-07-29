@@ -1,173 +1,185 @@
 <!DOCTYPE html>
-<html> 
-  <head>
+<html>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>Editable FeatureLayer in Selection Only Mode with Attribute Inspector</title>
 
-    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.9/js/esri/css/esri.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
-      html, body { 
-        height: 100%; width: 100%; 
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-      #mapDiv{
-        margin: 0;
-        padding:0;
-      }
-      #detailPane{
-        height:20px;
-        color:#570026;
-        font-size:16pt;
-        font-weight:600;
-        overflow:hidden;
-      }
-      .dj_ie .infowindow .window .top .right .user .content { position: relative; }
-      .dj_ie .simpleInfoWindow .content {position: relative;}
-
-      .esriAttributeInspector {height:100px;}
-      .esriAttributeInspector .atiLayerName {display:none;}
-      .saveButton {
-        padding-left:45px;
-         margin:0px;width:16px; height:16px;
-       }
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #mapDiv {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #detailPane {
+            height: 20px;
+            color: #570026;
+            font-size: 16pt;
+            font-weight: 600;
+            overflow: hidden;
+        }
+        
+        .dj_ie .infowindow .window .top .right .user .content {
+            position: relative;
+        }
+        
+        .dj_ie .simpleInfoWindow .content {
+            position: relative;
+        }
+        
+        .esriAttributeInspector {
+            height: 100px;
+        }
+        
+        .esriAttributeInspector .atiLayerName {
+            display: none;
+        }
+        
+        .saveButton {
+            padding-left: 45px;
+            margin: 0px;
+            width: 16px;
+            height: 16px;
+        }
     </style>
-    
-    <script src="http://js.arcgis.com/3.9/"></script>
+
+    <script src="http://js.arcgis.com/3.14/"></script>
     <script>
-      var map;
-      var updateFeature;
-      
-      require([
-        "esri/map",
-        "esri/layers/FeatureLayer",
-        "esri/dijit/AttributeInspector",
+        var map;
+        var updateFeature;
 
-        "esri/symbols/SimpleLineSymbol",
-        "esri/symbols/SimpleFillSymbol",
-        "esri/Color",
-
-        "esri/layers/ArcGISDynamicMapServiceLayer",
-        "esri/config",
-
-        "esri/tasks/query",
-
-        "dojo/parser", 
-        "dojo/dom-construct",
-        "dijit/form/Button",
-		"dojo/_base/array",
-
-        "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
-      ], function(
-        Map, FeatureLayer, AttributeInspector,
-        SimpleLineSymbol, SimpleFillSymbol, Color,
-        ArcGISDynamicMapServiceLayer, esriConfig,
-        Query,
-        parser, domConstruct, Button, array
-      ) {
-        parser.parse();
-
-        // refer to "Using the Proxy Page" for more information:  https://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
-        esriConfig.defaults.io.proxyUrl = "/proxy";
-
-        map = new Map("mapDiv", {
-          basemap: "streets",
-          center: [-83.243, 42.584],
-          zoom: 15
-        });
-        
-        map.on("layers-add-result", initSelectToolbar);
-
-        var pointLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/6", {
-          mode: FeatureLayer.MODE_SNAPSHOT,
-          outFields: ["*"]
-        });
-        var lineLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/8", {
-          mode: FeatureLayer.MODE_SNAPSHOT,
-          outFields: ["*"]
-        });
-        var polygonLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/9", {
-          mode: FeatureLayer.MODE_SNAPSHOT,
-          outFields: ["*"]
-        });
-
-        map.addLayers([pointLayer,lineLayer,polygonLayer]);
-   
-	function initSelectToolbar(results) {
-        var layers = array.map(results.layers, function(result) {
-        return result.layer;
-        });
-          var query = new Query();
-		array.forEach(layers, function(layer) {
-          layer.on("click", function(evt) {
-            if (map.infoWindow.isShowing) {
-              map.infoWindow.hide();
-            }
-
-            var layerInfos = [{
-              'featureLayer': layer,
-              'isEditable': true              
-            }]
-
-            var attInspector = new AttributeInspector({
-              layerInfos: layerInfos
-            },domConstruct.create("div"));
-        
-          
-            query.objectIds = [evt.graphic.attributes.objectid];
-            layer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(features) {
-			 if (features.length > 0) {
-               //store the current feature
-			    updateFeature = features[0];
-                map.infoWindow.setTitle(features[0].getLayer().name);
-				map.infoWindow.setContent(attInspector.domNode);
-                map.infoWindow.resize(350, 200);
-                map.infoWindow.show(evt.screenPoint,map.getInfoWindowAnchor(evt.screenPoint));
-              } else {
-                map.infoWindow.hide();
-              }
-             
+        require([
+            "esri/map",
+            "esri/layers/FeatureLayer",
+            "esri/dijit/AttributeInspector",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/symbols/SimpleFillSymbol",
+            "esri/Color",
+            "esri/layers/ArcGISDynamicMapServiceLayer",
+            "esri/config",
+            "esri/tasks/query",
+            "dojo/parser",
+            "dojo/dom-construct",
+            "dijit/form/Button",
+            "dojo/_base/array",
+            "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
+        ], function(
+            Map, FeatureLayer, AttributeInspector,
+            SimpleLineSymbol, SimpleFillSymbol, Color,
+            ArcGISDynamicMapServiceLayer, esriConfig,
+            Query,
+            parser, domConstruct, Button, array
+        ) {
+            parser.parse();
+            // refer to "Using the Proxy Page" for more information:  https://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
+            esriConfig.defaults.io.proxyUrl = "/proxy";
+            map = new Map("mapDiv", {
+                basemap: "streets",
+                center: [-83.243, 42.584],
+                zoom: 15
             });
-			   var saveButton = new Button({ label: "Save", "class": "saveButton"});
-			   domConstruct.place(saveButton.domNode, attInspector.deleteBtn.domNode, "after");
-			   
-			   saveButton.on("click", function(){
-			   updateFeature.getLayer().applyEdits(null, [updateFeature], null);         
-			   });
-			   
-			   attInspector.on("attribute-change", function(evt) {
-			   //store the updates to apply when the save button is clicked 
-			   updateFeature.attributes[evt.fieldName] = evt.fieldValue;
-			   });
-			   
-			   attInspector.on("next", function(evt) {
-			   updateFeature = evt.feature;
-			   console.log("Next " + updateFeature.attributes.objectid);
-			   });
-			   
-			   attInspector.on("delete", function(evt){
-			   evt.feature.getLayer().applyEdits(null,null,[updateFeature]);
-			   map.infoWindow.hide();
-			 });
-          });
+
+            map.on("layers-add-result", initSelectToolbar);
+            var pointLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/6", {
+                mode: FeatureLayer.MODE_SNAPSHOT,
+                outFields: ["*"]
+            });
+            var lineLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/8", {
+                mode: FeatureLayer.MODE_SNAPSHOT,
+                outFields: ["*"]
+            });
+            var polygonLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Military/FeatureServer/9", {
+                mode: FeatureLayer.MODE_SNAPSHOT,
+                outFields: ["*"]
+            });
+            map.addLayers([pointLayer, lineLayer, polygonLayer]);
+
+            function initSelectToolbar(results) {
+                var layers = array.map(results.layers, function(result) {
+                    return result.layer;
+                });
+                var query = new Query();
+                array.forEach(layers, function(layer) {
+                    layer.on("click", function(evt) {
+                        if (map.infoWindow.isShowing) {
+                            map.infoWindow.hide();
+                        }
+                        var layerInfos = [{
+                            'featureLayer': layer,
+                            'isEditable': true
+                        }]
+                        var attInspector = new AttributeInspector({
+                            layerInfos: layerInfos
+                        }, domConstruct.create("div"));
+
+
+                        query.objectIds = [evt.graphic.attributes.objectid];
+                        layer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(features) {
+                            if (features.length > 0) {
+                                //store the current feature
+                                updateFeature = features[0];
+                                map.infoWindow.setTitle(features[0].getLayer().name);
+                                map.infoWindow.setContent(attInspector.domNode);
+                                map.infoWindow.resize(350, 200);
+                                map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
+                            } else {
+                                map.infoWindow.hide();
+                            }
+
+                        });
+                        var saveButton = new Button({
+                            label: "Save",
+                            "class": "saveButton"
+                        });
+                        domConstruct.place(saveButton.domNode, attInspector.deleteBtn.domNode, "after");
+
+                        saveButton.on("click", function() {
+                            updateFeature.getLayer().applyEdits(null, [updateFeature], null);
+                        });
+
+                        attInspector.on("attribute-change", function(evt) {
+                            //store the updates to apply when the save button is clicked 
+                            updateFeature.attributes[evt.fieldName] = evt.fieldValue;
+                        });
+
+                        attInspector.on("next", function(evt) {
+                            updateFeature = evt.feature;
+                            console.log("Next " + updateFeature.attributes.objectid);
+                        });
+
+                        attInspector.on("delete", function(evt) {
+                            evt.feature.getLayer().applyEdits(null, null, [updateFeature]);
+                            map.infoWindow.hide();
+                        });
+                    });
+                });
+
+            }
         });
-		
-       }
-      });
     </script>
-  </head>
-  
-  <body class="claro">
+</head>
+
+<body class="claro">
     <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false" style="width:100%;height:100%;">
-      <div id="detailPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
-        Click a field to display the attribute inspector with customized fields.
-      </div>
-      <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" id="mapDiv"></div>
+        <div id="detailPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+            Click a field to display the attribute inspector with customized fields.
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" id="mapDiv"></div>
     </div>
-  </body>
+</body>
+
 </html>

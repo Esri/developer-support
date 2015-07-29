@@ -1,114 +1,111 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
-	<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
 
-	<title></title>
+    <title></title>
 
-	<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.10/js/dojo/dijit/themes/nihilo/nihilo.css">
-	<link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
 
-	<script src="http://js.arcgis.com/3.10/"></script>
+    <script src="http://js.arcgis.com/3.14/"></script>
 
-	<script>
-		require([
-			"esri/layers/FeatureLayer",
-			"esri/tasks/query",
-			"esri/tasks/QueryTask",
-			"dijit/form/Button",
-			"dojo/dom",
-			"dojo/Deferred",
-			"dojo/on",
-			"dojo/promise/all",
-			"dojo/query",
-			"dojo/domReady!"
-		], function (FeatureLayer, Query, QueryTask, Button, dom, Deferred, on, all, query) {
+    <script>
+        require([
+            "esri/layers/FeatureLayer",
+            "esri/tasks/query",
+            "esri/tasks/QueryTask",
+            "dijit/form/Button",
+            "dojo/dom",
+            "dojo/Deferred",
+            "dojo/on",
+            "dojo/promise/all",
+            "dojo/query",
+            "dojo/domReady!"
+        ], function(FeatureLayer, Query, QueryTask, Button, dom, Deferred, on, all, query) {
+            // run query button
+            var runBtn = new Button({
+                label: "Run Query",
+                onClick: function() {
+                    execute();
+                }
+            }, "executeBtn").startup();
+            // feature layer
+            var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/obesity/FeatureServer/0");
+            // query task
+            var qt = new QueryTask(featureLayer.url);
 
-			// run query button
-			var runBtn = new Button({
-				label: "Run Query",
-				onClick: function () {
-					execute();
-				}
-			}, "executeBtn").startup();
-
-			// feature layer
-			var featureLayer = new FeatureLayer("http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/obesity/FeatureServer/0");
-			// query task
-			var qt = new QueryTask(featureLayer.url);
-
-			function execute() {
-				// query
-				var q = new Query();
-				q.returnGeometry = false;
-				q.outFields = ["*"];
-				q.where = "1=1";
-
-				/**
-				 * Get a count of the number of features that satisfy the input query (in our case, everything)
-				 *
-				 * @returns dojo/promise
-				 */
-				function getCount() {
-					var deferred = new Deferred();
-					qt.executeForCount(q).then(function (res) {
-						deferred.resolve(res);
-					});
-					return deferred.promise;
-				}
-
-				/**
-				 * Get the id values of the map service that satisfy the input query (in our case, all id values)
-				 *
-				 * @returns dojo/promise
-				 */
-				function getObjectIds() {
-					var deferred = new Deferred();
-					qt.executeForIds(q).then(function (res) {
-						deferred.resolve(res);
-					});
-					return deferred.promise;
-				}
-
-				/**
-				 * dojo/promise/all is a function that takes multiple promises and returns a new promise that is
-				 * fulfilled when all promises have been resolved or one has been rejected.
-				 */
-				all([getCount(), getObjectIds()]).then(function (result) {
-					// max record count set on feature layer (default max is 2,000)
-					var maxRecordCount = featureLayer.maxRecordCount;
-					query(".maxRecordCount")[0].innerHTML = "Maximum record count: " + maxRecordCount;
-					var numFeatures = result[0];
-					query(".numRecords")[0].innerHTML = "Total number of features returned: " + numFeatures;
-					var ids = result[1];
-					var diff = numFeatures / maxRecordCount;
-					var tmpArr = [];
-					while (diff >= 0) {
-						if (diff >= 1) {
-							q.objectIds = ids.slice(tmpArr.length, maxRecordCount);
-							tmpArr = ids.slice(diff, maxRecordCount);
-						} else {
-							q.objectIds = ids.slice(tmpArr.length, numFeatures);
-						}
-						var deferred = new Deferred();
-						qt.execute(q).then(function (res) {
-							return deferred.resolve(res);
-						}).then(function (r) {
-									console.log(r.features);
-								});
-						diff--;
-					}
-				});
-			}
-		});
-	</script>
+            function execute() {
+                // query
+                var q = new Query();
+                q.returnGeometry = false;
+                q.outFields = ["*"];
+                q.where = "1=1";
+                /**
+                 * Get a count of the number of features that satisfy the input query (in our case, everything)
+                 *
+                 * @returns dojo/promise
+                 */
+                function getCount() {
+                    var deferred = new Deferred();
+                    qt.executeForCount(q).then(function(res) {
+                        deferred.resolve(res);
+                    });
+                    return deferred.promise;
+                }
+                /**
+                 * Get the id values of the map service that satisfy the input query (in our case, all id values)
+                 *
+                 * @returns dojo/promise
+                 */
+                function getObjectIds() {
+                    var deferred = new Deferred();
+                    qt.executeForIds(q).then(function(res) {
+                        deferred.resolve(res);
+                    });
+                    return deferred.promise;
+                }
+                /**
+                 * dojo/promise/all is a function that takes multiple promises and returns a new promise that is
+                 * fulfilled when all promises have been resolved or one has been rejected.
+                 */
+                all([getCount(), getObjectIds()]).then(function(result) {
+                    // max record count set on feature layer (default max is 2,000)
+                    var maxRecordCount = featureLayer.maxRecordCount;
+                    query(".maxRecordCount")[0].innerHTML = "Maximum record count: " + maxRecordCount;
+                    var numFeatures = result[0];
+                    query(".numRecords")[0].innerHTML = "Total number of features returned: " + numFeatures;
+                    var ids = result[1];
+                    var diff = numFeatures / maxRecordCount;
+                    var tmpArr = [];
+                    while (diff >= 0) {
+                        if (diff >= 1) {
+                            q.objectIds = ids.slice(tmpArr.length, maxRecordCount);
+                            tmpArr = ids.slice(diff, maxRecordCount);
+                        } else {
+                            q.objectIds = ids.slice(tmpArr.length, numFeatures);
+                        }
+                        var deferred = new Deferred();
+                        qt.execute(q).then(function(res) {
+                            return deferred.resolve(res);
+                        }).then(function(r) {
+                            console.log(r.features);
+                        });
+                        diff--;
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 
-<body class="nihilo">
-	<button id="executeBtn" type="button"></button>
-	<div class="maxRecordCount" style="margin-left: 8px; margin-top: 8px; font-size: 1.2em; color: #666666;"></div>
-	<div class="numRecords" style="margin-left: 8px; margin-top: 8px; font-size: 1.2em; color: #666666;"></div>
+<body class="claro">
+    <button id="executeBtn" type="button"></button>
+    <div class="maxRecordCount" style="margin-left: 8px; margin-top: 8px; font-size: 1.2em; color: #666666;"></div>
+    <div class="numRecords" style="margin-left: 8px; margin-top: 8px; font-size: 1.2em; color: #666666;"></div>
 </body>
+
 </html>
