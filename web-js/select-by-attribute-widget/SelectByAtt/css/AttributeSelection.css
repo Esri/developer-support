@@ -1,0 +1,53 @@
+.sqlBtn {
+    width: 52px;
+}
+.sqlBtnSmall {
+    width: 23px;
+}
+.dropDownLabels {
+    width: 90px;
+	padding-left: 10px;
+}
+.dropDown {
+    width: 225px;
+}
+.actionButtons {
+	width: 55px;
+}
+.uniqueValues {
+	width: 128px;	
+}
+#textArea {
+	resize: none;
+	width: 90%;
+	height: 60px;
+	margin-left: 14px;
+}
+#footer {
+	height: 40px;
+}
+#widget {
+	height: 445px;
+	width: 350px;
+	background: #C0C0C0;	
+}
+#header {
+	height: 40px;		
+}
+#title {
+	font-weight: bold;
+	top: 0%;
+	position: absolute;
+	font-size: 18px;	
+}
+#queryDisplay {
+	font-weight: bold;
+	margin-left: 10px;
+}
+#content {
+	height: 355px;
+}
+#closeWindow {
+	left: 268px;
+	position: relative;
+}

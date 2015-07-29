@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta https-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <title>Home Extent Button Dijit</title>
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/3.9/js/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/3.9/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="css/AttributeSelection.css">
+    <style type="text/css">
+        html, body, #map{
+			height: 100%;
+			width: 100%;
+        }
+		#attributeSelection {
+			width: 350px;
+			visibility: hidden;
+			top: 50px;
+			left: 200px;
+			position: absolute;
+			z-index: 100;
+			background-color: #00E6E6;
+		}
+		#toggleSelect {
+			top: 100px;
+			left: 100px;
+			position: absolute;
+			z-index: 10;
+		}
+        .container{
+            position:relative;
+            padding: 10px;
+            border: 1px solid #eee;
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+			height: 100%;
+        }
+    </style>
+</head>
+<body class="claro">  
+    <div class="container">
+        <div id="map" class="map"></div>
+		<div id="attributeSelection"></div>
+		<button id="toggleSelect">Show Widget</button>
+    </div> 
+    <script type="text/javascript">
+        var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+        var dojoConfig = {
+            packages: [{
+                name: "application",
+                location: "https://dl.dropboxusercontent.com/u/79881075/SelectByAtt/"
+            }]
+        };
+    </script>
+    
+    <script src="https://js.arcgis.com/3.13/" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+
+        require([
+			"esri/map",
+			"application/js/AttributeSelection",
+			"esri/layers/FeatureLayer",
+			"esri/symbols/SimpleFillSymbol",
+			"esri/Color",
+			"dojo/on"
+		], function(Map, SelectByAtt, FeatureLayer, SimpleFillSymbol, Color, on){
+			var myWidget;
+            var map = new Map("map", {
+                center: [-86, 33],
+                zoom: 6,
+                basemap: "streets"
+            });
+			
+			var layer1 = new FeatureLayer("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");
+			var layer2 = new FeatureLayer("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/2");
+			
+			var selectionSymbol = new SimpleFillSymbol().setColor(new Color([255,255,0,0.5]));
+			
+			layer1.setSelectionSymbol(selectionSymbol);
+			layer2.setSelectionSymbol(selectionSymbol);
+			
+			map.addLayers([layer1, layer2]);
+			
+			document.getElementById("toggleSelect").addEventListener("click", showSelect);
+			
+			//After the layers have been added to the map, create the SelectByAtt widget
+			map.on("layers-add-result", function () {
+				myWidget = new SelectByAtt({
+					map: map,
+					layers: [layer1, layer2]
+				}, "attributeSelection");
+				myWidget.startup();
+			});
+			
+			function showSelect() {
+				myWidget.show();
+			}
+            
+        });
+    </script>
+</body>
+</html>

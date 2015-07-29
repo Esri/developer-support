@@ -1,183 +1,192 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=10">
     <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>map constructor tool</title>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
-      html, body {
-        height: 100%;
-        width: 100%;
-        margin: 0; 
-        padding: 0;
-        overflow:hidden;
-      }      
-      #map{
-        padding:0;
-		height: 100%;
-        width: 100%;
-      }
-      #search {
-        display: block;
-        position: absolute;
-        z-index: 2;
-        top: 10px;
-        left: 70px;
-	  }
-	  #info {
-        bottom: 20px;
-        color: #444;
-        height: auto;
-        font-family: arial;
-        left: 20px;
-        margin: 5px;
-        padding: 10px;
-        position: absolute;
-        text-align: left;
-        width: 280px;
-        z-index: 40;		
-      }
-	  .esriSimpleSlider {
-	    -webkit-user-select: all;
-		-moz-user-select: all;
-        -ms-user-select: all !important;  <!--wtf!-->		
-		user-select: all;
-	  }
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #map {
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+        
+        #search {
+            display: block;
+            position: absolute;
+            z-index: 2;
+            top: 10px;
+            left: 70px;
+        }
+        
+        #info {
+            bottom: 20px;
+            color: #444;
+            height: auto;
+            font-family: arial;
+            left: 20px;
+            margin: 5px;
+            padding: 10px;
+            position: absolute;
+            text-align: left;
+            width: 280px;
+            z-index: 40;
+        }
+        
+        .esriSimpleSlider {
+            -webkit-user-select: all;
+            -moz-user-select: all;
+            -ms-user-select: all !important;
+            <!--wtf!--> user-select: all;
+        }
     </style>
-    <script src="http://js.arcgis.com/3.10/"></script>
-    <script>	  
-	  require([
-	  		"esri/map", "esri/graphic", "esri/geometry/webMercatorUtils",
-	  		"esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
-	  		"esri/dijit/Geocoder", "esri/dijit/BasemapGallery",
-	  		"dojo/parser",
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        require([
+            "esri/map", "esri/graphic", "esri/geometry/webMercatorUtils",
+            "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
+            "esri/dijit/Geocoder", "esri/dijit/BasemapGallery",
+            "dojo/parser",
+            "dojo/_base/Color", "dojo/dom", "dojo/number",
+            "dijit/layout/ContentPane", "dijit/layout/ContentPane", "dojo/domReady!"
+        ], function(
+            Map, Graphic, webMercatorUtils,
+            SimpleMarkerSymbol, SimpleLineSymbol,
+            Geocoder, BasemapGallery,
+            parser,
+            Color, dom, number) {
+            var map, symbol;
+            parser.parse();
+            //add the map with a base map in Web Mercator projection (102100)			
+            map = new Map("map", {
+                basemap: "streets",
+                center: [-110.9264, 32.2217],
+                zoom: 9
+            });
+            //create a cross symbol 	to use as a reference for the coordinates	
+            symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CROSS, 30,
+                new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+                    //set the color for the symbol that stands out from the basemaps (this one is red :-)                  
+                    new Color([255, 0, 0]), 4));
+            //instantiate the geocoder and fire it up
+            //This will help you search for places using the ArcGIS Online World Geocoder			
+            geocoder = new Geocoder({
+                map: map
+            }, "search");
+            geocoder.startup();
+            //add the BasemapGallery widget and start it up
+            //Lets you change the basemap			
+            var basemapGallery = new BasemapGallery({
+                showArcGISBasemaps: true,
+                map: map
+            }, "basemapGallery");
+            basemapGallery.startup();
+            //when the basemap changes or the map extent changes call the displayGoods callback function 
+            basemapGallery.on("selection-change", displayGoods);
+            map.on("extent-change", displayGoods);
+            //when we click on the map use the panCenter callback function 			
+            map.on("click", panCenter);
 
-	  		"dojo/_base/Color", "dojo/dom", "dojo/number",
-	  		"dijit/layout/ContentPane", "dijit/layout/ContentPane", "dojo/domReady!"
-	  	], function (
-	  		Map, Graphic, webMercatorUtils,
-	  		SimpleMarkerSymbol, SimpleLineSymbol,
-	  		Geocoder, BasemapGallery,
-	  		parser,
-
-	  		Color, dom, number) {
-
-	  	var map, symbol;
-		parser.parse();	  	
-
-	  	map = new Map("map", {
-	  			basemap : "streets",
-	  			center : [-87.6278, 41.8811],
-	  			zoom : 9
-	  		});
-
-	  	symbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CROSS, 30,
-            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-	  		new Color([255, 0, 0]), 4));
-
-	  	geocoder = new Geocoder({
-	  			map : map
-	  	}, "search");
-	  	geocoder.startup();
-
-	  	var basemapGallery = new BasemapGallery({
-	  			showArcGISBasemaps : true,
-	  			map : map
-	  	}, "basemapGallery");
-
-		basemapGallery.startup();
-	  	basemapGallery.on("selection-change", displayGoods);
-
-	  	map.on("extent-change", displayGoods);
-	  	map.on("click", panCenter);
-	  	//}
-
-	  	function displayGoods() {
-	  		map.graphics.clear();
-	  		var point102100 = map.extent.getCenter();
-	  		var point4326 = webMercatorUtils.webMercatorToGeographic(point102100);
-
-	  		var graphic = new Graphic(point102100, symbol);
-	  		map.graphics.add(graphic);
-
-	  		var basemapString;
-
-	  		if (basemapGallery.getSelected()) {
-	  			var basemapTitle = basemapGallery.getSelected().title
-	  				switch (basemapTitle) {
-	  				case "Streets":
-	  					basemapString = "streets";
-	  					break;
-	  				case "Imagery":
-	  					basemapString = "satellite";
-	  					break;
-	  				case "Imagery with Labels":
-	  					basemapString = "hybrid";
-	  					break;
-	  				case "Topographic":
-	  					basemapString = "topo";
-	  					break;
-	  				case "Light Gray Canvas":
-	  					basemapString = "gray";
-	  					break;
-	  				case "Oceans":
-	  					basemapString = "oceans";
-	  					break;
-	  				case "National Geographic":
-	  					basemapString = "national-geographic";
-	  					break;
-	  				case "OpenStreetMap":
-	  					basemapString = "osm";
-	  					break;
-	  				default:
-	  					basemapString = "no bueno";
-	  				}
-
-	  		} else
-	  			basemapString = 'streets';
-
-	  		dom.byId("center").innerHTML =
-	  			"<p>basemap: " + "'" + basemapString + "'," +
-	  			"<br/>center: [" +
-	  			number.format(point4326.x, {
-	  				places : 4
-	  			}) +
-	  			", " +
-	  			number.format(point4326.y, {
-	  				places : 4
-	  			}) +
-	  			"]," +
-	  			"<br/>zoom: " + map.getLevel();
-	  	}
-
-	  	function panCenter(evt) {
-	  		map.graphics.clear();			
-	  		map.graphics.add(new Graphic(evt.mapPoint, symbol));
-	  		map.centerAt(evt.mapPoint);
-	  	}
-	  });
+            //when the extent changes or the selection changes this function will be called 
+            //	1. clear the graphics	
+            //	2. center the map based on the extent 
+            //	3. create and add a graphic to the map based on geographic units (use the webMercatorToGeographic method to convert units)	
+            //	4. call the getSelected method for the basemap gallery widget to get the currently selected basemap		
+            function displayGoods() {
+                map.graphics.clear();
+                var point102100 = map.extent.getCenter();
+                var point4326 = webMercatorUtils.webMercatorToGeographic(point102100);
+                var graphic = new Graphic(point102100, symbol);
+                map.graphics.add(graphic);
+                var basemapString;
+                if (basemapGallery.getSelected()) {
+                    var basemapTitle = basemapGallery.getSelected().title
+                    switch (basemapTitle) {
+                        case "Streets":
+                            basemapString = "streets";
+                            break;
+                        case "Imagery":
+                            basemapString = "satellite";
+                            break;
+                        case "Imagery with Labels":
+                            basemapString = "hybrid";
+                            break;
+                        case "Topographic":
+                            basemapString = "topo";
+                            break;
+                        case "Light Gray Canvas":
+                            basemapString = "gray";
+                            break;
+                        case "Oceans":
+                            basemapString = "oceans";
+                            break;
+                        case "National Geographic":
+                            basemapString = "national-geographic";
+                            break;
+                        case "OpenStreetMap":
+                            basemapString = "osm";
+                            break;
+                        default:
+                            basemapString = "Grey";
+                    }
+                } else
+                    basemapString = 'streets';
+                dom.byId("center").innerHTML =
+                    "<p>basemap: " + "'" + basemapString + "'," +
+                    "<br/>center: [" +
+                    number.format(point4326.x, {
+                        places: 4
+                    }) +
+                    ", " +
+                    number.format(point4326.y, {
+                        places: 4
+                    }) +
+                    "]," +
+                    "<br/>zoom: " + map.getLevel();
+            }
+            //When we click on the map... 
+            //	1. clear the graphic
+            //	2. add a new graphic based on the map click
+            //	3. center at that point
+            function panCenter(evt) {
+                map.graphics.clear();
+                map.graphics.add(new Graphic(evt.mapPoint, symbol));
+                map.centerAt(evt.mapPoint);
+            }
+        });
     </script>
-  </head>
-  
-  <body class="claro">
+</head>
+
+<body class="claro">
     <div id="map">
-	    <div id="search"></div>
-		<div id="info" class="esriSimpleSlider">
-		<!--p>feel free to copy/paste these values into the map constructor in your own app</p-->
-			<span id="center"></span>
-		</div>		
-		<div style="position:absolute; right:20px; top:10px; z-Index:999;">
-          <div data-dojo-type="dijit/TitlePane" 
-               data-dojo-props="title:'Switch Basemap', closable:false,  open:false">
-            <div data-dojo-type="dijit/layout/ContentPane" style="width:160px; height:600px; overflow:auto;">
-            <div id="basemapGallery" ></div></div>
-          </div>
+        <div id="search"></div>
+        <div id="info" class="esriSimpleSlider">
+            <!--p>feel free to copy/paste these values into the map constructor in your own app</p-->
+            <span id="center"></span>
         </div>
-	</div>
-  </body>
+        <div style="position:absolute; right:20px; top:10px; z-Index:999;">
+            <div data-dojo-type="dijit/TitlePane" data-dojo-props="title:'Switch Basemap', closable:false,  open:false">
+                <div data-dojo-type="dijit/layout/ContentPane" style="width:160px; height:600px; overflow:auto;">
+                    <div id="basemapGallery"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
 </html>

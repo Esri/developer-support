@@ -1,61 +1,65 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>HeatmapRenderer Clientside</title>
-  <link rel="stylesheet" href="//js.arcgis.com/3.13/dijit/themes/claro/claro.css">
-  <link rel="stylesheet" href="//js.arcgis.com/3.13/esri/css/esri.css">
-  <style>
-    html, body, #map {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-  <script src="//js.arcgis.com/3.13/"></script>
-  <script>
-    var map;
-    require([
-		"esri/graphic",
-		"esri/SpatialReference",
-        "esri/geometry/Point",
-        "esri/InfoTemplate",
-        "esri/layers/FeatureLayer",
-        "esri/map",
-        "esri/renderers/HeatmapRenderer",
-        "esri/renderers/SimpleRenderer",
-        "dojo/domReady!"
-      ],
-      function (Graphic, SpatialReference, Point, InfoTemplate, FeatureLayer, Map, HeatmapRenderer, SimpleRenderer){
 
-        map = new Map("map", {
-          basemap: "gray",
-          center: [-119.11, 36.65],
-          zoom: 7
-        });
-        
-        map.on("load", function(evt){
-        		var extent = map.extent;
-        		var features = [];
-        		for(i=0; i<1500; i++){
-        			var x = getRandomInt(extent.xmin,extent.xmax);
-        			var y = getRandomInt(extent.ymin,extent.ymax);
-        			var attr = {};
-        	        attr["ObjectID"] = i;
-        			var graphic = new Graphic(new Point(x, y, new SpatialReference({ wkid: map.spatialReference.wkid })));
-        			graphic.setAttributes(attr);
-        			features.push(graphic);
-          	}
-        		createClientLayer(features);
-        	});
-        
-        function createClientLayer(features){
-        		var heatmapRenderer = new HeatmapRenderer();
-        		var heatmapDefinition = heatmapRenderer.toJson();
-        		
-        		/**  hey this json right here is the result of what toJson() will yield when called on a renderer object
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>HeatmapRenderer Clientside</title>
+    <link rel="stylesheet" href="//js.arcgis.com/3.13/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="//js.arcgis.com/3.13/esri/css/esri.css">
+    <style>
+        html,
+        body,
+        #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script src="//js.arcgis.com/3.13/"></script>
+    <script>
+        var map;
+        require([
+                "esri/graphic",
+                "esri/SpatialReference",
+                "esri/geometry/Point",
+                "esri/InfoTemplate",
+                "esri/layers/FeatureLayer",
+                "esri/map",
+                "esri/renderers/HeatmapRenderer",
+                "esri/renderers/SimpleRenderer",
+                "dojo/domReady!"
+            ],
+            function(Graphic, SpatialReference, Point, InfoTemplate, FeatureLayer, Map, HeatmapRenderer, SimpleRenderer) {
+                map = new Map("map", {
+                    basemap: "gray",
+                    center: [-119.11, 36.65],
+                    zoom: 7
+                });
+
+                map.on("load", function(evt) {
+                    var extent = map.extent;
+                    var features = [];
+                    for (i = 0; i < 1500; i++) {
+                        var x = getRandomInt(extent.xmin, extent.xmax);
+                        var y = getRandomInt(extent.ymin, extent.ymax);
+                        var attr = {};
+                        attr["ObjectID"] = i;
+                        var graphic = new Graphic(new Point(x, y, new SpatialReference({
+                            wkid: map.spatialReference.wkid
+                        })));
+                        graphic.setAttributes(attr);
+                        features.push(graphic);
+                    }
+                    createClientLayer(features);
+                });
+
+                function createClientLayer(features) {
+                    var heatmapRenderer = new HeatmapRenderer();
+                    var heatmapDefinition = heatmapRenderer.toJson();
+
+                    /**  hey this json right here is the result of what toJson() will yield when called on a renderer object
 	        	var simpleJson = {
 	        		    "type": "simple",
 	        		    "label": "",
@@ -80,43 +84,45 @@
         		var renderer = new SimpleRenderer(simpleJson);
         		ver simpleRendererDefinition = renderer.toJson();
         		**/
-	        	
-	        	var featureCollection = {
-	        			"layerDefinition": null,
-	        			"featureSet": {
-	        				"features": features,
-	        				"geometryType": "esriGeometryPoint"
-	                 }
-	        	};
-	        	
-	        	featureCollection.layerDefinition = {
-	        			"geometryType": "esriGeometryPoint",
-	        			"objectIdField": "ObjectID",
-	        			"drawingInfo": {
-	        				"renderer": heatmapDefinition
-	        				},
-	        				"fields": [{
-	        					"name": "ObjectID",
-	        					"alias": "ObjectID",
-	        					"type": "esriFieldTypeOID"
-	                    }]
-	        			};
-	        	
-	        	clientLayer = new FeatureLayer(featureCollection, {id: 'clientLayer'});
-	        	clientLayer.setRenderer(heatmapRenderer); //apply the renderer to the layer 
 
-        		map.addLayer(clientLayer);
-        		console.log(clientLayer);
-        }
-        
-        function getRandomInt(min, max){
-        		return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
+                    var featureCollection = {
+                        "layerDefinition": null,
+                        "featureSet": {
+                            "features": features,
+                            "geometryType": "esriGeometryPoint"
+                        }
+                    };
 
-      });
-  </script>
-  </head>
-  <body>
+                    featureCollection.layerDefinition = {
+                        "geometryType": "esriGeometryPoint",
+                        "objectIdField": "ObjectID",
+                        "drawingInfo": {
+                            "renderer": heatmapDefinition
+                        },
+                        "fields": [{
+                            "name": "ObjectID",
+                            "alias": "ObjectID",
+                            "type": "esriFieldTypeOID"
+                        }]
+                    };
+
+                    clientLayer = new FeatureLayer(featureCollection, {
+                        id: 'clientLayer'
+                    });
+                    clientLayer.setRenderer(heatmapRenderer); //apply the renderer to the layer 
+                    map.addLayer(clientLayer);
+                    console.log(clientLayer);
+                }
+
+                function getRandomInt(min, max) {
+                    return Math.floor(Math.random() * (max - min + 1)) + min;
+                }
+            });
+    </script>
+</head>
+
+<body>
     <div id="map"></div>
-  </body>
+</body>
+
 </html>

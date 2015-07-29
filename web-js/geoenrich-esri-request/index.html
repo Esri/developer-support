@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Geoenrichment w/ Esri Request</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="initial-scale=1, maximum-scale=1, user-scalable=no" name=
+  "viewport">
+  <link href="http://js.arcgis.com/3.14/esri/css/esri.css" rel="stylesheet">
+  <style>
+
+    #content {
+      margin-top: 20px;
+      width: 800px; height: 350px; padding: 5px; overflow: auto;
+      border: solid 2px #AAAAAA; background-color: #FFFFFF;
+      -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px;
+      -moz-box-shadow: 0 0 0.5em black; -webkit-box-shadow: 0 0 0.5em black; -o-box-shadow: 0 0 0.5em black; box-shadow: 0 0 0.5em black;
+    }
+
+
+    span.btn, span.btn:link, span.btn:visited {
+      display: inline-block;
+      font-family: Montserrat,Verdana , Geneva, Tahoma, Arial, Helvetica, sans-serif;
+      color: #FFFFFF;
+      text-decoration: none;
+      background-color: #555555;
+
+      border: 1px solid #555555;
+      border-radius: 0;
+      margin-top: 20px;
+      margin-left: 20px;
+      font-size: 16px;
+      padding: 8px 26px;
+      font-weight: normal;
+      -webkit-transition: all 0.4s ease;
+      -moz-transition: all 0.4s ease;
+      -o-transition: all 0.4s ease;
+      transition: all 0.4s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    }
+    span.btn:hover, span.btn:active {
+      background-color:#ffffff;
+      color:#555555;            
+    }
+    span.btn:hover, span.btn:active {
+      background-color:#ffffff;
+      color:#555555;            
+    }    
+  </style>
+  <script src="http://js.arcgis.com/3.14/"></script>
+  <script type="text/javascript">
+
+    //http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Input_XY_locations/02r300000006000000/
+    require([ "esri/geometry/webMercatorUtils", "esri/request","esri/urlUtils","esri/geometry/Extent", "esri/geometry/Point", "esri/SpatialReference", "dojo/_base/json", "dojo/dom", "dojo/on"], function(
+            webMercatorUtils, esriRequest, urlUtils, Extent, Point, SpatialReference, dojoJson, dom, on) {
+      urlUtils.addProxyRule({
+        urlPrefix: "geoenrich.arcgis.com",  
+        proxyUrl: "../proxy/proxy.php"
+      });
+        
+      on(dom.byId("run"), "click", createRandomStudyAreas);
+  
+      function createRandomStudyAreas(evt){
+        dom.byId("run").innerHTML = "Processing";
+        dom.byId("content").innerHTML = "";
+        var extentWebMercator = new Extent({"xmin":-13737784.99554415,"ymin":6016774.020726095,"xmax":-13513671.62861193,"ymax":6078229.391467401,"spatialReference":{"wkid":3857}});
+        var extentGeographic = webMercatorUtils.webMercatorToGeographic(extentWebMercator);
+        var features = [];
+        for(i=0; i<250; i++){
+            var x = getRandomInt(extentGeographic.xmin,extentGeographic.xmax);
+            var y = getRandomInt(extentGeographic.ymin,extentGeographic.ymax);
+            var bufferedStudyArea = {};
+            bufferedStudyArea.geometry = new Point(x, y, new SpatialReference({ wkid: "4326"}));
+            bufferedStudyArea.areaType = "RingBuffer";
+            bufferedStudyArea.bufferUnits = "esriMiles";
+            bufferedStudyArea.bufferRadii = [Math.floor(Math.random() * 3) + 1];
+            bufferedStudyArea.returnGeometry = false;
+            features.push(bufferedStudyArea);
+        }
+        var requestHandle = esriRequest({
+            "url": "http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/enrich",
+            "content": { f: "pjson", studyareas: dojo.toJson(features),  dataCollections: '["KeyGlobalFacts"]'}
+        });
+        
+        setTimeout(function(){requestHandle.progress("running");},200);
+        
+       requestHandle.then(function(response){
+            console.log("Results");
+            var features = response.results[0].value.FeatureSet[0].features;
+            dom.byId("content").innerHTML = dojoJson.toJson(features);
+            dom.byId("run").innerHTML = "Generate Key Global Facts";
+  
+        }, function(error){
+            console.log(error)
+        }, function(progress){
+        	  console.log(progress);
+              var dots = '';
+              var intOn = setInterval(function() {
+                if(requestHandle.isResolved() == false){
+                  dom.byId("run").innerHTML = "Processing" + dots;
+                  if ((dots += '.').length == 4){dots = '';}   
+                }else{
+                  var intOff = setInterval(function() {
+                    dom.byId("run").innerHTML = "Generate Key Global Facts";  
+                    clearInterval( intOff );
+                  },100);
+                  clearInterval(intOn);
+                }
+              }, 100);
+        });
+      }
+  
+      function getRandomInt(min, max){
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+  });
+
+  </script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <span class="btn" id="run">Generate Key Global Facts</span>
+    <div id="content"></div>
+  </div>
+</body>
+</html>

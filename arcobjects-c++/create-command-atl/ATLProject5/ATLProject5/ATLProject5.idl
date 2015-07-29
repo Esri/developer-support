@@ -1,0 +1,34 @@
+// ATLProject5.idl : IDL source for ATLProject5
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (ATLProject5.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(3585C827-26AB-448A-8F55-75B0E8EF285A),
+	pointer_default(unique)
+]
+interface IZoomIn : IUnknown{
+};
+[
+	uuid(CC0DF067-B2F1-4125-AB9C-8A9A0B39F52F),
+	version(1.0),
+]
+library ATLProject5Lib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+	[
+		uuid(171B0B8C-4CBE-46F1-972C-08227477BBD1)		
+	]
+	coclass ZoomIn
+	{
+		[default] interface IUnknown;
+		interface IZoomIn;
+	};
+};
+

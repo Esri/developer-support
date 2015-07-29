@@ -7,6 +7,7 @@ This sample combines the legend widget and editor widget in an accordion pane.
 
 [Editor widget with simple toolbar](https://developers.arcgis.com/javascript/jssamples/ed_simpletoolbar.html)
 
+[Live Sample](http://esri.github.io/developer-support/web-js/legend-Editor/legendEditor.html)
 
 ##Usage notes:
 This sample demonstrates how include the editor widget in the second accordion pane of the the legend sample.

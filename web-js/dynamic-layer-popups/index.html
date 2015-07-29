@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Simple Map</title>
+   <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background-color: #FFF;
+            overflow: hidden;
+            font-family: "Trebuchet MS";
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        var map;
+        require(["esri/map",
+            "esri/InfoTemplate",
+            "esri/layers/FeatureLayer",
+            "esri/layers/ArcGISDynamicMapServiceLayer",
+            "esri/tasks/IdentifyTask",
+            "esri/tasks/IdentifyParameters",
+            "dojo/domReady!"
+        ], function(Map, InfoTemplate, FeatureLayer, DynamicLayer, IdentifyTask, IdentifyParameters) {
+            map = new Map("map", {
+                basemap: "dark-gray",
+                center: [-86, 33], // longitude, latitude
+                zoom: 8
+            });
+
+            //Create the template to be used by the map's info window
+            var popupTemplate = new InfoTemplate();
+            popupTemplate.title = "<b>${AREANAME}<b/>"
+                //Format the content as an HTML string. You will need to add entries for each attribute you wish to show.
+            popupTemplate.content = "<b>City Name:</b> ${AREANAME} <br />" +
+                "<b>Classification:</b> ${CLASS} <br />" +
+                "<b>State:</b> ${ST} <br />" +
+                "<b>Population:</b> ${POP2000}";
+
+            //our dynamic map service layer
+            var dynamicLayer = new DynamicLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
+            dynamicLayer.setVisibleLayers([0]);
+            //add the layer to the map
+            map.addLayer(dynamicLayer);
+
+            //create the identify task, this is how we will get the information about the features
+            var identifyTask = new IdentifyTask("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer");
+            var identifyParams = new IdentifyParameters();
+
+            identifyParams = new IdentifyParameters();
+            identifyParams.tolerance = 3;
+            identifyParams.returnGeometry = true;
+            identifyParams.layerIds = [0];
+
+            //when the map is clicked, call the execute identify task function
+            map.on("click", executeIdentifyTask);
+
+            function executeIdentifyTask(evt) {
+                //the input geometry to the identify task is the where the map was clicked
+                identifyParams.geometry = evt.mapPoint;
+                identifyParams.mapExtent = map.extent;
+                //execute the identify task
+                identifyTask.execute(identifyParams, function(results) {
+                    //this array will hold the features returned by the identify task
+                    var features = [];
+                    //clear the features that are currently displayed in the info window
+                    map.infoWindow.clearFeatures();
+                    //loop through the features in the feature set
+                    for (var i = 0; i < results.length; i++) {
+                        //set the infoTemplate property for each feature to the popupTemplate we created above
+                        results[i].feature.setInfoTemplate(popupTemplate);
+                        //push the feature to the features array
+                        features.push(results[i].feature);
+                    }
+                    //call the setFeatures function
+                    setFeatures(features, evt.mapPoint);
+                });
+            }
+
+            function setFeatures(features, point) {
+                //check to see if any features were returned, if so display the infoWindow
+                if (features.length > 0) {
+                    //populate the infoWindow with the selected features
+                    map.infoWindow.setFeatures(features);
+                    //display the infoWindow where the map was clicked
+                    map.infoWindow.show(point);
+                }
+                //if not, hide the infoWindow
+                else {
+                    map.infoWindow.hide();
+                }
+            }
+        });
+    </script>
+</head>
+
+<body class="claro">
+    <div id="map"></div>
+</body>
+
+</html>

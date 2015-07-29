@@ -1,0 +1,138 @@
+
+    <div id="widget">
+      <div id="header">
+        <table style="width: 100%; padding-left: 10px;">
+          <tbody>
+            <tr>
+              <td height="30px">
+                <p id="title" >Select By Attributes</p>
+              </td>
+              <td> <button id="closeWindow">X</button> </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="content">
+        <table style="width: 100%;">
+          <tbody>
+            <tr>
+              <td class="dropDownLabels">
+                <div id="layerLabel" class="actionButtons"><b>Layer:</b></div>
+              </td>
+              <td>
+                <select name="layerDropDown" id="layerDropDown" class="dropDown" >
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="dropDownLabels">
+                <div id="layerLabel"><b>Method:</b></div>
+              </td>
+              <td>
+                <select name="methodDropDown" id="methodDropDown" class="dropDown">
+					<option value="1">Create a new selection</option>
+					<option value="2">Add to current selection</option>
+					<option value="3">Remove from current selection</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td class="dropDownLabels">
+                <div id="attributeLabel"><b>Attribute:</b></div>
+              </td>
+              <td>
+                <select name="attributeDropDown" id="attributeDropDown" class="dropDown">
+                </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table style="width: 100%;">
+          <tbody>
+            <tr>
+              <td style="padding-left: 10px;">
+                <table style="width: 50%;">
+                  <tbody>
+                    <tr>
+                      <td> <button id="equals" class="sqlBtn">=</button>
+                      </td>
+                      <td> <button id="greaterLess">&lt;&gt;</button>
+                      </td>
+                      <td> <button id="like" class="sqlBtn">LIKE</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td> <button id="greaterThan"class="sqlBtn">&gt;</button>
+                      </td>
+                      <td> <button id="greaterThanEqual" class="sqlBtn">&gt;=</button></td>
+                      <td> <button id="and" class="sqlBtn">AND</button> </td>
+                    </tr>
+                    <tr>
+                      <td> <button id="lessThan" class="sqlBtn">&lt;</button>
+                      </td>
+                      <td> <button id="lessThanEqual" class="sqlBtn">&lt;=</button>
+                      </td>
+                      <td> <button id="or" class="sqlBtn">OR</button> </td>
+                    </tr>
+                    <tr>
+                      <td> <button id="underscore" class="sqlBtnSmall">_</button>
+                        <button id="percent" class="sqlBtnSmall">%</button> </td>
+                      <td> <button id="parenthesis" class="sqlBtn">()</button>
+                      </td>
+                      <td> <button id="not" class="sqlBtn">NOT</button> </td>
+                    </tr>
+                    <tr>
+                      <td> <button id="is" class="sqlBtn">IS</button> </td>
+                      <td> <button id="in" class="sqlBtn">IN</button> </td>
+                      <td> <button id="null" class="sqlBtn">NULL</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td style="vertical-align: top;">
+                <table style="width: 100%; top: 0; float: left;">
+                  <tbody>
+                    <tr>
+                      <td> <button id="uValuesBtn" class="uniqueValues">Get Unique Values</button> </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <select name="valueDropDown" id="valueDropDown" class="uniqueValues">
+                        </select>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <p id="queryDisplay" >SELECT * FROM Layer WHERE:</p>
+        </div>
+        <textarea id="textArea"></textarea>
+        <table style="width: 100%; padding-left: 10px;">
+          <tbody>
+            <tr>
+              <td class="actionButtons" > <button id="clear" class="actionButtons">Clear</button></td>
+              <td class="actionButtons" > <button id="verify" class="actionButtons">Verify</button></td>
+              <td class="actionButtons" > <button id="help"  class="actionButtons">Help</button></td>
+              <td class="actionButtons" > <button id="load"  class="actionButtons">Load...</button></td>
+              <td class="actionButtons" > <button id="save"  class="actionButtons">Save</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="footer">
+        <table style="width: 100%; padding-left: 144px;">
+          <tbody>
+            <tr>
+              <td> <button id="okBtn" class="actionButtons" >OK</button></td>
+              <td> <button id="applyBtn" class="actionButtons" >Apply</button></td>
+              <td> <button id="closeBtn" class="actionButtons">Close</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
