@@ -7,10 +7,10 @@
 import urllib, urllib2, json
 
 # variables
-portalURL = <Portal Url> # Portal url including web adaptor (ex https://portal.example.com/portal)
-portalUsername = <username>  # Portal username under which the items will be added to
-portalPassword = <password> # Portal password
-serverURL = <ArcGIS Server Rest url> # Rest endpoint (ex https://server.example.com/arcgis/rest/services)
+portalURL = <Portal Url> # Portal url including web adaptor (ex 'https://portal.example.com/portal')
+portalUsername = <username>  # Portal username in single quotes
+portalPassword = <password> # Portal password in single quotes
+serverURL = <ArcGIS Server Rest url> # Rest endpoint (ex 'https://server.example.com/arcgis/rest/services')
 addCount = 0
 failCount = 0
 
