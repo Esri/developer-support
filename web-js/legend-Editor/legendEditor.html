@@ -8,38 +8,43 @@
       on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>Edit rivers and waterbodies</title>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css" />
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css" />
     <style>
         html,
         body {
             height: 99%;
             width: 99%;
         }
+        
         #map {
             padding: 0;
         }
+        
         #leftPane {
             width: 20%;
         }
+        
         #legendPane {
             border: solid #97DCF2 1px;
         }
+        
         .templatePicker {
             border: none;
         }
+        
         .dj_ie .infowindow .window .top .right .user .content {
             position: relative;
         }
+        
         .dj_ie .simpleInfoWindow .content {
             position: relative;
         }
     </style>
 
-    <script src="http://js.arcgis.com/3.13/"></script>
+    <script src="http://js.arcgis.com/3.14/"></script>
     <script>
         var map;
-
         require([
             "esri/map",
             "esri/tasks/GeometryService",
@@ -72,28 +77,21 @@
             keys
         ) {
             parser.parse();
-
-
             // snapping is enabled for this sample - change the tooltip to reflect this
             jsapiBundle.toolbars.draw.start = jsapiBundle.toolbars.draw.start + "<br>Press <b>ALT</b> to enable snapping";
-
             // refer to "Using the Proxy Page" for more information:  https://developers.arcgis.com/en/javascript/jshelp/ags_proxy.html
             esriConfig.defaults.io.proxyUrl = "http://marlak/DotNet4/proxy.ashx";
-
             //This service is for development and testing purposes only. We recommend that you create your own geometry service for use within your applications. 
             esriConfig.defaults.geometryService = new GeometryService("http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
-
             map = new Map("map", {
                 basemap: "satellite",
                 center: [-96.53, 38.374],
                 zoom: 13,
                 slider: false
             });
-
             //add boundaries and place names 
             var labels = new ArcGISTiledMapServiceLayer("http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer");
             map.addLayer(labels);
-
             var rivers = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Hydrography/Watershed173811/FeatureServer/1", {
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: ["*"]
@@ -102,12 +100,8 @@
                 mode: FeatureLayer.MODE_ONDEMAND,
                 outFields: ["*"]
             });
-
             map.on("layers-add-result", initEditor);
-
-
             map.addLayers([waterbodies, rivers]);
-
             //add the legend
             map.on("layers-add-result", function(evt) {
                 var layerInfo = arrayUtils.map(evt.layers, function(layer, index) {
@@ -136,7 +130,6 @@
                     columns: 3
                 }, "templateDiv");
                 templatePicker.startup();
-
                 var layers = arrayUtils.map(evt.layers, function(result) {
                     return {
                         featureLayer: result.layer
@@ -159,7 +152,6 @@
                         reshapeVisible: true
                     }
                 };
-
                 var params = {
                     settings: settings
                 };
