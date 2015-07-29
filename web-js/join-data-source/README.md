@@ -5,9 +5,7 @@ This is a sample shows how to use Join Data Source ("esri/layers/JoinDataSource"
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 [Search](https://developers.arcgis.com/javascript/jsapi/joindatasource-amd.html)
 
-## Pay Attention when using Search Widget on GeocodeServer
-If you want to have auto suggestions when input an address for search widget to automatically return close result, there are two requirements need to follow:  
-
+## Pay Attention when using Join Data Source
 The workspace ID is for the registered file geodatabase, SDE or Shapefile workspace. Basically, there are two ways to enable this workspace ID
 
 1) From ArcMap before publishing the services,for more information please take a look about this documentation talks about "Enabling dynamic layers on a map service in ArcGIS for Desktop":
