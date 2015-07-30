@@ -1,4 +1,4 @@
-# Script to add all services from an ArcGIS Server Rest endpoint to Portal as items
+# Script to add all unsecured map and feature services from an ArcGIS Server Rest endpoint to Portal as items
 # Created by: Jeff S
 #
 # The portalURL, portalUsername, portalPassword, and serverURL must be updated
@@ -7,10 +7,10 @@
 import urllib, urllib2, json
 
 # variables
-portalURL = <Portal Url> # Portal url including web adaptor (ex 'https://portal.example.com/portal')
-portalUsername = <username>  # Portal username in single quotes
-portalPassword = <password> # Portal password in single quotes
-serverURL = <ArcGIS Server Rest url> # Rest endpoint (ex 'https://server.example.com/arcgis/rest/services')
+portalURL = 'https://portal.example.com/portal' # Portal url including web adaptor
+portalUsername = 'username'  # Portal username
+portalPassword = 'password' # Portal password
+serverURL = 'https://server.example.com/arcgis/rest/services' # Rest endpoint
 addCount = 0
 failCount = 0
 
