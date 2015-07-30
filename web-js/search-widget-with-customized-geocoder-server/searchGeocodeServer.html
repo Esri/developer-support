@@ -19,7 +19,7 @@
         }
         
         #info {
-            top: 2px;
+            bottom: 2px;
             color: #444;
             height: auto;
             font-family: arial;
@@ -114,10 +114,8 @@
             }, "search");
             //listen for the load event and set the source properties 
             search.on("load", function() {
-
                 var sources = search.sources;
                 // In order to make suggestion works for GeocodeServer, user need to use ArcGIS 10.3 or later version and enable "Suggest" capability when publishing services, for more information please check our online documentation: https://developers.arcgis.com/javascript/jsapi/search-amd.html#enablesuggestions
-
                 var locator = new Locator("http://arclogistics.arcgisonline.com/arcgis/rest/services/King_County/GeocodeServer");
                 sources.push({
                     locator: locator,
