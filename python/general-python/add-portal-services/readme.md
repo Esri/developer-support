@@ -12,5 +12,5 @@ ArcPy is not required.
 * Portal for ArcGIS credentials
 
 ##Use Case
-User has a clean install of Portal in his/her environment and does not want to federate with ArcGIS Server.
+User has a clean install of Portal environment and does not want to federate with ArcGIS Server.
 This script can be run to add all map and feature services from Server to Portal without federating.
