@@ -3,7 +3,7 @@
 ##Use Case
 The [Multiple Attribute Inspector](https://developers.arcgis.com/javascript/jssamples/ed_multipleAttrInspector.html) sample is converted from Legacy to AMD. In addition to this, we are using the new [on style events](http://blogs.esri.com/esri/supportcenter/2014/09/29/javascript-events-advocating-for-on-style-event-programming/).
 
-In this sample, the attribute inspector for the already existing features are in 'read only' mode. On the other hand, the attribute inspector for the newly created features allows us to modify the attributes.
+In this sample, the attribute inspector for the existing features are in 'read only' mode. For the newly created features, the attribute inspector will be in read/write mode, and allow us to modify the attributes. 
 
 [Live Sample](http://esri.github.io/developer-support/web-js/multiple-attribute-inspector-AMD/multipleAttrInspectorAMD.html)
 ##Resources
@@ -31,7 +31,7 @@ Please keep in mind that "objectid" in line 166 of the html is associated with t
                        var attInspector = new AttributeInspector({
                            layerInfos: layerInfos
                        }, domConstruct.create("div"));
-                      //Please note the objectid here
+                       //line 166
                        query.objectIds = [evt.graphic.attributes.objectid];
                        layer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(features) {
                            map.infoWindow.setTitle("");
