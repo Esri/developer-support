@@ -54,7 +54,6 @@
         require([
             "dojo/ready",
             "dojo/on",
-            "dojo/_base/connect",
             "dojo/dom",
             "dijit/registry",
             "dojo/dom-construct",
@@ -70,7 +69,6 @@
         ], function(
             ready,
             on,
-            connect,
             dom,
             registry,
             domConstruct,
@@ -84,17 +82,13 @@
         ) {
             ready(function() {
                 parser.parse();
-
-                //Create a map based on an ArcGIS Online web map id 
+                //Create a map 
                 var map = new Map("map", {
                     basemap: "topo",
                     center: [-98.57, 39.82],
                     zoom: 4,
                 });
-
                 map.infoWindow.set("popupWindow", false);
-
-
                 // Create info Template
                 var template = new InfoTemplate();
                 template.setTitle("<b>BOSTON MARATHON</b>");
@@ -109,31 +103,28 @@
                 });
                 map.addLayer(featureLayer);
                 initializeSidebar(map);
-
             });
-
             function initializeSidebar(map) {
                 var popup = map.infoWindow;
                 //when the selection changes update the side panel to display the popup info for the 
                 //currently selected feature. 
-                connect.connect(popup, "onSelectionChange", function() {
+                popup.on("SelectionChange", function() {
                     displayPopupContent(popup.getSelectedFeature());
                 });
                 //when the selection is cleared remove the popup content from the side panel. 
-                connect.connect(popup, "onClearFeatures", function() {
+                popup.on("ClearFeatures", function() {
                     dom.byId("featureCount").innerHTML = "Click to select feature(s)";
                     registry.byId("leftPane").set("content", "");
                     domUtils.hide(dom.byId("pager"));
                 });
                 //When features are associated with the  map's info window update the sidebar with the new content. 
-                connect.connect(popup, "onSetFeatures", function() {
+                popup.on("SetFeatures", function() {
                     displayPopupContent(popup.getSelectedFeature());
                     dom.byId("featureCount").innerHTML = popup.features.length + " feature(s) selected";
                     //enable navigation if more than one feature is selected 
                     popup.features.length > 1 ? domUtils.show(dom.byId("pager")) : domUtils.hide(dom.byId("pager"));
                 });
             }
-
             function displayPopupContent(feature) {
                 if (feature) {
                     var content = feature.getContent();
