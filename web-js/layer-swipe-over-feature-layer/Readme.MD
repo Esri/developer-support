@@ -1,6 +1,6 @@
 #Layer Swipe on feature layers to show symbology renderer on the fly by using ArcGIS API for JavaScript
 
-This is a sample that shows how to use Layer Swipe Widget (esri/dijit/LayerSwipe) to perform layer swipe to contrast the visulization of data renderer before and after 
+This is a sample that shows how to use Layer Swipe Widget (esri/dijit/LayerSwipe) to perform layer swipe to contrast the visualization of data renderer before and after 
 
 ![Screenshot for this sample](https://cloud.githubusercontent.com/assets/5265346/9213204/008bdf1e-4045-11e5-838e-971dae68f076.JPG)
 
@@ -19,7 +19,7 @@ If you want to use "layer swipe" with feature layers, you should add feature lay
 
 ## Features
 
-* Shows how to use layer swipe widget to view featuer services layer 
+* Shows how to use layer swipe widget to view feature services layer 
 * Contains code showing how to combine layer swipe widget with renderer on the fly on feature service
 
 NOTE: Feel free to update to this repo!
