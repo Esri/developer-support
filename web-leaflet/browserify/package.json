@@ -1,0 +1,28 @@
+{
+  "name": "browserify-esri-leaflet",
+  "main": "index.js",
+  "author": "John Gravois <jgravois@esri.com> (http://johngravois.com)",
+  "license": "Apache-2.0",
+  "description": "a simple Esri Leaflet / Browserify example",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "esri-leaflet": "^1.0.0",
+    "esri-leaflet-geocoder": "^1.0.2",
+    "leaflet": "^0.7.5"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "http-server": "^0.8.0",
+    "uglify-js": "^2.4.24",
+    "watchify": "^3.3.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Esri/developer-support.git"
+  },
+  "scripts": {
+    "start": "http-server -p 1337",
+    "compile": "browserify main.js -o bundle.js",
+    "production": "uglifyjs bundle.js --compress --mangle --output bundle.min.js && gzip bundle.min.js"
+  }
+}
