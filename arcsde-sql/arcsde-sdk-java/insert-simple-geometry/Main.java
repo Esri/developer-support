@@ -15,7 +15,7 @@ public class Main {
 		String instance = "sde:oracle11g";
 		
 		/*Direct connection to a Sql Server geodatabase
-		String server = "dei-linux.myorg.com", database = "database_name", user = "sde", password = "sde";
+		String server = "db_server.myorg.com", database = "database_name", user = "sde", password = "sde";
 		String instance = "sde:sqlserver:SERVER\\Instance";
 		*/
 		
