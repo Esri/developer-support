@@ -10,12 +10,12 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		/*Connecting to an Oracle geodatabase*/
-		String server = "db_server.esri.com", database = "", user = "sde", password = "sde@db_server/sde102";
+		/*Direct connection to an Oracle geodatabase*/
+		String server = "db_server.myorg.com", database = "", user = "sde", password = "sde@db_server/sde102";
 		String instance = "sde:oracle11g";
 		
-		/*Connecting to a Sql Server geodatabase
-		String server = "dei-linux.esri.com", database = "database_name", user = "sde", password = "sde";
+		/*Direct connection to a Sql Server geodatabase
+		String server = "db_server.myorg.com", database = "database_name", user = "sde", password = "sde";
 		String instance = "sde:sqlserver:SERVER\\Instance";
 		*/
 		

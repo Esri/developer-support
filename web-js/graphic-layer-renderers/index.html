@@ -1,281 +1,287 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-  <title>Class Break Renderer w/ picture symbols</title>
+    <title>Class Break Renderer w/ picture symbols</title>
 
-  <style>
-	html,body,#map {
-	  height:100%;
-	  width:100%;
-	  margin:0;
-	  padding:0
-	}
-	
-	.vertical_style_one {
-	  left:100px;
-	  top:150px;
-	  line-height:32px
-	}
-	
-	.floating_style {
-	  height:100px;
-	  width:190px;
-	  background-color:#fff;
-	  border-radius:6px;
-	  padding:4px;
-	  position:fixed;
-	  z-index:9999995
-	}
-	
-	.labels {
-	  color:#6D6968;
-	  font-family:'Helvetica',sans-serif;
-	  margin:0;
-	  padding:0
-	}
-	
-	.button {
-	  background:#8fc800;
-	  background:-moz-linear-gradient(top,#8fc800 0%,#8fc800 100%);
-	  background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#8fc800),color-stop(100%,#8fc800));
-	  background:-webkit-linear-gradient(top,#8fc800 0%,#8fc800 100%);
-	  background:-o-linear-gradient(top,#8fc800 0%,#8fc800 100%);
-	  background:-ms-linear-gradient(top,#8fc800 0%,#8fc800 100%);
-	  background:linear-gradient(top,#8fc800 0%,#8fc800 100%);
-	  filter:progid: DXImageTransform.Microsoft.gradient(startColorstr='#8fc800',endColorstr='#8fc800',GradientType=0);
-	  padding:2px 6px;
-	  color:#fff;
-	  font-family:'Helvetica',sans-serif;
-	  font-size:11px;
-	  border-radius:0;
-	  -moz-border-radius:0;
-	  -webkit-border-radius:0;
-	  border:1px solid #1A356E
-	}
-  </style>
-  <link href="http://js.arcgis.com/3.11/esri/css/esri.css" rel="stylesheet">
-  <script src="http://js.arcgis.com/3.11/"></script>
-  <script>
-  var map, graphicsLayer, renderer;
-    require(["esri/renderers/SimpleRenderer", "esri/InfoTemplate", "esri/graphic",
-      "dojo/_base/json", "esri/layers/GraphicsLayer", "esri/map",
-      "esri/layers/FeatureLayer", "esri/renderers/ClassBreaksRenderer",
-      "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
-      "esri/symbols/PictureMarkerSymbol", "dojo/parser", "dojo/_base/array",
-      "dojo/_base/Color", "dojo/dom","dojo/on", "dojo/date",
-      "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
-      "dojo/domReady!"
-    ], function(SimpleRenderer, InfoTemplate, Graphic, dojoJson,
-      GraphicsLayer, Map, FeatureLayer, ClassBreaksRenderer,
-      SimpleMarkerSymbol, SimpleLineSymbol, PictureMarkerSymbol, parser,
-      arrayUtils, Color, dom, on, date) {
-      parser.parse();
-      map = new Map("map", {
-        basemap: "gray",
-        center: [-122.45, 37.75], // longitude, latitude
-        zoom: 13
-      });
-      map.on("load", mapLoaded);
-      var cbr = dom.byId("cbr");
-      var sr = dom.byId("sr");
-      
-      //Button click event to set the ClassBreaksRenderer using various different color symbols
-      on(cbr, "click", function(evt) {
-        var defaultSym = new SimpleMarkerSymbol().setSize(14);
-        renderer = new ClassBreaksRenderer(defaultSym, "cost");
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0
+        }
         
-        // Create a simple data structure to hold class break properties, object array.
-        // Symbol is in JSON format
-        var graphicsLayerConfig = {};
-        graphicsLayerConfig.classBreaks = {
-            infos: [{
-              min: 0,
-              max: 100,
-              symbol: {
-                "img": "images/red_pin_circle_26.png",
-                "height": 20,
-                "width": 20
-              },
-              "label": "low",
-              "description": "Low cost options"
-            }, {
-              min: 100,
-              max: 200,
-              symbol: {
-                "img": "images/purple_pin_circle_26.png",
-                "height": 20,
-                "width": 20
-              },
-              "label": "middle",
-              "description": "Middle cost options"
-            }, {
-              min: 200,
-              max: 3000,
-              symbol: {
-                "img": "images/orange_pin_circle_26.png",
-                "height": 20,
-                "width": 20
-              },
-              "label": "high",
-              "description": "High cost options"
-            }]
-          }
+        .vertical_style_one {
+            left: 100px;
+            top: 150px;
+            line-height: 32px
+        }
         
-        //Iterate through data structure converting properties into real symbols and adding the break information based on the API forClassBreaksRender
-        var classBreaksInfos = graphicsLayerConfig.classBreaks.infos;
-        dojo.forEach(classBreaksInfos, function(info) {
-          var sym = new PictureMarkerSymbol(info.symbol.img, info.symbol.width, info.symbol.height);
-          renderer.addBreak({
-            "minValue": info.min,
-            "maxValue": info.max,
-            "symbol": sym,
-            "label": info.label,
-            "description": info.description
-          });
-        });
+        .floating_style {
+            height: 100px;
+            width: 190px;
+            background-color: #fff;
+            border-radius: 6px;
+            padding: 4px;
+            position: fixed;
+            z-index: 9999995
+        }
         
-        graphicsLayer.setRenderer(renderer);
-        graphicsLayer.redraw();
-      });
-      
-      
-      //Button click event to set the proportial renderer which is kind of like graduated symbols
-      on(sr, "click", function(evt) {
-        var sms = new SimpleMarkerSymbol();
-        sms.setColor(new Color("#FAAFBE"));
-        sms.setOutline(sms.outline.setColor(new Color([244, 180, 164, 0.75])));
-        var simpleRenderer = new SimpleRenderer(sms); //It can be a simple renderer
-        var proportionalSymbolInfo = {
-          field: "cost",
-          minSize: 10,
-          maxSize: 20,
-          minDataValue: 0,
-          maxDataValue: 300
-        };
-        simpleRenderer.setProportionalSymbolInfo(proportionalSymbolInfo);
+        .labels {
+            color: #6D6968;
+            font-family: 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 0
+        }
         
-        graphicsLayer.setRenderer(simpleRenderer);
-        graphicsLayer.redraw();
-      });
+        .button {
+            background: #8fc800;
+            background: -moz-linear-gradient(top, #8fc800 0%, #8fc800 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8fc800), color-stop(100%, #8fc800));
+            background: -webkit-linear-gradient(top, #8fc800 0%, #8fc800 100%);
+            background: -o-linear-gradient(top, #8fc800 0%, #8fc800 100%);
+            background: -ms-linear-gradient(top, #8fc800 0%, #8fc800 100%);
+            background: linear-gradient(top, #8fc800 0%, #8fc800 100%);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#8fc800', endColorstr='#8fc800', GradientType=0);
+            padding: 2px 6px;
+            color: #fff;
+            font-family: 'Helvetica', sans-serif;
+            font-size: 11px;
+            border-radius: 0;
+            -moz-border-radius: 0;
+            -webkit-border-radius: 0;
+            border: 1px solid #1A356E
+        }
+    </style>
+    <link href="http://js.arcgis.com/3.14/esri/css/esri.css" rel="stylesheet">
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        var map, graphicsLayer, renderer;
+        require(["esri/renderers/SimpleRenderer", "esri/InfoTemplate", "esri/graphic",
+            "dojo/_base/json", "esri/layers/GraphicsLayer", "esri/map",
+            "esri/layers/FeatureLayer", "esri/renderers/ClassBreaksRenderer",
+            "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
+            "esri/symbols/PictureMarkerSymbol", "dojo/parser", "dojo/_base/array",
+            "dojo/_base/Color", "dojo/dom", "dojo/on", "dojo/date",
+            "dijit/layout/BorderContainer", "dijit/layout/ContentPane",
+            "dojo/domReady!"
+        ], function(SimpleRenderer, InfoTemplate, Graphic, dojoJson,
+            GraphicsLayer, Map, FeatureLayer, ClassBreaksRenderer,
+            SimpleMarkerSymbol, SimpleLineSymbol, PictureMarkerSymbol, parser,
+            arrayUtils, Color, dom, on, date) {
+            parser.parse();
+            map = new Map("map", {
+                basemap: "gray",
+                center: [-122.45, 37.75], // longitude, latitude
+                zoom: 13
+            });
+            map.on("load", mapLoaded);
+            var cbr = dom.byId("cbr");
+            var sr = dom.byId("sr");
 
-      function mapLoaded() {
-    	    graphicsLayer = new GraphicsLayer({id:"Cost Data"}); //Create a new graphics layer
-        map.addLayer(graphicsLayer);
-        var graphics = [{
-          "geometry": {
-            "x": -13633039.901,
-            "y": 4544064.045,
-            "spatialReference": {
-              "wkid": 102100
+            //Button click event to set the ClassBreaksRenderer using various different color symbols
+            on(cbr, "click", function(evt) {
+                var defaultSym = new SimpleMarkerSymbol().setSize(14);
+                renderer = new ClassBreaksRenderer(defaultSym, "cost");
+
+                // Create a simple data structure to hold class break properties, object array.
+                // Symbol is in JSON format
+                var graphicsLayerConfig = {};
+                graphicsLayerConfig.classBreaks = {
+                    infos: [{
+                        min: 0,
+                        max: 100,
+                        symbol: {
+                            "img": "images/red_pin_circle_26.png",
+                            "height": 20,
+                            "width": 20
+                        },
+                        "label": "low",
+                        "description": "Low cost options"
+                    }, {
+                        min: 100,
+                        max: 200,
+                        symbol: {
+                            "img": "images/purple_pin_circle_26.png",
+                            "height": 20,
+                            "width": 20
+                        },
+                        "label": "middle",
+                        "description": "Middle cost options"
+                    }, {
+                        min: 200,
+                        max: 3000,
+                        symbol: {
+                            "img": "images/orange_pin_circle_26.png",
+                            "height": 20,
+                            "width": 20
+                        },
+                        "label": "high",
+                        "description": "High cost options"
+                    }]
+                }
+
+                //Iterate through data structure converting properties into real symbols and adding the break information based on the API forClassBreaksRender
+                var classBreaksInfos = graphicsLayerConfig.classBreaks.infos;
+                dojo.forEach(classBreaksInfos, function(info) {
+                    var sym = new PictureMarkerSymbol(info.symbol.img, info.symbol.width, info.symbol.height);
+                    renderer.addBreak({
+                        "minValue": info.min,
+                        "maxValue": info.max,
+                        "symbol": sym,
+                        "label": info.label,
+                        "description": info.description
+                    });
+                });
+
+                graphicsLayer.setRenderer(renderer);
+                graphicsLayer.redraw();
+            });
+
+
+            //Button click event to set the proportial renderer which is kind of like graduated symbols
+            on(sr, "click", function(evt) {
+                var sms = new SimpleMarkerSymbol();
+                sms.setColor(new Color("#FAAFBE"));
+                sms.setOutline(sms.outline.setColor(new Color([244, 180, 164, 0.75])));
+                var simpleRenderer = new SimpleRenderer(sms); //It can be a simple renderer
+                var proportionalSymbolInfo = {
+                    field: "cost",
+                    minSize: 10,
+                    maxSize: 20,
+                    minDataValue: 0,
+                    maxDataValue: 300
+                };
+                simpleRenderer.setProportionalSymbolInfo(proportionalSymbolInfo);
+
+                graphicsLayer.setRenderer(simpleRenderer);
+                graphicsLayer.redraw();
+            });
+
+            function mapLoaded() {
+                graphicsLayer = new GraphicsLayer({
+                    id: "Cost Data"
+                }); //Create a new graphics layer
+                map.addLayer(graphicsLayer);
+                var graphics = [{
+                    "geometry": {
+                        "x": -13633039.901,
+                        "y": 4544064.045,
+                        "spatialReference": {
+                            "wkid": 102100
+                        }
+                    },
+                    "attributes": {
+                        "siteid": "site 1",
+                        "cost": 90
+                    },
+                    "symbol": {
+                        "url": "images/red_pin_circle_26.png",
+                        "height": 20,
+                        "width": 20,
+                        "type": "esriPMS"
+                    },
+                    "infoTemplate": {
+                        "title": "${siteid}",
+                        "content": "Cost: ${cost}"
+                    }
+                }, {
+                    "geometry": {
+                        "x": -13629332.705,
+                        "y": 4545172.382,
+                        "spatialReference": {
+                            "wkid": 102100
+                        }
+                    },
+                    "attributes": {
+                        "siteid": "site 2",
+                        "cost": 20
+                    },
+                    "symbol": {
+                        "url": "images/red_pin_circle_26.png",
+                        "height": 20,
+                        "width": 20,
+                        "type": "esriPMS"
+                    },
+                    "infoTemplate": {
+                        "title": "${siteid}",
+                        "content": "Cost: ${cost}"
+                    }
+                }, {
+                    "geometry": {
+                        "x": -13631320.067,
+                        "y": 4546013.189,
+                        "spatialReference": {
+                            "wkid": 102100
+                        }
+                    },
+                    "attributes": {
+                        "siteid": "site 3",
+                        "cost": 290
+                    },
+                    "symbol": {
+                        "url": "images/red_pin_circle_26.png",
+                        "height": 20,
+                        "width": 20,
+                        "type": "esriPMS"
+                    },
+                    "infoTemplate": {
+                        "title": "${siteid}",
+                        "content": "Cost: ${cost}"
+                    }
+                }, {
+                    "geometry": {
+                        "x": -13633479.414,
+                        "y": 4547465.493,
+                        "spatialReference": {
+                            "wkid": 102100
+                        }
+                    },
+                    "attributes": {
+                        "siteid": "site 4",
+                        "cost": 190
+                    },
+                    "symbol": {
+                        "url": "images/red_pin_circle_26.png",
+                        "height": 20,
+                        "width": 20,
+                        "type": "esriPMS"
+                    },
+                    "infoTemplate": {
+                        "title": "${siteid}",
+                        "content": "Cost: ${cost}"
+                    }
+                }];
+
+                //Iterate over the JSON data creating new graphics then add them to the graphics layer
+                dojo.forEach(graphics, function(graphic) {
+                    var g = new Graphic(graphic);
+                    g.setSymbol(null);
+                    graphicsLayer.add(g);
+                });
             }
-          },
-          "attributes": {
-            "siteid": "site 1",
-            "cost": 90
-          },
-          "symbol": {
-            "url": "images/red_pin_circle_26.png",
-            "height": 20,
-            "width": 20,
-            "type": "esriPMS"
-          },
-          "infoTemplate": {
-            "title": "${siteid}",
-            "content": "Cost: ${cost}"
-          }
-        }, {
-          "geometry": {
-            "x": -13629332.705,
-            "y": 4545172.382,
-            "spatialReference": {
-              "wkid": 102100
-            }
-          },
-          "attributes": {
-            "siteid": "site 2",
-            "cost": 20
-          },
-          "symbol": {
-            "url": "images/red_pin_circle_26.png",
-            "height": 20,
-            "width": 20,
-            "type": "esriPMS"
-          },
-          "infoTemplate": {
-            "title": "${siteid}",
-            "content": "Cost: ${cost}"
-          }
-        }, {
-          "geometry": {
-            "x": -13631320.067,
-            "y": 4546013.189,
-            "spatialReference": {
-              "wkid": 102100
-            }
-          },
-          "attributes": {
-            "siteid": "site 3",
-            "cost": 290
-          },
-          "symbol": {
-            "url": "images/red_pin_circle_26.png",
-            "height": 20,
-            "width": 20,
-            "type": "esriPMS"
-          },
-          "infoTemplate": {
-            "title": "${siteid}",
-            "content": "Cost: ${cost}"
-          }
-        }, {
-          "geometry": {
-            "x": -13633479.414,
-            "y": 4547465.493,
-            "spatialReference": {
-              "wkid": 102100
-            }
-          },
-          "attributes": {
-            "siteid": "site 4",
-            "cost": 190
-          },
-          "symbol": {
-            "url": "images/red_pin_circle_26.png",
-            "height": 20,
-            "width": 20,
-            "type": "esriPMS"
-          },
-          "infoTemplate": {
-            "title": "${siteid}",
-            "content": "Cost: ${cost}"
-          }
-        }];
-        
-        //Iterate over the JSON data creating new graphics then add them to the graphics layer
-        dojo.forEach(graphics, function(graphic) {
-          var g = new Graphic(graphic);
-          g.setSymbol(null);
-          graphicsLayer.add(g);
         });
-      }
-    });
-  </script>
+    </script>
 </head>
 
 <body class="claro">
-  <div class="vertical_style_one floating_style">
-    <h4 class="labels">Layer Styling Options</h4>
+    <div class="vertical_style_one floating_style">
+        <h4 class="labels">Layer Styling Options</h4>
 
-    <div>
-      <button class="button" id="cbr">Apply</button> <span>by color</span>
+        <div>
+            <button class="button" id="cbr">Apply</button> <span>by color</span>
+        </div>
+
+        <div>
+            <button class="button" id="sr">Apply</button> <span>by size</span>
+        </div>
     </div>
 
-    <div>
-      <button class="button" id="sr">Apply</button> <span>by size</span>
-    </div>
-  </div>
-
-  <div id="map"></div>
+    <div id="map"></div>
 </body>
+
 </html>

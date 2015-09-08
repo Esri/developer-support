@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Layer Swipe</title>
+  <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+  <style>
+    html, body, #map {
+      padding:0;
+      margin:0;
+      height:100%;
+    }
+    #header {
+        padding: 2px 15px 2px 0;
+        background-color: #8bdd72; 
+        color: #575757; 
+        font-size: 14pt; 
+        text-align: right; 
+        font-weight: bold;
+        height:50px;
+      }
+  </style>
+  <script src="//js.arcgis.com/3.14compact/"></script>
+  <script>
+    var maps;
+    require([
+      "esri/map", 
+      "esri/dijit/LayerSwipe",
+      "esri/dijit/InfoWindowLite",
+      "esri/InfoTemplate",
+      "esri/layers/FeatureLayer",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/renderers/UniqueValueRenderer",
+      "esri/Color",
+      "esri/arcgis/utils",
+      "dojo/_base/array",
+      "dojo/parser",
+      "dojo/dom-construct",
+      "dojo/domReady!"
+    ], function(
+      Map, 
+      LayerSwipe, 
+      InfoWindowLite,
+      InfoTemplate,
+      FeatureLayer, 
+      SimpleMarkerSymbol,
+      UniqueValueRenderer,
+      Color,
+      arcgisUtils, 
+      array, 
+      parser,
+      domConstruct
+    )  {
+      parser.parse();
+        
+      //create basemap
+      map = new Map("map", {
+          basemap: "hybrid",
+          center:[-118.380093, 34.01007],
+          zoom: 17,
+          scrollWheelZoom: true
+      });           
+        
+      var infoWindow = new InfoWindowLite(null, domConstruct.create("div", null, null, map.root));
+        infoWindow.startup();
+        map.setInfoWindow(infoWindow);
+        
+      //Customize Info Tempalte
+      var template = new InfoTemplate();
+        template.setTitle("<b>Water Flood Wells - ${FieldName}</b>");
+        template.setContent("<b>County Name: </b> ${CountyName} </br>"+
+                            "<b>Operator Name: </b> ${OperatorNa} </br>"+
+                            "<b>Elevation: </b> ${Elevation} </br>"
+                           );
+
+      //Load only one feature layer to contrast the visulization of data renderer before and after       
+      var featureLayerURL = "http://services.arcgis.com/jDGuO8tYggdCCnUJ/arcgis/rest/services/CA%20Class%20II%20Injection%20Wells/FeatureServer/6";
+            
+      map.on("load", addFeatuerLayer);
+      map.infoWindow.offsetY = 25;
+      map.infoWindow.resize(250,100);
+      map.infoWindow.resize(250,100);
+        
+      function addFeatuerLayer() {
+          
+       var defaultSymbol = new SimpleMarkerSymbol().setColor(new Color([0, 255, 255, 0.85])).setSize("17");
+       var injectionSymbol = SimpleMarkerSymbol().setColor(new Color([255, 0, 0, 0.85])).setSize("17");
+       var pausedSymbol = new SimpleMarkerSymbol().setColor(new Color([255, 255, 0, 0.85])).setSize("17");
+       var activeSymbol = new SimpleMarkerSymbol().setColor(new Color([0, 255, 0, 0.85])).setSize("17");
+          
+       //create new renderer based on specific attribute value to rerenderer symbology on the fly in order to better visualize the data on map
+       var renderer = new UniqueValueRenderer(defaultSymbol, "WellStatus");
+       renderer.addValue("I", injectionSymbol);
+       renderer.addValue("P", pausedSymbol);
+       renderer.addValue("A", activeSymbol);      
+       
+       //Original layer
+       var originalRendererLayer = FeatureLayer(featureLayerURL, {
+          mode: FeatureLayer.MODE_ONDEMAND,
+          infoTemplate: template,
+          outFields: ["Elevation", "FieldName", "CountyName", "OperatorNa"]
+      });
+       //On the fly renderer layer 
+       var editedRendererLayer = FeatureLayer(featureLayerURL, {
+          mode: FeatureLayer.MODE_ONDEMAND,
+          infoTemplate: template,
+          outFields: ["Elevation", "FieldName", "CountyName", "OperatorNa"]
+      });
+          editedRendererLayer.setRenderer(renderer);
+          
+          map.addLayer(originalRendererLayer);
+          map.addLayer(editedRendererLayer);
+          
+      //Layer swipe widget to illustrate the same layer with new renderer to compare the difference 
+         var swipeWidget = new LayerSwipe({
+                type: "vertical",
+                left: 900,
+                map: map,
+                layers: [editedRendererLayer]
+            },"swipeDiv");
+          
+          swipeWidget.startup();
+          swipeWidget.on("swipe",function(){ 
+  console.log(document.getElementsByClassName("vertical")[0].style["top"]); 
+  document.getElementsByClassName("vertical")[0].style["top"] = "0"; 
+        });  
+      } 
+    });
+  </script>
+</head>
+<body>
+  <div id="header" 
+       data-dojo-type="dijit/layout/ContentPane"
+       data-dojo-props="region:'top'">
+        Layer Swipe on feature layer to compare the renderer on the fly 
+     <div id="subheader">Display <a href="https://developers.arcgis.com/javascript/jsapi/layerswipe-amd.html" target="_blank">Layer Swipe wiget</a> using the featuerLayer class</div>
+  </div>
+    <div id="map" class="map">
+        <div id="swipeDiv"></div>
+    </div>
+</body>
+</html>

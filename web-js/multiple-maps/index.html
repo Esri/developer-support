@@ -6,207 +6,188 @@
     <meta http-equiv="X-UA-Compatible" content="IE=7, IE=9, IE=10">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>TEST</title>
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
     <style>
-    html,
-    body {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-    }
-    #map1Div,
-    #map2Div,
-    #map3Div,
-    #map4Div,
-    #map5Div,
-    #map0Div {
-        width: 100%;
-        height: 100%;
-        margin: 0%;
-    }
-    #box0,
-    #box1,
-    #box2,
-    #box3,
-    #box4,
-    #box5 {
-        width: 30%;
-        height: 90%;
-    }
-    #box0,
-    #box1,
-    #box3,
-    #box4 {
-        float: left;
-    }
-    #box2,
-    #box5 {
-        float: left;
-        clear: none;
-    }
-    </style>
-    <script src="http://js.arcgis.com/3.10/"></script>
-    <script>
-    var mapCount = 6;
-    var mapArray = [];
-    var mapDiv;
-    var handle;
-    var f = 0;
-    var bool1 = true;
-    var bool2;
-    var myBox;
-    var handleOver;
-    var handleOut;
-
-
-    require([
-        "esri/map",
-        "dojo/parser",
-        "dojo/dom",
-        "dojo/on",
-        "dojo/mouse",
-        "esri/layers/FeatureLayer",
-
-
-        "dijit/layout/BorderContainer",
-        "dijit/layout/ContentPane",
-
-        "dojo/domReady!"
-    ], function(
-        Map,
-        parser,
-        dom,
-        on,
-        mouse,
-        FeatureLayer
-    ) {
-
-        parser.parse();
-
-        createMaps();
-        modifyMaps();
-        //setAllListners(bool1);
-
-        //***********************************************************
-        function createMaps() {
-            console.log(">>>> create maps");
-            for (var i = 0; i < mapCount; i++) {
-                mapArray[i] = "map" + (i);
-                var mapDiv = "map" + i + "Div";
-                mapArray[i] = new Map(mapDiv, {
-                    center: [-85, 43],
-                    zoom: 5,
-                    basemap: "streets"
-                });
-            }
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
         }
-
-        //***********************************************************
-        function setAllListners(bool) {
-            console.log(bool);
-
-            console.log(">>>>>>>>>>>>>>>>>> set listeners");
-            for (var i = 0; i < mapCount; i++) {
-                if (bool == true) {
-                    var divId = "map" + i + "Div";
-                    /*on(document.getElementById(divId), "mouse-up", function(e) {
+        
+        #map1Div,
+        #map2Div,
+        #map3Div,
+        #map4Div,
+        #map5Div,
+        #map0Div {
+            width: 100%;
+            height: 100%;
+            margin: 0%;
+        }
+        
+        #box0,
+        #box1,
+        #box2,
+        #box3,
+        #box4,
+        #box5 {
+            width: 30%;
+            height: 90%;
+        }
+        
+        #box0,
+        #box1,
+        #box3,
+        #box4 {
+            float: left;
+        }
+        
+        #box2,
+        #box5 {
+            float: left;
+            clear: none;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        var mapCount = 6;
+        var mapArray = [];
+        var mapDiv;
+        var handle;
+        var f = 0;
+        var bool1 = true;
+        var bool2;
+        var myBox;
+        var handleOver;
+        var handleOut;
+        require([
+            "esri/map",
+            "dojo/parser",
+            "dojo/dom",
+            "dojo/on",
+            "dojo/mouse",
+            "esri/layers/FeatureLayer",
+            "dijit/layout/BorderContainer",
+            "dijit/layout/ContentPane",
+            "dojo/domReady!"
+        ], function(
+            Map,
+            parser,
+            dom,
+            on,
+            mouse,
+            FeatureLayer
+        ) {
+            parser.parse();
+            createMaps();
+            modifyMaps();
+            //setAllListners(bool1);
+            //***********************************************************
+            function createMaps() {
+                console.log(">>>> create maps");
+                for (var i = 0; i < mapCount; i++) {
+                    mapArray[i] = "map" + (i);
+                    var mapDiv = "map" + i + "Div";
+                    mapArray[i] = new Map(mapDiv, {
+                        center: [-85, 43],
+                        zoom: 5,
+                        basemap: "streets"
+                    });
+                }
+            }
+            //***********************************************************
+            function setAllListners(bool) {
+                console.log(bool);
+                console.log(">>>>>>>>>>>>>>>>>> set listeners");
+                for (var i = 0; i < mapCount; i++) {
+                    if (bool == true) {
+                        var divId = "map" + i + "Div";
+                        /*on(document.getElementById(divId), "mouse-up", function(e) {
                     bool1 = true;
                     on(document.getElementById(divId), "mouse-down", function(e) {
                         bool1 = false;
                     });
                 });*/
-                    handleOver = on(document.getElementById(divId), "mouseover", function(e) {
-                        var num = this.id.slice(3, 4);
-                        var hoverBox = "box" + num;
-                        document.getElementById(hoverBox).style.background = "#0ff";
-                        handle = mapArray[num].on("extent-change", setMapExt);
-                    });
-                    handleOut = on(document.getElementById(divId), "mouseout", function(e) {
-                        handle.remove();
-                        var num = this.id.slice(3, 4);
-                        var hoverBox = "box" + num;
-                        document.getElementById(hoverBox).style.background = "";
-                    });
-                    /*                } else {
+                        handleOver = on(document.getElementById(divId), "mouseover", function(e) {
+                            var num = this.id.slice(3, 4);
+                            var hoverBox = "box" + num;
+                            document.getElementById(hoverBox).style.background = "#0ff";
+                            handle = mapArray[num].on("extent-change", setMapExt);
+                        });
+                        handleOut = on(document.getElementById(divId), "mouseout", function(e) {
+                            handle.remove();
+                            var num = this.id.slice(3, 4);
+                            var hoverBox = "box" + num;
+                            document.getElementById(hoverBox).style.background = "";
+                        });
+                        /*                } else {
                     console.log(bool);
                     var divId = "map" + i + "Div";
                     handleOver.remove();
                     handleOut.remove();
                     handle.remove();
                 */
+                    }
                 }
             }
-        }
-
-        //***********************************************************
-        function setMapExt(evt) {
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>> map was moved");
-            var newExtent = evt.extent;
-            f = f + 1;
-            console.log("number of setMapExt calls: " + f)
-var selectedDiv = evt.target.container.id;
-            var i = selectedDiv.slice(3, 4);
-            for (var j = 0; j < mapCount; j++) {
-                if (j != i) {
-                    console.log("change extent for map " + j);
-                    mapArray[j].setExtent(newExtent);
+            //***********************************************************
+            function setMapExt(evt) {
+                console.log(">>>>>>>>>>>>>>>>>>>>>>>> map was moved");
+                var newExtent = evt.extent;
+                f = f + 1;
+                console.log("number of setMapExt calls: " + f)
+                var selectedDiv = evt.target.container.id;
+                var i = selectedDiv.slice(3, 4);
+                for (var j = 0; j < mapCount; j++) {
+                    if (j != i) {
+                        console.log("change extent for map " + j);
+                        mapArray[j].setExtent(newExtent);
+                    }
                 }
             }
-        }
-
-
-        //***********************************************************
-        //***********************************************************
-        function modifyMaps() {
-            console.log(">>>>>>>>>> add basemaps and layers");
-
+            //***********************************************************
+            //***********************************************************
+            function modifyMaps() {
+                console.log(">>>>>>>>>> add basemaps and layers");
+                mapArray[0].on("load", function() {});
+                ////////////////////////////////////////////////////////////////////////////////////
+                mapArray[1].on("load", function() {
+                    mapArray[1].setBasemap("satellite");
+                    var cities = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+                    mapArray[1].addLayer(cities);
+                });
+                ////////////////////////////////////////////////////////////////////////////////////
+                mapArray[2].on("load", function() {
+                    mapArray[2].setBasemap("hybrid");
+                });
+                ////////////////////////////////////////////////////////////////////////////////////
+                mapArray[3].on("load", function() {
+                    mapArray[3].setBasemap("gray");
+                    var counties = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2");
+                    mapArray[3].addLayer(counties);
+                });
+                ////////////////////////////////////////////////////////////////////////////////////
+                mapArray[4].on("load", function() {
+                    mapArray[4].setBasemap("oceans");
+                });
+                ////////////////////////////////////////////////////////////////////////////////////
+                mapArray[5].on("load", function() {
+                    mapArray[5].setBasemap("national-geographic");
+                });
+            }
+            //***********************************************************        //***********************************************************
             mapArray[0].on("load", function() {
-
-            });
-            ////////////////////////////////////////////////////////////////////////////////////
-            mapArray[1].on("load", function() {
-
-                mapArray[1].setBasemap("satellite");
-                var cities = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
-                mapArray[1].addLayer(cities);
-            });
-            ////////////////////////////////////////////////////////////////////////////////////
-            mapArray[2].on("load", function() {
-
-                mapArray[2].setBasemap("hybrid");
-            });
-            ////////////////////////////////////////////////////////////////////////////////////
-            mapArray[3].on("load", function() {
-
-                mapArray[3].setBasemap("gray");
-                var counties = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2");
-                mapArray[3].addLayer(counties);
-            });
-            ////////////////////////////////////////////////////////////////////////////////////
-            mapArray[4].on("load", function() {
-
-                mapArray[4].setBasemap("oceans");
-            });
-            ////////////////////////////////////////////////////////////////////////////////////
-            mapArray[5].on("load", function() {
-
-                mapArray[5].setBasemap("national-geographic");
-            });
-        }
-        //***********************************************************        //***********************************************************
-
-        mapArray[0].on("load", function() {
-            myBox = document.getElementById("CheckBox");
-            myBox.checked = true;
-            setAllListners(myBox.checked);
-            on(dom.byId("CheckBox"), "change", function() {
+                myBox = document.getElementById("CheckBox");
+                myBox.checked = true;
                 setAllListners(myBox.checked);
-                console.log(myBox.checked);
+                on(dom.byId("CheckBox"), "change", function() {
+                    setAllListners(myBox.checked);
+                    console.log(myBox.checked);
+                });
             });
         });
-
-    });
     </script>
 </head>
 
