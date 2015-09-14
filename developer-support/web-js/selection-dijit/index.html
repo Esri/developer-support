@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<title>Fullscreen Dijit</title>
+<link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.12/esri/css/esri.css">
+<link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.6/js/dojo/dijit/themes/claro/claro.css">
+
+
+
+<style>
+body {
+	margin: 40px;
+	padding: 20px;
+}
+
+.container {
+	position: relative;
+	padding: 10px;
+	border: 1px solid #eee;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+
+#map {
+	width: 100%;
+	height: 500px;
+}
+
+label.css-label {
+	background-image: url(themes/images/checkbox.png);
+}
+
+.selection-outer {
+	position: relative;
+	padding: 10px;
+	border: 1px solid #eee;
+}
+
+.selection-optionsContainer {
+	margin-bottom: 18px;
+}
+
+.selection-optionsDistance {
+	display: inline;
+}
+
+.selection-optionsCheckbox {
+	display: inline;
+}
+
+.selection-optionsLabel {
+	display: inline;
+	margin-right: 40px;
+}
+
+.selection-divSliderValue {
+	margin-top: 18px;
+	margin-left: 20px;
+}
+
+.selection-sliderContainer {
+	position: relative;
+	padding: 10px;
+}
+
+.selection-sliderContainerOutside {
+	position: relative;
+	margin-top: 2px;
+}
+
+.selection-horizontalRuleContainer {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.selection-horizontalRuleContainerOutside {
+	position: relative;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+selection-geocoderContainer {
+	margin-left: 20px;
+	margin-bottom: 8px;
+}
+
+.selection-unitContainer {
+	position: relative;
+}
+
+.selection-horizontalRule {
+	height: 5px;
+}
+
+.dijitSliderBumperH, .dijitSliderBarH {
+	background-color: #007AC2;
+}
+
+.claro .dijitSlider .dijitSliderProgressBarH, .claro .dijitSlider .dijitSliderLeftBumper
+	{
+	background-color: #007AC2;
+}
+
+.simpleGeocoder .esriGeocoder {
+	display: block;
+	width: 100%;
+	border: 1px solid #eee;
+	background: #fff;
+	-webkit-border-radius: 1px;
+	border-radius: 1px;
+}
+
+.simpleGeocoder .esriGeocoderResult {
+	padding: 6px;
+	display: block;
+	cursor: pointer;
+	outline: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	z-index: 9999;
+}
+
+.dijitSliderProgressBarH {
+	background-color: red;
+	z-index: 1;
+}
+
+/* Horizontal Slider Styles*/
+.dijitRuleMarkH {
+	border-bottom-width: 0 !important;
+	border-left-width: 0 !important;
+	border-top-width: 0 !important;
+	text-align: right;
+	margin-top: 7px;
+	width: 0;
+}
+
+.horizontalRule {
+	height: 5px;
+	margin-bottom: 7px;
+}
+
+.dijitRuleContainer {
+	margin-top: 10px;
+}
+
+.dijitRuleLabelsContainer {
+	margin-top: 0px;
+}
+
+.cursorWait {
+	cursor: pointer;
+}
+
+.dijitSliderImageHandleH {
+	border: 0px !important;
+	width: 16px !important;
+	height: 16px !important;
+	background-repeat: no-repeat;
+	background-position: 0px !important;
+	margin-top: -1px;
+	background-size: 100%;
+	outline: none !important;
+	margin-left: 10px !important;
+}
+
+.claro .dijitSliderImageHandleH {
+	background-image: url('themes/images/grayThumb.png') !important;
+}
+
+.claro .dijitSliderButtonContainerH, .dijitSliderDecrementButtonHover {
+	background-color: transparent !important;
+}
+
+.dijitSliderHover, .dijitSliderDecrementIconH {
+	border: none !important;
+}
+
+.claro .dijitSliderButtonContainerH, .dijitSliderIncrementButtonHover {
+	background-color: transparent !important;
+}
+
+.dijitSliderHover, .dijitSliderIncrementIconH {
+	border: none !important;
+}
+
+.claro dijitSliderDecrementButtonHover, .claro dijitSliderIncrementButtonHover
+	{
+	background-image: none;
+	background-repeat: no-repeat;
+	background-color: #FFF;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	border: solid 0px #FFF;
+	font-size: 0px;
+}
+
+.claro .dijitSliderDecrementIconH, .claro .dijitSliderIncrementIconH,
+	.claro .dijitSliderDecrementIconV, .claro .dijitSliderIncrementIconV {
+	background-image: none;
+	background-repeat: no-repeat;
+	background-color: #FFF;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	border: solid 0px #FFF;
+	font-size: 0px;
+}
+
+.esriCTGrayThumb {
+	background-image: url('themes/images/grayThumb.png') !important;
+}
+
+.claro .dijitSliderProgressBarH .dijitSliderThumbHover {
+	border: 0px !important;
+	width: 16px !important;
+	height: 16px !important;
+	background-repeat: no-repeat;
+	background-position: 0px !important;
+	margin-top: -1px !important;
+	background-size: 100% !important;
+	outline: none !important;
+	margin-left: 10px !important;
+}
+
+.dijitSliderBumperH, .dijitSliderBarH {
+	height: 3px !important;
+	border-color: #fff;
+}
+
+.claro .dijitSlider .dijitSliderProgressBarH, .claro .dijitSlider .dijitSliderLeftBumper
+	{
+	height: 3px !important;
+	border-color: #fff;
+}
+
+.esriCTSliderProgressBar {
+	background-color: #808080 !important;
+}
+
+.claro .dijitSlider .dijitSliderRemainingBarH, .claro .dijitSlider .dijitSliderRightBumper
+	{
+	border-color: #fff;
+	background-color: #ddd;
+	height: 3px !important;
+}
+
+.dijitSliderImageHAndleH {
+	left: 18% !important;
+	top: -3px;
+}
+
+.claro .dijitRuleMark {
+	color: #808080 !important;
+	border-right-color: #808080 !important;
+	border: none;
+}
+
+.dijitRuleMark .dijitRuleMarkH {
+	margin-left: 96% !important;
+}
+
+.dijitSliderImageHandleH {
+	left: 27% !important;
+}
+
+.esriCTSliderMessage {
+	margin-left: 20px;
+	margin-top: 15px;
+	line-height: 24px;
+	float: left;
+	margin-top: 8px;
+	color: #808080;
+}
+
+.dijitSliderBumperH {
+	width: 2px !important;
+}
+
+.esriCTSlider {
+	height: 25px;
+	clear: both;
+}
+
+.esriCTHorizontalRuleContainer, .horizontalRule {
+	/**width: 334px;**/
+	
+}
+
+.esriCTHorizontalSliderContainer {
+	/*width: 200px;*/
+	margin-left: 25px;
+}
+
+</style>
+
+<script type="text/javascript">
+	var package_path = window.location.pathname.substring(0,
+			window.location.pathname.lastIndexOf('/'));
+	var dojoConfig = {
+		packages : [ {
+			name : "application",
+			location : package_path + '/js'
+		} ]
+	};
+</script>
+<script src="//js.arcgis.com/3.12/" type="text/javascript"></script>
+<script type="text/javascript">
+	var selectionWidget;
+
+	require([ "esri/map", "application/SelectionWidget", "dojo/on" ], function(
+			Map, SelectionWidget, on) {
+
+		var myMap = new Map("map", {
+			center : [ -56.049, 38.485 ],
+			zoom : 3,
+			basemap : "streets"
+		});
+
+		selectionWidget = new SelectionWidget({
+			map : myMap
+		}, "selectionTool");
+		selectionWidget.startup();
+	});
+</script>
+</head>
+<body class="claro">
+	<div class="container">
+		<div id="selectionTool"></div>
+		<div id="map" class="map"></div>
+	</div>
+</body>
+</html>

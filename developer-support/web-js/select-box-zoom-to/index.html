@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>PopupDropdownZoom</title>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <style>
+    html,
+    body,
+    #mapDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        font-family: Verdana, Helvetica, sans-serif;
+        font-size: small;
+    }
+    #mapDiv {
+        position: relative;
+    }
+    #info {
+        background: #fff;
+        box-shadow: 0 0 5px #888;
+        left: 1em;
+        padding: 0.5em;
+        position: absolute;
+        top: 1em;
+        z-index: 40;
+    }
+    </style>
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+    var map, featureLayer, features, query, mySelect;
+
+    require([
+        "esri/map",
+        "esri/layers/FeatureLayer",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/symbols/SimpleLineSymbol",
+        "esri/Color",
+        "dojo/dom-style",
+        "dojo/dom",
+        "dojo/on",
+        "dojo/dom-construct",
+        "dojo/parser",
+        "esri/geometry/Point",
+        "esri/tasks/query",
+        "esri/tasks/QueryTask",
+        "esri/dijit/InfoWindow",
+        "esri/geometry/Extent",
+        "esri/SpatialReference",
+        "esri/config",
+
+        "dojo/domReady!"
+    ], function(
+        Map,
+        FeatureLayer,
+        SimpleFillSymbol,
+        SimpleLineSymbol,
+        Color,
+        domStyle,
+        dom,
+        on,
+        domConstruct,
+        parser,
+        Point,
+        Query,
+        QueryTask,
+        InfoWindow,
+        Extent,
+        SpatialReference,
+        Config
+    ) {
+
+        parser.parse();
+
+        var infoWindow = new InfoWindow({
+            domNode: domConstruct.create("div", null, dom.byId("map"))
+        });
+
+        var initExtent = Extent(-15904011.274005856, 3620978.36527377, -5914608.921475398, 5822364.779886261, new SpatialReference({
+            "wkid": 102100
+        }));
+
+        map = new Map("mapDiv", {
+            basemap: "gray",
+            extent: initExtent,
+            slider: false
+        });
+
+        featureLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2", {
+            outFields: ["*"],
+            mode: FeatureLayer.MODE_SNAPSHOT
+        });
+
+        var selectionSymbol = new SimpleFillSymbol().setColor(new Color([155, 155, 0, 0.5]));
+        featureLayer.setSelectionSymbol(selectionSymbol);
+        map.addLayer(featureLayer);
+
+        //FIND VALUE OF SELECTED DROPDOWN DOM ELEMENT
+        onClickSelect = function selectFeature() {
+            var selectedValue = document.getElementById("mySelect").value;
+            zoomFeature(selectedValue);
+        }
+
+
+
+        //QUERY AND ZOOM TO FEATURE
+        function zoomFeature(selectedValue) {
+            //featureLayer.clearSelection();
+            map.infoWindow.hide();
+            //CREATE QUERY
+            var query = new Query();
+            query.where = "state_name = '" + selectedValue + "'";
+
+            //EXECUTE QUERY
+            var point = new Point();
+            featureLayer.selectFeatures(query, esri.layers.FeatureLayer.SELECTION_NEW, function(features) {
+                var featureExtent = features[0].geometry.getExtent().expand(2);
+                //Config.defaults.map.zoomDuration = 80000; //time in milliseconds; default is 250
+                //Config.defaults.map.zoomRate = 500; //refresh rate of zoom animation; default is 25
+                deffered = map.setExtent(initExtent);
+                centerPoint(featureExtent, point);
+
+                //CREATE INFOWINDOW PROPERTIES
+                map.infoWindow.setTitle("<b>" + selectedValue + "</b>");
+                map.infoWindow.setContent(
+                    "<b>Region:</b> " + features[0].attributes.sub_region +
+                    "<br/><b>Population: </b>" + features[0].attributes.pop2000);
+                //SHOW INFO WINDOW AFTER ZOOM OCCURS
+                deffered.then(
+                    function() {
+                        //sleep(500);
+                        map.setExtent(initExtent);
+                    }
+                ).then(
+                    function() {
+                        //sleep(500);
+                        map.setExtent(featureExtent);
+                    }
+                ).then(
+                    map.on("zoom-end", function() {
+                        map.infoWindow.show(point, map.getInfoWindowAnchor(point));
+                    })
+                )
+            });
+        }
+
+
+
+        function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds) {
+                    break;
+                }
+            }
+
+        }
+
+
+        //FIND CENTER OF FEATURE
+        function centerPoint(featureExtent, point) {
+            var xMid = (featureExtent.xmin + featureExtent.xmax) / 2;
+            var yMid = (featureExtent.ymin + featureExtent.ymax) / 2;
+            point.x = xMid;
+            point.y = yMid;
+            point.spatialReference = map.spatialReference;
+        }
+
+
+        //CREATE DROPDOWN
+        var StateList = []
+        query = new Query();
+        query.where = "1=1";
+        //RUN QUERY TO FIND ALL FEATURES AND POPULATE DROPDOWN
+        featureLayer.queryFeatures(query, function(objectIds) {
+            for (i = 0; i < objectIds.features.length; i++) {
+                //CHECK TO ONLY ADD FEATURES WITH UNIQUE VALUES
+                if (objectIds.features[i].attributes.state_name != " ") {
+                    StateList.push(objectIds.features[i].attributes.state_name);
+                }
+                StateList.sort();
+            }
+            //CREATE REFERENCE TO DROPDOWN
+            var mySelectVar = document.getElementById('mySelect');
+
+            //CREATE NEW OPTION
+            for (var i = 0; i < StateList.length; i++) {
+                var newOption = document.createElement("option");
+                newOption.value = StateList[i];
+                newOption.innerHTML = StateList[i];
+                //console.log(newOption);
+                mySelectVar.add(newOption);
+            }
+        });
+    });
+    </script>
+</head>
+
+<body class="tundra">
+    <div id="mapDiv">
+        <div id="info">
+            <label for="mySelect"><b>Make a Selection:</b>
+            </label>
+            <select id="mySelect" onChange="onClickSelect();">
+                <option value="" style="display:none;">&nbsp; &nbsp; &nbsp;Choose a state &nbsp;</option>
+            </select>
+        </div>
+    </div>
+</body>
+
+</html>

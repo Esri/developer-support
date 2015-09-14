@@ -1,0 +1,8 @@
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\bin\Debug\FolderConnections.dll
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\bin\Debug\FolderConnections.pdb
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\bin\Debug\ArcGIS.Desktop.Layouts.dll
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\bin\Debug\ArcGIS.Desktop.Layouts.xml
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\obj\Debug\FolderConnections.csprojResolveAssemblyReference.cache
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\obj\Debug\FolderConnections.dll
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\obj\Debug\FolderConnections.pdb
+C:\Users\andr7495\Documents\ArcGIS\AddIns\ArcGISPro\FolderConnections\FolderConnections\bin\Debug\FolderConnections.esriAddInX

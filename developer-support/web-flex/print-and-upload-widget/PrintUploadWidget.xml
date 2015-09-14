@@ -1,0 +1,4 @@
+<configuration>
+    <printTaskUrl>http://dbc102:6080/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task</printTaskUrl>
+    <uploadTaskUrl>http://dbc102:6080/arcgis/rest/services/UploadImageItem/GPServer/Upload%20Image%20Item</uploadTaskUrl>
+</configuration>

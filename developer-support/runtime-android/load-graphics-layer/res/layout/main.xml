@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".LoadGraphicsActivity"
+    >
+<TextView  
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/item"
+    />
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Button" />
+
+  <!-- MapView layout, including basemap layer, initial center point, and zoom level -->
+  <com.esri.android.map.MapView
+    android:id="@+id/map"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    mapoptions.MapType="Topo"
+    mapoptions.center="40, -80"
+    mapoptions.ZoomLevel="6" />
+
+</LinearLayout>

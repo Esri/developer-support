@@ -1,0 +1,31 @@
+﻿<Window x:Class="LabelTest.MainWindow"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <esri:Map x:Name="MyMap" UseAcceleratedDisplay="False">
+            <esri:ArcGISLocalDynamicMapServiceLayer VisibleLayers="0" ID="Cities" Path="C:\Program Files (x86)\ArcGIS SDKs\WPF10.2\sdk\samples\data\mpks\USCitiesStates.mpk" EnableDynamicLayers="True">
+                <!--<esri:ArcGISLocalDynamicMapServiceLayer.LayerDrawingOptions>
+                    <esri:LayerDrawingOptionsCollection>
+                        <esri:LayerDrawingOptions LayerID="0" ShowLabels="True">
+                            <esri:LayerDrawingOptions.LabelClasses>
+                                <esri:LabelClassCollection>
+                                    <esri:LabelClass LabelExpression="[AREANAME]" LabelPlacement="PointLabelPlacementBelowCenter">
+                                        <esri:LabelClass.LabelOptions>
+                                            <esri:LabelOptions Angle="0" Color="Black" FontSize="12" FontWeight="Bold" HaloColor="Yellow" FontFamily="Arial" HaloSize="2"/>
+                                        </esri:LabelClass.LabelOptions>
+                                    </esri:LabelClass>
+                                </esri:LabelClassCollection>
+                            </esri:LayerDrawingOptions.LabelClasses>
+                        </esri:LayerDrawingOptions>
+                    </esri:LayerDrawingOptionsCollection>
+                </esri:ArcGISLocalDynamicMapServiceLayer.LayerDrawingOptions>-->
+            </esri:ArcGISLocalDynamicMapServiceLayer>
+        </esri:Map>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="38,277,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+    </Grid>
+</Window>
+
+
+

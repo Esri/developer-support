@@ -1,0 +1,1 @@
+AREAINFO, 202001, "projcs", "01563518_pulkovo_1942_GK_CM_81E", "Projected Coordinate Systems/STATOIL"

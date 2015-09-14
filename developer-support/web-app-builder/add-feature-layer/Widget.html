@@ -1,0 +1,24 @@
+<div>
+  <table class="setting-table input-table" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="first">*URL</td>
+        <td class="second">
+          <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-attach-point="url" 
+          placeHolder="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
+          required="true" data-dojo-props="style:{width:'100%'}"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>
+  
+  <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="click:add">Add to Map</button>
+  <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="click:refresh">Refresh</button>
+  <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="click:recorder">Reorder</button>
+
+  <br>
+  <div data-dojo-attach-point="tableFeatureLayers"></div>
+  <br>
+
+</div>

@@ -1,0 +1,263 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Cluster</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/dojo/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.10/js/esri/css/esri.css">
+    <style>
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    #map {
+        margin: 0;
+        padding: 0;
+    }
+    /* center the image in the popup */
+    .esriViewPopup .gallery {
+        margin: 0 auto !important;
+    }
+    </style>
+
+    <script>
+    var dojoConfig = {
+        paths: {
+            extras: location.pathname.replace(/\/[^/]+$/, "") + "/extras"
+        }
+    };
+    </script>
+    <script src="http://js.arcgis.com/3.10/"></script>
+    <script>
+    var map;
+
+    require([
+        "dojo/parser",
+        "dojo/ready",
+        "dojo/_base/array",
+        "esri/Color",
+        "dojo/dom-style",
+        "dojo/query",
+        "esri/map",
+        "esri/request",
+        "esri/graphic",
+        "esri/geometry/Extent",
+        "esri/symbols/SimpleMarkerSymbol",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/symbols/PictureMarkerSymbol",
+        "esri/renderers/ClassBreaksRenderer",
+        "esri/layers/GraphicsLayer",
+        "esri/SpatialReference",
+        "esri/dijit/PopupTemplate",
+        "esri/geometry/Point",
+        "esri/geometry/webMercatorUtils",
+        "extras/ClusterLayer",
+        "esri/layers/FeatureLayer",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/domReady!"
+    ], function(
+        parser, ready, arrayUtils, Color, domStyle, query,
+        Map, esriRequest, Graphic, Extent,
+        SimpleMarkerSymbol, SimpleFillSymbol, PictureMarkerSymbol, ClassBreaksRenderer,
+        GraphicsLayer, SpatialReference, PopupTemplate, Point, webMercatorUtils,
+        ClusterLayer,
+        FeatureLayer
+    ) {
+
+        var hurricanes;
+        var featuresArray = [];
+
+        ready(function() {
+            parser.parse();
+
+            var clusterLayer;
+            var popupOptions = {
+                "markerSymbol": new SimpleMarkerSymbol("circle", 20, null, new Color([0, 0, 0, 0.25])),
+                "marginLeft": "20",
+                "marginTop": "20"
+            };
+
+            map = new Map("map", {
+                basemap: "oceans",
+                center: [-100.789, 33.543],
+                zoom: 3
+            });
+
+            hurricanes = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0", {
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["*"]
+            });
+
+            map.addLayer(hurricanes);
+
+            //EXECUTE ONCE HURRICANES LAYER IS LOADED
+            hurricanes.on("update-end", function(evt) {
+                console.log(evt.target.graphics);
+
+                //CREATE AN ARRAY OF FEATURES
+                var features = evt.target.graphics
+                    //console.log(features);
+                for (var i = 0; i < features.length; i++) {
+
+                    var feature = {
+                        "Day": features[i].attributes.DAY,
+                        "Pressure": features[i].attributes.PRESSURE,
+                        "Stage": features[i].attributes.STAGE,
+                        "Lat": features[i].attributes.LAT.toString(),
+                        "Long": features[i].attributes.LONG.toString()
+                    }
+                    featuresArray.push(feature);
+                }
+                addClusters(featuresArray);
+                //HIDE THE ORIGINAL POINT LAYER
+                hurricanes.setVisibility(false);
+            })
+            map.on("load", function() {
+                // hide the popup's ZoomTo link as it doesn't make sense for cluster features
+                domStyle.set(query("a.action.zoomTo")[0], "display", "none");
+            });
+
+            function addClusters(featuresArray) {
+                console.log(featuresArray);
+                var photoInfo = {};
+                var wgs = new SpatialReference({
+                    "wkid": 4326
+                });
+
+                photoInfo.data = arrayUtils.map(featuresArray, function(p) {
+                    var latlng = new Point(parseFloat(p.Long), parseFloat(p.Lat), wgs);
+                    //\\\\\\\\ create input for clusterLayer
+
+                    var webMercator = webMercatorUtils.geographicToWebMercator(latlng);
+                    var attributes = {
+
+                        ////////// change attributes
+                        "Day": p.Day,
+                        "Pressure": p.Pressure,
+                        "Stage": p.Stage,
+                        "Lat": p.Lat
+                    };
+                    //\\\\\\\\
+
+                    return {
+                        "x": webMercator.x,
+                        "y": webMercator.y,
+                        "attributes": attributes
+                    };
+                });
+
+                //////////
+                // popupTemplate to work with attributes specific to this dataset
+                var popupTemplate = PopupTemplate({
+                    "title": "Template Title",
+                    "fieldInfos": [{
+                        "fieldName": "Day",
+                        "label": "Day",
+                        visible: true
+                    }, {
+                        "fieldName": "Pressure",
+                        "label": "Pressure",
+                        visible: true
+                    }, {
+                        "fieldName": "Stage",
+                        "label": "Stage",
+                        visible: true
+                    }, {
+                        "fieldName": "Lat",
+                        "label": "Latitude",
+                        visible: true
+                            /*              }],
+                                          "mediaInfos": [{
+                                            "title": "",
+                                            "caption": "",
+                                            "type": "image",
+                                            "value": {
+                                              "sourceURL": "{Image}",
+                                              "linkURL": "{Link}"
+                                            }*/
+                    }]
+                });
+                //\\\\\\\\
+
+                // cluster layer that uses OpenLayers style clustering
+                clusterLayer = new ClusterLayer({
+                    "data": photoInfo.data,
+                    "distance": 100,
+                    "id": "clusters",
+                    "labelColor": "#fff",
+                    "labelOffset": 10,
+                    "resolution": map.extent.getWidth() / map.width,
+                    "singleColor": "#888",
+                    "singleTemplate": popupTemplate
+                });
+                var defaultSym = new SimpleMarkerSymbol().setSize(4);
+                var renderer = new ClassBreaksRenderer(defaultSym, "clusterCount");
+
+                var picBaseUrl = "http://static.arcgis.com/images/Symbols/Shapes/";
+                var blue = new PictureMarkerSymbol(picBaseUrl + "BluePin1LargeB.png", 32, 32).setOffset(0, 15);
+                var green = new PictureMarkerSymbol(picBaseUrl + "GreenPin1LargeB.png", 64, 64).setOffset(0, 15);
+                var red = new PictureMarkerSymbol(picBaseUrl + "RedPin1LargeB.png", 72, 72).setOffset(0, 15);
+                renderer.addBreak(0, 2, blue);
+                renderer.addBreak(2, 200, green);
+                renderer.addBreak(200, 1001, red);
+
+                clusterLayer.setRenderer(renderer);
+                map.addLayer(clusterLayer);
+
+                // close the info window when the map is clicked
+                map.on("click", cleanUp);
+                // close the info window when esc is pressed
+                map.on("key-down", function(e) {
+                    if (e.keyCode === 27) {
+                        cleanUp();
+                    }
+                });
+            }
+
+            function cleanUp() {
+                map.infoWindow.hide();
+                clusterLayer.clearSingles();
+            }
+
+            function error(err) {
+                console.log("something failed: ", err);
+            }
+
+            // show cluster extents...
+            // never called directly but useful from the console 
+            window.showExtents = function() {
+                var extents = map.getLayer("clusterExtents");
+                if (extents) {
+                    map.removeLayer(extents);
+                }
+                extents = new GraphicsLayer({
+                    id: "clusterExtents"
+                });
+                var sym = new SimpleFillSymbol().setColor(new Color([205, 193, 197, 0.5]));
+
+                arrayUtils.forEach(clusterLayer._clusters, function(c, idx) {
+                    var e = c.attributes.extent;
+                    extents.add(new Graphic(new Extent(e[0], e[1], e[2], e[3], map.spatialReference), sym));
+                }, this);
+                map.addLayer(extents, 0);
+
+            }
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width: 100%; height: 100%; margin: 0;">
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        </div>
+    </div>
+</body>
+
+</html>

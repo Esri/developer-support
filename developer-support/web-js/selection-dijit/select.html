@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Filter Select</title>
+<link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css">
+<script src="http://js.arcgis.com/3.12/"></script>
+<script>
+require(["esri/dijit/Geocoder","dojo/store/Memory", "dijit/form/FilteringSelect","dijit/registry", "dojo/on","dojo/domReady!"], function(Geocoder, Memory, FilteringSelect, registry, on) {
+/* 	   on(registry.byId("myselect"), "change", function (value) {
+	         alert("change_event.value = " + value);
+	   });
+	    */
+	   var store = new Memory({
+	        data: [
+	               {
+	            	   "text": "Redlands, California, United States",
+	            	   "magicKey": "GST7YMc0AM9UOsE9HhFtGTyVGST7YMc0AM9UOsE9DbTVHgA9HhB0Zcp0OhNtGMytaikZQBoaM5bJQ58tIS9GOghnYnwZGPTq7iAm7Py_CR4PIic2BR4caocpOh9bZgKZQoc3YSyaagDIZhkZYMyXDb9M",
+	            	   "isCollection": false
+	            	  },
+	            	  {
+	            	   "text": "Redland, Maryland, United States",
+	            	   "magicKey": "GST7YMc0AM9UOsE9HhFtGTyVGST7YMc0AM9UOsE9DbTVHgA9HhB0Zcp0OhNtGMytaikZQBxEQDNEU5wtIS9GOghnYnwZGPTq7iAm7Py_CR4PIic2BR4caocpOh9bZgKZQFc3YSyaagDIZhkZYMyXDb9M",
+	            	   "isCollection": false
+	            	  },
+	            	  {
+	            	   "text": "Redlands, Colorado, United States",
+	            	   "magicKey": "GST7YMc0AM9UOsE9HhFtGTyVGST7YMc0AM9UOsE9DbTVHgA9HhB0Zcp0OhNtGMytaikZQBoaMskGQ5dtIS9GOghnYnwZGPTq7iAm7Py_CR4PIic2BR4caocpOh9bZgKZQ1c3YSyaagDIZhkZYMyXDb9M",
+	            	   "isCollection": false
+	            	  },
+	            	  {
+	            	   "text": "Redland Bay, Queensland, Australia (City)",
+	            	   "magicKey": "GST7YMc0AM9UOsE9HhFtGTyVGST7YMc0AM9UOsE9DbTVHgA9HhB0Zcp0OhNtGMytaikZQBbOQBgEUBbtIS9GOghnYnwZGPTq7iAm7Py_CR4PIic2BR4caocpOh9bZgKZUNc3YSyaagDIZhkZYMyXDb9M",
+	            	   "isCollection": false
+	            	  },
+	            	  {
+	            	   "text": "Redland, Angelina County, Texas, United States",
+	            	   "magicKey": "GST7YMc0AM9UOsE9HhFtGTyVGST7YMc0AM9UOsE9DbTVHgA9HhB0Zcp0OhNtGMytaikZQBxOQBoEUsktIS9GOghnYnwZGPTq7iAm7Py_CR4PIic2BR4caocpOh9bZgKZUoc3YSyaagDIZhkZYMyXDb9M",
+	            	   "isCollection": false
+	            	  }
+	        ]
+	    });
+	    store.idProperty = "magicKey";
+
+	    var filteringSelect = new FilteringSelect({
+	        id: "stateSelect",
+	        name: "state",
+	        value: "CA",
+	        store: store,
+	        searchAttr: "text"
+	    }, "stateSelect").startup();
+	    
+	    var geocoder = new Geocoder({
+	        autoComplete: true,
+	        arcgisGeocoder: {
+	          name: "Esri World Geocoder",
+	          suffix: " Redlands, CA"
+	        }
+	      },"search");
+	      geocoder.startup();
+	    
+	});
+	
+
+  
+	
+/* var select = dijit.byId('myselect');
+
+select.on('change', function(evt) {
+    alert('myselect_event');
+}); */
+
+</script>
+</head>
+<body class="claro">
+<h2>Filter Select</h2>
+<input id="stateSelect">
+<p>
+    <button onclick="alert(dijit.byId('stateSelect').get('value'))">Get value</button>
+    <button onclick="alert(dijit.byId('stateSelect').get('displayedValue'))">Get displayed value</button>
+</p>
+
+<h2>Geocoder</h2>
+<input id="search" type="text"/>
+</body>
+</html>

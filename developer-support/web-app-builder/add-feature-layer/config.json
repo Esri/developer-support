@@ -1,0 +1,11 @@
+{
+	"FeatureLayers": {
+		"load": true,
+		"Server": "Fenglt",
+		"FeatureUrls": [{
+							"url": "http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/1",
+							"servername": "Server3",
+							"layername": "Wells"
+						}]
+		}
+}

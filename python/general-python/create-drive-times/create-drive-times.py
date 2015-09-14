@@ -175,6 +175,21 @@ class ArcGISOnline(object):
             if mode['attributes']['Name'] == FORMOFTRAVEL:
                 return mode['attributes']['TravelMode']
 
+    def SummarizeNearby(self, line_url, line_filter, points_url, point_filter, distances):
+        data = {}
+        data['sumNearbyLayer'] = {'url' : line_url,
+                                  'filter' : line_filter
+                                 }
+        data['summaryLayer'] = {'url' : points_url,
+                                'filter' : point_filter
+                               }
+        data['nearType'] = self.GetTravelModes("Driving Time")
+        data['distances'] = distances
+        data['outputName'] = {"serviceProperties": {"name": OUTPUTNAME}}
+        task_url, job_info = self.analysis_job(self.__analysis_url, "SummarizeNearby", data)
+        job_info = self.analysis_job_status(task_url, job_info)
+        job_values = self.analysis_job_results(task_url, job_info)
+        return job_values
 
     def CreateDriveTimes(self, featureLayerURL, WHERE_CLAUSE, breakValues, breakUnits, overlapPolicy, OUTPUTNAME):
         data = {}
@@ -192,10 +207,11 @@ class ArcGISOnline(object):
         return job_values
 
 
-
 if __name__ == '__main__':
     username = "thisIsAUserName"
     password = "MyPassword!"
     onlineAccount = ArcGISOnline(username, password)
-    jobResults = onlineAccount.CreateDriveTimes("URLTOFEATURESERVICE", "OBJECTID = 4", [5.0, 10.0, 15.0], "Minutes", "Split", "ThisIsAnOutput")
+    #jobResults = onlineAccount.CreateDriveTimes("URLTOFEATURESERVICE", "OBJECTID = 4", [5.0, 10.0, 15.0], "Minutes", "Split", "ThisIsAnOutput")
+    jobResults = onlineAccount.SummarizeNearby("http://loanr6306.esri.com/arcgis/rest/services/Route_Polyline/FeatureServer/0", "",  points_url, "", [5.0])
+
     print "DONE"

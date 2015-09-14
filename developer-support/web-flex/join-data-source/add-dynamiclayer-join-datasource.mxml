@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (c) 2010-2011 ESRI
+
+All rights reserved under the copyright laws of the United States
+and applicable international laws, treaties, and conventions.
+
+You may freely redistribute and use this sample code, with or
+without modification, provided you include the original copyright
+notice and use restrictions.
+
+See use restrictions in use_restrictions.txt.
+-->
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:esri="http://www.esri.com/2008/ags"
+			   pageTitle="Thematic dynamic layer table join">
+	<!--
+	Description:
+	This sample demonstrates how to create a thematic map using a dynamic join with a layer
+	(states) in a map service to a table (ancestry) in a dynamic
+	workspace.  Modify the properties of the map and click "Refresh Map".
+	
+	Note:
+	This sample requires functionality available at ArcGIS 10.1 which allows you
+	to dynamically alter a map service (Service must report "Supports Dynamic Layers: true").
+	At ArcGIS 10.1 we can ask the server to generate rendering information,
+	and we can also dynamically change the map service at runtime by overwriting the default symbology of a service.
+	This sample is similar to the "GenerateRenderers" sample, except here we are joining a layer in a map service to
+	a table in a dynamic workspace and using the attributes of the table to generate a class breaks renderer and then
+	apply that to the layer which has been joined server-side at the time the map is rendered.
+	So both the creation of the renderer is happening server-side by joining a layer to a table, and the generation
+	of the map is happening server-side by joining a layer to a table.
+	
+	We get the dynamic details of the ancestry table by using the DetailsTask, at which point we look for the ancestry
+	fields we want to add to our drop down list.  Then we ask the server to join the states layer from the census service
+	to the ancestry table (which only exists in the dynamic workspace). We also apply a label expression using the same
+	field to generate the class breaks renderer (if you check the checkbox for "Display labels").  Finally we apply the
+	renderer, label, and dynamic layer join server-side to create the thematic map using the dynamicLayerInfos and
+	layerDrawingOptions properties on the ArcGISDynamicMapServiceLayer.
+	
+	Benefits:
+	All of this occurs server-side, so none of the data has to be sent to the client in order to generate the result map.
+	
+	Documentation:
+	For more information, see the API documentation.
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/Map.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/events/GenerateRendererEvent.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/events/DetailsEvent.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/ArcGISDynamicMapServiceLayer.html#dynamicLayerInfos
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/ArcGISDynamicMapServiceLayer.html#layerDrawingOptions
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/Field.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/DynamicLayerInfo.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LabelClass.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDataSource.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDetails.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDrawingOptions.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDrawingOptions.html#labelClasses
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDrawingOptions.html#layerId
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDrawingOptions.html#renderer
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerDrawingOptions.html#showLabels
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LayerMapSource.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/LabelOptions.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/layers/supportClasses/TableDataSource.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/renderers/ClassBreaksRenderer.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/renderers/supportClasses/ClassBreakInfo.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/symbols/SimpleLineSymbol.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/DetailsTask.html#getDynamicDetails()
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/DetailsTask.html#event:getDetailsComplete
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/DetailsTask.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/GenerateRendererTask.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/supportClasses/AlgorithmicColorRamp.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/supportClasses/ClassBreaksDefinition.html
+	http://resources.arcgis.com/en/help/flex-api/apiref/com/esri/ags/tasks/supportClasses/GenerateRendererParameters.html
+	
+	ArcGIS REST API documentation:
+	http://resources.arcgis.com/en/help/rest/apiref/dynamicLayer.html
+	http://resources.arcgis.com/en/help/rest/apiref/ms_dyn_generaterenderer.html
+	
+	ArcGIS for Server documentation:
+	http://resources.arcgis.com/en/help/main/10.1/index.html#/About_dynamic_layers/0154000004zv000000/
+	-->
+	
+	<fx:Script>
+		<![CDATA[
+			import com.esri.ags.events.DetailsEvent;
+			import com.esri.ags.events.GenerateRendererEvent;
+			import com.esri.ags.events.LayerEvent;
+			import com.esri.ags.layers.supportClasses.Field;
+			import com.esri.ags.layers.supportClasses.LayerDetails;
+			import com.esri.ags.layers.supportClasses.LayerDrawingOptions;
+			import com.esri.ags.layers.supportClasses.TableDetails;
+			import com.esri.ags.renderers.ClassBreaksRenderer;
+			import com.esri.ags.renderers.UniqueValueRenderer;
+			import com.esri.ags.renderers.supportClasses.ClassBreakInfo;
+			import com.esri.ags.renderers.supportClasses.UniqueValueInfo;
+			import com.esri.ags.symbols.SimpleFillSymbol;
+			import com.esri.ags.tasks.supportClasses.ClassBreaksDefinition;
+			import com.esri.ags.tasks.supportClasses.GenerateRendererParameters;
+			import com.esri.ags.tasks.supportClasses.UniqueValueDefinition;
+			import com.esri.ags.utils.JSONUtil;
+			
+			import mx.collections.ArrayList;
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.rpc.AsyncResponder;
+			import mx.rpc.Fault;
+			import mx.rpc.events.FaultEvent;
+			
+			import spark.events.IndexChangeEvent;
+			
+			[Bindable]
+			private var ancestryArray:Array;
+			
+			private var generateRendererParams:GenerateRendererParameters = new GenerateRendererParameters();
+			private var classBreaksDefinition:ClassBreaksDefinition = new ClassBreaksDefinition();
+			
+			//private var uniqueValueDefinition:UniqueValueDefinition = new UniqueValueDefinition();
+			
+			private var classificationField:String = "TicketCount";
+			private var classificationNormalizationField:String = "TicketCount";
+			
+			protected function ancestryDropDownList_initializeHandler(event:FlexEvent):void
+			{
+				detailsTask.getDynamicDetails(dynamicLayerSource);
+			}
+			
+			protected function detailsTask_getDetailsCompleteHandler(event:DetailsEvent):void
+			{
+				//                var dynamicLayerSourceLayerDetails:LayerDetails = event.layerDetails;
+				//                var ancestryFieldsArray:Array = dynamicLayerSourceLayerDetails.fields as Array;
+				//                ancestryArray = [];
+				//
+				//                for (var i:int = 0; i < ancestryFieldsArray.length; i++)
+				//                {
+				//                    var field:Field = ancestryFieldsArray[i];
+				//                    //only look at the fields from the ancestry table
+				//                    //there are "states.FIELD_NAME" and "ancestry.FIELD_NAME" fields
+				//                    if (field.name.indexOf("ancestry") != -1)
+				//                    {
+				//                        //show all the ancestry fields in the drop down list except for objectid and state
+				//                        if (field.name.toLowerCase() != "ancestry.objectid" && field.name.toLowerCase() != "ancestry.state")
+				//                        {
+				//                            ancestryArray.push({ field: field, label: field.alias });
+				//                        }
+				//                    }
+				//                }
+				censusMapServiceLayer.visibleLayers = new ArrayList([ 0 ]);
+				sendGenerateRenderer();
+			}
+			
+			protected function ancestryDropDownList_changeHandler(event:IndexChangeEvent):void
+			{
+				var selectedItem:Object = DropDownList(event.target).selectedItem;
+				var selectedField:Field = selectedItem.field as Field;
+				classificationField = selectedField.name; //ancestry.FIELD_NAME (e.g. 'ancestry.American')
+				sendGenerateRenderer();
+			}
+			
+			protected function sendGenerateRenderer():void
+			{
+				generateRendererTask.source = dynamicLayerSource;
+				classBreaksDefinition.breakCount = classificationBreaksNumericStepper.value;
+				
+				classBreaksDefinition.classificationField = classificationField;
+				//uniqueValueDefinition.field = classificationField;
+				
+				
+				classBreaksDefinition.classificationMethod = ClassBreaksDefinition.CLASSIFY_NATURAL_BREAKS;
+				
+				//classBreaksDefinition.normalizationField = classificationNormalizationField;
+				
+				classBreaksDefinition.colorRamp = algorithmicColorRamp;
+				//uniqueValueDefinition.colorRamp = algorithmicColorRamp;
+				
+				generateRendererParams.classificationDefinition = classBreaksDefinition;
+				//generateRendererParams.classificationDefinition = uniqueValueDefinition;
+				generateRendererTask.execute(generateRendererParams);
+			}
+			
+			protected function generateRendererTask_executeCompleteHandler(event:GenerateRendererEvent):void
+			{
+				var renderer:ClassBreaksRenderer = event.renderer as ClassBreaksRenderer;
+				//var renderer:UniqueValueRenderer = event.renderer as UniqueValueRenderer;
+				for (var i:int = 0; i < renderer.infos.length; i++)
+				{
+					SimpleFillSymbol(ClassBreakInfo(renderer.infos[i]).symbol).outline = slsOutline;
+					//SimpleFillSymbol(UniqueValueInfo(renderer.infos[i]).symbol).outline = slsOutline;
+				}
+				
+				var layerDrawingOptions:LayerDrawingOptions = new LayerDrawingOptions();
+				layerDrawingOptions.layerId = 0;
+				layerDrawingOptions.renderer = renderer;
+				if (displayLabelsCheckbox.selected)
+				{
+					layerDrawingOptions.showLabels = true;
+					//set the labelExpression field name (e.g. [ancestry.American])
+					//ancestryLabelClass.labelExpression = '[' + classificationField + ']';
+					ancestryLabelClass.labelExpression = "[I2000_53_GIS.sde.V_TICKET_GIS.TicketCount]";
+					//ancestryLabelClass.labelExpression = '[' + "Precinct" + ']';
+					layerDrawingOptions.labelClasses = [ ancestryLabelClass ];
+				}
+				var layerDrawingOptionsArray:Array = [ layerDrawingOptions ];
+				censusMapServiceLayer.layerDrawingOptions = layerDrawingOptionsArray;
+				//censusMapServiceLayer.layerInfos[0].name="testLayer";
+				legend.refresh(); // refresh the legend component to keep in-sync
+			}
+			
+			protected function esriService_faultHandler(event:FaultEvent):void
+			{
+				Alert.show("Error: " + event.fault.faultString, "Error code: " + event.fault.faultCode);
+			}
+			
+		
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<esri:DetailsTask id="detailsTask"
+						  fault="esriService_faultHandler(event)"
+						  getDetailsComplete="detailsTask_getDetailsCompleteHandler(event)"
+						  showBusyCursor="true"
+						  url="http://96.61.207.162:81/arcgis/rest/services/BoundriesSDE/PrecinctsSDE/MapServer"/>
+		
+		<esri:GenerateRendererTask id="generateRendererTask"
+								   executeComplete="generateRendererTask_executeCompleteHandler(event)"
+								   fault="esriService_faultHandler(event)"
+								   showBusyCursor="true"
+								   url="http://96.61.207.162:81/arcgis/rest/services/BoundriesSDE/PrecinctsSDE/MapServer/dynamicLayer"/>
+		
+		<esri:AlgorithmicColorRamp id="algorithmicColorRamp"
+								   algorithm="esriHSVAlgorithm"
+								   fromColor="{startColorPicker.selectedColor}"
+								   toColor="{endColorPicker.selectedColor}"/>
+		
+		<esri:LabelClass id="ancestryLabelClass" labelPlacement="esriServerPolygonPlacementAlwaysHorizontal">
+			<esri:LabelOptions color="0x348323"
+							   fontFamily="Verdana"
+							   fontWeight="bold"
+							   backgroundColor="0x030320"
+							   backgroundAlpha="1"/>
+		</esri:LabelClass>
+		
+		<esri:SimpleLineSymbol id="slsOutline" color="0x666666"/>
+	</fx:Declarations>
+	
+	<s:controlBarLayout>
+		<s:VerticalLayout gap="10"
+						  paddingBottom="7"
+						  paddingLeft="10"
+						  paddingRight="10"
+						  paddingTop="7"/>
+	</s:controlBarLayout>
+	<s:controlBarContent>
+		<s:HGroup width="100%" verticalAlign="middle">
+			<s:Label text="Select an ancestry"/>
+			<s:DropDownList id="ancestryDropDownList"
+							width="150"
+							change="ancestryDropDownList_changeHandler(event)"
+							dataProvider="{new ArrayList(ancestryArray)}"
+							initialize="ancestryDropDownList_initializeHandler(event)"/>
+			<s:Spacer width="5"/>
+			<s:Label text="Start: "/>
+			<mx:ColorPicker id="startColorPicker"
+							change="sendGenerateRenderer();"
+							selectedColor="0xB3B3B3"/>
+			<s:Label text="End: "/>
+			<mx:ColorPicker id="endColorPicker"
+							change="sendGenerateRenderer();"
+							selectedColor="0xFF9900"/>
+		</s:HGroup>
+		<s:HGroup width="100%" verticalAlign="middle">
+			<s:Label text="Number of breaks"/>
+			<s:NumericStepper id="classificationBreaksNumericStepper"
+							  change="sendGenerateRenderer();"
+							  maximum="9"
+							  minimum="5"
+							  stepSize="1"
+							  value="7"/>
+			<s:Spacer width="105"/>
+			<s:CheckBox id="displayLabelsCheckbox"
+						click="sendGenerateRenderer();"
+						label="Display labels"
+						selected="true"/>
+			
+		</s:HGroup>
+	</s:controlBarContent>
+	
+	<esri:Map id="map">
+		<esri:ArcGISTiledMapServiceLayer url="http://96.61.207.162:81/arcgis/rest/services/NYCBasemapDataMine/MapServer"/>
+		<esri:ArcGISDynamicMapServiceLayer id="censusMapServiceLayer" name="AncestryByState"
+										   url="http://96.61.207.162:81/arcgis/rest/services/BoundriesSDE/PrecinctsSDE/MapServer"
+										   alpha=".5" >
+			<esri:dynamicLayerInfos>
+				<!-- states layer id in the census map service -->
+				<esri:DynamicLayerInfo  name="testtest" layerId="0" defaultVisibility="true">
+					<esri:LayerDataSource  id="dynamicLayerSource">
+						<esri:JoinDataSource joinType="esriLeftOuterJoin"
+											 leftTableKey="Precinct"
+											 rightTableKey="Precinct">
+							<esri:leftTableSource>
+								<!-- states layer id in the census map service -->
+								<esri:LayerMapSource id="statesLayerMapSource" mapLayerId="0"/>
+							</esri:leftTableSource>
+							<esri:rightTableSource>
+								<esri:LayerDataSource id="ancestryLayerDataSource" >
+									<!-- Dynamic Workspace (follow the link in the sample description for more information on dynamic workspaces -->
+									<!-- table name and workspace id from census map service dynamic workspaces configuration -->
+									<!--
+									<esri:TableDataSource dataSourceName="vw_TicketCountsByPrecinct" workspaceId="precinctWorkSpaceId"/>
+									-->
+								
+									<esri:QueryDataSource id="queryTableSource"   query="SELECT Precinct, Count(*) as TicketCount FROM I2000_53_GIS.sde.V_TICKET_GIS where IssTmS between '2011-02-01' and '2011-02-02' GROUP BY Precinct" workspaceId="precinctWorkSpaceId" oidFields="Precinct" />
+								
+									</esri:LayerDataSource>
+							</esri:rightTableSource>
+						</esri:JoinDataSource>
+					</esri:LayerDataSource>
+				</esri:DynamicLayerInfo>
+			</esri:dynamicLayerInfos>
+			<esri:layerDrawingOptions>
+				<!-- Layer drawing options for the states layer -->
+				<esri:LayerDrawingOptions layerId="0" showLabels="true">
+					
+					<esri:labelClasses>
+						<esri:LabelClass id="initialLabelExpression"
+										 labelExpression="[TicketCount]"
+										 labelPlacement="esriServerPolygonPlacementAlwaysHorizontal"
+										 >
+							<esri:LabelOptions haloColor="0xFFFFFF" haloSize="2"/>
+							</esri:LabelClass>
+					</esri:labelClasses>
+				</esri:LayerDrawingOptions>
+			</esri:layerDrawingOptions>
+		</esri:ArcGISDynamicMapServiceLayer>
+	</esri:Map>
+	
+	<s:Group width="190" height="360"
+			 right="5" top="20">
+		<s:RectangularDropShadow left="0" right="0" top="0" bottom="0"
+								 alpha="1"
+								 angle="90"
+								 blRadius="5"
+								 blurX="6"
+								 blurY="6"
+								 brRadius="5"
+								 color="#000000"
+								 distance="1"
+								 tlRadius="5"
+								 trRadius="5"/>
+		<s:Rect left="0" right="0" top="0" bottom="0"
+				radiusX="5"
+				radiusY="5">
+			<s:fill>
+				<s:SolidColor alpha="0.7" color="0xC5C5C9"/>
+			</s:fill>
+		</s:Rect>
+		
+		<esri:Legend id="legend"
+					 left="10" top="10"
+					 layers="{[censusMapServiceLayer]}"
+					 
+					 map="{map}"
+					 visible="{censusMapServiceLayer.loaded}"/>
+	</s:Group>
+</s:Application>

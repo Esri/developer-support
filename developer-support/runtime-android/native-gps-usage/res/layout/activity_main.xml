@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/heading"
+        android:textSize="12pt" />
+
+    <RadioGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8pt"
+        android:layout_marginTop="5pt"
+        android:textColor="#000" > 
+        
+        <RadioButton
+            android:id="@+id/gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/gps"
+            android:textColor="#000" />
+        
+        <RadioButton
+            android:id="@+id/fine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/fine" />
+
+        <RadioButton
+            android:id="@+id/course"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/course" />
+        
+        <RadioButton
+            android:id="@+id/off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/off" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4pt"
+        android:textSize="8pt" />
+
+    <TextView
+        android:id="@+id/lat"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5pt"
+        android:textSize="8pt" />
+
+    <TextView
+        android:id="@+id/lon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4pt"
+        android:textSize="8pt" />
+
+</LinearLayout>

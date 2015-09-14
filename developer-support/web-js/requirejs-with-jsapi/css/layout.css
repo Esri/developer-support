@@ -1,0 +1,70 @@
+      html,body {
+      height:100%;
+      width:100%;
+      margin:0;
+      }
+
+      body {
+      background-color:#FFF;
+      overflow:hidden;
+      font-family:"Trebuchet MS";
+      }
+
+      #header {
+      background-repeat:repeat-x;
+      border:solid 4px #224a54;
+      color:#666666;
+      font-size:18pt;
+      text-align:left;
+      font-weight:700;
+      height:38px;
+      margin:2px;
+      }
+
+      #subtitle {
+      font-size:small;
+      color:#FFF;
+      padding-left:20px;
+      }
+
+      #rightPane {
+      background-color:#FFF;
+      color:#3f3f3f;
+      border:solid 2px #224a54;
+      width:20%;
+      }
+
+      #leftPane {
+      background-color:#FFF;
+      color:#3f3f3f;
+      border:solid 2px #224a54;
+      width:20%;
+      margin:5px;
+      padding:2px;
+      }
+
+      #map {
+      border:solid 4px #224a54;
+      -moz-border-radius:4px;
+      -webkit-border-radius:4px;
+      border-radius:4px;
+      margin:5px;
+      }
+
+      #footer {
+      border:solid 2px #224a54;
+      background-color:#ecefe4;
+      color:#3f3f3f;
+      font-size:10pt;
+      text-align:center;
+      height:40px;
+      margin:2px;
+      }
+
+      .dijitTabInnerDiv {
+      background-color:#ecefe4;
+      }
+
+      #tabs {
+      padding:5px;
+      }

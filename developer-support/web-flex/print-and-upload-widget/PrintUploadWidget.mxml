@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+///////////////////////////////////////////////////////////////////////////
+// Copyright (c) 2010-2011 Esri. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//    http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+///////////////////////////////////////////////////////////////////////////
+-->
+<viewer:BaseWidget xmlns:fx="http://ns.adobe.com/mxml/2009"
+				   xmlns:s="library://ns.adobe.com/flex/spark"
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   xmlns:viewer="com.esri.viewer.*"
+				   xmlns:esri="http://www.esri.com/2008/ags"
+				   widgetConfigLoaded="init()" >
+	<fx:Script>
+		<![CDATA[
+			import com.esri.ags.components.IdentityManager;
+			import com.esri.ags.components.supportClasses.Credential;
+			import com.esri.ags.events.GeoprocessorEvent;
+			import com.esri.ags.events.IdentityManagerEvent;
+			import com.esri.ags.events.PrintEvent;
+			import com.esri.ags.events.ZoomEvent;
+			import com.esri.ags.layers.ArcGISDynamicMapServiceLayer;
+			import com.esri.ags.layers.ArcGISTiledMapServiceLayer;
+			import com.esri.ags.layers.FeatureLayer;
+			import com.esri.ags.layers.GraphicsLayer;
+			import com.esri.ags.layers.Layer;
+			import com.esri.ags.layers.supportClasses.LayerInfo;
+			import com.esri.ags.tasks.supportClasses.DataFile;
+			import com.esri.ags.tasks.supportClasses.JobInfo;
+			import com.esri.ags.tasks.supportClasses.LegendLayer;
+			import com.esri.ags.tasks.supportClasses.LegendOptions;
+			import com.esri.ags.tasks.supportClasses.ParameterValue;
+			import com.esri.ags.tasks.supportClasses.PrintServiceInfo;
+			import com.esri.viewer.BaseWidget;
+			import com.esri.viewer.utils.ErrorMessageUtil;
+			import com.esri.viewer.utils.LabelUtil;
+			
+			import mx.collections.IList;
+			import mx.rpc.Fault;
+			import mx.rpc.events.FaultEvent;
+			import mx.rpc.events.ResultEvent;
+			
+			
+			private var _identityManager:IdentityManager;
+			
+			private function init():void
+			{
+				if (configXML) // checking for valid content in the configuration file
+				{
+					
+				}
+				
+			}
+			
+			
+		
+
+			
+			private function printButton_exportWebMapClickHandler(event:MouseEvent):void
+			{
+			
+			
+				    printTask.url = configXML.printTaskUrl;
+					swfMessage.visible=true;
+					printTask.execute(printParameters);
+					
+					
+					
+			}
+			
+		
+			
+			
+			private function printTask_executeCompleteHandler(event:PrintEvent):void
+			{
+				//	"user": txtUser.text,
+				//"password": txtPass.text,
+				showError("Print complete");
+				var paramValue:ParameterValue = event.executeResult.results[0];
+				var dataFile:DataFile = paramValue.value as DataFile;
+				var requestObject:Object = {
+					"user":txtUser.text,
+					"password":txtPass.text,
+					"imageUrl": dataFile.url,
+					"title":txtTitle.text,
+					"description":txtDes.text
+				};
+				
+				upload.url=configXML.uploadTaskUrl;
+				upload.submitJob(requestObject);
+				
+			}
+			
+			private function upload_jobCompleteHandler(event:GeoprocessorEvent):void
+			{
+				if (event.jobInfo.jobStatus == JobInfo.STATUS_SUCCEEDED)
+				{
+					swfMessage.visible=false;
+				  showError("Upload complete");
+				}
+				
+			}
+			
+			private function upload_faultHandler(event:FaultEvent):void
+			{
+				
+				showError(event.fault.faultString);
+			}
+			
+			protected function printTask_faultHandler(event:FaultEvent):void
+			{
+				showError("Print error");
+				
+			}
+			
+	
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<esri:PrintTask id="printTask"
+						executeComplete="printTask_executeCompleteHandler(event)"
+						fault="printTask_faultHandler(event)"
+						/>
+		
+		<esri:PrintParameters id="printParameters"
+							  format="PDF"
+							  map="{map}"
+							  >
+			
+			
+			<esri:layoutOptions>
+				<esri:LayoutOptions id="layoutOptions"/>
+			</esri:layoutOptions>
+		</esri:PrintParameters>
+		
+		
+		<esri:Geoprocessor id="upload"
+						   fault="upload_faultHandler(event)"
+						   jobComplete="upload_jobCompleteHandler(event)"
+						   useAMF="false"/>
+	
+	</fx:Declarations>
+	
+	<viewer:WidgetTemplate id="PrintUpload"
+						   width="300" height="300">
+		<viewer:layout>
+			<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+		</viewer:layout>
+		
+		<mx:Form >
+	     <mx:FormItem id="userFI" width="100%" label="Username">
+				<s:TextInput id="txtUser"
+							 width="100%"
+							 />
+			</mx:FormItem>
+			
+			<mx:FormItem id="passFI" width="100%" label="Password">
+				<s:TextInput id="txtPass" width="100%" enabled="true" displayAsPassword="true"/>
+			</mx:FormItem>
+			
+			
+			<mx:FormItem id="titleFI" width="100%" label="Title">
+				<s:TextInput id="txtTitle" 
+							 width="100%"
+							 />
+			</mx:FormItem>
+			
+			
+			<mx:FormItem id="desFI" width="100%" label="Description">
+				<s:TextInput id="txtDes" 
+							 width="100%"
+							 />
+			</mx:FormItem>
+			<s:HGroup width="100%" horizontalAlign="center">
+			<s:Button id="printButton" label="Print and Upload"
+					  click="printButton_exportWebMapClickHandler(event)"
+					  enabled="true"/>
+			<mx:Image id="swfMessage"
+					  source="assets/images/loader.swf"
+					  visible="false"/>
+			</s:HGroup>
+		</mx:Form>
+	</viewer:WidgetTemplate>
+</viewer:BaseWidget>

@@ -1,0 +1,44 @@
+﻿<Window x:Class="PanTimingAnimationIssue.MainWindow"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <esri:Map x:Name="MyMap" UseAcceleratedDisplay="False" Extent="-9371259, 3199468, -8957276, 3297613">
+            <!-- ArcGIS Online Tiled Basemap Layer -->
+            <!--<esri:ArcGISTiledMapServiceLayer ID="World Topo Map" 
+                       Url="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"/>-->
+
+            <!-- ArcGIS Online Dynamic Map Service Layer -->
+            <esri:ArcGISDynamicMapServiceLayer ID="USA Demographic"                      
+Url="http://services.arcgisonline.com/ArcGIS/rest/services/Demographics/USA_Recent_Population_Change/MapServer"/>
+        </esri:Map>
+        
+        <Border BorderBrush="Gray" BorderThickness="1" Background="White" HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Margin="15" Padding="10">
+            <Border.Effect>
+                <DropShadowEffect/>
+            </Border.Effect>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Animation Value (0-59):" Grid.Row="0" Grid.Column="0" Margin="2"/>
+                <TextBox x:Name="textBox" Width="100" Height="30" Grid.Row="0" Grid.Column="1" Margin="2" TextChanged="updatePanAnimation" />
+                <Button x:Name="stopAnimation" Content="Stop Animation" Click="Button_Click" 
+                        Grid.Row="2" Grid.Column="0" Margin="2"/>
+                <TextBlock Grid.Row="4" Grid.ColumnSpan="2" TextWrapping="Wrap" Width="350" Text="Notice exported map images do not fill in sides of map until pan animation is complete. This has a negitive outcome in vehicle tracking application." Margin="2"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
+
+

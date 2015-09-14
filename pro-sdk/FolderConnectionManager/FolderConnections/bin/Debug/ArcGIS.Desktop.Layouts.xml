@@ -1,0 +1,1670 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ArcGIS.Desktop.Layouts</name>
+    </assembly>
+    <members>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEvent">
+            <summary>
+            Occurs when elements are selected on a layout.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEventArgs},System.Boolean)">
+            <summary>
+            Subscribe to the LayoutSelectionChangedEvent.
+            </summary>
+            <param name="action">The delegate that gets executed when the event is published.</param>
+            <param name="keepSubscriberAlive">When false the <see cref="T:ArcGIS.Core.Events.CompositePresentationEvent`1">CompositePresentationEvent</see>
+            will maintain a weak delegate reference to the subscriber. Using a weak delegate reference relieves the subscriber from the need to unsubscribe to enable 
+            proper garbage collection.</param>
+            <returns>A <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see> that uniquely identifies the added subscription.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEvent.Unsubscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEventArgs})">
+            <summary>
+            Removes the first subscriber matching the provided delegate from the subscribers' list. 
+            </summary>
+            <param name="action">The delegate used when subscribing to the event.</param>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEvent.Unsubscribe(ArcGIS.Core.Events.SubscriptionToken)">
+            <summary>
+            Removes the subscriber matching the <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see>.
+            </summary>
+            <param name="token">The <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see> returned when subscribing to the event.</param>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEventArgs">
+            <summary>
+            Provides the arguments passed from the <see cref="M:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEventArgs},System.Boolean)">LayoutSelectionChangedEvent.Subscribe</see> delegate.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEventArgs.#ctor(System.Collections.IList,System.Boolean,System.Collections.Generic.IEnumerable{ArcGIS.Desktop.Layouts.Element})">
+            <exclude></exclude>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Events.LayoutSelectionChangedEventArgs.Elements">
+            <summary>
+            Gets the enumeration of elements that have been selected.
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutClosingEvent">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutClosingEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutClosingEventArgs},System.Boolean)">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutClosingEvent.Unsubscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutClosingEventArgs})">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutClosingEvent.Unsubscribe(ArcGIS.Core.Events.SubscriptionToken)">
+            <exclude></exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutChangedEventArgs">
+            <exclude></exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutClosingEventArgs">
+            <exclude></exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutClosedEvent">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutClosedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutClosedEventArgs},System.Boolean)">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutClosedEvent.Unsubscribe(System.Action{ArcGIS.Desktop.Layouts.Events.LayoutClosedEventArgs})">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.LayoutClosedEvent.Unsubscribe(ArcGIS.Core.Events.SubscriptionToken)">
+            <exclude></exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.LayoutClosedEventArgs">
+            <exclude></exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.ElementsPlacementChangedEvent">
+            <summary>
+            Occurs when an element's placement properties are changed.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsPlacementChangedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs},System.Boolean)">
+            <summary>
+            Subscribe to the ElementsPlacementChangedEvent.
+            </summary>
+            <remarks>
+            This event occurs when an element is moved or resized on the page layout or if any of its size and position properties are modified in the Format tab on the ribbon or in the Elements pane.
+            </remarks>
+            <param name="action">The delegate that gets executed when the event is published.</param>
+            <param name="keepSubscriberAlive">When <c>false</c> the <see cref="T:ArcGIS.Core.Events.CompositePresentationEvent`1">CompositePresentationEvent</see>
+            will maintain a weak delegate reference to the subscriber. Using a weak delegate reference relieves the subscriber from the need to unsubscribe to enable 
+            proper garbage collection.  The default is <c>false</c>.</param>
+            <returns>A <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see> that uniquely identifies the added subscription.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsPlacementChangedEvent.Unsubscribe(System.Action{ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs})">
+            <summary>
+            Removes the first subscriber matching the provided delegate from the subscribers' list. 
+            </summary>
+            <param name="action">The delegate used when subscribing to the event.</param>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsPlacementChangedEvent.Unsubscribe(ArcGIS.Core.Events.SubscriptionToken)">
+            <summary>
+            Removes the subscriber matching the <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see>.
+            </summary>
+            <param name="token">The <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see> returned when subscribing to the event.</param>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEvent">
+            <summary>
+            Occurs when an element has been modified.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs},System.Boolean)">
+            <summary>
+            Subscribe to the ElementsUpdatedEvent.
+            </summary>
+            <remarks>
+            This includes all changes made to the element with the exception of size and positioning. 
+            The <see cref="T:ArcGIS.Desktop.Layouts.Events.ElementsPlacementChangedEvent">ElementsPlacementChangedEvent</see> handles those types of changes.
+            </remarks>
+            <param name="action">The delegate that gets executed when the event is published.</param>
+            <param name="keepSubscriberAlive">When <c>false</c> the <see cref="T:ArcGIS.Core.Events.CompositePresentationEvent`1">CompositePresentationEvent</see>
+            will maintain a weak delegate reference to the subscriber. Using a weak delegate reference relieves the subscriber from the need to unsubscribe to enable 
+            proper garbage collection. The default is <c>false</c>.</param>
+            <returns>A <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see> that uniquely identifies the added subscription.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEvent.Unsubscribe(System.Action{ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs})">
+            <summary>
+            Removes the first subscriber matching the provided delegate from the subscribers' list. 
+            </summary>
+            <param name="action">The delegate used when subscribing to the event.</param>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEvent.Unsubscribe(ArcGIS.Core.Events.SubscriptionToken)">
+            <summary>
+            Removes the subscriber matching the <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see>.
+            </summary>
+            <param name="token">The <see cref="T:ArcGIS.Core.Events.SubscriptionToken">SubscriptionToken</see> returned when subscribing to the event.</param>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs">
+            <summary>
+            Provides the arguments passed from the <see cref="M:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs},System.Boolean)">ElementsUpdatedEvent.Subscribe</see> and the
+            <see cref="M:ArcGIS.Desktop.Layouts.Events.ElementsPlacementChangedEvent.Subscribe(System.Action{ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs},System.Boolean)">ElementsPlacementChangedEvent.Subscribe</see> delegate.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs.#ctor(System.String[])">
+            <exclude></exclude>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Events.ElementsUpdatedEventArgs.ElementNames">
+            <summary>
+            Gets the the list of element names that have been updated.
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.IInternalLayoutsModule">
+            <summary>This interface is not for public use and is used internally by the system to 
+            implement support for other esri modules
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.LayoutsModule">
+            <summary>
+            Represents the layouts module.
+            </summary>
+            <remarks>
+            <para>
+            Modules are what make the framework system extensible.  The framework loads modules and when your module loads, everything in it loads as well, for example, 
+            commands, widgets, a custom about panel, and so on.
+            </para>
+            <para>
+            The ONLY member that you can use is <see cref="P:ArcGIS.Desktop.Layouts.LayoutsModule.Current">Current</see>.  The API reference help displays many more protected 
+            members that are inherited from <see cref="T:ArcGIS.Desktop.Framework.Contracts.Module"/> but these are not available to the core layout module. They would only be 
+            accessible if you were to create your own custom module.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.CanUnload">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.CutAsync">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.CopyAsync">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.PasteAsync">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.DeleteAsync">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.OnPaneClosing(ArcGIS.Desktop.Framework.Contracts.Pane,ArcGIS.Desktop.Framework.Events.CancelRoutedEventArgs)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.OnPaneClosed(ArcGIS.Desktop.Framework.Contracts.Pane)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.OnPaneDeactivated(ArcGIS.Desktop.Framework.Contracts.Pane)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.OnPaneOpened(ArcGIS.Desktop.Framework.Contracts.Pane)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.OnPaneActivated(ArcGIS.Desktop.Framework.Contracts.Pane)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.CreateLayoutAsync(ArcGIS.Core.CIM.CIMPage,ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Main function used to create a new layout.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.GetLayoutPanes(ArcGIS.Desktop.Layouts.Layout)">
+            <summary>Gets the layout panes currently open in the application.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.Initialize">
+            <summary>Called by framework to initialize module.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.CopyLayoutAsync(System.String,ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Copy the specified layout and return the new name and catalog path.</summary>
+            TODO: could we return Layout object instead ?
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.CreateLayoutModelAsync(ArcGIS.Core.CIM.CIMPage)">
+            <summary>Starts a task that creates a new layout in the project.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutsModule.Uninitialize">
+            <summary>Performs cleanup on the module before it's destroyed.</summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LayoutsModule.Current">
+            <summary>
+            Returns a reference to the current layout module in the application.  There is only one layout module.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LayoutsModule.ActiveLayoutView">
+            <summary>Gets the layout pane currently showing in the application.</summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LayoutsModule.Layouts">
+            <summary>Gets the layouts currently open in the application.</summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.PlacementProperties">
+            <summary>Represents a collection of placement properties associated with an <see cref="T:ArcGIS.Desktop.Layouts.Element">Element</see> on a page layout.</summary>
+            <remarks>
+            <para>
+            Each element on a page layout has an associated PlacementProperties class. This intermediate object allows you to change multiple size and position properties before 
+            pushing the changes back to the element.
+            </para>
+            <para>
+            The most common technique for changing these properties is to retrieve the placement properties from an existing <see cref="T:ArcGIS.Desktop.Layouts.Element">Element</see>
+            using the <see cref="M:ArcGIS.Desktop.Layouts.Element.GetPlacement">GetPlacement</see> method, change the properties, and then push those change back using the
+            <see cref="M:ArcGIS.Desktop.Layouts.Element.SetPlacement">SetPlacement</see> method.
+            </para>
+            <para>
+            The X and Y properties are based on the element's <see cref="T:ArcGIS.Core.CIM.Anchor">Anchor</see> position.
+            </para>
+            </remarks>
+            <example>
+            This example references the PlacementProperties for an existing element, modifies the element's size and position, and then sets the properties back to the layout element.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\PlacementProperties.cs" region="PlacementPropertiesExample" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.PlacementProperties.#ctor">
+            <summary>Initialize a new instance of PlacementProperties.</summary>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Element_PlacementPropertiesConstructor" lang="CS"></code>
+            </example>
+            <value>
+            Type: <see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.X">
+            <summary>
+            Gets and sets the x-location of the element's anchor position. The units assigned or reported are in page units.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Double">Double</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.Y">
+            <summary>
+            Gets and sets the y-location of the element's anchor position. The units assigned or reported are in page units.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Double">Double</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.Width">
+            <summary>
+            Gets and sets the width of the element in page units.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Double">Double</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.Height">
+            <summary>
+            Gets and sets the height of the element in page units.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Double">Double</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.Anchor">
+            <summary>
+            Gets and sets the anchor position for the element.  The list of values can be obtained from <see cref="T:ArcGIS.Core.CIM.Anchor">Anchor</see>.
+            </summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Core.CIM.Anchor">Anchor</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.LockedAspectRatio">
+            <summary>
+            Gets and sets the aspect ratio for elements.  A value of <c>true</c> preserves the aspect ratio when the element is resized.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Boolean">Boolean</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PlacementProperties.Rotation">
+            <summary>
+            Gets and sets the element's rotation angle in degrees.  Positive values rotate clockwise and negative values rotate counterclockwise.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Double">Double</see>
+            </value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Element">
+            <summary>Represents an element on a page layout.</summary>
+            <remarks>
+            <para>
+            Everything on a page layout is a type of element. The Element class provides access to a base set of properties like 
+            <see cref="P:ArcGIS.Desktop.Layouts.Element.Name">Name</see> and <see cref="P:ArcGIS.Desktop.Layouts.Element.IsVisible">IsVisible</see>
+            and it also provides access to the <see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see> of an element that enables 
+            you to control the location and size of an element on a page. 
+            </para>
+            <para> 
+            All elements on a page layout must have a unique name.  If you use <see cref="M:ArcGIS.Desktop.Layouts.Element.SetName">SetName</see> to try to 
+            set the name of one element to match the name of another element, the <see cref="P:ArcGIS.Desktop.Layouts.Element.Name">Name</see> property will 
+            automatically be made unique similar to how the application behaves.  For example, if you tried to name an element <c>"elm"</c> and that name was 
+            already assigned to another, existing element, the resulting name would automatically be changed to <c>"elm 1"</c>.
+            </para>
+            <para>
+            Use <see cref="M:ArcGIS.Desktop.Layouts.Layout.FindElement">FindElement</see> on the <see cref="T:ArcGIS.Desktop.Layouts.Layout">Layout</see> class
+            in order to get a reference to any element on a page layout, even elements in a group element.  
+            </para>
+            <para>
+            The <see cref="P:ArcGIS.Desktop.Layouts.Element.IsVisible">IsVisible</see> property can be useful for hiding elements from displaying or printing.  
+            It is much easier than having to move elements off the page.  When an element is invisible, it can not be selected in the application.
+            </para>
+            <para> 
+            <see cref="M:ArcGIS.Desktop.Layouts.Element.GetPlacement">GetPlacement</see> will return the 
+            <see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see> class.  This intermediate class allows you to make multiple changes 
+            to an element's placement properties at once before pushing those changes back to the element using 
+            <see cref="M:ArcGIS.Desktop.Layouts.Element.SetPlacement">SetPlacement</see>.
+            </para>
+            <para>
+            The <see cref="P:ArcGIS.Desktop.Layouts.Element.Definition">Definition</see> property returns a CIM representation of an element. This may provide 
+            additional, finer grained properties exposed in the CIM that are not exposed in the managed API. 
+            <see cref="M:ArcGIS.Desktop.Layouts.Element.SetDefinition">SetDefinition</see> applies the changes made to a modified 
+            <see cref="T:ArcGIS.Core.CIM.CIMElement">CIMElement</see> back to the element on the page layout.
+            </para>
+            </remarks>
+            <example>
+            The following examples demonstrate how to work with an element on a page layout.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\PlacementProperties.cs" region="PlacementPropertiesExample" lang="CS"></code>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\ElementClass.cs" region="ElementExample" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.SetName(System.String)">
+            <summary>
+            Sets the name of the element.   All elements on a layout must have a unique name so they can be easily referenced.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="name"><see cref="T:System.String">String</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Element_SetName" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.SetVisible(System.Boolean)">
+            <summary>
+            Sets the visibility of an element on a page layout.  A value of <c>true</c> displays the element. This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="isVisible"><see cref="T:System.Boolean">Boolean</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Element_SetVisible" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.GetPlacement">
+            <summary>Returns the <see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see> for an element on a page layout.  This method must be called on the MCT.  Use QueuedTask.Run.</summary>
+            <returns>
+            <see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see>
+            </returns>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Element_GetPlacement" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.SetPlacement(ArcGIS.Desktop.Layouts.PlacementProperties)">
+            <summary>
+            Sets the <see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see> for an element on a page layout. This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="placement"><see cref="T:ArcGIS.Desktop.Layouts.PlacementProperties">PlacementProperties</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Element_SetPlacement" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.SetDefinition(ArcGIS.Core.CIM.CIMElement)">
+            <summary>
+            Applies the changes made to a modified <see cref="T:ArcGIS.Core.CIM.CIMElement">CIMElement</see> back to the element on the page layout. This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="cimElement"><see cref="T:ArcGIS.Core.CIM.CIMElement">CIMElement</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="CIMElement_SetDefinition" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.Equals(ArcGIS.Desktop.Layouts.Element)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.ToString">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="F:ArcGIS.Desktop.Layouts.Element._layout">
+            <exclude></exclude>
+        </member>
+        <member name="F:ArcGIS.Desktop.Layouts.Element._container">
+            <exclude></exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.GetXML">
+            <summary>Get the CIM definition for the element.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.SetXML(System.String)">
+            <summary>Initialize the element based on the CIM definition.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.GetStyle">
+            <exclude> </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Element.GetStyleType">
+            <exclude> </exclude>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Element.Name">
+            <summary>
+            Gets the name of the element.
+            </summary>
+            <value>
+            Type: <see cref="T:System.String">String</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Element.IsVisible">
+            <summary>
+            Gets the visibility of an element.  Returns <c>true</c> if an element is checked on in the table of contents.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Boolean">Boolean</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Element.Definition">
+            <summary>Gets the CIM representation of an element.</summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Core.CIM.CIMElement">CIMElement</see>
+            </value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.GraphicElement">
+            <summary>
+            Represents a graphic element on a page layout.
+            </summary>
+            <remarks>
+            <para>
+            Graphic elements are a type of <see cref="T:ArcGIS.Desktop.Layouts.Element">Element</see> and include inserted graphic points, lines, or area shapes.
+            <see cref="T:ArcGIS.Desktop.Layouts.PictureElement">PictureElement</see> and <see cref="T:ArcGIS.Desktop.Layouts.TextElement">TextElement</see> are 
+            also a type of graphic element.
+            </para>
+            <para>
+            The <see cref="P:ArcGIS.Desktop.Layouts.GraphicElement.Graphic">Graphic</see> property returns a CIM representation of the graphic specific attributes 
+            for a GraphicElement. This may provide additional, finer grained properties exposed in the CIM that are not exposed in the managed API. 
+            <see cref="M:ArcGIS.Desktop.Layouts.GraphicElement.SetGraphic">SetGraphic</see> applies the changes made to a modified 
+            <see cref="T:ArcGIS.Core.CIM.CIMGraphic">CIMGraphic</see> back to the GraphicElement.
+            </para>
+            <para>
+            The <see cref="M:ArcGIS.Desktop.Layouts.GraphicElement.Clone">Clone</see> method allows you to duplicate existing graphic elements on your page layout. 
+            This can be useful where you may have a variable number of pictures, for example, on each page in the map series.  Rather than authoring a layout with 
+            all possibilities, a single picture element can be cloned and updated the appropriate number of times to reference a different set of pictures on disk 
+            for each page in the series.
+            </para>
+            </remarks>
+            <example>
+            The following examples demonstrate how to work with a GraphicElement on a page layout.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\GraphicElementClass.cs" region="CIMGraphic" lang="CS"></code>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\GraphicElementClass.cs" region="CloneGraphic" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.GraphicElement.Clone(System.String)">
+            <summary>
+            Generates a cloned copy of an existing GraphicElement on a page layout.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <remarks>The <c>suffix</c> parameter is an optional string that is used to tag each newly created GraphicElement. The new element will get the same 
+            element name as the parent graphic plus the suffix value along with a numeric sequencer.  This makes it possible, if needed, to find and remove unwanted cloned items.</remarks>
+            <param name="suffix"><see cref="T:System.String">String</see></param>
+            <returns><see cref="T:ArcGIS.Desktop.Layouts.GraphicElement">GraphicElement</see></returns>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="GraphicElement_Clone" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.GraphicElement.SetGraphic(ArcGIS.Core.CIM.CIMGraphic)">
+            <summary>
+            Applies the changes made to a <see cref="T:ArcGIS.Core.CIM.CIMGraphic">CIMGraphic</see> back to the GraphicElement. This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="cimGraphic"><see cref="T:ArcGIS.Core.CIM.CIMGraphic">CIMGraphic</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="GraphicElement_SetGraphic" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.GraphicElement.GetStyle">
+            <exclude> </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.GraphicElement.GetStyleType">
+            <exclude> </exclude>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.GraphicElement.Graphic">
+            <summary>Gets a <see cref="T:ArcGIS.Core.CIM.CIMGraphic">CIMGraphic</see> which is a CIM representation of the graphic specific attributes for a GraphicElement.</summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Core.CIM.CIMGraphic">CIMGraphic</see>
+            </value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.GroupElement">
+            <summary>
+            Represents a collection of layout elements in a group element.
+            </summary>
+            <remarks>
+            <para>
+            When trying to find elements on a layout that are inside a group element, use <see cref="M:ArcGIS.Desktop.Layouts.Layout.FindElement">FindElement</see>
+            on the <see cref="T:ArcGIS.Desktop.Layouts.Element">Element</see> class.
+            </para>
+            <para>
+            If you want to process the elements within a group element, use the <see cref="P:ArcGIS.Desktop.Layouts.GroupElement.Elements">Elements</see> property to 
+            return the collection of elements in a group element.  It is possible that group elements can be nested in another group element.
+            </para>
+            </remarks>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="GroupElement" lang="CS"></code>
+            </example>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.GroupElement.Elements">
+            <summary>
+            Gets a collection of elements in a GroupElement.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Collections.ReadOnlyCollectionBase">ReadOnlyCollectionBase</see>
+            </value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Layout">
+            <summary>
+            Represents a page layout in a project and provides access to basic layout properties, including page information, access to elements, and export methods.
+            </summary>
+            <remarks>
+            <para>
+            The Layout class provides access to all elements on a page layout.  Use <see cref="M:ArcGIS.Desktop.Layouts.Layout.FindElement">FindElement</see> to reference 
+            an individual element on page layout.  It is the best method to use because it also finds elements that are in group or nested group elements whereas a standard 
+            c# method used with <see cref="M:ArcGIS.Desktop.Layouts.Layout.Elements">Elements</see> will only find non-grouped elements.
+            </para>
+            <para>
+            The size and positioning of a page layout can be modified.  First use the <see cref="M:ArcGIS.Desktop.Layouts.Layout.GetPage">GetPage</see> property to retrieve 
+            the <see cref="T:ArcGIS.Core.CIM.CIMPage">CIMPage</see>, modify the page properties, and then use <see cref="M:ArcGIS.Desktop.Layouts.Layout.SetPage">SetPage</see> 
+            to the apply the changes back to the layout.
+            </para>
+            </remarks>
+            <example>
+            The following examples demonstrate different ways of referencing layouts and modifying page properties.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\LayoutClass.cs" region="LayoutHelpExample1" lang="CS"></code>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\LayoutClass.cs" region="LayoutHelpExample2" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.SetName(System.String)">
+            <summary>
+            Sets the name of the layout.   It is important that all layouts have a unique name so they can be easily referenced.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="name"><see cref="T:System.String">String</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Layout_SetName" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.GetPage">
+            <summary>
+            Gets the <see cref="T:ArcGIS.Core.CIM.CIMPage">CIMPage</see> for a layout.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <value>Type: <see cref="T:ArcGIS.Core.CIM.CIMPage">CIMPage</see></value>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Layout_GetPage" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.SetPage(ArcGIS.Core.CIM.CIMPage)">
+            <summary>
+            Applies the changes made to a modified <see cref="T:ArcGIS.Core.CIM.CIMPage">CIMPage</see> to the layout.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="page"><see cref="T:ArcGIS.Core.CIM.CIMPage">CIMPage</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Layout_SetPage" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.FindElement(System.String)">
+            <summary>
+            Finds and element on a page layout by element name.
+            </summary>
+            <param name="name"><see cref="T:System.String">String</see></param>
+            <returns><see cref="T:ArcGIS.Desktop.Layouts.Element">Element</see></returns>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Layout_FindElement" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.DeleteElement(ArcGIS.Desktop.Layouts.Element)">
+            <summary>
+            Deletes an element on a page layout.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="element"><see cref="T:ArcGIS.Desktop.Layouts.Element">Element</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Layout_DeleteElement" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.DeleteElements(System.Func{ArcGIS.Desktop.Layouts.Element,System.Boolean})">
+            <summary>
+            Deletes an array of elements on a page layout.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="predicate">Represents the method that defines a set of criteria and determines whether the specified object meets those criteria.</param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="Layout_DeleteElements" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.Export(ArcGIS.Desktop.Mapping.ExportFormat)">
+            <summary>
+            Export a layout to a variety of formats.
+            </summary>
+            <remarks>
+            Multiple examples are provided with each format derived from <see cref="T:ArcGIS.Desktop.Mapping.ExportFormat"/>.
+            </remarks>
+            <param name="exportFormat"><see cref="T:ArcGIS.Desktop.Mapping.ExportFormat">ExportFormat</see></param>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.Finalize">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.ShowProperties">
+            <summary>Shows a property sheet for the layout.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.InsertElementsAsync(ArcGIS.Core.CIM.CIMElement[],System.String[],System.Int32[],ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Insert elements at the specified indices.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.PasteElementsAsync(ArcGIS.Core.CIM.CIMElement[],System.String,ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Pastes elements at the specified location.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.DeleteElementsAsync(System.String[],ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Deletes elements by name.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.UpdateElementsAsync(System.String[],System.String[],ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Updates the elements with the specified CIM xml strings.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.Dispose">
+            <summary>Performs cleanup on the layout before it's destroyed.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.DoBulkUpdateAsync(System.String[],System.Boolean,System.Action{ArcGIS.Core.CIM.CIMElement,System.Int32})">
+            <summary>
+            Convenience method to handle arbitrary updates to the CIM definition of an element. 
+            Caller supplies a lambda in which the CIMElement is modified.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.GetElementXMLAsync(System.String[])">
+            <summary>Get CIM definitions for the elements.</summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.SuspendSelectionNotification(System.Boolean)">
+            <summary>
+            Read-only Selection functions.  All selecting needs to go through LayoutView
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.RemoveElement(System.String,System.Boolean)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Layout.InsertElement(ArcGIS.Desktop.Layouts.Element,System.Int32)">
+            <exclude>
+            
+            </exclude>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Layout.OperationManager">
+            <summary>
+            Gets the OperationManager which is responsible for managing the undo/redo stack.
+            </summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Desktop.Framework.OperationManager">OperationManager</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Layout.Name">
+            <summary>
+            Gets the name of the layout.
+            </summary>
+            <value>
+            Type: <see cref="T:System.String">String</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Layout.ProjectID">
+            <summary>
+            Gets the ID of the project that contains the layout.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Int32">Integer</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Layout.URI">
+            <summary>
+            Gets the path of the layout in the project.
+            </summary>
+            <value>
+            Type: <see cref="T:System.String">String</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Layout.Elements">
+            <summary>
+            Gets a collection of layout elements.
+            </summary>
+            <value>
+            Type: <see cref="T:System.Collections.ReadOnlyCollectionBase">ReadOnlyCollectionBase</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Layout.Page">
+            <summary>
+            Gets the <see cref="T:ArcGIS.Core.CIM.CIMPage"/> for the layout.
+            </summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Core.CIM.CIMPage"/>
+            </value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.Legend">
+            <summary>
+            Represents a legend element on a page layout.
+            </summary>
+            <remarks>
+            There are currently no additional members but this class can be used to determine the type of 
+            <see cref="T:ArcGIS.Desktop.Layouts.MapSurround">MapSurround</see> and element may be.
+            </remarks>
+            <example>
+            <code> if (elm is Legend) </code>
+            </example>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.MapSurround">
+            <summary>
+            Represents a map surround on a page layout.
+            </summary>
+            <remarks>
+            <para>
+            A MapSurround is a type of <see cref="T:ArcGIS.Desktop.Layouts.Element"/> and therefore can be positioned or resized on the page.  A MapSurround also has an 
+            associated <see cref="T:ArcGIS.Desktop.Layouts.MapFrame">MapFrame</see> that can be modified.
+            </para>
+            <para>
+            <see cref="T:ArcGIS.Desktop.Layouts.Legend">Legend</see>, <see cref="T:ArcGIS.Desktop.Layouts.NorthArrow">NorthArrow</see>, and
+            <see cref="T:ArcGIS.Desktop.Layouts.ScaleBar">ScaleBar</see> are types of a MapSurround.
+            </para>
+            </remarks>
+            <example>
+            The following example demonstrates how to reference a scale bar associated with one map frame and associate it with another map frame.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MapSurroundClass.cs" region="MapSurroundExample" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.MapSurround.SetMapFrame(ArcGIS.Desktop.Layouts.MapFrame)">
+            <summary>
+            Sets a <see cref="T:ArcGIS.Desktop.Layouts.MapFrame">MapFrame </see> to the MapSurround.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="mapFrame"><see cref="T:ArcGIS.Desktop.Layouts.MapFrame">MapFrame</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="MapSurround_SetMapFrame" lang="CS"></code>
+            </example>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.MapSurround.MapFrame">
+            <summary>
+            Gets the <see cref="T:ArcGIS.Desktop.Layouts.MapFrame">MapFrame</see> associated with the MapSurround.
+            </summary>
+            <value>Type: <see cref="T:ArcGIS.Desktop.Layouts.MapFrame">MapFrame</see></value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.MapFrame">
+            <summary>
+            Represents a map frame on a page layout.
+            </summary>
+            <remarks>
+            <para>The MapFrame class primarily manages the placement of maps and scenes on a page layout.  The <see cref="M:ArcGIS.Desktop.Layouts.MapFrame.Export(ArcGIS.Desktop.Mapping.ExportFormat)">Export</see> method allows 
+            you to export only the contents of a map frame instead of, for example, exporting an entire page layout.
+            </para>
+            <para>
+            If you want to change the geographic view within a map frame, you need to use the map frame's <see cref="P:ArcGIS.Desktop.Layouts.MapFrame.MapView">MapView</see> property.  This 
+            returns a reference to the associated <see cref="T:ArcGIS.Desktop.Mapping.MapView">MapView</see> class.  Once referenced, there are a variety of methods available that allow you
+            to change the geographic view, for example, <see cref="M:ArcGIS.Desktop.Mapping.MapView.PanTo">PanTo</see>, <see cref="M:ArcGIS.Desktop.Mapping.MapView.PanToSelected(System.Nullable{System.TimeSpan})">PanToSelected</see>,
+            <see cref="M:ArcGIS.Desktop.Mapping.MapView.ZoomTo">ZoomTo</see>, <see cref="M:ArcGIS.Desktop.Mapping.MapView.ZoomToSelected(System.Nullable{System.TimeSpan},System.Boolean)">ZoomToSelected</see>, and so on.  
+            You can also access the <see cref="T:ArcGIS.Desktop.Mapping.Camera">Camera</see> that is associated with the <see cref="T:ArcGIS.Desktop.Mapping.MapView">MapView</see>, 
+            make a number of modifications, and then use the <see cref="M:ArcGIS.Desktop.Mapping.MapView.ZoomTo">ZoomTo</see> method along with the camera changes to modify the view.  
+            <see cref="M:ArcGIS.Desktop.Mapping.MapView.ZoomTo">ZoomTo</see> is a highly overloaded method that also allows you to zoom to bookmarks, layers, a list of layers, and so on.
+            </para>
+            <para>
+            You can also use <see cref="P:ArcGIS.Desktop.Layouts.MapFrame.Map">Map</see> and  <see cref="M:ArcGIS.Desktop.Layouts.MapFrame.SetMap(ArcGIS.Desktop.Mapping.Map)">SetMap</see> members to get and set 
+            the <see cref="T:ArcGIS.Desktop.Mapping.Map">Map</see> associated with a MapFrame.
+            </para>
+            </remarks>
+            <example>
+            The following examples demonstrate how to modify the geographic view of a map frame.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MapFrameClass.cs" region="MapFrameExample1" lang="CS"></code>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MapFrameClass.cs" region="MapFrameExample2" lang="CS"></code>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MapFrameClass.cs" region="MapFrameExample3" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.MapFrame.SetMap(ArcGIS.Desktop.Mapping.Map)">
+            <summary>
+            Sets the <see cref="T:ArcGIS.Desktop.Mapping.Map">Map</see> associated with the MapFrame.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="map"></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="MapFrame_SetName" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.MapFrame.Export(ArcGIS.Desktop.Mapping.ExportFormat)">
+            <summary>
+            Export a layout to a variety of formats.
+            </summary>
+            <remarks>
+            Multiple examples are provided with each format derived from <see cref="T:ArcGIS.Desktop.Mapping.ExportFormat"/>.
+            </remarks>
+            <param name="exportFormat"><see cref="T:ArcGIS.Desktop.Mapping.ExportFormat">ExportFormat</see></param>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.MapFrame.SetViewAsync(ArcGIS.Desktop.Internal.Mapping.MapViewInternal,ArcGIS.Desktop.Framework.Threading.Tasks.Progressor)">
+            <summary>Copy view settings from CIMMapView to CIM.</summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Layouts.MapFrame._viewLockObj">
+            <summary>Copy view settings from MapView to CIM.</summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.MapFrame.Map">
+            <summary>
+            Gets the <see cref="T:ArcGIS.Desktop.Mapping.Map">Map</see> associated with the MapFrame.
+            </summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Desktop.Mapping.Map">Map</see>
+            </value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.MapFrame.MapView">
+            <summary>
+            Gets the <see cref="T:ArcGIS.Desktop.Mapping.MapView">MapView</see> associated with the MapFrame.
+            </summary>
+            <value>
+            Type: <see cref="T:ArcGIS.Desktop.Mapping.MapView">MapView</see>
+            </value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.NorthArrow">
+            <summary>
+            Represents a north arrow element on a page layout.
+            </summary>
+            <remarks>
+            There are currently no additional members but this class can be used to determine the type of 
+            <see cref="T:ArcGIS.Desktop.Layouts.MapSurround">MapSurround</see> and element may be.
+            </remarks>
+            <example>
+            <code> if (elm is NorthArrow) </code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.NorthArrow.GetStyle">
+            <exclude> </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.NorthArrow.GetStyleType">
+            <exclude> </exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.PictureElement">
+            <summary>
+            Represents a picture element on a page layout.
+            </summary>
+            <remarks>
+            A PictureElement is a type of <see cref="T:ArcGIS.Desktop.Layouts.GraphicElement">GraphicElement</see> and therefore can be positioned or resized on the page. 
+            Picture elements are embedded in the project file (.aprx) but the <see cref="P:ArcGIS.Desktop.Layouts.PictureElement.SourcePath">SourcePath</see> property will 
+            return the original source file source path. You can change the picture by using the <see cref="M:ArcGIS.Desktop.Layouts.PictureElement.SetSourcePath">SetSourcePath</see> 
+            method along with a new file path.
+            </remarks>
+            <example>
+            The example references a PictureElement on a layout and changes the picture by setting a path to a file on disk using the
+            <see cref="M:ArcGIS.Desktop.Layouts.PictureElement.SetSourcePath">SetSourcePath</see> method.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\PictureElementClass.cs" region="PictureElementExample" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.PictureElement.SetSourcePath(System.String)">
+            <summary>
+            Regenerates the picture using the new file path to a picture on disk. This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="URI"><see cref="T:System.String">String</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="PictureElement_SetSourcePath" lang="CS"></code>
+            </example>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.PictureElement.SourcePath">
+            <summary>
+            Gets the file path of where the picture was added from.
+            </summary>
+            <value>Type: <see cref="T:System.String">String</see></value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.LayoutProjectItem">
+            <summary>
+            Represents a layout project item.
+            </summary>
+            <remarks>
+            <para>Each <see cref="T:ArcGIS.Desktop.Layouts.Layout">Layout</see> in a project is associated with a LayoutProjectItem.  This item contains numerous 
+            read-only metadata properties about the layout. Although a layout may exist in the project, it may not be loaded (an open layout view).  To reference the 
+            actual layout and ensure it is loaded into memory, you must use the <see cref="M:ArcGIS.Desktop.Layouts.LayoutProjectItem.GetLayout">GetLayout</see> method.</para>
+            </remarks>
+            <example>
+            The follow examples demonstrate how to reference layout by name and delete layouts in a project.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\LayoutProjectItemClass.cs" region="FindLayout" lang="CS"></code>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\LayoutProjectItemClass.cs" region="DeleteLayout" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutProjectItem.GetLayout">
+            <summary>
+            Loads and returns the <see cref="T:ArcGIS.Desktop.Layouts.Layout">Layout</see> associated with the LayoutPrjectItem.  This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <returns><see cref="T:ArcGIS.Desktop.Layouts.Layout">Layout</see></returns>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="LayoutProjectItem_GetLayout" lang="CS"></code>
+             </example>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.ScaleBar">
+            <summary>
+            Represents a scale bar on a page layout.
+            </summary>
+            <remarks>
+            There are currently no additional members but this class can be used to determine the type of 
+            <see cref="T:ArcGIS.Desktop.Layouts.MapSurround">MapSurround</see> and element may be.
+            </remarks>
+            <example>
+            <code> if (elm is ScaleBar) </code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.ScaleBar.GetStyle">
+            <exclude> </exclude>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.ScaleBar.GetStyleType">
+            <exclude> </exclude>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.TextProperties">
+            <summary>
+            Represents a collection of text properties associated with a <see cref="T:ArcGIS.Desktop.Layouts.TextElement">TextElement</see>.
+            </summary>
+            <remarks>
+            Each <see cref="T:ArcGIS.Desktop.Layouts.TextElement">TextElement</see> on a page layout has an associated set of text properties.  
+            This intermediate object allows you to change multiple text properties before pushing the changes back to the 
+            <see cref="T:ArcGIS.Desktop.Layouts.TextElement">TextElement</see>.
+            </remarks>
+            <example>
+            This example retrieves text properties from an existing <see cref="T:ArcGIS.Desktop.Layouts.TextElement">TextElement</see>, changes those properties, 
+            and then sets the properties back to the element.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\TextElementClass.cs" region="TextElementExample" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.TextProperties.#ctor(System.String,System.String,System.Double)">
+            <summary>
+            Initialize a new instance of TextProperties.
+            </summary>
+            <param name="text"><see cref="T:System.String">String</see></param>
+            <param name="font"><see cref="T:System.String">String</see></param>
+            <param name="fontSize"><see cref="T:System.Double">Double</see></param>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="TextElement_TextPropertiesConstructor" lang="CS"></code>
+            </example>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.TextProperties.Text">
+            <summary>
+            Gets and sets the string associated with the text element.
+            </summary>
+            <value><see cref="T:System.String">String</see></value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.TextProperties.Font">
+            <summary>
+            Gets and sets the font name of the text element.  When setting, use the string values the way they appear in the Text Symbol Font list located in the text element format tab.
+            </summary>
+            <value><see cref="T:System.String">String</see></value>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.TextProperties.FontSize">
+            <summary>
+            Gets and sets the font size of the text element.
+            </summary>
+            <value><see cref="T:System.Double">Double</see></value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.TextElement">
+            <summary>
+            Represents a text element on a page layout.
+            </summary>
+            <remarks>
+            The TextElement class represents text elements on a page layout.  This includes items such as inserted point text, rectangle text, and so on. It can 
+            also include text elements that are part of a group element but it does not include text that is part of a legend, scale bar or other map surround items.
+            </remarks>
+            <example>
+            This example retrieves text properties from an existing TextElement, changes those properties, and then sets the properties back to the element.
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\TextElementClass.cs" region="TextElementExample" lang="CS"></code>
+            </example>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.TextElement.SetTextProperties(ArcGIS.Desktop.Layouts.TextProperties)">
+            <summary>
+            Sets the <see cref="T:ArcGIS.Desktop.Layouts.TextProperties">TextProperties</see> for a TextElement. This method must be called on the MCT.  Use QueuedTask.Run.
+            </summary>
+            <param name="textProperties"><see cref="T:ArcGIS.Desktop.Layouts.TextProperties">TextProperties</see></param>
+            <exception cref="T:ArcGIS.Core.CalledOnWrongThreadException">This method or property must be called within the lambda passed to QueuedTask.Run.</exception>
+            <example>
+            <code source="..\..\ArcGIS\SharedArcGIS\SDK\Examples\ArcGIS.Desktop.Layouts\MethodSnippets.cs" region="TextElement_SetTextProperties" lang="CS"></code>
+            </example>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.TextElement.TextProperties">
+            <summary>
+            Gets the <see cref="T:ArcGIS.Desktop.Layouts.TextProperties">TextProperties</see> for a text element.
+            </summary>
+            <value><see cref="T:ArcGIS.Desktop.Layouts.TextProperties">TextProperties</see></value>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil">
+            <summary>
+            A helper class for DIP (Device Independent Pixels) conversion and scaling operations.
+            </summary>
+            
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.MmToPixels(System.Double)">
+            <summary>
+            Converts millimeters to DIP (Device Independant Pixels).
+            </summary>
+            <param name="mm">A millimeter value.</param>
+            <returns>A DIP value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.CmToPixels(System.Double)">
+            <summary>
+            Converts centimeters to DIP (Device Independant Pixels).
+            </summary>
+            <param name="cm">A centimeter value.</param>
+            <returns>A DIP value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.InToPixels(System.Double)">
+            <summary>
+            Converts inches to DIP (Device Independant Pixels).
+            </summary>
+            <param name="inch">An inch value.</param>
+            <returns>A DIP value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.PtToPixels(System.Double)">
+            <summary>
+            Converts font points to DIP (Device Independant Pixels).
+            </summary>
+            <param name="pt">A font point value.</param>
+            <returns>A DIP value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.PixelsToIn(System.Double)">
+            <summary>
+            Converts DIP (Device Independant Pixels) to inches.
+            </summary>
+            <param name="dip">A DIP value.</param>
+            <returns>A centimeter value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.PixelsToCm(System.Double)">
+            <summary>
+            Converts DIP (Device Independant Pixels) to centimeters.
+            </summary>
+            <param name="dip">A DIP value.</param>
+            <returns>A centimeter value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.PixelsToMm(System.Double)">
+            <summary>
+            Converts DIP (Device Independant Pixels) to millimeters.
+            </summary>
+            <param name="dip">A DIP value.</param>
+            <returns>A millimeter value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.PixelsToPt(System.Double)">
+            <summary>
+            Converts DIP (Device Independant Pixels) to points.
+            </summary>
+            <param name="dip">A DIP value.</param>
+            <returns>A point value.</returns>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.PixelUtil.GetSystemDpiFactor">
+            <summary>
+            Gets the system DPI scale factor (compared to 96 dpi).
+            From http://blogs.msdn.com/jaimer/archive/2007/03/07/getting-system-dpi-in-wpf-app.aspx
+            Should not be called before the Loaded event (else XamlException mat throw)
+            </summary>
+            <returns>A System.Windows.Point object containing the X- and Y- scale factor.</returns>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.VMProperty">
+            <summary>
+            ViewModel 
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.LayoutViewProperty">
+            <summary>
+            View - Associated view
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.IsVerticalProperty">
+            <summary>
+            IsVertical - Draw vertical
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.IsOnRightProperty">
+            <summary>
+            IsOnRight - Marker show rulers marked by this for right to left languages.
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.ZoomProperty">
+            <summary>
+            Zoom - Current scale in double format
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.PageMinProperty">
+            <summary>
+            PageMin - Leftmost value of ruler
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.PageMaxProperty">
+            <summary>
+            PageMax - Right most value of ruler
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.SmallestRulerDivisionProperty">
+            <summary>
+            SmallestRulerDivision - Smallest allowable ruler division
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.CursorPixelsProperty">
+            <summary>
+            CursorPixels - Location of the cursor in pixel space
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.UnitsProperty">
+            <summary>
+            Units - Units in PECode format
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.OnRender(System.Windows.Media.DrawingContext)">
+            <summary>
+            Participates in rendering operations.
+            </summary>
+            <param name="drawingContext">The drawing instructions for a specific element. This context is provided to the layout system.</param>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.RulerControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.DeleteMapFrameDialogView">
+            <summary>
+            Interaction logic for DeleteMapFrameDialogView.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.DeleteMapFrameDialogView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.DockPanes.SymbolButton">
+            <summary>
+            Interaction logic for SymbolButton.xaml
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.DockPanes.SymbolButton.OnClickCmdProperty">
+            <summary>
+            OnClickCmd
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.DockPanes.SymbolButton.SymbolProperty">
+            <summary>
+            Symbol - Associated Symbol
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.DockPanes.SymbolButton.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.DockPanes.Panels.PlacementPanel.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.DockPanes.ElementDockPane">
+            <summary>
+            Interaction logic for TOCDockPane.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.DockPanes.ElementDockPane.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.LegendUpdater">
+            <summary>
+            Logic to refresh dynamic text on layout window
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.DynamicTextUpdater">
+            <summary>
+            Logic to refresh dynamic text on layout window
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.PropertyPages.NewGuideDialogView">
+            <summary>
+            Interaction logic for NewGuideDialog.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.NewGuideDialogView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.PropertyPages.GeneralLayoutPropertiesPage">
+            <summary>
+            Interaction logic for GeneralLayoutPropertiesPage.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.GeneralLayoutPropertiesPage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.PropertyPages.LayoutOptionsView">
+            <summary>
+            Interaction logic for LayoutOptionsView.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.LayoutOptionsView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LocalResources.DockPanes.GetResourceString(System.String,System.String[])">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.DockPanes.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.DockPanes.ElementOptionsTip">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.DockPanes.SizeOptions">
+            <summary>
+            `
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LocalResources.DynamicText.GetResourceString(System.String,System.String[])">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.DynamicText.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.DynamicText.AngularUnits">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LocalResources.LegendRes.GetResourceString(System.String,System.String[])">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LegendRes.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LegendRes.AdjustColumns">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LocalResources.LocalRes.GetResourceString(System.String,System.String[])">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LocalRes.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LocalRes.AutoCameraCenter">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LocalRes.GalleryBackgrounds">
+            <summary>
+            Style gallery search string
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LocalRes.GalleryBorders">
+            <summary>
+            Style gallery search string
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.LocalRes.GalleryShadows">
+            <summary>
+            Style gallery search string
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LocalResources.TOCFilterRes.GetResourceString(System.String,System.String[])">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.TOCFilterRes.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.LocalResources.TOCFilterRes.Legend">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.Properties.Resources.GetResourceString(System.String,System.String[])">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.Exception_ErrorFMT">
+            <summary>
+              Returns the formatted resource string.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ProjectErrorOnRemoveLayoutFMT">
+            <summary>
+            Used when we fail to remove a layout from the current project
+            0 - The name of layout being removed
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.MSDFile_Desc">
+            <summary>
+            MSD file description for the file filters of the import Layout window
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.MXDFile_Desc">
+            <summary>
+            MXD file description for the file filters of the import Layout window
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ArcGISFiles_Desc">
+            <summary>
+            ArcGIS files description for the file filters of the import Layout window
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.Layout_ErrorLoad">
+            <summary>
+            Used when loading the layout
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ProjectErrorOnImportLayoutFMT">
+            <summary>
+            Used when we fail to import a layout document into the current project
+            0 - The layout file being imported
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ISO">
+            <summary>
+            Metric measurement system
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ProjectRemoveLayoutConf">
+            <summary>
+            Confirmation before the layout is removed from the TOC.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionBmp">
+            <summary>
+            Description for the BMP file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionEmf">
+            <summary>
+            Description for the EMF file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionEps">
+            <summary>
+            Description for the EPS file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionGif">
+            <summary>
+            Description for the GIF file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionJpg">
+            <summary>
+            Description for the JPG file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionPdf">
+            <summary>
+            Description for the PDF file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionPng">
+            <summary>
+            Description for the PNG file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionSvg">
+            <summary>
+            Description for the SVG file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionTga">
+            <summary>
+            Description for the TGA file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ExportDescriptionTif">
+            <summary>
+            Description for the TIFF file type displayed in the save as type combo box.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.TestPageDescription">
+            <summary>
+            Used to create a test PageDescriptor representing an aribirary test page.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.TestPageID">
+            <summary>
+            Used to create a test PageDescriptor representing an aribirary test page.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.SelectFromPrinter">
+            <summary>
+            Select a page from printer. 
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.PopulatingPrinterProperties">
+            <summary>
+            Used to notify that the properties of the printer are being populated.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.PageDescription">
+            <summary>
+            Format string for page descriptions ("420 mm x 500 mm")
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.DeleteMapWarning">
+            <summary>
+            Warning that appears when a user attempts to delete a map that's being used on a layout.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.Warning">
+            <summary>
+            MessageBox caption used by DeleteMapWarning
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.SymbolInches">
+            <summary>
+            Symbol for inches.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.OperationMoveElements">
+            <summary>
+            Move elements
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.ElementText">
+            <summary>
+            The default text for a text element.
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Layouts.Properties.Resources.AlignToZero">
+            <summary>
+            Align to zero.
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.Ribbon.SizeAndPositionControl">
+            <summary>
+            Interaction logic for SizeAndPositionControl.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Ribbon.SizeAndPositionControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.Control.LayoutReadoutControl">
+            <summary>
+            Interaction logic for LayoutReadoutControl.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.LayoutReadoutControl.OnActiveViewChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Raised when the ActiveViewProperty dependency property changes.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.LayoutReadoutControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Internal.Layouts.Control.LayoutReadoutControl.ActiveView">
+            <summary>
+            Gets or sets the ActiveView property.
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.LayoutView._mapFrameActivated">
+            <summary>
+            Check if there's an activated map frame.
+            </summary>
+        </member>
+        <member name="F:ArcGIS.Desktop.Internal.Layouts.LayoutView._defaultMapFrame">
+            <summary>
+            Default MapFrame
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Internal.Layouts.LayoutView.Layout">
+            <summary>
+            Reference to the Layout model
+            </summary>
+        </member>
+        <member name="P:ArcGIS.Desktop.Internal.Layouts.LayoutView.DefaultMapFrameExists">
+            <summary>
+            Check if there's a default map frame.
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.MapFrameViewPage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.PropertyPages.PrinterSettingsDialogView">
+            <summary>
+            Interaction logic for PrinterSettingsDialogView.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.PrinterSettingsDialogView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.TOC.TOCControl">
+            <summary>
+            Interaction logic for TOCControl.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.TOC.TOCControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:ServiceContracts.ILayoutViewerService.FindMapViewer(System.String,System.String)">
+            <summary>
+            Finds an embedded map viewer.
+            </summary>
+            <param name="cimLayoutPath">CIM path of the layout</param>
+            <param name="elementName">Map frame name</param>
+            <returns></returns>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.Control.LayoutControl">
+            <summary>
+            Interaction logic for LayoutControl.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.Control.LayoutControl.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Layouts.LayoutPaneView">
+            <summary>
+            Interaction logic for LayoutPaneView.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Layouts.LayoutPaneView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.LayoutExtensions">
+            <summary>
+            Give the project an intuitive way to access project items in specific containers without having to know how to get a container
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.PositiveNumberRule.Validate(System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Validation rule for "Height" and "Width" text boxes.
+            </summary>    
+        </member>
+        <member name="T:ArcGIS.Desktop.Internal.Layouts.PropertyPages.PageSetupPage">
+            <summary>
+            Interaction logic for PageSetupPage.xaml
+            </summary>
+        </member>
+        <member name="M:ArcGIS.Desktop.Internal.Layouts.PropertyPages.PageSetupPage.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>
