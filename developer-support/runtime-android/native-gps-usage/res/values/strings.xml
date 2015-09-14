@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Indicator Issue (uKnow)</string>
+    <string name="heading">Location Sensor</string>
+    <string name="settings_title">Settings</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    
+    <string name="criteria_category_title">Select sensor criteria</string>
+    
+    <!-- Preference keys -->
+    <string name="pref_key_criteria_profile">tracker_profile</string>
+    
+        <!-- Preference values -->
+    <string-array name="criteria_profile_entries">
+        <item>ACCURACY_COARSE, POWER_HIGH</item>
+        <item>ACCURACY_COARSE, POWER_LOW</item>
+        <item>ACCURACY_COARSE, POWER_MEDIUM</item>
+        <item>ACCURACY_FINE, POWER_HIGH</item>
+        <item>ACCURACY_FINE, POWER_LOW</item>
+        <item>ACCURACY_FINE, POWER_MEDIUM</item>
+        <item>ACCURACY_HIGH, POWER_HIGH</item>
+        <item>ACCURACY_HIGH, POWER_LOW</item>
+        <item>ACCURACY_HIGH, POWER_MEDIUM</item>
+        <item>ACCURACY_LOW, POWER_HIGH</item>
+        <item>ACCURACY_LOW, POWER_LOW</item>
+        <item>ACCURACY_LOW, POWER_MEDUIM</item>
+        <item>ACCURACY_MEDIUM, POWER_HIGH</item>
+        <item>ACCURACY_MEDIUM, POWER_MEDIUM</item>
+        <item>ACCURACY_MEDIUM, POWER_LOW</item>
+    </string-array>
+    <string-array name="criteria_profile_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
+    <string name="fine">Fine</string>
+    <string name="course">Course</string>
+    <string name="gps">Gps</string>
+
+</resources>

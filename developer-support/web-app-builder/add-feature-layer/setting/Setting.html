@@ -1,0 +1,33 @@
+<div style="width:100%;">
+  <table class="setting-table input-table" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="first">*Url</td>
+        <td class="second">
+          <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-attach-point="url" 
+          placeHolder="http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0"
+          required="true" data-dojo-props="style:{width:'100%'}"/>
+        </td>
+      </tr>
+      <tr>
+        <td class="first">*Server</td>
+        <td class="second">
+          <input type="text" data-dojo-type="dijit/form/ValidationTextBox" data-dojo-attach-point="servername" 
+          placeHolder="SampleServer6"
+          required="true" data-dojo-props='style:{width:"100%"}'/>
+        </td>
+      </tr>
+      <tr>
+        <td class="first">*Layer</td>
+        <td class="second">
+          <input type="text" data-dojo-type="dijit/form/ValidationTextBox" 
+          data-dojo-attach-point="layername" placeHolder="USA Cities" required="true" 
+          data-dojo-props='style:{width:"100%"}'/>
+        </td>
+      </tr>
+    </tbody>
+  </table><br>
+	
+  <button data-dojo-type="dijit/form/Button" type="button" data-dojo-attach-event="click:add">Add</button><br>
+  <div data-dojo-attach-point="tableFeatureLayers"></div>
+</div>

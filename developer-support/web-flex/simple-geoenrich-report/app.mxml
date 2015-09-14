@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   xmlns:esri="http://www.esri.com/2008/ags"
+			   pageTitle="MapClick - click map to get current location">
+
+	
+		<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace esri "http://www.esri.com/2008/ags";
+		esri|InfoWindow
+		{
+			backgroundColor: #000000;
+			backgroundAlpha: 0.5;
+			borderThickness: 3;
+			borderColor: #DEDEDE;
+			shadowDistance: 5;
+			shadowAlpha: 0.7;
+		}
+		esri|InfoWindowLabel
+		{
+			fontWeight: bold;
+			fontSize: 12;
+			color: #FFFFFF;
+		}
+		s|Label
+		{
+			color: #FFFFFF;
+		}
+		
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.esri.ags.events.GeoEnrichmentEvent;
+			import com.esri.ags.events.MapMouseEvent;
+			import com.esri.ags.geometry.MapPoint;
+			import com.esri.ags.tasks.GeoEnrichmentTask;
+			import com.esri.ags.tasks.geoEnrichmentClasses.GeometryStudyArea;
+			import com.esri.ags.tasks.geoEnrichmentClasses.ReportParameters;
+			import com.esri.ags.tasks.geoEnrichmentClasses.StudyAreaOptions;
+			import com.esri.ags.utils.WebMercatorUtil;
+			
+			import flash.sampler.NewObjectSample;
+			
+			import mx.controls.Alert;
+			import mx.rpc.AsyncToken;
+			import mx.rpc.AsyncResponder;
+			
+			private function onMapClick(event:MapMouseEvent):void
+			{
+				var params:ReportParameters = new ReportParameters();
+				
+				params.format = "pdf";
+				
+				params.reportId = "agesex";
+				
+				var geoStudyArea:GeometryStudyArea = new GeometryStudyArea();
+				
+				geoStudyArea.geometry = event.mapPoint;
+				
+				params.studyAreas = [geoStudyArea];
+				
+				geoEnRich.createReport(params, new AsyncResponder(onResult, onFault));
+				
+				var opts:StudyAreaOptions = new StudyAreaOptions();
+				
+				var content:Object = {};
+				
+				content.wm = event.mapPoint;
+				
+				content.ll = WebMercatorUtil.webMercatorToGeographic(event.mapPoint) as MapPoint;
+				
+				ldr.data = content;
+				
+				ldr.label = "Getting Report. You clicked at ...";
+				
+				myMap.infoWindow.show(event.mapPoint);
+				
+				
+				function onResult(res:Object, token:AsyncToken = null):void {
+					
+					trace("Thank you for stopping bye this function.");
+					
+				}
+				
+				function onFault(error:Object, token:Object = null):void
+				{
+					
+					Alert.show("Report task did not work." + "\n" + error.faultString, " there has been a GeoEnrichment Service error");
+					
+				}
+			}
+			
+			protected function geoenrichmenttask1_createReportCompleteHandler(event:GeoEnrichmentEvent):void
+			{
+				trace("yes done");
+				// Below are not required after version 3.6, a new tab should automatically be opened after createReport is done
+				//var urlRequest:URLRequest = new URLRequest("http://localhost/sproxy/dev/auth_proxy.php?" + event.reportURL);
+				//navigateToURL(urlRequest,"_blank");  //Open report in a new tab
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<esri:GeoEnrichmentTask createReportComplete="geoenrichmenttask1_createReportCompleteHandler(event)" proxyURL="http://localhost/sproxy/dev/auth_proxy.php" 
+								id="geoEnRich" url="https://geoenrich.arcgis.com/arcgis/rest/services/World/GeoenrichmentServer"/>
+	</fx:Declarations>
+	
+	<s:controlBarContent>
+		<s:RichText width="100%">
+			Geoenrichment App
+		</s:RichText>
+	</s:controlBarContent>
+	
+	<esri:Map id="myMap"
+			  mapClick="onMapClick(event)"
+			  scale="50000000">
+		<esri:infoWindowContent>
+			<esri:LabelDataRenderer id="ldr">
+				<esri:layout>
+					<s:VerticalLayout paddingBottom="5"
+									  paddingLeft="5"
+									  paddingRight="5"
+									  paddingTop="5"/>
+				</esri:layout>
+				<s:Label text="X: {ldr.data.wm.x.toFixed(1)}"/>
+				<s:Label text="Y: {ldr.data.wm.y.toFixed(1)}"/>
+				<s:Label text="Lon: {ldr.data.ll.x.toFixed(1)}"/>
+				<s:Label text="Lat: {ldr.data.ll.y.toFixed(1)}"/>
+			</esri:LabelDataRenderer>
+		</esri:infoWindowContent>
+		
+		<esri:ArcGISTiledMapServiceLayer url="http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"/>
+	</esri:Map>
+</s:Application>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+         on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Find Address</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.12/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.12/esri/css/esri.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #map {
+            padding: 0;
+            border: solid 1px #343642;
+            margin: 5px 5px 5px 0px;
+        }
+        
+        #leftPane {
+            width: 20%;
+            border-top: solid 1px #343642;
+            border-left: solid 1px #343642;
+            border-bottom: solid 1px #343642;
+            margin: 5px 0px 5px 5px;
+            color: #343642;
+            font: 100% Georgia, "Times New Roman", Times, serif;
+            /*letter-spacing: 0.05em;*/
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.12/"></script>
+    <script>
+        var map, locator;
+
+        require([
+            "esri/map", "esri/tasks/locator", "esri/graphic", "esri/layers/FeatureLayer", "esri/geometry/Circle", "esri/tasks/query",
+            "esri/InfoTemplate", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol", "esri/renderers/SimpleRenderer",
+            "dojo/_base/array", "esri/Color", "dojo/number", "dojo/parser", "dojo/dom", "dijit/registry",
+            "dijit/form/Button", "dijit/form/Textarea", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dojo/domReady!"
+        ], function(
+            Map, Locator, Graphic, FeatureLayer, Circle, Query, InfoTemplate, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, SimpleRenderer,
+            arrayUtils, Color, number, parser, dom, registry
+        ) {
+            parser.parse();
+
+            map = new Map("map", {
+                basemap: "streets",
+                center: [-117.18402, 34.05330],
+                zoom: 14
+            });
+
+            var featureLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/RedlandsEmergencyVehicles/MapServer/0", {
+                outFields: ["*"]
+            });
+
+            var symbol = new SimpleMarkerSymbol(
+                SimpleMarkerSymbol.STYLE_CIRCLE, 12,
+                new SimpleLineSymbol(
+                    SimpleLineSymbol.STYLE_NULL,
+                    new Color([247, 34, 101, 0.9]), 1
+                ),
+                new Color([207, 34, 171, 0.5])
+            );
+		
+			var circleSymb = new SimpleFillSymbol(
+                SimpleFillSymbol.STYLE_NULL,
+                new SimpleLineSymbol(
+                    SimpleLineSymbol.STYLE_SHORTDASHDOTDOT,
+                    new Color([105, 105, 105]), 2
+                ), 
+				new Color([255, 255, 0, 0.25])
+            );
+
+            locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+            locator.on("address-to-locations-complete", showResults);
+
+            // listen for button click then geocode
+            registry.byId("locate").on("click", locate);
+
+            map.infoWindow.resize(200, 125);
+
+            function locate() {
+                map.graphics.clear();
+                var address = {
+                    "SingleLine": dom.byId("address").value
+                };
+                locator.outSpatialReference = map.spatialReference;
+                var options = {
+                    address: address,
+                    outFields: ["Loc_name"]
+                };
+                locator.addressToLocations(options);
+            }
+
+            function showResults(evt) {
+                var symbol = new SimpleMarkerSymbol();
+                var infoTemplate = new InfoTemplate(
+                    "Location",
+                    "Address: ${address}<br />Score: ${score}<br />Source locator: ${locatorName}"
+                );
+                symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
+                symbol.setColor(new Color([153, 0, 51, 0.75]));
+
+                var geom;
+                arrayUtils.every(evt.addresses, function(candidate) {
+                    console.log(candidate.score);
+                    if (candidate.score > 80) {
+                        console.log(candidate.location);
+                        var attributes = {
+                            address: candidate.address,
+                            score: candidate.score,
+                            locatorName: candidate.attributes.Loc_name
+                        };
+                        geom = candidate.location;
+                        var graphicLoc = new Graphic(geom, symbol, attributes, infoTemplate);
+                        //add a graphic to the map at the geocoded location
+                        map.graphics.add(graphicLoc);
+
+                        var circle = new Circle({
+                            center: geom,
+                            geodesic: true,
+                            radius: 1000,
+                            radiusUnit: "esriMeters"
+                        });
+
+                        var graphic = new Graphic(circle, circleSymb);
+                        map.graphics.add(graphic);
+
+                        var query = new Query();
+                        query.geometry = circle;
+                        featureLayer.queryFeatures(query, selectInBuffer);
+
+                        return false; //break out of loop after one candidate with score greater  than 80 is found.
+                    }
+                });
+                if (geom !== undefined) {
+                    map.centerAndZoom(geom, 14);
+                }
+            }
+
+            function selectInBuffer(response) {
+                var feature;
+                var features = response.features;
+                var objectIds = [];
+                for (var i = 0; i < features.length; i++) {
+                    feature = features[i];
+                    var newGraphic = new Graphic(feature.geometry,symbol);
+					map.graphics.add(newGraphic);
+                }
+                if (features.length > 1)
+                    document.getElementById("result").innerHTML = "You are close to " + features.length + " ambulances.";
+                else
+                    document.getElementById("result").innerHTML = "You are close to " + features.length + " ambulance.";
+                
+            }
+
+        });
+    </script>
+</head>
+
+<body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'sidebar', gutters:false" style="width:100%; height:100%;">
+        <div id="leftPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'">
+            Enter an address then click the locate button in order to display the location on the map. Once the location is returned, then all the ambulances within 1000 meters will display and a result will print on the left pane.
+            <p>
+			<textarea cols="40" id="address">380 New York St, Redlands</textArea>
+			<br>
+			<button id="locate" data-dojo-type="dijit/form/Button">Locate</button>
+			<p>
+			<b>Sample addresses (copy one and past it in the text area above)</b>
+			<p>
+			1) 1700 Park Ave, Redlands, California, USA
+			<p>
+			2) 380 New York St, Redlands
+			<p>
+			<div id="result" style="color:#0000FF"></div>
+        </div>
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        </div>
+    </div>
+</body>
+
+</html>

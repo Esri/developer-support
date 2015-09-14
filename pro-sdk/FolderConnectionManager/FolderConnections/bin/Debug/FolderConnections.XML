@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FolderConnections</name>
+    </assembly>
+    <members>
+        <member name="T:FolderConnections.Module1">
+            <summary>
+            Allows saving and loading folder connections to a Project.
+            </summary>
+            <remarks> 
+            1. Open ArcGIS Pro and either a new or existing Project.
+            2. Create a new Folder Connection in the Project window.
+            ![UI](Screenshots/FolderConnect.png)  
+            3. Click the "Save Connections" button in the "Folder Connection Manager" Add-In pane. The current Folder /// Connection's will be saved as a list in the text file.
+            4. Remove the Folder Connection you just created by right-clicking on it in the Project window and selecting "Remove".
+            ![UI](Screenshots/RemoveFolder.png)
+            5. Load your saved Folder Connection by clicking the "Load Connection" button in the "Folder Connection Manager" /// Add-In pane. Select the text file you saved in step three.
+            6. Verify that your Folder Connection has returned to the Project.
+            </remarks>
+        </member>
+        <member name="M:FolderConnections.Module1.CanUnload">
+            <summary>
+            Called by Framework when ArcGIS Pro is closing
+            </summary>
+            <returns>False to prevent Pro from closing, otherwise True</returns>
+        </member>
+        <member name="P:FolderConnections.Module1.Current">
+            <summary>
+            Retrieve the singleton instance to this module here
+            </summary>
+        </member>
+    </members>
+</doc>

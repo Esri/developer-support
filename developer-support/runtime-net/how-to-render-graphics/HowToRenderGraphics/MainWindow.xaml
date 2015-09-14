@@ -1,0 +1,73 @@
+﻿<Window x:Class="HowToRenderGraphics.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Title="MainWindow" ResizeMode="NoResize"
+		Height="700" 
+		Width="1000">
+    <Window.Resources>
+        <system:Double x:Key="MyFontSize">18</system:Double>
+        <system:Int32 x:Key="NumberOfPoints">15000</system:Int32>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="75" />
+        </Grid.RowDefinitions>
+        
+		<esri:MapView x:Name="MyMapView" LayerLoaded="MyMapView_LayerLoaded" Grid.Column="2" Grid.RowSpan="6">
+			<esri:Map>
+				<esri:ArcGISTiledMapServiceLayer ID="Basemap" ServiceUri="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                <esri:GraphicsLayer x:Name="MyGraphicsLayer"/>
+			</esri:Map>
+            
+		</esri:MapView>
+        
+        <Button x:Name="Button00" Grid.Column="0" Grid.Row="0" Margin="5" Click="WorkflowA">
+            <TextBlock Text="Text Symbol" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button01" Grid.Column="0" Grid.Row="1" Margin="5" Click="WorkflowA">
+            <TextBlock Text="Text Symbol + Font" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button02" Grid.Column="0" Grid.Row="2" Margin="5" Click="WorkflowA">
+            <TextBlock Text="Text Symbol + Color" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button03" Grid.Column="0" Grid.Row="3" Margin="5" Click="WorkflowA">
+            <TextBlock Text="Text Symbol + BorderLine" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button04" Grid.Column="0" Grid.Row="4" Margin="5" Click="WorkflowA">
+            <TextBlock Text="Text Symbol + Background Color" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        
+        <Button x:Name="Button10" Grid.Column="1" Grid.Row="0" Margin="5" Click="WorkflowB">
+            <TextBlock Text="Text Symbol" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button11" Grid.Column="1" Grid.Row="1" Margin="5" Click="WorkflowB">
+            <TextBlock Text="Text Symbol + Font" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button12" Grid.Column="1" Grid.Row="2" Margin="5" Click="WorkflowB">
+            <TextBlock Text="Text Symbol + Color" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button13" Grid.Column="1" Grid.Row="3" Margin="5" Click="WorkflowB">
+            <TextBlock Text="Text Symbol + BorderLine" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        <Button x:Name="Button14" Grid.Column="1" Grid.Row="4" Margin="5" Click="WorkflowB">
+            <TextBlock Text="Text Symbol + Background Color" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        </Button>
+        
+        <Button x:Name="ClearButton" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="5" Click="ClearButton_OnClick">
+            <TextBlock Text="Clear Graphics" FontSize="{StaticResource MyFontSize}" FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center" Margin="5"></TextBlock>
+        </Button>
+    </Grid>
+</Window>
