@@ -1,0 +1,42 @@
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title>RequireJS + esri leaflet</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/leaflet/0.7.3/leaflet.css" />
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.20/require.js"></script>
+  <style>
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+
+require.config({
+    paths: {
+        'leaflet': '//cdn.leafletjs.com/leaflet-1.0.0-b1/leaflet',
+        'esri-leaflet': '//cdn.jsdelivr.net/leaflet.esri/2.0.0-beta.5/esri-leaflet',
+    }
+});
+
+require(['leaflet', 'esri-leaflet'], function(L, esri) {
+  /*
+  at leaflet 0.7.3 and esri-leaflet 1.0.0 you could just alias L and L.esri would be defined as well, now its necessary to refer to esri leaflet via its own argument alias
+
+  L.esri = esri
+  */
+
+  var map = L.map('map').setView([37.75, -122.23], 12.5)
+  esri.basemapLayer('Topographic').addTo(map)
+})
+
+</script>
+
+</body>
+</html>
