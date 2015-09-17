@@ -43,8 +43,7 @@ ApplicationWindow {
         }
 
         onMouseClicked: {
-            graphicsLayer.removeGraphic(graphic)
-            graphicsLayer.addGraphic(graphic)
+
             featurePoly.lineTo(mouse.mapPoint);
             graphic.geometry = featurePoly
             graphic.symbol = simpFill
@@ -72,6 +71,10 @@ ApplicationWindow {
         SimpleFillSymbol {
             id: simpFill
             color: "yellow"
+            outline: SimpleLineSymbol {
+                color: "black"
+                width: 4
+            }
         }
 
         Graphic {
