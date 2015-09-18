@@ -37,6 +37,7 @@ ApplicationWindow {
                         //ps.active = true;
                         map.addLayer(graphicsLayer)
                         graphicsLayer.addGraphic(graphic)
+                        graphicsLayer.addGraphic(pointGraphic)
                     }
 
 
@@ -44,9 +45,12 @@ ApplicationWindow {
 
         onMouseClicked: {
 
+            points.add(mouse.mapPoint)
             featurePoly.lineTo(mouse.mapPoint);
             graphic.geometry = featurePoly
             graphic.symbol = simpFill
+            pointGraphic.geometry = points
+            pointGraphic.symbol = markerSymbol
 
 
             //featurePoly.insertPoint(0,-1, mouse.mapPoint)
@@ -79,6 +83,24 @@ ApplicationWindow {
 
         Graphic {
             id: graphic
+        }
+
+        Graphic {
+            id: pointGraphic
+        }
+
+        MultiPoint {
+            id: points
+            spatialReference: {"latestWkid": 3857,"wkid":102100}
+        }
+
+        SimpleMarkerSymbol {
+            id: markerSymbol
+            color: "red"
+            outline: SimpleLineSymbol  {
+                color: "black"
+                width: 4
+            }
         }
 
         FeatureLayer {
@@ -168,10 +190,9 @@ ApplicationWindow {
                         onClicked: {
                             enabled = false
                             generateButton.enabled = true
-                            featurePoly.closeAllPaths()
                             featureToAdd.geometry = featurePoly;
                             featureLayer.addTracked(featurePoly)
-                            featurePoly.removePath(0)
+
 
                         }
                     }
@@ -192,3 +213,4 @@ ApplicationWindow {
 
 
 }
+
