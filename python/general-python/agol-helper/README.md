@@ -1,19 +1,28 @@
-Hello!
-
-This is an experimental section. I am not formally trained, just a hobbyist, so I apologize if the structure seems a bit strange.  Here is the gist:
-
-agol.py includes a superclass, AGOL. The AGOL object consumes the username and password used to login to your ArcGIS Online Organization. The output is a token, short url, and organization ID. These three items are commonly used in many REST API scripting tasks.
-
-Example REST API scripting tasks are also included. These subclasses are AGOL objects, and inherit the token, short url, and organization ID. An example:
+agol-helper includes a superclass, AGOL, which contains commonly used methods and properties. Currently it accesses a token, the organization short url and organization ID, which are used in many REST API scripting tasks.
 ```python
->>> import geocodeService
->>> me = geocodeService(“username”, “password”)
->>> me.geocodeAddresses() #Geocodes addresses
+>>> me = AGOL("username", "password")
+>>> me.token #Grabs the token.
+>>> me.short #Grabs the organization short url.
+>>> me.orgID #Grabs the organization ID.
 ```
-Please note that geocoding consumes credits: http://www.esri.com/software/arcgis/arcgisonline/credits
+Subclasses are also included.
+- community: community object that contains operations related to users and groups, and inherits properties from the AGOL object. This may be used to search for groups and users. 
+```python
+>>> me = community("username", "password")
+>>> test = me.groupSearch()
+```
+- geocodeService: geocode service object, that inherits properties from the AGOL object. This may be used to geocode addresses.
+```python
+>>> me = geocodeService("username", "password")
+>>> test = me.geocodeAddresses()
+```
+- portals: portal object that inherits properties from the AGOL object. This may be used to look up the roles used in the organization.
+```python
+>>> me = portals("username", "password")
+>>> test = me.portalSelfRoles()
+```
+These are incomplete templates, custom functions may be added to a template to aid a workflow. 
 
-Thank you to all my fellow analysts who helped me put this together!
-
-There may be more samples added here: https://gist.github.com/AshleyDesktop
-
-- Ash
+This code is an amalgamation of samples provided by Technical Support Analysts and our end users. There may be more samples added here: 
+https://gist.github.com/AshleyDesktop
+https://gist.github.com/nohe427
