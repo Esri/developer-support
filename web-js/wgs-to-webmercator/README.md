@@ -1,6 +1,6 @@
 #Client Side Projection using webmercatorutils
 
-This sample gets ArcGIS Online Thumbnails with Esri Request and then displays the thumbnail on the web page.
+This sample does a client side reprojection using webmercatorutils.
 
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
 [webmercatorutils](https://developers.arcgis.com/javascript/jsapi/esri.geometry.webmercatorutils-amd.html)
