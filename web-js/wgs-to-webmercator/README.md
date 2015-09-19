@@ -3,6 +3,7 @@
 This sample does a client side reprojection using webmercatorutils.
 
 [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/)
+
 [webmercatorutils](https://developers.arcgis.com/javascript/jsapi/esri.geometry.webmercatorutils-amd.html)
 
 
