@@ -21,8 +21,8 @@ Subclasses are also included.
 >>> me = portals("username", "password")
 >>> test = me.portalSelfRoles()
 ```
-These are incomplete templates, custom functions may be added to a template to aid a workflow. 
+These are incomplete templates. The templates may be used to look up how to structure a request using python, for developers who are creating their own API and need a short code sample. Custom functions may be added to a template to aid a workflow.  
 
-This code is an amalgamation of samples provided by Technical Support Analysts and our end users. There may be more samples added here: 
-https://gist.github.com/AshleyDesktop
-https://gist.github.com/nohe427
+This code is an amalgamation of samples provided by Technical Support Analysts and our end users.
+
+For an existing API that uses python and the ArcGIS Online REST API, see ArcREST: https://github.com/esri/arcrest
