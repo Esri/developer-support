@@ -25,8 +25,10 @@ ApplicationWindow {
 
     property Point myLocation
     property bool capturePoints
-    property var featureToAdd
+    //property var featureToAdd
     property double scaleFactor: System.displayScaleFactor
+    property int numberOfClicks: 0
+    //property Feature featureToAdd
 
     Map {
         id: map
@@ -110,7 +112,9 @@ ApplicationWindow {
             function addTracked(feature)
             {
                 if (featureTable.featureTableStatus === Enums.FeatureTableStatusInitialized) {
+                    console.log("Attempting to add....")
                     console.log(featureTable.addFeature(feature));
+                    console.log("Added")
                     featureServiceTable.applyFeatureEdits();
                 }
             }
@@ -173,7 +177,6 @@ ApplicationWindow {
                         onClicked: {
                             syncButton.enabled = true
                             enabled = false
-                            featureToAdd = ArcGISRuntime.createObject("Feature");
                             featurePoly.startPath(-117, 38);
 
                             console.log(featurePoly.pathCount)
@@ -190,9 +193,14 @@ ApplicationWindow {
                         onClicked: {
                             enabled = false
                             generateButton.enabled = true
-                            featureToAdd.geometry = featurePoly;
-                            featureLayer.addTracked(featurePoly)
 
+                            var featureToAdd = ArcGISRuntime.createObject("Feature")
+                            featurePoly.closePathWithLine()
+                            console.log(featurePoly.valid)
+                            featureToAdd.geometry = featurePoly;
+                            featureToAdd.setAttributeValue("test", "test")
+                            console.log("This is here")
+                            featureLayer.addTracked(featureToAdd)
 
                         }
                     }
