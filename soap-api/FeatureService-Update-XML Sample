@@ -1,0 +1,34 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns="http://www.esri.com/schemas/ArcGIS/10.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <soapenv:Header/>
+  <soapenv:Body>
+     <ns:Update>
+        <LayerOrTableID>0</LayerOrTableID>
+        <DataObjects>
+           <DataObjectArray xsi:type="ns:ArrayOfDataObject">
+                 <DataObject xsi:type="ns:GraphicFeature">
+                    <Properties xsi:type="ns:PropertySet">
+                       <PropertyArray xsi:type="ns:ArrayOfPropertySetProperty">
+                          <PropertySetProperty xsi:type="ns:PropertySetProperty">
+                             <Key>OBJECTID</Key>
+                             <Value xsi:type="xsd:int">4</Value>
+                          </PropertySetProperty>
+                          <PropertySetProperty xsi:type="ns:PropertySetProperty">
+                             <Key>Name</Key>
+                             <Value xsi:type="xsd:string">ChangeName</Value>
+                          </PropertySetProperty>
+                       </PropertyArray>
+                    </Properties>
+                       <Geometry xsi:type="ns:PointN">
+                       <X>67.36365273399997</X>
+                       <Y>-61.479175233000035</Y>
+                    </Geometry>
+                 </DataObject>
+              </DataObjectArray>
+        </DataObjects>
+        <GdbVersion></GdbVersion>
+        <RollbackOnFailure>true</RollbackOnFailure>
+        <RollbackOnFailureSpecified>true</RollbackOnFailureSpecified>
+     </ns:Update>
+  </soapenv:Body>
+</soapenv:Envelope>
+
