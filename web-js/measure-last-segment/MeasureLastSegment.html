@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+    on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Measure Tool</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    <style>
+      html,body {
+        height:100%;
+        width:100%;
+        margin:0;
+      }
+      body {
+        background-color:#FFF;
+        overflow:hidden;
+        font-family:"Trebuchet MS";
+      }
+      #map {
+        border:solid 2px #808775;
+        -moz-border-radius:4px;
+        -webkit-border-radius:4px;
+        border-radius:4px;
+        margin:5px;
+        padding:0px;
+      }
+      #titlePane{
+        width:300px;
+        
+      }
+      .claro .dijitTitlePaneTitle {
+        background: #000;
+        font-weight:600;
+        border: none;
+        border-bottom:solid 1px #29201A;
+        border-top:solid 1px #29201A;
+      }
+      .claro .dijitTitlePaneTitleHover {
+        background:#eee;
+      }
+      .claro .dijitTitlePaneTitleActive {
+        background:#808775;
+      }
+      .claro .dijitTitlePaneContentOuter {
+        border-right: none;
+        border-bottom: none;
+        border-left: none;
+      }
+      </style>
+      <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+    var map;
+    var measureArr = [];
+    var currentSegMeasure;
+    var measurement;
+    require([
+        "dojo/dom",
+        "esri/Color",
+        "dojo/keys",
+        "dojo/parser",
+
+        "esri/config",
+        "esri/sniff",
+        "esri/map",
+        "esri/SnappingManager",
+        "esri/dijit/Measurement",
+        "esri/layers/FeatureLayer",
+        "esri/renderers/SimpleRenderer",
+        "esri/tasks/GeometryService",
+        "esri/symbols/SimpleLineSymbol",
+        "esri/symbols/SimpleFillSymbol",
+        
+
+        "esri/dijit/Scalebar",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dijit/TitlePane",
+        "dijit/form/CheckBox", 
+        "dojo/domReady!"
+      ], function(
+        dom, Color, keys, parser, 
+        esriConfig, has, Map, SnappingManager, Measurement, FeatureLayer, SimpleRenderer, GeometryService, SimpleLineSymbol, SimpleFillSymbol) {
+        parser.parse();
+        //This sample may require a proxy page to handle communications with the ArcGIS Server services. You will need to  
+        //replace the url below with the location of a proxy on your machine. See the 'Using the proxy page' help topic 
+        //for details on setting up a proxy page.
+        esriConfig.defaults.io.proxyUrl = "http://akshayh/proxy1x/proxy.ashx";
+        esriConfig.defaults.io.alwaysUseProxy = false;
+
+        //This service is for development and testing purposes only. We recommend that you create your own geometry service for use within your applications
+        esriConfig.defaults.geometryService = new GeometryService("http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+
+        map = new Map("map", {
+          basemap: "satellite",
+          center: [-85.743, 38.256],
+          zoom: 17
+        });
+
+        var sfs = new SimpleFillSymbol(
+          "solid",
+          new SimpleLineSymbol("solid", new Color([195, 176, 23]), 2), 
+          null
+        );
+
+        var parcelsLayer = new FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Louisville/LOJIC_LandRecords_Louisville/MapServer/0", {
+          mode: FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+        parcelsLayer.setRenderer(new SimpleRenderer(sfs));
+        map.addLayers([parcelsLayer]);
+
+        //dojo.keys.copyKey maps to CTRL on windows and Cmd on Mac., but has wrong code for Chrome on Mac
+        var snapManager = map.enableSnapping({
+          snapKey: has("mac") ? keys.META : keys.CTRL
+        });
+        var layerInfos = [{
+          layer: parcelsLayer
+        }];
+        snapManager.setLayerInfos(layerInfos);
+
+       measurement = new Measurement({
+          map: map
+        }, dom.byId("measurementDiv"));
+        measurement.startup();
+        
+        measurement.on("measure", function(evt){
+          //Check if we are using distance tool
+            if(evt.toolName == "distance" && measureArr.length == 0){
+              currentSegMeasure = (evt.values.toFixed(2));
+            // pusing the vales to array
+              measureArr.push(evt.values);
+            // Get the current segment measurement.
+              dom.byId("lastSegment").innerHTML = ("Last Segment: " + currentSegMeasure + " " + evt.unitName);
+            }
+            else if(evt.toolName == "distance" && measureArr.length > 0){
+              measureArr.push(evt.values);
+            // Calculating last segment of by subtracting second last number from the last number 
+              currentSegMeasure = (measureArr[measureArr.length - 1] - measureArr[measureArr.length - 2]).toFixed(2);
+              
+            dom.byId("lastSegment").innerHTML = ("Last Segment: " + currentSegMeasure + " " + evt.unitName);
+                
+            }
+        });
+        
+        measurement.on("measure-end", function(){
+            measureArr = [];
+        });
+        
+        measurement.on("tool-change", function(evt){
+            if(evt.toolName == null){
+                dom.byId("lastSegment").innerHTML = "";
+            }
+        });
+      });
+    </script>
+  </head>
+  
+  <body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false"
+    style="width:100%; height:100%;">
+      <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        <div style="position:absolute; right:20px; top:10px; z-Index:999;">
+          <div id="titlePane" data-dojo-type="dijit/TitlePane" data-dojo-props="title:'Measurement', closable:'false', open:'false'">
+            <div id="measurementDiv"></div>
+            <div id="lastSegment"></div>
+            <span style="font-size:smaller;padding:5px 5px;">Press <b>CTRL</b> to enable snapping.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
