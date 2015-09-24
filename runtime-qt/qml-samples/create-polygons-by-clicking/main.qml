@@ -90,8 +90,8 @@ ApplicationWindow {
         MultiPoint {
             id: points
             spatialReference: {
-                latestWkid: 3857,
-                            wkid: 102100
+                "latestWkid": 3857,
+                            "wkid": 102100
             }
         }
 
@@ -121,8 +121,8 @@ ApplicationWindow {
         Polygon {
             id: featurePoly
             spatialReference: {
-                latestWkid: 3857,
-                            wkid: 102100
+                "latestWkid": 3857,
+                            "wkid": 102100
             }
         }
     }
