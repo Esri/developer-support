@@ -1,16 +1,11 @@
 
 // Copyright 2015 ESRI
-//
 // All rights reserved under the copyright laws of the United States
 // and applicable international laws, treaties, and conventions.
-//
 // You may freely redistribute and use this sample code, with or
 // without modification, provided you include the original copyright
 // notice and use restrictions.
-//
 // See the Sample code usage restrictions document for further information.
-//
-
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import ArcGIS.Runtime 10.26
@@ -25,50 +20,39 @@ ApplicationWindow {
 
     property Point myLocation
     property bool capturePoints: false
-    //property var featureToAdd
     property double scaleFactor: System.displayScaleFactor
     property int numberOfClicks: 0
-
-
-
 
     Map {
         id: map
         anchors.fill: parent
 
         onStatusChanged: {
-                    if (status === Enums.MapStatusReady) {
-                        //ps.active = true;
-                        map.addLayer(graphicsLayer)
-                        graphicsLayer.addGraphic(graphic)
-                        graphicsLayer.addGraphic(pointGraphic)
-                    }
-
-
+            if (status === Enums.MapStatusReady) {
+                //ps.active = true;
+                map.addLayer(graphicsLayer)
+                graphicsLayer.addGraphic(graphic)
+                graphicsLayer.addGraphic(pointGraphic)
+            }
         }
 
         onMouseClicked: {
-            if(capturePoints == true)
-            {
-            if(numberOfClicks == 0)
-            {
-                featurePoly.startPath(mouse.mapPoint)
-                points.add(mouse.mapPoint)
-                pointGraphic.geometry = points
-                pointGraphic.symbol = markerSymbol
-                numberOfClicks = 1
+            if (capturePoints == true) {
+                if (numberOfClicks == 0) {
+                    featurePoly.startPath(mouse.mapPoint)
+                    points.add(mouse.mapPoint)
+                    pointGraphic.geometry = points
+                    pointGraphic.symbol = markerSymbol
+                } else {
+                    points.add(mouse.mapPoint)
+                    featurePoly.lineTo(mouse.mapPoint)
+                    graphic.geometry = featurePoly
+                    graphic.symbol = simpFill
+                    pointGraphic.geometry = points
+                    pointGraphic.symbol = markerSymbol
+                }
+                numberOfClicks++
             }
-            else
-            {
-                points.add(mouse.mapPoint)
-                featurePoly.lineTo(mouse.mapPoint);
-                graphic.geometry = featurePoly
-                graphic.symbol = simpFill
-                pointGraphic.geometry = points
-                pointGraphic.symbol = markerSymbol
-            }
-            }
-
         }
 
         focus: true
@@ -78,15 +62,13 @@ ApplicationWindow {
         }
 
         GeodatabaseFeatureServiceTable {
-                    id: featureServiceTable
-                    url: "http://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/PolygonFromQT/FeatureServer/0"
-                }
+            id: featureServiceTable
+            url: "http://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/PolygonFromQT/FeatureServer/0"
+        }
 
         GraphicsLayer {
             id: graphicsLayer
         }
-
-
 
         SimpleFillSymbol {
             id: simpFill
@@ -107,13 +89,16 @@ ApplicationWindow {
 
         MultiPoint {
             id: points
-            spatialReference: {"latestWkid": 3857,"wkid":102100}
+            spatialReference: {
+                latestWkid: 3857,
+                            wkid: 102100
+            }
         }
 
         SimpleMarkerSymbol {
             id: markerSymbol
             color: "red"
-            outline: SimpleLineSymbol  {
+            outline: SimpleLineSymbol {
                 color: "black"
                 width: 4
             }
@@ -123,28 +108,24 @@ ApplicationWindow {
             id: featureLayer
             featureTable: featureServiceTable
 
-            function addTracked(feature)
-            {
+            function addTracked(feature) {
                 if (featureTable.featureTableStatus === Enums.FeatureTableStatusInitialized) {
                     console.log("Attempting to add....")
-                    console.log(featureTable.addFeature(feature));
+                    console.log(featureTable.addFeature(feature))
                     console.log("Added")
-                    featureServiceTable.applyFeatureEdits();
+                    featureServiceTable.applyFeatureEdits()
                 }
             }
         }
 
-
         Polygon {
             id: featurePoly
-            spatialReference: {"latestWkid": 3857,"wkid":102100}
-
+            spatialReference: {
+                latestWkid: 3857,
+                            wkid: 102100
+            }
         }
-
-
-
-}
-
+    }
 
     Rectangle {
         //id: optionsRectangle
@@ -154,7 +135,7 @@ ApplicationWindow {
         }
 
         color: "lightgrey"
-        radius:  .10 * scaleFactor
+        radius: .10 * scaleFactor
         border.color: "black"
         opacity: 0.88
 
@@ -164,87 +145,89 @@ ApplicationWindow {
         }
     }
 
-            Column {
-                id: controlsColumn
-                anchors.leftMargin: 21
-                anchors.topMargin: 21
-                anchors {
-                    left: parent.left
-                        top: parent.top
-                        margins: 20 * scaleFactor
+    Column {
+        id: controlsColumn
+        anchors.leftMargin: 21
+        anchors.topMargin: 21
+        anchors {
+            left: parent.left
+            top: parent.top
+            margins: 20 * scaleFactor
+        }
+        spacing: 4
+
+        Button {
+            id: generateButton
+            text: "New Feature"
+            enabled: true
+            style: ButtonStyle {
+                label: Text {
+                    text: control.text
+                    color: control.enabled ? "black" : "grey"
+                    horizontalAlignment: Text.AlignHCenter
+                }
+            }
+
+            onClicked: {
+                syncButton.enabled = true
+                enabled = false
+                capturePoints = true
+
+                console.log(featurePoly.pathCount)
+            }
+        }
+
+        Button {
+            id: syncButton
+            text: "Add Feature"
+            width: generateButton.width
+            enabled: false
+            style: generateButton.style
+
+            onClicked: {
+                enabled = false
+                generateButton.enabled = true
+
+                var featureToAdd = ArcGISRuntime.createObject("Feature")
+                featurePoly.closePathWithLine()
+                console.log(featurePoly.valid)
+                featureToAdd.geometry = featurePoly
+                featureToAdd.setAttributeValue("test", "test")
+                console.log("This is here")
+                featureLayer.addTracked(featureToAdd)
+                while (points.pointCount > 0) {
+                    points.removePoint(0)
+                }
+                while (featurePoly.pathCount > 0) {
+                    featurePoly.removePath(0)
+                }
+
+                pointGraphic.geometry = points
+                graphic.geometry = featurePoly
+                numberOfClicks = 0
+                capturePoints = false
+            }
+        }
+
+        Button {
+            id: removeVertexButton
+            text: "Remove Vertex"
+            width: generateButton.width
+            enabled: syncButton.enabled
+            style: generateButton.style
+
+            onClicked: {
+                if (numberOfClicks > 0) {
+                    featurePoly.removePoint(-1, -1)
+                    points.removePoint(points.pointCount - 1)
+                    pointGraphic.geometry = points
+                    graphic.geometry = featurePoly
+                    numberOfClicks = numberOfClicks - 1
+                    if (numberOfClicks == 0) {
+                        featurePoly.removePath(-1)
                     }
-                    spacing: 4
-
-                    Button {
-                        id: generateButton
-                        text: "New Feature"
-                        enabled: true
-                        style: ButtonStyle {
-                            label: Text {
-                                text: control.text
-                                color: control.enabled ? "black" : "grey"
-                                horizontalAlignment: Text.AlignHCenter
-                            }
-                        }
-
-                        onClicked: {
-                            syncButton.enabled = true
-                            enabled = false
-                            capturePoints = true
-
-                            console.log(featurePoly.pathCount)
-                        }
-                    }
-
-                    Button {
-                        id: syncButton
-                        text: "Add Feature"
-                        width: generateButton.width
-                        enabled: false
-                        style: generateButton.style
-
-                        onClicked: {
-                            enabled = false
-                            generateButton.enabled = true
-
-                            var featureToAdd = ArcGISRuntime.createObject("Feature")
-                            featurePoly.closePathWithLine()
-                            console.log(featurePoly.valid)
-                            featureToAdd.geometry = featurePoly;
-                            featureToAdd.setAttributeValue("test", "test")
-                            console.log("This is here")
-                            featureLayer.addTracked(featureToAdd)
-                           while(points.pointCount > 0)
-                           {
-                               points.removePoint(0)
-                           }
-                           while(featurePoly.pathCount > 0)
-                           {
-                               featurePoly.removePath(0)
-                           }
-
-                            pointGraphic.geometry = points
-                            pointGraphic.symbol = markerSymbol
-                           graphic.geometry = featurePoly
-                            numberOfClicks = 0
-                            capturePoints = false
-                        }
-                    }
-
-                    Button {
-                        id: insertPointButton
-                        text: "Add Vertex"
-                        width: generateButton.width
-                        enabled: syncButton.enabled
-                        style: generateButton.style
-
-                        onClicked: {
-                            featurePoly.insertPoint(0,-1,myLocation)
-                        }
-                    }
-
-                    }
-
-
+                }
+            }
+        }
+    }
 }
-
