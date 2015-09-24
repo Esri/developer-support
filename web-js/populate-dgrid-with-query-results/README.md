@@ -1,4 +1,3 @@
-README
 POPULATE DGRID WITH QUERRIED RESULTS
 
 #Requirements
@@ -8,7 +7,7 @@ POPULATE DGRID WITH QUERRIED RESULTS
 This sample is been a combination of multiple samples. The workflow of the sample is as follows
 	1. This takes a user selected point.
 	2. It selects the parcel layer
-	3. Buffers the parcel layer for 200 feets
+	3. Buffers the parcel layer by 200 feets
 	4. Selects buildings that intersect buffer.
 	5. Populates attribute data for the selected records in the DGrid.
 
