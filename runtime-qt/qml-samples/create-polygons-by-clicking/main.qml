@@ -24,11 +24,13 @@ ApplicationWindow {
     title: "Capture on Click"
 
     property Point myLocation
-    property bool capturePoints
+    property bool capturePoints: false
     //property var featureToAdd
     property double scaleFactor: System.displayScaleFactor
     property int numberOfClicks: 0
-    //property Feature featureToAdd
+
+
+
 
     Map {
         id: map
@@ -46,16 +48,27 @@ ApplicationWindow {
         }
 
         onMouseClicked: {
+            if(capturePoints == true)
+            {
+            if(numberOfClicks == 0)
+            {
+                featurePoly.startPath(mouse.mapPoint)
+                points.add(mouse.mapPoint)
+                pointGraphic.geometry = points
+                pointGraphic.symbol = markerSymbol
+                numberOfClicks = 1
+            }
+            else
+            {
+                points.add(mouse.mapPoint)
+                featurePoly.lineTo(mouse.mapPoint);
+                graphic.geometry = featurePoly
+                graphic.symbol = simpFill
+                pointGraphic.geometry = points
+                pointGraphic.symbol = markerSymbol
+            }
+            }
 
-            points.add(mouse.mapPoint)
-            featurePoly.lineTo(mouse.mapPoint);
-            graphic.geometry = featurePoly
-            graphic.symbol = simpFill
-            pointGraphic.geometry = points
-            pointGraphic.symbol = markerSymbol
-
-
-            //featurePoly.insertPoint(0,-1, mouse.mapPoint)
         }
 
         focus: true
@@ -72,6 +85,7 @@ ApplicationWindow {
         GraphicsLayer {
             id: graphicsLayer
         }
+
 
 
         SimpleFillSymbol {
@@ -123,7 +137,6 @@ ApplicationWindow {
 
         Polygon {
             id: featurePoly
-            //geometryType: Enums.GeometryTypePolygon
             spatialReference: {"latestWkid": 3857,"wkid":102100}
 
         }
@@ -177,7 +190,7 @@ ApplicationWindow {
                         onClicked: {
                             syncButton.enabled = true
                             enabled = false
-                            featurePoly.startPath(-117, 38);
+                            capturePoints = true
 
                             console.log(featurePoly.pathCount)
                         }
@@ -201,7 +214,20 @@ ApplicationWindow {
                             featureToAdd.setAttributeValue("test", "test")
                             console.log("This is here")
                             featureLayer.addTracked(featureToAdd)
+                           while(points.pointCount > 0)
+                           {
+                               points.removePoint(0)
+                           }
+                           while(featurePoly.pathCount > 0)
+                           {
+                               featurePoly.removePath(0)
+                           }
 
+                            pointGraphic.geometry = points
+                            pointGraphic.symbol = markerSymbol
+                           graphic.geometry = featurePoly
+                            numberOfClicks = 0
+                            capturePoints = false
                         }
                     }
 
