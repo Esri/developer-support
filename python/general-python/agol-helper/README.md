@@ -1,28 +1,39 @@
-agol-helper includes a superclass, AGOL, which contains commonly used methods and properties. Currently it accesses a token, the organization short url and organization ID, which are used in many REST API scripting tasks.
+#Usage notes
+The aim of this section is to aid developers who are looking for a REST API python code samples. For an existing API that uses python and the ArcGIS Online REST API, see ArcREST: https://github.com/esri/arcrest
+##agol.py: ArcGIS Online (AGOL) Superclass
+agol-helper includes the AGOL superclass that retrieves a token, the organization short url and organization ID. The methods used to grab these attributes are commonly used for any workflow.
 ```python
 >>> me = AGOL("username", "password")
 >>> me.token #Grabs the token.
 >>> me.short #Grabs the organization short url.
 >>> me.orgID #Grabs the organization ID.
 ```
-Subclasses are also included.
-- community: community object that contains operations related to users and groups, and inherits properties from the AGOL object. This may be used to search for groups and users. 
+##Subclass templates
+The subclasses (i.e. community, geocodeService, portals) mimic the structure of the ArcGIS Online REST API help: http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r300000054000000
+
+For example, community.py contains Group Search and User Search methods, which are resources accessed using the community root url. These resources are documented in *Managing your organization > Community* in the REST API help.
+
+Group Search: http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Group_Search/02r3000000m1000000/
+
+User Search: http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/User_Search/02r3000000m6000000/
+
+As the templates grow, developers may use these templates for short code samples that should be easily found. Each method's documentation contains a link to the appropriate help page.
+
+###community.py: contains methods that use the community root url. The methods are related to users and groups. 
 ```python
 >>> me = community("username", "password")
 >>> test = me.groupSearch()
 ```
-- geocodeService: geocode service object, that inherits properties from the AGOL object. This may be used to geocode addresses.
+###geocodeService.py: contains methods that use the Geocode Service.
 ```python
 >>> me = geocodeService("username", "password")
 >>> test = me.geocodeAddresses()
 ```
-- portals: portal object that inherits properties from the AGOL object. This may be used to look up the roles used in the organization.
+### portals.py: contains methods that use the portals root url.
 ```python
 >>> me = portals("username", "password")
 >>> test = me.portalSelfRoles()
 ```
-These are incomplete templates. The templates may be used to look up how to structure a request using python, for developers who are creating their own API and need a short code sample. Custom functions may be added to a template to aid a workflow.  
+These are incomplete templates. Please feel free to contribute classes or methods. 
 
 This code is an amalgamation of samples provided by Technical Support Analysts and our end users.
-
-For an existing API that uses python and the ArcGIS Online REST API, see ArcREST: https://github.com/esri/arcrest
