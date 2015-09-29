@@ -1,0 +1,14 @@
+<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:esri="http://schemas.esri.com/arcgis/client/2009"
+    xmlns:slData="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Data" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="ESRIStandardMapApplication7.MainPage"
+    d:DesignWidth="768" d:DesignHeight="505" >
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <esri:Map x:Name="MyMap" WrapAround="True" Background="White">
+            <esri:ArcGISTiledMapServiceLayer ID="StreetMapLayer" 
+				Url="http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"/>
+            <esri:ElementLayer ID="ElementLayer" Initialized="ElementLayer_Initialized" />
+        </esri:Map>
+    </Grid>
+</UserControl>
