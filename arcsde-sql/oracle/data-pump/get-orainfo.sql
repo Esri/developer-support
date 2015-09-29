@@ -1,12 +1,13 @@
 /***********************************************************************
 
-IMPDP.SQL  --  Import Data Pump Steps
+get-orainfo.SQL  --  Get Oracle Information Script
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Purpose:
   This script serves as a series of steps to gather information from
-an Oracle database prior to restoring.
+an Oracle database prior to exporting or creating a datapump for the
+end goal of restoring the database in a different environment.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
