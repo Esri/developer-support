@@ -57,7 +57,7 @@ ORDER BY registration_id
 
 DOCUMENTATION:
 
-[Archie_View_Name][1]
+[Archive_View_Name][1]
 [Geometry_Columns][2]
 [GlobalID_Name][3]
 [Is_Archive_Enabled][4]
