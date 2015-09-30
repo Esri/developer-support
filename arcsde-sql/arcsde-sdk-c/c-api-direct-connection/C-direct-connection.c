@@ -39,7 +39,7 @@ LONG  main(int argc, char *argv[]){
 	result = SE_connection_create(server, instance, NULL, user, passwd, &error, &conn);
 	check_rc_return_on_failure(conn, NULL, result, "SE_CONNECTION_CREATE");
 	printf("--->Connected --->\n\n");
-	
+}	
 	
 	
 	/* validation function taken from:  http://help.arcgis.com/en/geodatabase/10.0/sdk/arcsde/samples/com/esri/sde/devhelp/geometry/geom_buffer.c  */
