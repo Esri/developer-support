@@ -1,5 +1,7 @@
-#Insert Simple Geometry
+ArcSDE SDK for Java
+===================
 
+<<<<<<< HEAD
 
 
 Insert points, lines and polygons using the ArcSDE SDK for Java
@@ -10,6 +12,9 @@ Insert points, lines and polygons using the ArcSDE SDK for Java
 * Demonstrates creating tables and enabling those tables as spatial layers.
 * Demonstrates creating geometries through coordinate pairs.
 * Demonstrates inserting geometries into the feature class.
+=======
+Proof of concept ArcSDE SDK Java examples.  
+>>>>>>> 89d2fffb5014ed54fd01bab8d68b15707f8ca2a4
 
 
 #### Direct connections:
