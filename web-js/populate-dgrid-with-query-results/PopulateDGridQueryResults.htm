@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+  on iOS devices-->
+
+    <title>
+        Buffer
+    </title>
+    <link href="http://js.arcgis.com/3.14/dojo/resources/dojo.css" rel="stylesheet">
+    <link href="http://js.arcgis.com/3.14/dgrid/css/dgrid.css" rel="stylesheet">
+    <link href="http://js.arcgis.com/3.14/dgrid/css/skins/tundra.css" rel="stylesheet">
+    <link href="http://js.arcgis.com/3.14/dijit/themes/tundra/tundra.css" rel="stylesheet">
+    <link href="http://js.arcgis.com/3.14/esri/css/esri.css" rel="stylesheet">
+    <link href="http://js.arcgis.com/3.14/dojox/layout/resources/FloatingPane.css" rel="stylesheet">
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #container {
+            height: 100%;
+            visibility: visible;
+        }
+        
+        #dFloatingPane {
+            height: 200px;
+        }
+        
+        #grid {
+            height: 100%;
+        }
+        
+        .dgrid {
+            border: none;
+        }
+        
+        .field-id {
+            cursor: pointer;
+        }
+        
+        #btn2 {
+            background: #FFCC66;
+            color: darkred;
+            font-family: Segoe UI;
+            font-weight: 500;
+            font-size: 18px;
+            border-radius: 25px;
+            right: 30px;
+            margin: 5px;
+            padding: 10px;
+            position: absolute;
+            top: 30px;
+            width: 200px;
+            z-index: 40;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        var map;
+        var graphicAttributes, queryCriteria;
+
+        require(["dojo/dom",
+
+                "dojo/_base/array",
+                "dojo/parser",
+                "dojo/on",
+
+                "esri/Color",
+                "esri/config",
+                "esri/map",
+                "esri/graphic",
+                "esri/InfoTemplate",
+                "esri/geometry/Point",
+                "esri/layers/FeatureLayer",
+
+                "esri/tasks/GeometryService",
+                "esri/tasks/BufferParameters",
+                "esri/tasks/QueryTask",
+                "esri/tasks/query",
+
+                "esri/symbols/SimpleMarkerSymbol",
+                "esri/symbols/SimpleLineSymbol",
+                "esri/symbols/SimpleFillSymbol",
+
+                "dgrid/OnDemandGrid",
+                "dgrid/Selection",
+                "dojo/store/Memory",
+                "dojo/_base/array",
+                "dojo/dom-style",
+                "dijit/registry",
+                "dojo/_base/declare",
+                "dojo/number",
+                "dojox/layout/FloatingPane",
+                "dojo/dom-construct",
+                "dojo/_base/window",
+
+                "dijit/layout/BorderContainer",
+                "dijit/layout/ContentPane",
+
+                "dojo/domReady!"
+            ],
+            function(dom, array, parser, on,
+                Color, esriConfig, Map, Graphic, InfoTemplate, Point, FeatureLayer,
+                GeometryService, BufferParameters, QueryTask, Query,
+                SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, Grid, Selection,
+                Memory, array, domStyle, registry, declare, dojoNum, FloatingPane, domConstruct, win) {
+
+                parser.parse();
+            
+            // YOU NEED TO CHANGE THIS TO POINT TO YOUR PROXY.
+              //  esriConfig.defaults.io.proxyUrl = "HTTP://YOUR-PROXY-URL";
+                //esriConfig.defaults.io.alwaysUseProxy = false;
+
+                // create the dgrid
+                var fp = new FloatingPane({
+                    id: 'floatingpane',
+                    title: 'SELECTED PARCELS',
+                    resizable: false,
+                    resizeAxis: null,
+                    closable: true,
+                    dockable: false,
+                    style: "position:absolute;bottom:20px;right:20px;width:800px;height:300px;overflow:hidden;",
+                    preventCache: true,
+                    preload: false
+                }, domConstruct.create("div", null, win.body()));
+
+                var content = "<div id='grid'><\/div>";
+                fp.setContent(content);
+                fp.startup();
+
+                //create Grid
+
+                var grid = new(declare([Grid, Selection]))({
+                    // use Infinity so that all data is available in the grid
+                    bufferRows: Infinity,
+                    columns: {
+                        "OBJECTID": "Object ID",
+                        "ADDRESS": "Address",
+                        "PARCELID": "Parcel ID",
+                        "SITENUMBER": {
+                            "label": "SITE NUMBER",
+                            "formatter": dojoNum.format
+                        }
+                    }
+                }, "grid");
+
+                //DEFINE SERVICES
+                var geometryService = new GeometryService("http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer");
+                var ParcelLayer = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/2", {
+                    //infoTemplate: new InfoTemplate("BUILDING : ${BUILDING }", "${*}"),
+                    //outFields: ["OWNERNME1 ","PARCELID"]
+                });
+                var CriteriaLayer = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/BloomfieldHillsMichigan/Parcels/MapServer/0", {
+                    outFields: ["*"]
+                });
+                var outFields = ["OBJECTID", "ADDRESS", "PARCELID", "SITENUMBER"];
+                //SYMBOLS
+
+                var criteriaSelectionSymbol = new SimpleFillSymbol().setColor(new Color([255, 167, 22, 0.9]));
+                var pointSymbol = new SimpleMarkerSymbol().setStyle(
+                    SimpleMarkerSymbol.STYLE_Circle).setColor(
+                    new Color([100, 0, 200, 0.5]));
+                var parcelSelectionSymbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+                    new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,
+                        new Color([255, 255, 0, 1]), 2), new Color([255, 0, 0, 1]));
+                var bufferSymbol = new SimpleFillSymbol(
+                    SimpleFillSymbol.STYLE_NULL,
+                    new SimpleLineSymbol(
+                        SimpleLineSymbol.STYLE_SHORTDASHDOTDOT,
+                        new Color([105, 105, 105]),
+                        2
+                    ), new Color([255, 255, 0, 0.25])
+                );
+
+                //var bufferSymbol = new SimpleFillSymbol().setColor(new Color([95, 250, 45, 0.2]));
+
+                //ADD MAP
+                map = new Map("map", {
+                    basemap: "dark-gray",
+                    center: [-83.28, 42.58],
+                    zoom: 16
+                });
+
+                map.addLayers([ParcelLayer, CriteriaLayer]);
+
+
+
+                map.on("click", function(evt) {
+                    //function doBuffer(e) {
+                    map.graphics.clear();
+                    var point = evt.mapPoint;
+
+                    console.log(point);
+
+                    var graphic = new Graphic(point, pointSymbol);
+                    map.graphics.add(graphic);
+
+                    //find the parcel that is clicked
+                    var queryPoint = new Query();
+                    queryPoint.geometry = point;
+                    console.log(queryPoint);
+                    ParcelLayer.setSelectionSymbol(parcelSelectionSymbol);
+                    ParcelLayer.selectFeatures(queryPoint, FeatureLayer.SELECTION_NEW, function(features) {
+                        console.log(features);
+                        var params = new BufferParameters();
+                        params.distances = [200];
+                        params.unit = GeometryService.UNIT_FEET;
+                        params.geodesic = true;
+                        params.geometries = [features[0].geometry];
+                        params.outSpatialReference = map.spatialReference;
+                    //buffer the parcel
+                        geometryService.buffer(params, function(results) {
+                    
+                            var bufGraphic = new Graphic(results[0], bufferSymbol);
+                            queryCriteria = new Query();
+                            queryCriteria.geometry = results[0];
+                            CriteriaLayer.setSelectionSymbol(criteriaSelectionSymbol);
+                            CriteriaLayer.selectFeatures(queryCriteria, FeatureLayer.SELECTION_NEW, function(selFeatures) {
+                               console.log(selFeatures);
+                               populateGrid(Memory, selFeatures);
+                           });                            
+                            map.graphics.add(bufGraphic);
+                        });
+                    });
+                    //}
+
+                });
+
+                function populateGrid(Memory, selFeatures) {
+                    var data = array.map(selFeatures, function(feature) {
+                        return {
+                            // property names used here match those used when creating the dgrid
+                            "OBJECTID": feature.attributes[outFields[0]],
+                            "ADDRESS": feature.attributes[outFields[1]],
+                            "PARCELID": feature.attributes[outFields[2]],
+                            "SITENUMBER": feature.attributes[outFields[3]]
+                        };
+                    });
+                    var memStore = new Memory({
+                        data: data
+                    });
+                    grid.set("store", memStore);
+                }
+            on(dom.byId("btn2"),"click", function(){
+                map.graphics.clear();
+                CriteriaLayer.clearSelection();
+                ParcelLayer.clearSelection();
+				populateGrid(Memory, null);
+            });
+
+            });
+    </script>
+</head>
+
+<body class="tundra">
+    <div data-dojo-props="design: 'headline', gutters: false" data-dojo-type="dijit/layout/BorderContainer" id="container">
+        <div data-dojo-props="region: 'center'" data-dojo-type="dijit/layout/ContentPane" id="map">
+            <button id="btn2" type="button">Clear Graphics</button>
+        </div>
+        
+    </div>
+</body>
+
+</html>

@@ -19,7 +19,7 @@
         }
         
         #info {
-            bottom: 2px;
+            top: 2px;
             color: #444;
             height: auto;
             font-family: arial;
@@ -39,7 +39,7 @@
             display: block;
             position: absolute;
             z-index: 2;
-            top: 85px;
+            top: 105px;
             left: 74px;
         }
         /*Beginning of search box modifications*/
@@ -99,7 +99,7 @@
         ], function(Map, Search, Locator, PictureMarkerSymbol, InfoTemplate) {
             map = new Map("map", {
                 basemap: "dark-gray",
-                center: [-122.029133, 47.521962], // lon, lat
+                center: [-117.150782,32.732183], // lon, lat
                 zoom: 10
             });
             //Create search widget
@@ -116,7 +116,7 @@
             search.on("load", function() {
                 var sources = search.sources;
                 // In order to make suggestion works for GeocodeServer, user need to use ArcGIS 10.3 or later version and enable "Suggest" capability when publishing services, for more information please check our online documentation: https://developers.arcgis.com/javascript/jsapi/search-amd.html#enablesuggestions
-                var locator = new Locator("http://arclogistics.arcgisonline.com/arcgis/rest/services/King_County/GeocodeServer");
+                var locator = new Locator("http://arclogistics.arcgisonline.com/arcgis/rest/services/San_Diego_Addresses/GeocodeServer");
                 sources.push({
                     locator: locator,
                     singleLineFieldName: "SingleLine",
@@ -140,7 +140,7 @@
 <body>
     <div id="search"></div>
     <div id="info">
-        <div>Using a customized Geocoder Server to find street by using JS "Search Widget"</div>
+        <div>Using a customized Geocoder Server with "Suggestion" enable to find street by using JS "Search Widget"</div>
     </div>
     <div id="map"></div>
 </body>

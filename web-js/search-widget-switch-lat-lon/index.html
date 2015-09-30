@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+   <title>ArcGIS API for JavaScript | Basic Search</title>
+   <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+   <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+   <style>
+      html,
+      body,
+      #map {
+         height: 100%;
+         width: 100%;
+         margin: 0;
+         padding: 0;
+      }
+      #search {
+         display: block;
+         position: absolute;
+         z-index: 2;
+         top: 20px;
+         left: 74px;
+      }
+   </style>
+   <script src="http://js.arcgis.com/3.14/"></script>
+   <script>
+      require([
+        "esri/map",
+        "esri/dijit/Search",
+		  "esri/request",
+        "dojo/domReady!"
+
+      ], function (Map, Search, esriRequest) {
+
+         // The argument ioArgs is of type: dojo.__XhrArgs (or) dojo.io.script.__ioArgs.
+         function myCallbackFunction (ioArgs) {
+            // Inspect ioArgs and filter specific request.
+            if(ioArgs.url === "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCandidates") {
+               // Change the order of lat, lon value to lon, lat value.
+               ioArgs.content.SingleLine = ioArgs.content.SingleLine.split(",").reverse().join(",");
+               console.log(ioArgs.content.SingleLine);
+            }
+            return ioArgs;
+         }
+
+         esriRequest.setRequestPreCallback(myCallbackFunction);
+		
+         var map = new Map("map", {
+            basemap: "gray",
+            center: [-120.435, 46.159], // lon, lat
+            zoom: 7
+         });
+
+         var s = new Search({
+            map: map
+         }, "search");
+         s.startup();
+         
+      });
+   </script>
+</head>
+
+<body>
+   <div id="search"></div>
+   <div id="map"></div>
+</body>
+
+</html>
