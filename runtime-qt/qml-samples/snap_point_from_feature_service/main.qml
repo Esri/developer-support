@@ -8,18 +8,19 @@
 // notice and use restrictions.
 //
 // See the Sample code usage restrictions document for further information.
-//
+//------------------------------------------------------------------------------
 import QtQuick 2.3
 import QtQuick.Controls 1.2
 import QtQuick.Controls.Styles 1.2
-import ArcGIS.Runtime 10.26
-import ArcGIS.Runtime.Toolkit.Controls 1.0
+import ArcGIS.AppFramework 1.0
+import ArcGIS.AppFramework.Controls 1.0
+import ArcGIS.AppFramework.Runtime 1.0
+import ArcGIS.AppFramework.Runtime.Controls 1.0
 
-ApplicationWindow {
-    id: appWindow
-    width: 800
-    height: 600
-    title: "Snap points from existing feature to new polygon"
+App {
+    id: app
+    width: 400
+    height: 640
 
     property double scaleFactor: System.displayScaleFactor
     property int numberOfClicks: 0
@@ -27,11 +28,72 @@ ApplicationWindow {
     property bool isDone: false
     property int polyGraphicId
 
+    Rectangle {
+        id: titleRect
+        height: titleText.paintedHeight + titleText.anchors.margins * 2
+        color: "Green"
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: parent.top
+        }
+
+        Text {
+            id: titleText
+
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+                margins: 2 * AppFramework.displayScaleFactor
+            }
+
+            text: "Snap points from existing feature to new polygon"
+            color: "white"
+            font {
+                pointSize: 20
+            }
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            maximumLineCount: 2
+            elide: Text.ElideMiddle
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
     Map {
         id: map
-        anchors.fill: parent
         wrapAroundEnabled:  true
         focus: true
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: titleRect.bottom
+            bottom: parent.bottom
+        }
+
+        NorthArrow {
+            anchors {
+                left: parent.left
+                top: titleRect.bottom
+                margins: 10
+            }
+
+            visible: map.mapRotation != 0
+        }
+
+        ZoomButtons {
+            width: 0
+            height: 50
+            anchors.verticalCenterOffset: -233
+            anchors.topMargin: -223
+            anchors.leftMargin: 16
+            anchors {
+                top: titleRect.bottom
+                left: parent.left
+                verticalCenter: parent.verticalCenter
+                margins: 10
+            }
+        }
 
         ArcGISTiledMapServiceLayer {
             url: "http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer"
@@ -59,16 +121,6 @@ ApplicationWindow {
                     }
         }
 
-        NavigationToolbar {
-            id: navigationToolbar
-            map: map
-            anchors {
-                top: parent.top
-                left: parent.left
-                margins:15
-            }
-        }
-
         FeatureLayer {
             id: featureLayer
             featureTable: featureServiceTable
@@ -80,10 +132,10 @@ ApplicationWindow {
 
     Envelope {
             id: sfExtent
-            xMin: -13638047.46069416
-            yMin: 4542259.923276166
-            xMax: -13624374.787259668
-            yMax: 4549693.424276889
+            xMin: -13646875.937461125
+            yMin: 4537864.794149817
+            xMax: -13619530.59059214
+            yMax: 4552731.796151265
             spatialReference: map.spatialReference
         }
     }
@@ -121,7 +173,6 @@ ApplicationWindow {
     }
 
     Rectangle {
-        //id: optionsRectangle
         anchors {
             fill: controlsColumn
             margins: .10 * scaleFactor
@@ -138,12 +189,13 @@ ApplicationWindow {
 
         Column {
                id: controlsColumn
-               anchors.rightMargin: 21
-               anchors.topMargin: 21
+               x: 283
+               anchors.rightMargin: 23
+               anchors.topMargin: 27
                spacing: 4
                anchors {
                         right: parent.right
-                        top: parent.top
+                        top: titleRect.bottom
                         margins: 30 * scaleFactor
                        }
 
