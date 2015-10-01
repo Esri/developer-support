@@ -31,8 +31,8 @@ Feel free to file an [issue](https://github.com/Esri/developer-support/issues/ne
 * [Contributing](https://guides.github.com/activities/contributing-to-open-source/) to Open Source projects
 * Learning [Git](https://github.com/Esri/developer-support/wiki/Resources-To-Learn-Git)
 * Twitter [Infographic](https://twitter.com/cthydng/status/575483540202106880?s=09)
-* [GitHub Desktop](https://desktop.github.com/)
-* [SourceTree](https://www.atlassian.com/software/sourcetree/overview/)
+* App: [GitHub Desktop](https://desktop.github.com/)
+* App: [SourceTree](https://www.atlassian.com/software/sourcetree/overview/)
 
 
 
