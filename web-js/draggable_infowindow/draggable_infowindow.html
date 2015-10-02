@@ -15,6 +15,21 @@ body, html {
     margin: 0;
     padding: 0;
 }
+#info {
+    min-height: 20px;
+    min-width: 160px;
+    right: 5px;
+    top: 5px;
+    margin: 5px;
+    padding: 10px;
+    position: absolute;
+    width: 10%;
+    z-index: 40;
+    border: solid 2px #666;
+    border-radius: 4px;
+    background-color: limegreen;
+}
+    
 #map {
     height: 100%;
     width: 100%;
@@ -58,7 +73,9 @@ require([
 });
 </script>
     </head>
-    <body class="claro">
+    <body class="claro">    
+        <div id="info">
+            <label>Draggable Info Window</label>
+        </div>        
         <div id="map"></div>
     </body>
-
