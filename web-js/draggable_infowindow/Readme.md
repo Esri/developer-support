@@ -5,7 +5,8 @@
  [dojo/dnd/Moveable](https://dojotoolkit.org/reference-guide/1.10/dojo/dnd/Moveable.html)
  
  
-![alt text](../../../../repository-images/draggable_infowindow.png "Draggable Info Window")
+![alt text](../../../repository-images/draggable_infowindow.png "Draggable Info Window")
+![alt text](../../../repository-images/imp-interface2.png "test")
 
  
  ## Features
