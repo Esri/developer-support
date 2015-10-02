@@ -2,11 +2,10 @@
  
  This is a sample that shows how to make the info window by using dojo class (dojo/dnd/Moveable) to make it moveable. The sample's info window comes with webmap load from ArcGIS Online
  
- [dojo/dnd/Moveable](https://dojotoolkit.org/reference-guide/1.10/dojo/dnd/Moveable.html)
+[dojo/dnd/Moveable](https://dojotoolkit.org/reference-guide/1.10/dojo/dnd/Moveable.html)
  
  
-![alt text](../../../repository-images/draggable_infowindow.png "Draggable Info Window")
-![alt text](../../../repository-images/imp-interface2.png "test")
+![alt text](https://github.com/goldenlimit/developer-support/blob/draggable_info_js/repository-images/draggable_infowindow.png "Draggable Info Window")
 
  
  ## Features
