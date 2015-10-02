@@ -3,9 +3,9 @@ This application aims to show you how to snap points from existing map service w
 
 The sample uses the ArcGIS Runtime Qt 10.2.6 an ArcGIS Online Feature service.
 
-![alt text](../../../repository-images/Snapping_points_from _feature_service.png "Sample App UI screenshot")
+![alt text](../../../repository-images/snap_points_from _feature_service.png "Sample App UI screenshot")
 
-## Steps to Recap
+## Steps to Recap how to make it works 
 1)  Import ArcGIS Runtime QT in main.qml file.
 
 ```qml
