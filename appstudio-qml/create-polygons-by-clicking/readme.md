@@ -10,3 +10,6 @@
 * [Polygon Class](https://developers.arcgis.com/qt/qml/api-reference/class_polygon.html)
 * [MultiPath Class](https://developers.arcgis.com/qt/qml/api-reference/class_multi_path.html)
 * [Feature Layer Class](https://developers.arcgis.com/qt/qml/api-reference/class_feature_layer.html)
+
+### Author
+* Alexander Nohe

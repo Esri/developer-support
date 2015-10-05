@@ -1,11 +1,11 @@
 # Snapping points from existing feature as vertices for new draw polygon  
-This application aims to show you how to snap points from existing map service when creating graphic polygon on basemap. By using this function is it easy for users who need to draw graphics that interact with existing features to perform measurement calculation or analysis. 
+This application aims to show you how to snap points from existing map service when creating graphic polygon on basemap. By using this function is it easy for users who need to draw graphics that interact with existing features to perform measurement calculation or analysis.
 
 The sample uses the ArcGIS Runtime Qt 10.2.6 an ArcGIS Online Feature service.
 
 ![alt text](../../../repository-images/snap_points_from _feature_service.png "Sample App UI screenshot")
 
-## Steps to Recap how to make it works 
+## Steps to Recap how to make it works
 1)  Import ArcGIS Runtime QT in main.qml file.
 
 ```qml
@@ -50,14 +50,14 @@ property bool isDone: false
 ```qml
  var featureIds = featureLayer.findFeatures(mousex, mousey, 5, 1);
 ```
- 
+
 5) We then need to implement the logic about addPoint function, there are two different scenarios:
   1. Use the mouse click point location as geometry for polygon's point - **MapPoint (x,y)**
   2. Use the existing point feature geometry for polygon's point - **Existing Point feature (x,y)**
 
 ```qml
     if (featureIds.length == 0) {
-        
+
         //Check if any point features that fall within the mouse click range,
         //if no points fall the tolerance range just add mouse point
         userPolygon.lineTo(mapPoint.x, mapPoint.y);
@@ -66,7 +66,7 @@ property bool isDone: false
         graphicsLayer.updateGraphic(polyGraphicId,graphicClone);
         newPoint.geometry = mapPoint;
         graphicsLayer.addGraphic(newPoint);
-        
+
         } else {
         //mouse click location close enough to the point feature,
         //then snap the features's point as the next vertix of graphic polygon
@@ -95,3 +95,5 @@ property bool isDone: false
 * [Edit features guide](https://developers.arcgis.com/qt/qml/guide/edit-features.htm)
 
 
+### Author
+* Yue Wu (Nathan)

@@ -3,8 +3,8 @@ ORE (ONLINE RELATIONSHIP EDITOR)
 
 ![alt text](ORE_Small.png "Sample App UI screenshot")
 
-This sample application demonstrates the customizability of ArcGIS AppStudio. 
-This app allows the user to perform online relationship editing 
+This sample application demonstrates the customizability of ArcGIS AppStudio.
+This app allows the user to perform online relationship editing
 using feature services that has both feature to table relations and feature to feature relations.
 
 ##Setup
@@ -16,7 +16,7 @@ using feature services that has both feature to table relations and feature to f
 
 ##Known Limitations
 1. Plain table updates are not working, due to a possible API bug. Feature service updates are working.
-2. Table scroll not working on mobile devices 
+2. Table scroll not working on mobile devices
 
 ##Key Concepts
 
@@ -66,7 +66,7 @@ relationshipQueryTask.executeRelationshipQuery(relatedQueryParam)
 onRelationshipQueryResultChanged: {
 	if(relationshipQueryTaskStatus == Enums.RelationshipQueryTaskStatusCompleted){
 		var graphics = relationshipQueryResult.relatedRecordGroups[0].graphics;
-		
+
 		//obtain an attribute name
 		var name = relationshipQueryResult.relatedRecordGroups[0].graphics[0].attributeNames[0]
 		//obtain an attribute value
@@ -92,3 +92,6 @@ wellsFeatureServiceTable.applyFeatureEdits()
 [QML QueryTask/Relationship QueryTask Reference](https://developers.arcgis.com/qt/qml/api-reference/class_query_task.html)
 
 [QML QueryRelatedRecordsParameters Reference](https://developers.arcgis.com/qt/qml/api-reference/class_query_related_records_parameters.html)
+
+### Author
+* Andrew Wang
