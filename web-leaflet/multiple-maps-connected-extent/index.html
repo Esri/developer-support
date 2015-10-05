@@ -178,8 +178,7 @@ body {
             ///////////////////////////////////////////////////////////////////////////////////////////////////
 
             if (i == 0) {
-                L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png', {
-                    accessToken:'pk.eyJ1IjoiZ29sZGVubGltaXQiLCJhIjoiY2lmZWE2ajYxNm5iOXJ4a242amtobGlveCJ9.uupkieB4hl2Wb1unoyp5Kw'
+                L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZ29sZGVubGltaXQiLCJhIjoiY2lmZWE2ajYxNm5iOXJ4a242amtobGlveCJ9.uupkieB4hl2Wb1unoyp5Kw', {
                 }).addTo(mapArray[i]);
 
                 //Add geocoder to map
