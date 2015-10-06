@@ -58,13 +58,21 @@ ORDER BY registration_id
 DOCUMENTATION:
 
 [Archive_View_Name][1]
+
 [Geometry_Columns][2]
+
 [GlobalID_Name][3]
+
 [Is_Archive_Enabled][4]
+
 [Is_Simple][5]
+
 [Is_Versioned][6]
+
 [Is_Replicated][7]
+
 [RowID_Name][8]
+
 [Version_View_Name][9]
 
 [1]:http://desktop.arcgis.com/en/desktop/latest/manage-data/using-sql-with-gdbs/archive-view-name.htm
