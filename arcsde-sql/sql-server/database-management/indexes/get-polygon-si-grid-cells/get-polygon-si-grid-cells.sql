@@ -1,41 +1,42 @@
 /***********************************************************************
-*
-*N  get-polygon-si-grid-cells.sql  --  View the spatial index graphically.
-*
-*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-*
-*P  Purpose:
-*     This script will create a new polygon table and generate geometry for
-*	  each spatial index grid in a SQL Server geometry spatial table
-*	  using the sp_help_spatial_geometry_histogram stored procedure.
-*
-*  	  Also calculates the density of features that intersect a cell.
-*E
-*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-*
-*H  History:
-*
-*    Ken Galliher        8/12/2015               Original coding.
-*E
-*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-*
-*V  Versions Supported:
-*   EGDB: All
-*   DBMS: SQL Server
-*   DBMS Version: 2008R2 and above
-*E
-*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-*
-*T  Tags:
-*   SQL Server, Spatial Index, Grid Size, Geometry
-*E
-*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-*
-*R  Resources:
-*   sp_help_spatial_geometry_histogram  (Transact-SQL)  
-*   https://msdn.microsoft.com/en-us/library/gg509094.aspx
-*E
+
+get-polygon-si-grid-cells.sql  --  View the spatial index graphically.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Purpose:
+	This script will create a new polygon table and generate geometry for
+each spatial index grid in a SQL Server geometry spatial table
+using the sp_help_spatial_geometry_histogram stored procedure.
+
+Also calculates the density of features that intersect a cell.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+History:
+
+Ken Galliher        8/12/2015               Original coding.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Versions Supported:
+EGDB: All
+DBMS: SQL Server
+DBMS Version: 2008R2 and above
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Tags:
+SQL Server, Spatial Index, Grid Size, Geometry
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Resources:
+sp_help_spatial_geometry_histogram  (Transact-SQL)
+https://msdn.microsoft.com/en-us/library/gg509094.aspx
+
 ***********************************************************************/
+
 IF OBJECT_ID (N'sde_load.parcel_cellbounds_hist', N'U') IS NOT NULL
 DROP TABLE sde_load.parcel_cellbounds_hist;
 GO
