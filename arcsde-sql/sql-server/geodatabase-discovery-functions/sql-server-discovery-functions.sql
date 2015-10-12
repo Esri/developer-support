@@ -39,3 +39,5 @@ SELECT registration_id,
 		globalid_name
 FROM table_registry_discovery
 ORDER BY registration_id
+
+
