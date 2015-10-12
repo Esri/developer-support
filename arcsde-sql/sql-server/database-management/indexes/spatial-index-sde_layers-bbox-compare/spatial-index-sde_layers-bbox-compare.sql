@@ -56,3 +56,7 @@ INNER JOIN sys.spatial_index_tessellations sit
 	ON si.object_id = sit.object_id
 WHERE si.type = 4
 ORDER BY t.name
+
+
+
+
