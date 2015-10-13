@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add image to map</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+  <style>
+    html, body, #mapDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+  </style>
+  
+  <script src="http://js.arcgis.com/3.14/"></script>
+  <script>
+    var map;
+    require([
+        "esri/map",
+        "esri/layers/MapImage","esri/layers/MapImageLayer",      
+        "dojo/dom-style", "dojo/domReady!"
+    ], function(
+        Map, 
+        MapImage,MapImageLayer,
+        domStyle
+    ) {
+
+        map = new Map("map", {
+          basemap: "gray",
+          center: [-79.933333,32.783333],
+          zoom: 9,
+          slider: false
+        });
+
+        var mapImage = new MapImage({ 
+            'href': 'esri.jpg',
+            'extent':{'xmin': -79.733333, 'ymin': 32.783333, 'xmax': -80.933333, 'ymax': 33.783333}
+        }); 
+
+        var miLayer = new MapImageLayer(); 
+        miLayer.addImage(mapImage); 
+        map.addLayer(miLayer); 
+    });
+  </script>
+
+</head>
+<body>
+  <div id="map" style="height:100%"></div>
+</body>
+</html>
+ 
