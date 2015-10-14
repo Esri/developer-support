@@ -57,8 +57,8 @@ this is because browserify is going to wrap **all** of our code and **all** the 
 
 ```js
 var L = require('leaflet')
-require('esri-leaflet')
-require('esri-leaflet-geocoder')
+var Esri = require('esri-leaflet')
+var Geocoding = require('esri-leaflet-geocoder')
 ```
 
 `main.js` is more or less composed of the same code we find [here](http://esri.github.io/esri-leaflet/examples/geocoding-control.html), with the addition of calling `require()` to reference the external dependencies.
