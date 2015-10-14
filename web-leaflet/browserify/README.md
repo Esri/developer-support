@@ -21,7 +21,7 @@ install [Node.js](https://nodejs.org/en/)/npm.
 
 [npm](http://npmjs.org) is an amazing package manager.  [browserify](http://browserify.org/) helps us leverage it to organize and bundle the dependencies of browser based applications too!
 
-one really cool benefit is that you can include a single `<script>` tag in your application to load *all* your JavaScript via a *single* request.
+one really cool benefit is that you can include one `<script>` tag in your application to load all your own JavaScript and **all** your external dependencies.
 
 ```html
 <script src="./bundle.js"></script>
@@ -51,7 +51,7 @@ basically, all we've done is reorganized [this previously published sample](http
 ```
 even though the raw source for the app itself is in a file called `main.js`, we only reference `bundle.js` in the app's `html`.
 
-this is because browserify is going to wrap **all** of our code and **all** the external script tags into a single file.
+this is because browserify is going to wrap *all* of our code and **all** the external script tags into a single file.
 
 > [main.js](https://github.com/Esri/developer-support/blob/master/web-leaflet/browserify/main.js)
 
