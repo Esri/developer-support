@@ -120,7 +120,7 @@
                            layerDefinition: layerDefinition,
                            featureSet: response.results[0].value.FeatureSet[0]
                          };
-                       
+
                        var popupTemplate = new PopupTemplate({
                          title: "{bufferRadii} {bufferUnits} Drive Area",
                          fieldInfos: [{
@@ -131,13 +131,30 @@
                                places: 0,
                                digitSeparator: true
                             }
+                         },{
+                           "fieldName": 'TOTFEMALES',
+                           "label": response.results[0].value.FeatureSet[0].fieldAliases['TOTFEMALES'],
+                           "visible": true,
+                           "format": {
+                              places: 0,
+                              digitSeparator: true
+                           }
+                        },{
+                          "fieldName": 'TOTMALES',
+                          "label": response.results[0].value.FeatureSet[0].fieldAliases['TOTMALES'],
+                          "visible": true,
+                          "format": {
+                             places: 0,
+                             digitSeparator: true
+                          }
                        }],
                          showAttachments: false
                       });
                          featureLayer = new FeatureLayer(featureCollection, {
                            mode: FeatureLayer.MODE_SNAPSHOT,
                            opacity: 0.5,
-                           infoTemplate:popupTemplate
+                           infoTemplate:popupTemplate,
+                           id:"drive-time-lyr"
                          });
                          
                          //smartMapping.createColorRenderer({'basemap':'gray', 'layer':featureLayer});
@@ -152,21 +169,21 @@
                           map.graphics.clear();
                           featureLayer.setRenderer(response.renderer);
                           featureLayer.redraw();
-                          domClass.toggle("enrich", "btn btn-primary disabled");
                         }, function(err){
                           console.log(err);
                         });
-                        
+                        domClass.toggle("enrich", "btn btn-primary disabled");
                         map.addLayer(featureLayer);
              
                    }, function(error){
                        console.log(error)
+                       domClass.toggle("enrich", "btn btn-primary disabled");
                    });
                 }
             });
   </script>
 </head>
-<body>
+<body class="claro">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header" style="padding-bottom:8px;">
