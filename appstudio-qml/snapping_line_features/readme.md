@@ -1,16 +1,22 @@
-# Snapping points from existing feature as vertices for new draw polygon  
-This application aims to show you how to snap points from existing map service when creating graphic polygon on basemap. By using this function is it easy for users who need to draw graphics that interact with existing features to perform measurement calculation or analysis.
+# Snap polygon verticies to existing point features
+This app demonstrates how to draw polygons on a map with verticies that can snap to points from a feature service. This logic can be expanded upon to create tools that interact with existing features to perform tasks such as measurement calculations or analysis.
 
-The sample uses the ArcGIS Runtime Qt 10.2.6 an ArcGIS Online Feature service.
+The sample uses the ArcGIS AppStudio AppFramework, based on the ArcGIS Runtime Qt 10.2.6.
 
 ![alt text](../../repository-images/snap_points_from _feature_service.png "Sample App UI screenshot")
 
 ## Steps to Recap how to make it works
-1)  Import ArcGIS Runtime QT in main.qml file.
+1)  Import ArcGIS AppStudio AppFramework in the MyApp.qml.
 
 ```qml
-import ArcGIS.Runtime 10.26
-import ArcGIS.Runtime.Toolkit.Controls 1.0
+import QtQuick 2.3
+import QtQuick.Dialogs 1.2
+import QtQuick.Controls 1.2
+import QtQuick.Controls.Styles 1.2
+import ArcGIS.AppFramework 1.0
+import ArcGIS.AppFramework.Controls 1.0
+import ArcGIS.AppFramework.Runtime 1.0
+import ArcGIS.AppFramework.Runtime.Controls 1.0
 ```
 
 2)  Add two properties as flags to control the addPoint function.
@@ -20,11 +26,11 @@ property bool firstPoint: true
 property bool isDone: false
 ```
 
-3)  Then add two buttons to control the graphic editing. One button is "Add Polygon" to enable edit, the other button is "Clear Polygon" to clear graphic on map and reset the firstPoint = ture and isDone = false.
+3)  Add two buttons to control graphic editing: "Edit" to enable editing, and "Clear" to clear all graphics on the map.  This also resets firstPoint = true and isDone = false.
 
 ```qml
     Button {
-        text: "Add Polygon"
+        text: "Clear"
         ...
         onClicked: {
                      isDone = true;
@@ -32,7 +38,7 @@ property bool isDone: false
            }
 ...
     Button {
-        text: "Clear Polygon"
+        text: "Clear"
         ...
         onClicked: {
             if (userPolygon.pathCount > 0)
@@ -45,21 +51,21 @@ property bool isDone: false
            }
 ```
 
-4)  Use the method *FeatureLayer::findFeatures* to determin whether the mouse click is selected any point features from loaded map service.
+4)  Use the method *FeatureLayer::findFeatures* to determine whether the mouse click has selected any point features from the loaded map service.
 
 ```qml
  var featureIds = featureLayer.findFeatures(mousex, mousey, 5, 1);
 ```
 
-5) We then need to implement the logic about addPoint function, there are two different scenarios:
-  1. Use the mouse click point location as geometry for polygon's point - **MapPoint (x,y)**
-  2. Use the existing point feature geometry for polygon's point - **Existing Point feature (x,y)**
+5) Implement the logic for the addPoint function.  There are two different scenarios:
+  1. If the click is not within the tolerance of a point feature, use the mouse click point geometry for the polygon's point - **MapPoint (x,y)**
+  2. If it is within the tolerance of a point feature, the existing point feature's geometry for polygon's point - **Existing Point feature (x,y)**
 
 ```qml
     if (featureIds.length == 0) {
 
-        //Check if any point features that fall within the mouse click range,
-        //if no points fall the tolerance range just add mouse point
+        //Check if any point features fall within the mouse click range,
+        //if no points fall within tolerance range just add mouse point
         userPolygon.lineTo(mapPoint.x, mapPoint.y);
         console.log("Mouse click location: " + mapPoint.x, mapPoint.y)
         graphicClone.geometry = userPolygon;
@@ -69,7 +75,7 @@ property bool isDone: false
 
         } else {
         //mouse click location close enough to the point feature,
-        //then snap the features's point as the next vertix of graphic polygon
+        //snap the next vertex of graphic polygon to features's point
         var selectedFeatureId = featureIds[0];
         var selectedFeature = featureServiceTable.feature(selectedFeatureId);
         var selectedPoint =selectedFeature.geometry
