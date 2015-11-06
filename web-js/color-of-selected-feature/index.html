@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Color of the Selected Features</title>
+
+  <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css" />
+
+  <script src="http://js.arcgis.com/3.14/"></script>
+  <script>
+    var map;
+
+    require([
+      "esri/InfoTemplate",
+      "esri/map",
+      "esri/layers/FeatureLayer",
+      "esri/symbols/SimpleFillSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/tasks/query",
+      "esri/toolbars/draw",
+      "dojo/dom",
+      "dojo/on",
+      "dojo/parser",
+      "dojo/_base/array",
+      "esri/Color",
+      "dijit/form/Button",
+      "dojo/domReady!"
+    ],
+      function (
+        InfoTemplate, Map, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,
+        Query, Draw, dom, on, parser, arrayUtil, Color
+      ) {
+
+        parser.parse();
+
+        var selectionToolbar, featureLayer;
+
+        map = new Map("map", {
+          basemap: "streets",
+          center: [-97.395, 37.537],
+          zoom: 11
+        });
+
+        map.on("load", initSelectToolbar);
+
+        var content = "<b>Status</b>: ${STATUS}" +
+                      "<br><b>Cumulative Gas</b>: ${CUMM_GAS} MCF" +
+                      "<br><b>Total Acres</b>: ${APPROXACRE}" +
+                      "<br><b>Avg. Field Depth</b>: ${AVG_DEPTH} meters";
+        var infoTemplate = new InfoTemplate("${FIELD_NAME}", content);
+
+        featureLayer = new FeatureLayer("http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Petroleum/KSPetro/MapServer/1", {
+            mode: FeatureLayer.MODE_ONDEMAND,
+            infoTemplate: infoTemplate,
+            outFields: ["*"]
+        });
+
+        featureLayer.setDefinitionExpression("PROD_GAS='Yes'");
+        featureLayer.on("selection-complete", sumGasProduction);
+
+        featureLayer.on("selection-clear", function () {
+          dom.byId('messages').innerHTML = "<i>No Selected Fields</i>";
+        });
+
+        map.addLayer(featureLayer);
+
+        on(dom.byId("selectFieldsButton"), "click", function () {
+          selectionToolbar.activate(Draw.EXTENT);
+        });
+
+        on(dom.byId("clearSelectionButton"), "click", function () {
+          featureLayer.clearSelection();
+        });
+
+        function initSelectToolbar (event) {
+          selectionToolbar = new Draw(event.map);
+          var selectQuery = new Query();
+          on(selectionToolbar, "DrawEnd", function (geometry) {
+            selectionToolbar.deactivate();
+            selectQuery.geometry = geometry;
+            featureLayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_NEW);
+          });
+        }
+
+        function sumGasProduction (event) {
+          var productionSum = 0;
+          var colorArr = [];
+          arrayUtil.forEach(event.features, function (feature) {
+            if(colorArr.indexOf(feature._shape.fillStyle) == -1) { //check if color already exists in the array
+              colorArr.push(feature._shape.fillStyle);
+            }
+            productionSum += feature.attributes.CUMM_GAS; //cumulative gas production
+          });
+
+          dom.byId('messages').innerHTML = "<b>Selected Fields Production: </b>" +
+                                            productionSum + " mcf. </b>" +
+                                            "<br> <b>Color of the selected feature(s): </b>" +
+                                            colorArr;
+
+        }
+
+      });
+  </script>
+</head>
+
+<body class="claro">
+  <button id="selectFieldsButton" data-dojo-type="dijit/form/Button">Select Fields</button>
+  <button id="clearSelectionButton" data-dojo-type="dijit/form/Button">Clear Selection</button><br>
+  <div id="map" style="position: relative; width:700px; height:500px; border:1px solid #000;"></div>
+  <span id="messages"></span>
+</body>
+
+</html>

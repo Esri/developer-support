@@ -1,0 +1,144 @@
+/* jQuery Modal
+ * Copyright 2014 Kevin Sylvestre
+ * 1.1.6
+ */
+@-webkit-keyframes spin {
+  0% {
+    opacity: 0.2; }
+
+  100% {
+    opacity: 0.4; } }
+@-moz-keyframes spin {
+  0% {
+    opacity: 0.2; }
+
+  100% {
+    opacity: 0.4; } }
+@-ms-keyframes spin {
+  0% {
+    opacity: 0.2; }
+
+  100% {
+    opacity: 0.4; } }
+@-o-keyframes spin {
+  0% {
+    opacity: 0.2; }
+
+  100% {
+    opacity: 0.4; } }
+@-keyframes spin {
+  0% {
+    opacity: 0.2; }
+
+  100% {
+    opacity: 0.4; } }
+.spin {
+  position: relative;
+  display: inline-block;
+  width: 128px;
+  height: 128px;
+  margin: 16px; }
+  .spin.spin-gleam {
+    background: #444444;
+    border-radius: 16px; }
+    .spin.spin-gleam > * {
+      background: #eeeeee; }
+  .spin.spin-dusky {
+    background: #eeeeee;
+    border-radius: 16px; }
+    .spin.spin-dusky > * {
+      background: #444444; }
+  .spin > * {
+    opacity: 0.2;
+    position: absolute;
+    width: 8%;
+    height: 24%;
+    left: 46%;
+    top: 38%;
+    background: black;
+    border-radius: 128px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.4);
+    -webkit-animation: spin 0.8s linear infinite;
+    -moz-animation: spin 0.8s linear infinite;
+    animation: spin 0.8s linear infinite; }
+    .spin > *:nth-child(1) {
+      -webkit-transform: rotate(40deg) translate(0, -120%);
+      -moz-transform: rotate(40deg) translate(0, -120%);
+      -ms-transform: rotate(40deg) translate(0, -120%);
+      -o-transform: rotate(40deg) translate(0, -120%);
+      transform: rotate(40deg) translate(0, -120%);
+      -webkit-animation-delay: 0.08889s;
+      -moz-animation-delay: 0.08889s;
+      animation-delay: 0.08889s; }
+    .spin > *:nth-child(2) {
+      -webkit-transform: rotate(80deg) translate(0, -120%);
+      -moz-transform: rotate(80deg) translate(0, -120%);
+      -ms-transform: rotate(80deg) translate(0, -120%);
+      -o-transform: rotate(80deg) translate(0, -120%);
+      transform: rotate(80deg) translate(0, -120%);
+      -webkit-animation-delay: 0.17778s;
+      -moz-animation-delay: 0.17778s;
+      animation-delay: 0.17778s; }
+    .spin > *:nth-child(3) {
+      -webkit-transform: rotate(120deg) translate(0, -120%);
+      -moz-transform: rotate(120deg) translate(0, -120%);
+      -ms-transform: rotate(120deg) translate(0, -120%);
+      -o-transform: rotate(120deg) translate(0, -120%);
+      transform: rotate(120deg) translate(0, -120%);
+      -webkit-animation-delay: 0.26667s;
+      -moz-animation-delay: 0.26667s;
+      animation-delay: 0.26667s; }
+    .spin > *:nth-child(4) {
+      -webkit-transform: rotate(160deg) translate(0, -120%);
+      -moz-transform: rotate(160deg) translate(0, -120%);
+      -ms-transform: rotate(160deg) translate(0, -120%);
+      -o-transform: rotate(160deg) translate(0, -120%);
+      transform: rotate(160deg) translate(0, -120%);
+      -webkit-animation-delay: 0.35556s;
+      -moz-animation-delay: 0.35556s;
+      animation-delay: 0.35556s; }
+    .spin > *:nth-child(5) {
+      -webkit-transform: rotate(200deg) translate(0, -120%);
+      -moz-transform: rotate(200deg) translate(0, -120%);
+      -ms-transform: rotate(200deg) translate(0, -120%);
+      -o-transform: rotate(200deg) translate(0, -120%);
+      transform: rotate(200deg) translate(0, -120%);
+      -webkit-animation-delay: 0.44444s;
+      -moz-animation-delay: 0.44444s;
+      animation-delay: 0.44444s; }
+    .spin > *:nth-child(6) {
+      -webkit-transform: rotate(240deg) translate(0, -120%);
+      -moz-transform: rotate(240deg) translate(0, -120%);
+      -ms-transform: rotate(240deg) translate(0, -120%);
+      -o-transform: rotate(240deg) translate(0, -120%);
+      transform: rotate(240deg) translate(0, -120%);
+      -webkit-animation-delay: 0.53333s;
+      -moz-animation-delay: 0.53333s;
+      animation-delay: 0.53333s; }
+    .spin > *:nth-child(7) {
+      -webkit-transform: rotate(280deg) translate(0, -120%);
+      -moz-transform: rotate(280deg) translate(0, -120%);
+      -ms-transform: rotate(280deg) translate(0, -120%);
+      -o-transform: rotate(280deg) translate(0, -120%);
+      transform: rotate(280deg) translate(0, -120%);
+      -webkit-animation-delay: 0.62222s;
+      -moz-animation-delay: 0.62222s;
+      animation-delay: 0.62222s; }
+    .spin > *:nth-child(8) {
+      -webkit-transform: rotate(320deg) translate(0, -120%);
+      -moz-transform: rotate(320deg) translate(0, -120%);
+      -ms-transform: rotate(320deg) translate(0, -120%);
+      -o-transform: rotate(320deg) translate(0, -120%);
+      transform: rotate(320deg) translate(0, -120%);
+      -webkit-animation-delay: 0.71111s;
+      -moz-animation-delay: 0.71111s;
+      animation-delay: 0.71111s; }
+    .spin > *:nth-child(9) {
+      -webkit-transform: rotate(360deg) translate(0, -120%);
+      -moz-transform: rotate(360deg) translate(0, -120%);
+      -ms-transform: rotate(360deg) translate(0, -120%);
+      -o-transform: rotate(360deg) translate(0, -120%);
+      transform: rotate(360deg) translate(0, -120%);
+      -webkit-animation-delay: 0.8s;
+      -moz-animation-delay: 0.8s;
+      animation-delay: 0.8s; }
