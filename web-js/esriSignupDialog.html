@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+<title>Accessing secure ArcGIS Server services</title>
+<link rel="stylesheet" href="//js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="//js.arcgis.com/3.14/esri/css/esri.css">
+<style>
+  html, body {
+    height: 98%;
+    width: 99%;
+    margin: 0;
+    padding-top: 4px;
+    padding-left: 4px;
+  }
+
+  #rightPanel {
+    width: 220px;
+    border: 2px solid #617798;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  #mapCanvas {
+    border-top: 2px solid #617798;
+    border-bottom: 2px solid #617798;
+    border-left: 2px solid #617798;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    padding: 0px;
+  }
+
+</style>
+
+<script src="//js.arcgis.com/3.14compact/"></script>
+<script>
+  var map;
+
+  require([
+      "dojo/_base/array",
+      "dojo/parser",
+      "esri/config",
+      "esri/dijit/editing/Editor",
+      "esri/dijit/editing/TemplatePicker",
+      "esri/layers/FeatureLayer",
+      "esri/map",
+      "dojo/i18n!esri/nls/jsapi",
+      "dojo/on",
+      "esri/IdentityManager",
+      "dojo/domReady!",
+      "dijit/layout/ContentPane",
+      "dijit/layout/BorderContainer"
+    ],
+    function (arrayUtils, parser, esriConfig, Editor, TemplatePicker, FeatureLayer, Map, esriBundle, on){
+
+      parser.parse();
+
+      esriConfig.defaults.io.proxyUrl = "/proxy/";
+      
+      esriBundle.identity.info = "Please sign in to our Secured Service.<span class='dijitOffScreen'>${server}${resource}</span>";
+      on(esri.id, 'onDialogCreate', function(extent){
+		  var dialog = dijit.byNode(dojo.query(".esriSignInDialog")[0]);
+	   esri.hide(esri.id.dialog.resLink_);
+	    esri.hide(esri.id.dialog.serverLink_);
+	
+	});
+
+      map = new Map("mapCanvas", {
+        basemap: "topo",
+        center: [-120.723, 35.165],
+        zoom: 12,
+        slider: false
+      });
+
+      //add editor when secureLayer is added
+      map.on("layers-add-result", initEditing);
+
+      //add the secure service - token is required
+      var secureLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SaveTheBay/FeatureServer/0",
+        {
+          mode: FeatureLayer.MODE_ONDEMAND,
+          outFields: ["*"]
+        });
+      map.addLayers([secureLayer]);
+
+      map.infoWindow.resize(200, 200);
+
+      function initEditing(event){
+        var results = event.layers;
+        var featureLayerInfos = arrayUtils.map(results, function (result){
+          return {
+            "featureLayer": result.layer
+          };
+        });
+        var layers = arrayUtils.map(results, function (result){
+          return result.layer;
+        });
+
+        var templatePicker = new TemplatePicker({
+          featureLayers: layers,
+          rows: 'auto',
+          columns: 2
+        }, "templatePickerDiv");
+
+        templatePicker.startup();
+
+        //setup the editor widget
+        var settings = {
+          map: map,
+          templatePicker: templatePicker,
+          layerInfos: featureLayerInfos
+        };
+        var params = {
+          settings: settings
+        };
+
+        var editorWidget = new Editor(params);
+        map.enableSnapping();
+        editorWidget.startup();
+      }
+    });
+  </script>
+</head>
+
+<body class="claro">
+  <div data-dojo-type="dijit/layout/BorderContainer"
+    data-dojo-props="design:'headline',gutters:false"
+    style="position:relative;width:100%;height:100%;">
+   <div id="mapCanvas"
+     data-dojo-type="dijit/layout/ContentPane"
+     data-dojo-props="region:'center'">
+   </div>
+   <!--right content panel-->
+   <div id="rightPanel"
+     data-dojo-type="dijit/layout/ContentPane"
+     data-dojo-props="region:'right'">
+     <p>This sample shows how to view and edit a secure map service using token-based authentication. Use the following credentials
+     to test the application:<br>
+     User Name: <b>user1</b><br>
+     Password: <b>user1</b><br>
+     or<br>
+     User Name: <b>user2</b><br>
+     Password: <b>user2</b></p>
+      <div id="content" style="height:100%;">
+        <div id="templatePickerDiv"></div>
+      </div>
+   </div>
+  </div>
+</body>
+</html>
