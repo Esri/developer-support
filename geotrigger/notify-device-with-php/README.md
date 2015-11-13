@@ -1,7 +1,7 @@
 #Send push notification to device with PHP script
 
 ##About
-At the behest of a customer I created a script to send a push notification running an app using the Geotrigger SDK. I struggled mightily to get the script to work. To prevent others from spending many hours trying to accomplish the same thing I have created this sample.
+At the behest of a customer I created a script to send a push notification running an app using the Geotrigger SDK. I struggled mightily to get the script to work. To prevent others from spending many hours trying to accomplish the same thing I have created this sample. You can learn more about sending push notifications to a geotrigger app [here](https://developers.arcgis.com/geotrigger-service/api-reference/device-notify/). More information about the Esri Geotrigger Service [can be found here](https://developers.arcgis.com/geotrigger-service/).
 
 ##Usage notes
 This script uses Curl. While this makes sending POST requests with PHP much easier this also means Curl must be configured on your server. You must use a client id and client secret registered to your developers.arcgis.com account to create the token used to access the geotrigger service. You must have a device that is registered to receive push notifications that is running an application using the Geotrigger SDK. Note for the push notification to successfully resolve the application must be running.
