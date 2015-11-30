@@ -38,80 +38,138 @@ App {
             right: parent.right
             top: parent.top
         }
-    }
+        Text {
+            id: titleText
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+                margins: 2 * AppFramework.displayScaleFactor
+            }
 
-    Text {
-        id: titleText
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-            margins: 2 * AppFramework.displayScaleFactor
+            text: "Draw polygons on the map and snap verticies to points from the feature service"
+            color: "white"
+            font {
+                pointSize: 16
+            }
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            maximumLineCount: 2
+            elide: Text.ElideMiddle
+            horizontalAlignment: Text.AlignHCenter
         }
-
-        text: "Draw polygons on map and snap points from feature service"
-        color: "white"
-        font {
-            pointSize: 20
-        }
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        maximumLineCount: 2
-        elide: Text.ElideMiddle
-        horizontalAlignment: Text.AlignHCenter
     }
 
 
     Rectangle {
-        id: buttomRect
-        y: 608
-        height: buttomText.paintedHeight + buttomText.anchors.margins * 2
+        id: bottomRect
+        height: editButton.height * 2 + editButton.anchors.topMargin * 3
         color: "Orange"
         anchors.rightMargin: 0
         anchors.leftMargin: 0
         anchors {
             left: parent.left
             right: parent.right
-            top: parent.buttom
+            bottom: parent.bottom
+        }
+        Text {
+            id: bottomText
+            anchors {
+                left: parent.left
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+                margins: 5 * AppFramework.displayScaleFactor
+            }
+            text:"To start drawing: Press the 'Edit' button.
+To finish: Press and hold the mouse for 2-3 seconds.
+To clear the graphics: Press the 'Clear' button."
+
+            font: {
+                pointSize: 10
+            }
+            color: "black"
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            maximumLineCount: 3
+            elide: Text.ElideMiddle
+            horizontalAlignment: Text.AlignLeft
+        }
+
+        Rectangle {
+            id: buttonRect
+            height: bottomRect.height
+            color: "orange"
+            anchors.rightMargin: 2 * AppFramework.displayScaleFactor
+            anchors.leftMargin: 2 * AppFramework.displayScaleFactor
+            width: editButton.width
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
+            }
+            //Click this button to add polygon
+            Button {
+                id: editButton
+                text: "Edit"
+                enabled: true
+                anchors {
+                    right: parent.right
+                    top: parent.top
+                    topMargin: 2 * AppFramework.displayScaleFactor
+                    bottomMargin: 2 * AppFramework.displayScaleFactor
+                }
+                width: clearButton.width
+                style: ButtonStyle {
+                    label: Text {
+                        id: editBtnTxt
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 17 * scaleFactor
+                        color: enabled ? "black" : "gray"
+                        text: control.text
+                    }
+                }
+                onClicked: {
+                    isDone = true;
+                    editFlash.start()
+                }
+            }
+            //Click this button to clear graphics
+            Button {
+                id: clearButton
+                text: "Clear"
+                style: editButton.style
+                enabled: true
+                anchors {
+                    right: editButton.right
+                    top: editButton.bottom
+                    topMargin: 2 * AppFramework.displayScaleFactor
+                    bottomMargin: 2 * AppFramework.displayScaleFactor
+                }
+                onClicked: {
+                    var numberPolygonDraw = userPolygon.pathCount;
+                    for (counter; counter < numberPolygonDraw; counter++){
+                        userPolygon.removePath(0);
+                    }
+                    isDone = false;
+                    firstPoint = true;
+                    featureLayer.clearSelection();
+                    graphicsLayer.removeAllGraphics();
+                    clearFlash.start()
+                }
+            }
         }
     }
 
-    Text {
-        id: buttomText
-        y: 608
-        height: 32
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: titleRect.buttom
-            margins: 2 * AppFramework.displayScaleFactor
-        }
-        text:"To start editing: Click 'Start Editing' button every time
-To finish editing: Press and hold the mouse in 2-3 seconds"
-        anchors.rightMargin: 0
-        anchors.leftMargin: 0
-        font: {
-            pointSize: 17
-        }
-        color: "black"
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        maximumLineCount: 2
-        elide: Text.ElideMiddle
-        horizontalAlignment: Text.AlignLeft
-    }
+
 
     Map {
         id: map
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 32
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
-            wrapAroundEnabled:  true
-            focus: true
+        wrapAroundEnabled:  true
+        focus: true
         anchors {
             left: parent.left
             right: parent.right
             top: titleRect.bottom
-            bottom: parent.bottom
+            bottom: bottomRect.top
         }
 
         NorthArrow {
@@ -125,15 +183,9 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         }
 
         ZoomButtons {
-            width: 0
-            height: 50
-            anchors.verticalCenterOffset: -233
-            anchors.topMargin: -223
-            anchors.leftMargin: 16
             anchors {
-                top: titleRect.bottom
+                top: parent.top
                 left: parent.left
-                verticalCenter: parent.verticalCenter
                 margins: 10
             }
         }
@@ -336,45 +388,6 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
             top: titleRect.bottom
             margins: 30 * scaleFactor
         }
-
-        //Click this button to add polygon
-        Button {
-            id: generateButton
-            width: 100
-            text: "Start Editing"
-            enabled: true
-            style: ButtonStyle {
-                label: Text {
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignHCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 25 * scaleFactor
-                    color: enabled ? "black" : "gray"
-                    text: control.text
-                }
-            }
-            onClicked: {
-                isDone = true;
-                editFlash.start()
-            }
-        }
-
-        Button {
-            text: "Clear Graphics"
-            style: generateButton.style
-            enabled: true
-            onClicked: {
-                var numberPolygonDraw = userPolygon.pathCount;
-                for (counter; counter < numberPolygonDraw; counter++){
-                    userPolygon.removePath(0);
-                }
-                isDone = false;
-                firstPoint = true;
-                featureLayer.clearSelection();
-                graphicsLayer.removeAllGraphics();
-                clearFlash.start()
-            }
-        }
     }
 
     function finishdraw() {
@@ -384,15 +397,15 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         graphicsLayer.addGraphic(featureAdd)
         console.log("Feature added")
 
-        //Once long press and hold the mouse, it indicates that on polygon is finished.
-        //Press "Start Editing" button to draw another polygon
+        //Long press and hold the mouse to indicate that polygon is finished.
+        //Press "Edit" button to draw another polygon
         //Reset the flags
         isDone = false
         firstPoint = true
 
         //clear the extra unnecessary remaining polygon skatches
         if (userPolygon.pathCount > 0)
-        userPolygon.removePath(0);
+            userPolygon.removePath(0);
     }
 
     function addPoint(mapPoint, mousex, mousey) {
@@ -414,8 +427,8 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         } else {
             var featureIds = featureLayer.findFeatures(mousex, mousey, 15, 1);
             if (featureIds.length == 0) {
-                //Check if any point features that fall within the mouse click range,
-                //if no points fall the tolerance range just add mouse point
+                //Check if any point features fall within the mouse click range,
+                //if no points fall within tolerance range just add mouse point
                 userPolygon.lineTo(mapPoint.x, mapPoint.y);
                 console.log("Mouse click location: " + mapPoint.x, mapPoint.y)
                 graphicClone.geometry = userPolygon;
@@ -426,7 +439,7 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
 
             } else {
                 //mouse click location close enough to the point feature,
-                //then snap the features's point as the next vertix of graphic polygon
+                //snap the next vertex of graphic polygon to features's point
                 var selectedFeatureId = featureIds[0];
                 var selectedFeature = featureServiceTable.feature(selectedFeatureId);
                 var selectedPoint =selectedFeature.geometry
