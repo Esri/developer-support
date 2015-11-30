@@ -97,7 +97,7 @@ lastly, and perhaps most importantly, the `scripts` section is where we define w
 
 calling `npm start` asks the popular node module [`http-server'](https://www.npmjs.com/package/http-server) to launch a tiny web server and host our files at http://localhost:1337
 
-calling `npm run compile` (only select keywords like `test` and `start` don't need to be prefaced by `run`) asks browserify to create the bundled javascript file we're actually referencing in our app.
+calling `npm run compile` (only select keywords like `install` and `test` don't need to be prefaced by `run`) asks browserify to create the bundled javascript file we're actually referencing in our app.
 
 ## I want to learn more about those nifty npm commands
 
