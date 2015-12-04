@@ -101,7 +101,7 @@ calling `npm run compile` (only select keywords like `install` and `test` don't 
 
 ## I want to learn more about those nifty npm commands
 
-check out [this great article](http://www.jayway.com/2014/03/28/running-scripts-with-npm/) on running scripts with npm.  @andersjanmyr does a far better job explaining than i ever could.
+check out [this great article](http://www.jayway.com/2014/03/28/running-scripts-with-npm/) on running scripts with npm.  [**@andersjanmyr**](https://github.com/andersjanmyr) does a far better job explaining than i ever could.
 
 ## More resources
 
