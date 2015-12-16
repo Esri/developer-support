@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>JS Beta 4.0.1</title>
+<style>
+
+  html, body {
+    padding: 0;
+    margin: 0;
+  }
+
+  #buttonsDiv1 {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    padding: 12px;
+    background-color: rgba(200, 200, 200, 1);
+    border: 1px solid black;
+  }
+
+  #buttonButton1 {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    height: 75px;
+    background-color: rgba(255, 0, 255, 0.3);
+    border: 2px solid #ccc;
+  }
+
+  #buttonsDiv2 {
+    position: absolute;
+    top: 265px;
+    right: 8px;
+    padding: 12px;
+    background-color: rgba(200, 200, 200, 1);
+    border: 1px solid black;
+  }
+
+  #buttonButton2 {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    height: 75px;
+    background-color: rgba(255, 0, 255, 0.3);
+    border: 2px solid #ccc;
+  }
+
+  #buttonsDiv3 {
+    position: absolute;
+    top: 135px;
+    right: 8px;
+    padding: 12px;
+    background-color: rgba(200, 200, 200, 1);
+    border: 1px solid black;
+  }
+
+  #buttonButton3 {
+    display: inline-block;
+    vertical-align: middle;
+    width: 100px;
+    height: 75px;
+    background-color: rgba(255, 0, 255, 0.3);
+    border: 2px solid #ccc;
+  }
+
+  #BasemapToggleDiv {
+    position: absolute;
+    top: 10px;
+    left: 60px;
+    z-index: 50;
+  }
+
+/* Basemap Gallery Dijit does not work @4.0.1
+  #BasemapGalleryDiv {
+    position: absolute;
+    bottom: 10px;
+    left: 60px;
+    z-index: 50;
+  }
+*/
+
+   #searchDiv {
+    position: absolute;
+    z-index: 20;
+    top: 10px;
+    left: 160px;
+  }
+
+  #textDiv {
+    position: absolute;
+    z-index: 20;
+    bottom: 50px;
+    right: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 275px;
+    height: 45px;
+    padding: 12px;
+    background-color: rgba(200, 200, 200, 1);
+    border: 1px solid black;
+  }
+
+  #textBox{
+    display: inline-block;
+    z-index: 20;
+    bottom: 50px;
+    right: 50px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 275px;
+    height: 45px;
+    background-color: rgba(255, 0, 255, 0.3);
+    border: 2px solid #ccc;
+  }
+
+  #environmentDiv {
+    position: absolute;
+    top: 12px;
+    right: 200px;
+    padding: 12px;
+    background-color: rgba(100, 100, 100, 1);
+    color: white;
+  }
+
+</style>
+
+<link rel="stylesheet" href="https://js.arcgis.com/4.0beta1/esri/css/esri.css">
+<script src="https://js.arcgis.com/4.0beta1/"></script>
+
+<script>
+  var map, view, bmap;
+
+  require([
+    "esri/Map",
+    "esri/config",
+    "esri/request",
+    "esri/core/urlUtils",
+    "esri/layers/FeatureLayer",
+    "esri/layers/WebTiledLayer",
+    "esri/views/SceneView",
+    "esri/layers/SceneLayer",
+    "esri/renderers/SimpleRenderer",
+    "esri/symbols/MeshSymbol3D",
+
+    "esri/symbols/FillSymbol3DLayer",
+    "dojo/dom",
+    "dojo/on",
+    "esri/widgets/BasemapToggle",
+    "esri/widgets/Search",
+    "esri/Viewpoint",
+    "esri/widgets/BasemapGallery", 
+    "esri/Basemap",
+    "esri/layers/ArcGISTiledLayer",
+
+    "esri/core/Accessor",
+    "dojo/domReady!"
+  ], function (Map, esriConfig, request, urlUtils, FeatureLayer, WebTiledLayer, SceneView, SceneLayer, SimpleRenderer, MeshSymbol3D, FillSymbol3DLayer, dom, on, BasemapToggle, Search, Viewpoint, BasemapGallery, Basemap, ArcGISTiledLayer){
+
+    //this is the proxy url, but doesn't seem to do anything yet
+    esriConfig.request.proxyUrl = "";
+    
+    //always use proxy does not do anything yet
+    //esriConfig.request.alwaysUseProxy = true;
+
+    /*proxy rule works like a champ for secure and non-secure resources
+    urlUtils.addProxyRule({
+      urlPrefix : "sampleserver6.arcgisonline.com",
+      proxyUrl : ""
+    });*/
+
+
+    //Create map
+    map = new Map({
+      basemap: "gray",
+      zoom: "20"
+    });
+
+    //Create SceneView
+    view = new SceneView({
+      container: "viewDiv",
+      map: map,
+      camera: {
+        position: [-122.669, 45.5032, 500], //x, y, z
+        //no tilt, because it's more impressive to tilt on your own (hold right mouse button and pan)
+        //tilt: 55
+      },
+      scale: 15000
+    });
+
+    //add a neat non-secure feature layer to the map
+    cityOverlay = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0");
+    map.add(cityOverlay);
+
+    //add a neat secure feature to the map via the proxy rule @line 164
+    //secureOverlay = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire_secure_ac2/MapServer/0");
+    //map.add(secureOverlay);
+
+    //Set the environment in SceneView
+    view.environment = {
+      lighting: {
+        directShadows: false,
+        date: new Date("Sun Mar 15 2015 17:00:00 GMT+0100 (CET)")
+      },
+      atmosphere: {enabled: false}
+    };
+
+    //if the atmosphere is set to true, then change it to false and vice versa
+    function environmental(){
+
+      var elem = document.getElementById("buttonButton3");
+
+      if (view.environment.atmosphere.enabled) {
+        view.environment.atmosphere.enabled = false;
+      }
+      else {
+        view.environment.atmosphere.enabled = true;
+      }
+      console.log("environment: ", view.environment.atmosphere.enabled);
+    }
+
+    //create a basemap toggle widget to change the perspective of the map (e.g. terrain)
+    var toggle = new BasemapToggle({
+      map: map,
+      basemap: "hybrid"
+    }, "BasemapToggleDiv");
+    toggle.startup();
+
+    //add the basemap gallery, in this case we'll display maps from ArcGIS.com including bing maps
+    //Basemap Gallery Dijit does not work @4.0.1
+    /*
+    var basemapGallery = new BasemapGallery({
+        showArcGISBasemaps: true,
+        map: map
+      }, "BasemapGalleryDiv");
+    basemapGallery.startup();
+      
+    basemapGallery.on("error", function(msg) {
+        console.log("basemap gallery error:  ", msg);
+    });
+    */
+
+    //Create SceneLayer and add to the map
+    var sceneLayer = new SceneLayer({
+      url: "http://scene.arcgis.com/arcgis/rest/services/Hosted/Building_Portland/SceneServer/layers/0/"
+    });
+
+    //Create MeshSymbol3D for symbolizing SceneLayer
+    var symbol = new MeshSymbol3D(
+      new FillSymbol3DLayer({
+        //If the value of material is not assigned, the default color will be grey, so make it pretty 
+        //(e.g. green)
+        material: {
+          color: [0, 122, 0, 0.9]
+        }
+      })
+    );
+    //Add the renderer to sceneLayer
+    sceneLayer.renderer = new SimpleRenderer(symbol);
+
+
+    //watch for basemap changes
+    //this uses watchUtils to watch for any changes to the basemap object
+    //https://developers.arcgis.com/javascript/beta/api-reference/esri-core-watchUtils.html
+    var handle = map.watch('basemap', function(newVal){
+      //Each time the value of map.basemap changes, it is logged in the console
+      console.log("new basemap: ", newVal.title);
+      //this will remove the watch handle, and the map no longer watches for changes to basemap
+      //handle.remove();
+      //this uses Accessor methods to get the ID of the new basemap
+      //https://developers.arcgis.com/javascript/beta/api-reference/esri-core-Accessor.html
+      var title = newVal.get("id");
+      console.log("new basemap: ", title);
+    });
+
+    //create a search widget so you can look for cool places with the 3D basemap
+    var searchWidget = new Search({
+      view: view
+    }, "searchDiv");
+    searchWidget.startup();
+
+    
+////////////////////////
+// buttons and events //
+////////////////////////
+
+
+    //Create a button with a function to make the map "come alive"
+    var buttonButton1 = dom.byId("buttonButton1");
+    on(buttonButton1, "click", comeAlive);
+
+
+    //Create a button with a function to make the map animate to Forest Falls, California
+    var buttonButton2 = dom.byId("buttonButton2");
+    on(buttonButton2, "click", animateTravel);
+
+
+    //Create a button to toggle the value of the atmosphere variable on or off
+    var buttonButton3 = dom.byId("buttonButton3");
+    on(buttonButton3, "click", environmental);
+
+
+    //adds a 3D building layer in Portland, Oregon
+    function comeAlive() { 
+      map.add(sceneLayer);
+      console.log("add 3D Building_Portland");
+      this.value=="Buildings Are Over";
+    }
+
+    //create an animation to destination function to wow your friends
+    function animateTravel() { 
+        console.log("animateTravel to Forest Falls");
+
+        //create target object to create a nice view looking into the canyon
+        var target = {
+          position: [-117.215,  34.155, 3463],
+          tilt: 82,
+          fov: 55,
+          heading: 104
+        };
+
+        //set a delay of 1 second (1,000 milliseconds)
+        var options = {delay: 1000}
+
+        view.animateTo(target, options); 
+
+        this.value="Travel is Over";
+    }
+
+    //for lighting changes throughout the day
+    //Register the events to controls
+    on(dom.byId("timeOfDaySelect"), "change", updateTimeOfDay);
+    on(dom.byId("directShadowsInput"), "change", updateDirectShadows);
+
+    //Create the event's callback functions
+    function updateTimeOfDay(ev) {
+      console.log("time changed");
+      var select = ev.target;
+      var date = select.options[select.selectedIndex].value;
+
+      view.environment.lighting.date = new Date(date);
+    }
+    function updateDirectShadows(ev) {
+      console.log("shadows changed");
+      view.environment.lighting.directShadows = !!ev.target.checked;
+    }
+
+  });
+ 
+</script>
+</head>
+
+<body>
+  <div id="searchDiv"></div>
+  <div id="viewDiv">
+    <div id="BasemapToggleDiv" title="not a basemap gallery"></div>
+    <div id="BasemapGalleryDiv" title="is a basemap gallery"></div>
+  </div>
+
+  <div id="environmentDiv">
+    <table>
+      <tr>
+        <td>Time of day:</td>
+        <td>
+          <select id="timeOfDaySelect">
+            <option value="Sun Mar 15 2015 17:00:00 GMT+0100 (CET)">Morning</option>
+            <option value="Sun Mar 15 2015 22:00:00 GMT+0100 (CET)">Noon</option>
+            <option value="Sun Mar 15 2015 01:00:00 GMT+0100 (CET)">Afternoon</option>
+            <option value="Sun Mar 15 2015 09:00:00 GMT+0100 (CET)">Evening</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Direct shadows:</td>
+        <td><input id="directShadowsInput" type="checkbox"></td>
+      </tr>
+    </table>
+  </div>
+  <div id="buttonsDiv1">
+      <button id="buttonButton1" title="make the map come alive!"><center><b>Add Buildings button</b></center></button>
+  </div>
+  <div id="buttonsDiv2">
+      <button id="buttonButton2" title="take a trip with me!"><center><b>Animated Travel button (one way only)</b></center>
+      </button>
+  </div>
+  <div id="buttonsDiv3">
+      <button id="buttonButton3" title="the ozone layer?" ><center><b>Atmosphere On/Off button</b></center></button>
+  </div>
+  <div id="textDiv">
+    <div id="textBox"><center>nb: hold right mouse button and pan<br>to see different perspectives</center></div>
+  </div>
+</body>
+</html>
