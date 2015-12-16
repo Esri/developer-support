@@ -51,7 +51,7 @@
 				//Create a string representation of the data you wish to save to the CSV file
 				function firstRequest(response){
 					//The fields you would like to include in the CSV
-					var headers = ["id", "owner", "type", "created", "access", "title"];
+					var headers = ["id", "type", "created", "access", "title"];
 					//Add the headers to the content string, end with new line character
 					var content = headers.toString() + "\n";
 					//Loop through the results
