@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>WGS to Web Mercator</title>
+<script src="http://js.arcgis.com/3.14/"></script>
+</head>
+
+<style>
+div{
+	margin:12px;
+}
+</style>
+
+<script>
+require(["esri/geometry/Polygon",
+         "esri/geometry/webMercatorUtils",
+         "dojo/json",
+         "dojo/dom"], 
+         function(Polygon, 
+        		 webMercatorUtils, 
+        		 JSON,
+        		 dom){
+
+	var polygon  = {"rings":[[[-122.63,45.52],[-122.57,45.53],[-122.52,45.50],[-122.49,45.48],
+	                              [-122.64,45.49],[-122.63,45.52],[-122.63,45.52]]],"spatialReference":{"wkid":4326 }};
+	
+	var wgs_polygon = new Polygon(polygon);
+	
+	dom.byId('wgs').innerHTML = JSON.stringify(wgs_polygon.toJson());
+	
+	var merc_geom = webMercatorUtils.geographicToWebMercator(wgs_polygon);
+	
+	dom.byId('merc').innerHTML = JSON.stringify(merc_geom.toJson());
+});
+                            
+</script>
+<body>
+<div>
+<h2>WGS</h2>
+<pre id="wgs"></pre>
+</div>
+
+<div>
+<h2>Web Mercator</h2>
+<pre id="merc"></pre>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Long lived token</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        require([
+            "esri/config",
+            "esri/layers/ArcGISDynamicMapServiceLayer",
+            "esri/map",
+            "esri/request",
+            "dojo/domReady!",
+        ], function(
+            esriConfig,
+            ArcGISDynamicMapServiceLayer,
+            Map,
+            esriRequest
+        ) {
+            var secureLayer;
+            //this variable will hold the generated token
+            var token;
+            //the url to the secured layer
+            var secureLayerURL = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SaveTheBay/MapServer";
+            //push the server we are making the request to into the cors enabled server list
+            esriConfig.defaults.io.corsEnabledServers.push("sampleserver6.arcgisonline.com");
+            var map = new Map("map", {
+                basemap: "topo",
+                center: [-120.723, 35.165],
+                zoom: 12,
+                slider: false
+            });
+            //create the request to the generate token endpoint
+            esriRequest({
+                url: "/generateToken.php",
+                handleAs: "json",
+                //execute this function if the token is generated succesfully
+                load: tokenObtained,
+                //execute this function if the request fails
+                error: tokenRequestFailed
+            }, {
+                usePost: false
+            });
+            function tokenObtained(response) {
+                //grab the token
+                token = response.token;
+                //add the layer to map
+                addLayerToMap();
+            }
+            function tokenRequestFailed(error) {
+                console.log("error: ", error);
+            }
+            function addLayerToMap() {
+                //append the token to the secured layer's url
+                secureLayer = new ArcGISDynamicMapServiceLayer(secureLayerURL + "?token=" + token);
+				console.log(secureLayer);
+                //add the layer to the map
+                map.addLayer(secureLayer);
+            }
+        });
+    </script>
+</head>
+
+<body class="claro">
+    <div id="map" />
+</body>
+
+</html>

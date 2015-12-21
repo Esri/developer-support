@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Draggable Infowindow</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+<style>
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#info {
+    min-height: 20px;
+    min-width: 160px;
+    right: 5px;
+    top: 5px;
+    margin: 5px;
+    padding: 10px;
+    position: absolute;
+    width: 10%;
+    z-index: 40;
+    border: solid 2px #666;
+    border-radius: 4px;
+    background-color: limegreen;
+}
+    
+#map {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+
+.esriPopupWrapper .title {
+    cursor: move;
+}
+.esriPopup .pointer.hidden, .esriPopup .outerPointer.hidden {
+    display: none;
+}
+</style>
+<script src="//js.arcgis.com/3.14/"></script>
+<script>
+require([
+    'esri/arcgis/utils',
+    'dojo/dnd/Moveable'
+], function (
+    arcgisUtils,    
+    Moveable
+) {
+    var webMapItemID = "fe0827dfea2441f5b206b0e2c37b79cd";
+    arcgisUtils.createMap(webMapItemID, "map").then(function(response) {
+        var map = response.map;
+        var handle = map.infoWindow.domNode.querySelector(".title"); //query(".title", map.infoWindow.domNode)[0];
+        var dnd = new Moveable(map.infoWindow.domNode, {
+            handle: handle
+        });
+        
+        // when the infoWindow is moved, hide the arrow:
+        dnd.on('FirstMove', function() {
+            // hide pointer and outerpointer (used depending on where the pointer is shown)
+            var arrowNode =  map.infoWindow.domNode.querySelector(".outerPointer");
+            //use classList.add to override .outPointer and .pointer
+            arrowNode.classList.add("hidden");
+            arrowNode =  map.infoWindow.domNode.querySelector(".pointer");
+            arrowNode.classList.add("hidden");
+        }.bind(this));
+    });
+});
+</script>
+    </head>
+    <body class="claro">    
+        <div id="info">
+            <label>Draggable Info Window</label>
+        </div>        
+        <div id="map"></div>
+    </body>

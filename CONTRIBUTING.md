@@ -24,8 +24,17 @@ Feel free to file an [issue](https://github.com/Esri/developer-support/issues/ne
 * Add a readme file describing what the code achieves and how to run it
 * Remove framework files and unnecessary files
 * Try to keep screenshots under 1MB (~800px) whenever possible
+* **No `--force` pushing** or modifying the Git history in any way
+* Dedicated feature branches should be used for ongoing work.
 
 ### Resources
 
+* Official [GitHub Guides](https://guides.github.com/)
 * [Contributing](https://guides.github.com/activities/contributing-to-open-source/) to Open Source projects
 * Learning [Git](https://github.com/Esri/developer-support/wiki/Resources-To-Learn-Git)
+* Twitter [Infographic](https://twitter.com/cthydng/status/575483540202106880?s=09)
+* App: [GitHub Desktop](https://desktop.github.com/)
+* App: [SourceTree](https://www.atlassian.com/software/sourcetree/overview/)
+
+
+

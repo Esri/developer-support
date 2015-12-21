@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+		<title>How to Query Organization Items</title>
+
+		<style>
+			html, body, #map {
+				height: 100%;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+			}
+		</style>
+
+		<script src="//js.arcgis.com/3.14/"></script>
+		<script>
+			require([
+				"esri/config",
+				"esri/request",
+				"dojo/domReady!"
+			], function ( 
+				esriConfig,
+				esriRequest
+			){	
+				//URL to send the request to
+				var url = "https://ess.maps.arcgis.com/sharing/rest/search";
+				
+				//Push the domain to the cors enabled servers list to avoid a CORS error
+				esriConfig.defaults.io.corsEnabledServers.push("ess.maps.arcgis.com");
+				
+				sendFirstRequest();
+				
+				//Use esri request to query the organization
+				function sendFirstRequest() {
+					esriRequest({
+						url: url,
+						content: {
+							q: "orgid:Wl7Y1m92PbjtJs5n",
+							num: 100,
+							start: 101,
+							f: "json"
+						},
+						handleAs: "json",
+						load: firstRequest,
+						error: requestFailed
+					}, {usePost: false});
+				}
+				
+				//Create a string representation of the data you wish to save to the CSV file
+				function firstRequest(response){
+					//The fields you would like to include in the CSV
+					var headers = ["id", "type", "created", "access", "title"];
+					//Add the headers to the content string, end with new line character
+					var content = headers.toString() + "\n";
+					//Loop through the results
+					for(var i = 0; i < response.results.length; i++) {
+						var row = "";
+						//Loop through the headers array
+						for (property in headers) {
+							//Access the desired field from the results and add a comma to end
+							row += response.results[i][headers[property]] + ",";
+						}
+						//Add the row the content string, end with new line character
+						content += row.substring(0, row.length - 1) + "\n";
+					}
+					createCSVFile(content, "101Request.csv");
+				}
+				
+				//This function creates the csv file
+				function createCSVFile(content, filename) {
+					//set the CSV content type
+					var csvContent = "data:text/csv;charset=utf-8,";
+					//Add the content string
+					csvContent += content;
+					//Encode the content
+					var encodedUri = encodeURI(csvContent);
+					//Create a hyperlink in the document
+					var link = document.createElement("a");
+					//Set the reference to the encoded content string
+					link.setAttribute("href", encodedUri);
+					link.setAttribute("download", filename);
+					//Call the click event to download the file
+					link.click();
+				}
+
+				function requestFailed(error){
+					console.log("error: ", error);
+				}
+			});
+		</script>
+	</head>
+
+	<body class="claro">
+		<div id="map" />
+	</body>
+</html>
