@@ -1,0 +1,29 @@
+Add a customized label class on a simple feature layer        
+        
+        
+        static void AddCustomizedLabelClass(IFeatureLayer pFL, IMap pMap)
+        {
+            IGeoFeatureLayer pGeoFL = (IGeoFeatureLayer)pFL;
+            IAnnotateLayerPropertiesCollection2 pAnnoPropColl = (IAnnotateLayerPropertiesCollection2)pGeoFL.AnnotationProperties;
+
+            ILabelEngineLayerProperties2 pLabelEngineProp = (ILabelEngineLayerProperties2)new LabelEngineLayerProperties(); //changed MaplexLabelEngineLayerProperties to LabelEngineLayerProperties
+            IAnnotateLayerProperties pAnnoLayerProp = (IAnnotateLayerProperties)pLabelEngineProp;
+            pAnnoLayerProp.Class = "AnnoClass1";
+            pAnnoLayerProp.WhereClause = "REG_LOT = '73'";
+            pLabelEngineProp.IsExpressionSimple = true;  //You have to define the label field, otherwise it will not function well
+            pLabelEngineProp.Expression = "[REG_LOT]";   //You have to define the label field, otherwise it will not function well
+            pAnnoLayerProp.DisplayAnnotation = true;
+            pAnnoPropColl.Add(pAnnoLayerProp);
+
+            IAnnotateLayerProperties pAnnoLayerPropDefault;
+
+            int outid;
+            pAnnoPropColl.QueryItem(0, out pAnnoLayerPropDefault, out outid);
+            pAnnoLayerPropDefault.DisplayAnnotation = true;  //Either True or False. But you have to define the visibility of the default label, otherwise it will not function well
+
+            IActiveView pView = (IActiveView)pMap;
+
+            pGeoFL.DisplayAnnotation = true; //To display the labels for the layer, you have to set it true
+            pView.Refresh();
+
+        }
