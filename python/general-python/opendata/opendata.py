@@ -17,14 +17,13 @@ class OpenData(object):
 
     """
     Example Open Data object. Open Data site needs to be public.
+    username : Username used to log into an ArcGIS Online Organization.
+    password : Password used to log into an ArcGIS Online Organization.
+    OpenDataSite: Open Data Site Number (i.e. 0001).
     """
 
     def __init__(self, username, password, OpenDataSite):
-        """
-        username : Username used to log into an ArcGIS Online Organization.
-        password : Password used to log into an ArcGIS Online Organization.
-        OpenDataSite: Open Data Site Number (i.e. 0001).
-        """
+        
         self.username = username
         self.password = password
         self.token = self.generateToken()
@@ -47,7 +46,7 @@ class OpenData(object):
 
     def findAllOpenDataItems(self):
         """
-        Matches item ID of service that is being updated to the itemID in Open Data. \
+        Finds and returns all item IDs in an Open Data site. \
         Will receive error if the Open Data site is not public.
         """
         url = "https://opendata.arcgis.com/api/sites/{0}/datasets.json?token={1}".format(self.OpenDataSite, self.token)
