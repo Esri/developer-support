@@ -63,6 +63,6 @@ class OpenData(object):
             requests.put(url, verify=False)
 
 if __name__ == "__main__":
-    """Example workflow that refreshes all datasets in an Open Data site. This will not work for datasets that have errors in Open Data."""
+    """Example workflow that refreshes all datasets in an Open Data site."""
     test = OpenData("username", "password", "0000")
     test.refresh()
