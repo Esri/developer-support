@@ -6,8 +6,10 @@ Requests module is needed: http://docs.python-requests.org/en/latest/
 Input username, password, and Open Data site number when initializing the Open Data object.
 
 ```python
->>> me = opendata("username", "password", "0000")
->>> me.refresh()
+if __name__ == "__main__":
+    """Example workflow that refreshes all datasets in an Open Data site. This will not work for datasets that have errors in Open Data."""
+    test = OpenData("username", "password", "0000")
+    test.refresh()
 ```
 
 ##Parameters
