@@ -7,7 +7,7 @@ Input username, password, and Open Data site number when initializing the Open D
 
 ```python
 if __name__ == "__main__":
-    """Example workflow that refreshes all datasets in an Open Data site. This will not work for datasets that have errors in Open Data."""
+    """Example workflow that refreshes all datasets in an Open Data site."""
     test = OpenData("username", "password", "0000")
     test.refresh()
 ```
