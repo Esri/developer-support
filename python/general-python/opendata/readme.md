@@ -16,7 +16,7 @@ if __name__ == "__main__":
 - username : Username used to log into an ArcGIS Online Organization.
 - password : Password used to log into an ArcGIS Online Organization.
 - OpenDataSite: Open Data Site Number
--- i.e. 0001 is the site number for https://opendata.arcgis.com/admin/#/sites/0000/datasets
+-- i.e. 0000 is the site number for https://opendata.arcgis.com/admin/#/sites/0000/datasets
 -- The above url may be grabbed when managing an Open Data site.
 
 ##Properties
