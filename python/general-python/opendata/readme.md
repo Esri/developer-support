@@ -1,12 +1,15 @@
 #Open Data Object
 This sample script currently contains an example workflow to refresh the datasets and cache for all datasets in an Open Data site.
 ##Usage Notes
+Requests module is needed: http://docs.python-requests.org/en/latest/
+
 Input username, password, and Open Data site number when initializing the Open Data object.
 
 ```python
 >>> me = opendata("username", "password", "0000")
 >>> me.refresh()
 ```
+
 ##Parameters
 - username : Username used to log into an ArcGIS Online Organization.
 - password : Password used to log into an ArcGIS Online Organization.
