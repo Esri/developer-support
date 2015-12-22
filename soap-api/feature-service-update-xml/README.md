@@ -1,8 +1,8 @@
 # How to send feature service SOAP Update request 
 This xml sample shows how to send a proper feature service SOAP Update request
-You may import this xml and execute it in SOAP UI
+You may import this xml and execute it in SoapUI (view free download here http://www.soapui.org/downloads/soapui.html) or other third party software like Microsoft BizTalk that uses xml to send SOAP request
 
-
+ 
 [Documentation on Feature service Update method]
 (http://resources.arcgis.com/en/help/soap/10.1/index.html#/Update/01vp00000056000000/)
 
