@@ -1,7 +1,10 @@
 #Open Data Object
 This sample script currently contains an example workflow to refresh the datasets and cache for all datasets in an Open Data site.
+
 ##Usage Notes
 Requests module is needed: http://docs.python-requests.org/en/latest/
+
+Open Data site needs to be public.
 
 Input username, password, and Open Data site number when initializing the Open Data object.
 
@@ -22,3 +25,9 @@ if __name__ == "__main__":
 ##Properties
 - token : used to authenticate
 - OpenDataItems: List of all items in the Open Data site
+
+## Warnings
+- SSL Cert Verification not verified. See: http://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification
+- Open Data API is not documented and therefore the endpoints may change at any point : http://ideas.arcgis.com/ideaView?id=087E0000000blPIIAY
+- This script may cause a temporary increase in traffic on your server if data is hosted on ArcGIS for Server, as multiple requests will/may be sent to each service to cache the data.
+- Not supported by Esri Support Services.
