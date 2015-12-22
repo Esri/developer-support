@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Feature Collection</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+
+    <style>
+        html,
+        body{
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+		#rightPane {
+			height: 100%;
+		}
+		#map {
+			height: 100%;
+			width: 80%;
+			float: left;
+		}
+    </style>
+
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        require([
+            "esri/config",
+			"esri/Color",
+			"esri/graphic",
+			"esri/InfoTemplate",
+            "esri/map",
+            "esri/request",
+			"esri/geometry/Point",
+			"esri/layers/GraphicsLayer",
+			"esri/layers/FeatureLayer",
+			"esri/renderers/UniqueValueRenderer",
+			"esri/symbols/SimpleMarkerSymbol",
+			"esri/symbols/SimpleLineSymbol",
+			"dijit/layout/BorderContainer",
+			"dijit/layout/ContentPane",
+            "dojo/domReady!",
+        ], function(
+            esriConfig,
+			Color,
+			Graphic,
+			InfoTemplate,
+            Map,
+            esriRequest,
+			Point,
+			GraphicsLayer,
+			FeatureLayer,
+			UniqueValueRenderer,
+			SimpleMarkerSymbol,
+			SimpleLineSymbol
+        ) {
+			//The FeatureLayer
+			var crimeLayer;
+			//The API Key for the spot crime API
+			var apiKey = "xxxxxxxxxx"
+			//The API URL to send the request to
+			var crimeAPIURL = "http://spotcrime.com/feed/search.php";
+			//Use a proxy to avoid a CORS error
+			esriConfig.defaults.io.proxyUrl = "http://csc-nhaney7d.esri.com/proxy/proxy.ashx";
+			
+			var defaultSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 1), new Color([0, 255, 0]));
+			
+			//Create a unique value renderer to display the data in the feature layer
+			var renderer = new UniqueValueRenderer(defaultSymbol, "Type");
+			renderer.addValue("Assault", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#6A1F01")));
+			renderer.addValue("Burglary", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#7A8A03")));
+			renderer.addValue("Arrest", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#0AC59D")));
+			renderer.addValue("Arson", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#7E14FF")));
+			renderer.addValue("Robbery", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#FF5F4A")));
+			renderer.addValue("Shooting", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#FFF76D")));
+			renderer.addValue("Theft", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#A8FFDD")));
+			renderer.addValue("Vandalism", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#C8E6FF")));
+			renderer.addValue("Other", new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color(255,255,255), 2), Color.fromHex("#000F03")));
+			
+			//The fields to be used in the feature collection
+			var fields = 
+			[{
+				"name": "OBJECTID",
+				"type": "esriFieldTypeOID",
+				"alias": "OID"
+			},
+			{
+				"name": "Address",
+				"type": "esriFieldTypeString",
+				"alias": "Address"
+			},
+			{
+				"name": "City",
+				"type": "esriFieldTypeString",
+				"alias": "City"
+			},
+			{
+				"name": "Date",
+				"type": "esriFieldTypeDate",
+				"alias": "Date"
+			},
+			{
+				"name": "Type",
+				"type": "esriFieldTypeString",
+				"alias": "Type"
+			},
+			{
+				"name": "Description",
+				"type": "esriFieldTypeString",
+				"alias": "Description"
+			}];
+			
+			//The layer definition for the feature collection
+			var layerDefinition = {
+				"geometryType":"esriGeometryPoint",
+				"fields": fields
+			};
+			
+			//Create the feature set object. Note the features property is not set yet
+			var featureSet = {
+				"objectIdFieldName":"OBJECTID",
+				"displayFieldName":"Address",
+				"fieldAliases": {
+					"OBJECTID":"OBJECTID",
+					"Address":"Address",
+					"City":"City",
+					"Date":"Date",
+					"Type":"Type",
+					"Description":"Description"
+				},
+				"geometryType":"esriGeometryPoint",
+				"spatialReference":{
+					"wkid":4326,
+					"latestWkid":4326
+				},
+				"features": null
+			};
+			
+			//The HTML string to be used in the infoTemplate
+			var popupString = "<b>Date: </b>${Date}<br/>"
+				+ "<b>City: </b>${City}<br/>"
+				+ "<b>Address: </b>${Address}<br/>"
+				+ "<b>Date: </b>${Date}<br/>"
+				+ "<b>Type: </b>${Type}<br/>"
+				+ "<b>Description: </b>${Description}<br/>";
+			
+			//Create the infoTemplate object
+			var infoTemplate = new InfoTemplate();
+			infoTemplate.setTitle("<b>${Type}</b>");
+			infoTemplate.setContent(popupString);
+			
+            var map = new Map("map", {
+                basemap: "gray",
+                center: [-88.043, 30.694],
+                zoom: 10,
+                slider: false
+            });
+			
+			//Use esriRequest to send the request to the SpotCrime API
+            esriRequest({
+                url: crimeAPIURL,
+                handleAs: "json",
+				content: {
+					searchQuery: "cdate=10/01/2015&cdate1=12/14/2015",
+					ctype: 1,
+					area_id: "al/mobile-county",
+					_: apiKey
+				},			
+                load: resultsReturned,
+                error: requestFailed
+            }, {
+                usePost: false,
+				useProxy: true
+            });
+			
+			//Process the results
+            function resultsReturned(results) {
+				//Features array to hold the feature object we will create
+				var features = [];
+				//Loop through the results
+				for(var i = 0; i < results.crimeList.length; i++) {
+					var temp = results.crimeList[i];
+					//Create the attributes object
+					var attributes = {"OBJECTID":i, "Address":temp.caddress, "City":temp.ccity, "Date":temp.calc_date, "Type":temp.cname, "Description":temp.cdescription};
+					//Create the feature object
+					var feature = {"geometry":{"x": temp.clongitude, "y": temp.clatitude}, "attributes":attributes};
+					//Push the feature to the array
+					features.push(feature);
+				}
+				//Set the features parameter of the featureSet object
+				featureSet.features = features;
+				createFeatureLayer(featureSet);
+            }
+			
+            function requestFailed(error) {
+                console.log("error: ", error);
+            }
+			
+			//Function used to create the feature layer
+			function createFeatureLayer(featureSet) {
+				//Create the feature collection object
+				var featureCollection = {layerDefinition: layerDefinition, featureSet: featureSet};
+				//Use the feature collection to create the feature layer
+				var featureLayer = new FeatureLayer(featureCollection);
+				//Set the renderer and infoTemplate
+				featureLayer.setRenderer(renderer);
+				featureLayer.setInfoTemplate(infoTemplate);
+				//add the feature layer to the map
+				map.addLayer(featureLayer);
+			}
+        });
+    </script>
+</head>
+
+<body class="claro">
+	<div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:true, design:'headline'" style="width:100%;height:100%;">
+		<div id="map" data-dojo-props="region:'center'"></div>
+		<div id="rightPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'">
+		</div>
+	</div>
+</body>
+
+</html>

@@ -26,6 +26,9 @@ App {
     property double scaleFactor: System.displayScaleFactor
     property bool firstPoint: true
     property bool isDone: false
+    property var bufferPoint
+    property var newPoint
+    property int bufferWidth: 100
     property int polyGraphicId
     property int counter: 0
 
@@ -38,80 +41,145 @@ App {
             right: parent.right
             top: parent.top
         }
-    }
 
-    Text {
-        id: titleText
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: parent.top
-            margins: 2 * AppFramework.displayScaleFactor
+        Text {
+            id: titleText
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+                margins: 2 * AppFramework.displayScaleFactor
+            }
+
+            text: "Draw polygons on the map and snap verticies to points from the feature service"
+            color: "white"
+            font {
+                pointSize: 16
+            }
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            maximumLineCount: 2
+            elide: Text.ElideMiddle
+            horizontalAlignment: Text.AlignHCenter
         }
-
-        text: "Draw polygons on map and snap points from feature service"
-        color: "white"
-        font {
-            pointSize: 20
-        }
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        maximumLineCount: 2
-        elide: Text.ElideMiddle
-        horizontalAlignment: Text.AlignHCenter
     }
-
 
     Rectangle {
-        id: buttomRect
-        y: 608
-        height: buttomText.paintedHeight + buttomText.anchors.margins * 2
+        id: bottomRect
+        height: editButton.height * 3.5 + editButton.anchors.topMargin * 3
         color: "Orange"
         anchors.rightMargin: 0
         anchors.leftMargin: 0
         anchors {
             left: parent.left
             right: parent.right
-            top: parent.buttom
+            bottom: parent.bottom
         }
-    }
 
-    Text {
-        id: buttomText
-        y: 608
-        height: 32
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: titleRect.buttom
-            margins: 2 * AppFramework.displayScaleFactor
+        Text {
+            id: bottomText
+            anchors {
+                left: parent.left
+                right: parent.right
+                verticalCenter: parent.verticalCenter
+                margins: 5 * AppFramework.displayScaleFactor
+            }
+            text:"To start drawing: Press the 'Edit' button.
+To finish: Press and hold the mouse for 2-3 seconds.
+To clear the graphics: Press the 'Clear' button.
+When snap point to existing features the buffer
+is green, otherwise the snap point is red.
+"
+            font: {
+                pointSize: 10
+            }
+            color: "black"
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            maximumLineCount: 5
+            elide: Text.ElideMiddle
+            horizontalAlignment: Text.AlignLeft
         }
-        text:"To start editing: Click 'Start Editing' button every time
-To finish editing: Press and hold the mouse in 2-3 seconds"
-        anchors.rightMargin: 0
-        anchors.leftMargin: 0
-        font: {
-            pointSize: 17
+
+        Rectangle {
+            id: buttonRect
+            height: bottomRect.height
+            color: "orange"
+            anchors.rightMargin: 2 * AppFramework.displayScaleFactor
+            anchors.leftMargin: 2 * AppFramework.displayScaleFactor
+            width: editButton.width
+            anchors {
+                right: parent.right
+                bottom: parent.bottom
+            }
+            //Click this button to add polygon
+            Button {
+                id: editButton
+                x: 0
+                y: 13
+                text: "Edit"
+                enabled: true
+                anchors {
+                    topMargin: 1 * AppFramework.displayScaleFactor
+                    bottomMargin: 2 * AppFramework.displayScaleFactor
+                }
+                width: clearButton.width
+                style: ButtonStyle {
+                    label: Text {
+                        id: editBtnTxt
+                        renderType: Text.NativeRendering
+                        verticalAlignment: Text.AlignHCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pixelSize: 17 * scaleFactor
+                        color: enabled ? "black" : "gray"
+                        text: control.text
+                    }
+                }
+                onClicked: {
+                    isDone = true;
+                    editFlash.start()
+                }
+            }
+
+            Button {
+                id: clearButton
+                x: 0
+                text: "Clear"
+                anchors.rightMargin: 0
+                anchors.topMargin: 13
+                style: editButton.style
+                enabled: true
+                anchors {
+                    right: editButton.right
+                    top: editButton.bottom
+                    bottomMargin: 1 * AppFramework.displayScaleFactor
+                }
+                onClicked: {
+                    var numberPolygonDraw = userPolyline.pathCount;
+                    for (counter; counter < numberPolygonDraw; counter++){
+                        userPolyline.removePath(0);
+                    }
+                    isDone = false;
+                    firstPoint = true;
+                    featureLayer.clearSelection();
+                    graphicsLayer.removeAllGraphics();
+                    clearFlash.start()
+
+                    //Remove all unnecessary graphics even if user not press down mouse button to finish editing.
+                    if (userPolyline.pathCount > 0)
+                        userPolyline.removePath(0);
+                }
+            }
         }
-        color: "black"
-        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-        maximumLineCount: 2
-        elide: Text.ElideMiddle
-        horizontalAlignment: Text.AlignLeft
     }
 
     Map {
         id: map
-        anchors.rightMargin: 0
-        anchors.bottomMargin: 32
-            anchors.leftMargin: 0
-            anchors.topMargin: 0
-            wrapAroundEnabled:  true
-            focus: true
+        wrapAroundEnabled:  true
+        focus: true
         anchors {
             left: parent.left
             right: parent.right
             top: titleRect.bottom
-            bottom: parent.bottom
+            bottom: bottomRect.top
         }
 
         NorthArrow {
@@ -125,15 +193,9 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         }
 
         ZoomButtons {
-            width: 0
-            height: 50
-            anchors.verticalCenterOffset: -233
-            anchors.topMargin: -223
-            anchors.leftMargin: 16
             anchors {
-                top: titleRect.bottom
+                top: parent.top
                 left: parent.left
-                verticalCenter: parent.verticalCenter
                 margins: 10
             }
         }
@@ -199,7 +261,7 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         symbol: SimpleMarkerSymbol{
             color: "red"
             style: Enums.SimpleMarkerSymbolStyleCircle
-            size: 6
+            size: 10
         }
     }
 
@@ -215,9 +277,35 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         }
     }
 
+    Graphic {
+       id: yellowLine
+       symbol: SimpleLineSymbol{
+           color: "yellow"
+           style: Enums.SimpleLineSymbolStyleDashDotDot
+           width: 3.5
+       }
+    }
+
+    Graphic {
+        id: bufferGraphic
+        symbol: SimpleFillSymbol {
+            color: Qt.rgba(0, 0, 0, 0.5)
+            outline:  SimpleLineSymbol {
+                color: Qt.rgba(0, 255, 0, 1)
+                style: Enums.SimpleLineSymbolStyleDashDot
+                width: 3.5
+            }
+        }
+    }
+
     MultiPoint {
         id: points
         spatialReference: {"latestWkid": 3857,"wkid":102100}
+    }
+
+    Polyline{
+        id: userPolyline
+        spatialReference: map.spatialReference
     }
 
     Polygon {
@@ -257,7 +345,6 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
                 from: 0;
                 to: 1;
                 duration: 1050
-
             }
             OpacityAnimator{
                 target: starEdit;
@@ -336,50 +423,11 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
             top: titleRect.bottom
             margins: 30 * scaleFactor
         }
-
-        //Click this button to add polygon
-        Button {
-            id: generateButton
-            width: 100
-            text: "Start Editing"
-            enabled: true
-            style: ButtonStyle {
-                label: Text {
-                    renderType: Text.NativeRendering
-                    verticalAlignment: Text.AlignHCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pixelSize: 25 * scaleFactor
-                    color: enabled ? "black" : "gray"
-                    text: control.text
-                }
-            }
-            onClicked: {
-                isDone = true;
-                editFlash.start()
-            }
-        }
-
-        Button {
-            text: "Clear Graphics"
-            style: generateButton.style
-            enabled: true
-            onClicked: {
-                var numberPolygonDraw = userPolygon.pathCount;
-                for (counter; counter < numberPolygonDraw; counter++){
-                    userPolygon.removePath(0);
-                }
-                isDone = false;
-                firstPoint = true;
-                featureLayer.clearSelection();
-                graphicsLayer.removeAllGraphics();
-                clearFlash.start()
-            }
-        }
     }
 
     function finishdraw() {
         var featureAdd = ArcGISRuntime.createObject("Feature")
-        featureAdd.geometry = userPolygon
+        featureAdd.geometry = userPolyline
         featureAdd.setAttributeValue("symbolid","1")
         graphicsLayer.addGraphic(featureAdd)
         console.log("Feature added")
@@ -391,55 +439,91 @@ To finish editing: Press and hold the mouse in 2-3 seconds"
         firstPoint = true
 
         //clear the extra unnecessary remaining polygon skatches
-        if (userPolygon.pathCount > 0)
-        userPolygon.removePath(0);
+        if (userPolyline.pathCount > 0)
+            userPolyline.removePath(0);
     }
 
     function addPoint(mapPoint, mousex, mousey) {
         //newPoint will clone the graphic we defined as redPointGraphic
         var newPoint = redPointGraphic.clone();
-        var graphicClone = polygonGraphic.clone();
+        var graphicClone = yellowLine.clone();
+
         if(firstPoint) {
             firstPoint = false
-            //Polygon Class inherited from MultiPath method: startPath,
-            //use the mapPoint (x,y) to reflect the user mouse click on map
-            userPolygon.startPath(mapPoint.x, mapPoint.y);
-            console.log("First point click location is: " + mapPoint.x, mapPoint.y)
-            graphicClone.geometry = userPolygon;
-            polyGraphicId = graphicsLayer.addGraphic(graphicClone);
+            var featureIds = featureLayer.findFeatures(mousex, mousey, 15, 1);
+            if (featureIds.length == 0) {
+                //Polygon Class inherited from MultiPath method: startPath,
+                //use the mapPoint (x,y) to reflect the user mouse click on map
+                userPolyline.startPath(mapPoint.x, mapPoint.y);
+                console.log("First point click location is: " + mapPoint.x, mapPoint.y)
+                graphicClone.geometry = userPolyline;
+                polyGraphicId = graphicsLayer.addGraphic(graphicClone);
 
-            newPoint.geometry = mapPoint;
-            graphicsLayer.addGraphic(newPoint);
+                newPoint.geometry = mapPoint;
+                graphicsLayer.addGraphic(newPoint);
+            }
 
-        } else {
+            if (featureIds.length !== 0) {
+                var selectedFeatureId = featureIds[0];
+                var selectedFeature = featureServiceTable.feature(selectedFeatureId);
+                var bufferPoint = selectedFeature.geometry
+
+                bufferPoint = ArcGISRuntime.createObject("Point", {json: {spatialReference:{latestWkid: 3857,wkid:102100}, x: mapPoint.x, y: mapPoint.y}});
+                bufferPoint.spatialReference = map.spatialReference;
+
+                userPolyline.startPath(bufferPoint.x, bufferPoint.y);
+                console.log("Point feature location: " + bufferPoint.x, bufferPoint.y)
+                graphicClone.geometry = userPolyline;
+                polyGraphicId = graphicsLayer.addGraphic(graphicClone);
+
+                newPoint.geometry = bufferPoint;
+                drawBufferPolygon(bufferPoint);
+                graphicsLayer.addGraphic(bufferPoint);
+                featureIds = null;
+            }
+        }
+        else {
             var featureIds = featureLayer.findFeatures(mousex, mousey, 15, 1);
             if (featureIds.length == 0) {
                 //Check if any point features that fall within the mouse click range,
                 //if no points fall the tolerance range just add mouse point
-                userPolygon.lineTo(mapPoint.x, mapPoint.y);
+                userPolyline.lineTo(mapPoint.x, mapPoint.y);
                 console.log("Mouse click location: " + mapPoint.x, mapPoint.y)
-                graphicClone.geometry = userPolygon;
+                graphicClone.geometry = userPolyline;
                 graphicsLayer.updateGraphic(polyGraphicId,graphicClone);
-
                 newPoint.geometry = mapPoint;
                 graphicsLayer.addGraphic(newPoint);
 
-            } else {
+                userPolyline.closeAllPaths();
+                console.log(userPolyline.isClosedPath(0))
+            }
+             else {
                 //mouse click location close enough to the point feature,
                 //then snap the features's point as the next vertix of graphic polygon
-                var selectedFeatureId = featureIds[0];
-                var selectedFeature = featureServiceTable.feature(selectedFeatureId);
-                var selectedPoint =selectedFeature.geometry
 
-                userPolygon.lineTo(selectedPoint.x, selectedPoint.y);
-                console.log("Point feature location: " + selectedPoint.x, selectedPoint.y)
-                graphicClone.geometry = userPolygon;
+                bufferPoint = ArcGISRuntime.createObject("Point", {json: {spatialReference:{latestWkid: 3857,wkid:102100}, x: mapPoint.x, y: mapPoint.y}});
+                bufferPoint.spatialReference = map.spatialReference;
+
+                userPolyline.lineTo(bufferPoint.x, bufferPoint.y);
+                console.log("Point feature location: " + bufferPoint.x, bufferPoint.y)
+                graphicClone.geometry = userPolyline;
                 graphicsLayer.updateGraphic(polyGraphicId,graphicClone);
 
-                newPoint.geometry = selectedPoint;
-                graphicsLayer.addGraphic(newPoint);
+                newPoint.geometry = bufferPoint;
+                drawBufferPolygon(bufferPoint);
+                graphicsLayer.addGraphic(bufferPoint);
                 featureIds = null;
+
+                userPolyline.closeAllPaths();
+                console.log(userPolyline.isClosedPath(0))
             }
         }
+    }
+
+    function drawBufferPolygon(geometry) {
+        var bufferPolygon = geometry.buffer(bufferWidth, map.spatialReference.unit);
+        var graphic = bufferGraphic.clone();
+        graphic.geometry = bufferPolygon;
+        graphicsLayer.addGraphic(graphic);
     }
 }
