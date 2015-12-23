@@ -26,8 +26,12 @@ if __name__ == "__main__":
 - token : used to authenticate
 - OpenDataItems: List of all items in the Open Data site
 
-## Warnings
+##Warnings
 - SSL Cert Verification not verified. See: http://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification
 - Open Data API is not documented and therefore the endpoints may change at any point : http://ideas.arcgis.com/ideaView?id=087E0000000blPIIAY
 - This script may cause a temporary increase in traffic on your server if data is hosted on ArcGIS for Server, as multiple requests will/may be sent to each service to cache the data.
 - Not supported by Esri Support Services.
+
+##Ideas for Future Developments
+- Extend script to reset a single dataset or a subset that is constrained and monitored.
+- Add a script or function that verifies downloads and only resets downloads that are failing.
