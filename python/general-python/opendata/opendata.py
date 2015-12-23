@@ -69,11 +69,11 @@ class OpenData(object):
         info = requests.get(url, verify=False).json()['datasets']
         return [x['id'] for x in info]
 
-    def refresh(self):
+    def refresh(self, datasets=self.OpenDataItems):
         """
         Refreshes all Open Data datasets and download cache.
         """
-        for dataset in self.OpenDataItems:
+        for dataset in datasets:
             url = "https://opendata.arcgis.com/api/datasets/{0}/refresh.json?token={1}".format(dataset, self.token)
             requests.put(url, verify=False)
 
