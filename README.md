@@ -8,6 +8,10 @@ This project is a place to collaborate and support GIS developers working with E
 This repository is designed to contain resources for troubleshooting as well as proof of concept samples to support developers!
 Much of the code contained in this repository is samples created by Esri staff to help developers understand how to develop against all aspects of Esri’s Location Platform – desktop, mobile devices and for the web.  It’s a great place to copy and paste code you may need or search for lesser-known methods or classes to see how they are implemented.  Despite the name however, this repository is not intended as a place to replace community and paid support offered by Esri.  For community support, check out our [Esri’s GeoNet site](https://geonet.esri.com/welcome).  For paid support check out [http://support.esri.com](http://support.esri.com) or contact your regional distributor.
 
+## Instructions for Beginners
+
+The magic of GitHub is that it is an open environment: it’s open to developers, open to moonlighters, and even open to teenagers or adult learners who are looking for a new challenge. If you just want to download these samples and check out the code, click on the "Download ZIP" button in the upper right of this page. Here's a handy blog that describes GitHub, and the Developer Support Respository, in more detail: [Introducing the Esri Support GitHub Repository](http://blogs.esri.com/esri/supportcenter/2015/10/19/introducing-the-esri-support-github-repository/).
+
 ## Contributing
 
 Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md).
@@ -32,5 +36,5 @@ A copy of the license is available in the repository's [license.txt](/license.tx
 ## Welcome to our toolbox!
 ![alt text](repository-images/supportdeskdrawer.png "Desk Drawer")
 
-[](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets)
+[](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets, Python)
 [](Esri Language: Mixed)
