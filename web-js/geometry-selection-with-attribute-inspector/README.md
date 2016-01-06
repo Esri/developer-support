@@ -1,6 +1,6 @@
 ## Attribute Inspector interacts with different geometry selections by using ArcGIS API for JavaScript
 
-![Alt text]("Screenshot of the sample code")
+![Alt text](https://github.com/goldenlimit/developer-support/blob/AttributeSelectionJS/repository-images/geometry-selection-with-attribute-inspector.png "Screenshot of the sample code")
 
 This is a sample that shows how to use Attribute Inspector ("esri/dijit/AttributeInspector") to work with different geometry for example, point, extent and envelope to editing feature attributes from feature service.
 
