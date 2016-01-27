@@ -18,7 +18,7 @@ To test it, you may copy the xml directly in SOAP UI Request.
 * This code is used for updating existing features, in this case, the feature with OBJECTID = 4
 
 
-
+```xml
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns="http://www.esri.com/schemas/ArcGIS/10.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <soapenv:Header/>
   <soapenv:Body>
@@ -48,3 +48,4 @@ To test it, you may copy the xml directly in SOAP UI Request.
      </ns:Update>
   </soapenv:Body>
 </soapenv:Envelope>
+```
