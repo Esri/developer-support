@@ -5,6 +5,7 @@ You may import this xml and execute it in SoapUI (view free download here http:/
 
 This sample code is based on the an esri Fire Feature Server:
 http://sampleserver3.arcgisonline.com/ArcGIS/services/Fire/Sheep/MapServer/FeatureServer?wsdl
+
 To test it, you may copy the xml directly in SOAP UI Request.
 
 [Documentation on Feature service Update method]
