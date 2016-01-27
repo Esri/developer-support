@@ -1,4 +1,4 @@
-#Select by Attributes Widget
+#Enhanced Measurement Widget
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](EnhancedMeasurementWidget.gif "Application Demo")
 
 ##About
