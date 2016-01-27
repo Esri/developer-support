@@ -5,7 +5,7 @@
          <LayerOrTableID>0</LayerOrTableID> 
          <DefinitionExpression></DefinitionExpression> 
          <QueryFilter> 
-            <WhereClause>STATE_NAME = 'Alabama'</WhereClause> 
+            <WhereClause>OBJECTID = 1</WhereClause> 
             <Resolution>0</Resolution> 
          </QueryFilter> 
          <ServiceDataOptions> 
