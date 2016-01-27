@@ -10,18 +10,14 @@
                        <PropertyArray xsi:type="ns:ArrayOfPropertySetProperty">
                           <PropertySetProperty xsi:type="ns:PropertySetProperty">
                              <Key>OBJECTID</Key>
-                             <Value xsi:type="xsd:int">4</Value>
+                             <Value xsi:type="xsd:int">1</Value>
                           </PropertySetProperty>
                           <PropertySetProperty xsi:type="ns:PropertySetProperty">
-                             <Key>Name</Key>
-                             <Value xsi:type="xsd:string">ChangeName</Value>
+                             <Key>description</Key>
+                             <Value xsi:type="xsd:string">Feel free to Change it</Value>
                           </PropertySetProperty>
                        </PropertyArray>
                     </Properties>
-                       <Geometry xsi:type="ns:PointN">
-                       <X>67.36365273399997</X>
-                       <Y>-61.479175233000035</Y>
-                    </Geometry>
                  </DataObject>
               </DataObjectArray>
         </DataObjects>
