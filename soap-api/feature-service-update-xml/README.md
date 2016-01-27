@@ -8,8 +8,8 @@ http://sampleserver3.arcgisonline.com/ArcGIS/services/Fire/Sheep/MapServer/Featu
 
 To test it, you may copy the xml directly in SOAP UI Request.
 
-[Documentation on Feature service Update method]
-(http://resources.arcgis.com/en/help/soap/10.1/index.html#/Update/01vp00000056000000/)
+Documentation on Feature service Update method:
+http://resources.arcgis.com/en/help/soap/10.1/index.html#/Update/01vp00000056000000/
 
 ## Features
 * Uses feature service
