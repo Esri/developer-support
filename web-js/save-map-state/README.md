@@ -1,7 +1,7 @@
 #Save Map State Using LocalStorage
 
 ##About
-This sample shows how to LocalStorage to store the current state of the map. This is useful if you need to redirect the user from the mapping application to another webpage and then back to the mapping application and you wish to have the application have the same "look" as before. This application saves the extent of the map, the currently selected feature and launches the selected popup.
+This sample shows how to use LocalStorage to store the current state of the map. This is useful if you need to redirect the user from the mapping application to another webpage and then back to the mapping application and you wish to have the application have the same "look" as before. This application saves the extent of the map, the currently selected feature and launches the selected popup.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](SaveMapState.gif "Application Demo")
 
