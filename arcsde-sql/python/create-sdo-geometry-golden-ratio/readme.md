@@ -8,9 +8,10 @@ This sample script demonstrates how to connect to Oracle and insert sdo geometry
 
 ##Steps:
 1. Install cx_Oracle module
-1. Change the table name and the connection string
+1. Change the table name and the connection string.
+1. Run the script!
+
 ```python
 uin ="golden" #Table name
 connection ="connectionstring" #connection, i.e. "dataowner/dataowner@instance/sid
 ```
-1. Run the script!
