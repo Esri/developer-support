@@ -32,7 +32,7 @@ iterations = 1
 ##Limitations:
 - For the geometry to be drawn correctly, ymax > xmin in the span.
 - This only works for a spatial reference wkid of 4326.
-- If the number of iterations is greater than 1, the sierpinski carpet will not be created as the text string will be too long to create the one polygon. However, the intermediate table will still be available to view. For example, an itermediate table with iterations set to 4:
+- If the number of iterations is greater than 1, the sierpinski carpet will not be created as the text string will be too long to create the one polygon. However, the intermediate table will still be available to view. For example, an intermediate table with iterations set to 4:
 
 ![This is where an JPG should be. Sorry you can't see it. Try using Chrome](reverseSierpinski4.jpg "Reverse Sierpinski4")
 
