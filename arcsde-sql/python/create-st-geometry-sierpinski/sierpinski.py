@@ -68,7 +68,7 @@ class sierpinski(object):
         self.spatialReference = 4326
 
         #self.cursor.execute("DROP TABLE {0}".format(self.tablename))
-        self.cursor.execute("DROP TABLE {0}".format(self.table2))
+        #self.cursor.execute("DROP TABLE {0}".format(self.table2))
 
     def createTable(self, table):
         """
