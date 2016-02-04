@@ -4,9 +4,11 @@ This sample script demonstrates how to connect to Oracle and insert st geometry 
 The sierpinski object may be used to create two tables. 
 
 The first table is a representation of the sierpinski carpet:
+
 ![This is where an JPG should be. Sorry you can't see it. Try using Chrome](sierpinski1.jpg "Sierpinski Carpet1")
 
 The second table contains the squares removed from the carpet:
+
 ![This is where an JPG should be. Sorry you can't see it. Try using Chrome](reverseSierpinski.jpg "Reverse Sierpinski1")
 
 ##Testing Environment
@@ -28,10 +30,11 @@ iterations = 1
 ```
 
 ##Limitations:
-- If the number of iterations is greater than 1, the sierpinski carpet will not be created as the text string will be too long to create the one polygon. However, the intermediate table will still be available to view. For example, an itermediate table with iterations set to 4:
-![This is where an JPG should be. Sorry you can't see it. Try using Chrome](reverseSierpinski4.jpg "Reverse Sierpinski4")
 - For the geometry to be drawn correctly, ymax > xmin in the span.
 - This only works for a spatial reference wkid of 4326.
+- If the number of iterations is greater than 1, the sierpinski carpet will not be created as the text string will be too long to create the one polygon. However, the intermediate table will still be available to view. For example, an itermediate table with iterations set to 4:
+
+![This is where an JPG should be. Sorry you can't see it. Try using Chrome](reverseSierpinski4.jpg "Reverse Sierpinski4")
 
 ##Additional Information:
 - The geometry type is ST_Geometry. ST_UNION and ST_DIFFERENCE were used to create the carpet.
