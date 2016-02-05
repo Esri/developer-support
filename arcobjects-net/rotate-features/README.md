@@ -12,3 +12,6 @@ This script can be used to rotate features around their own centroid.  This was 
 ## Sample Syntax
 
 None.  This was originally designed as an Addin.  Merely append this to one of your addins to create a button to use within ArcMap.
+
+##### Authors:
+* Alexander Nohe
