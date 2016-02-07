@@ -3,10 +3,10 @@
 ##About
 This widget allows users to add layers to the map on the fly. Simply select the appropriate layer type, paste in a url, select the desired layer options and add the layer to the map.
 
-[Live Sample](http://esri.github.io/developer-support/web-js/select-by-attribute-widget/SelectByAtt/index.html)
+[Live Sample](https://nhaney90.github.io/add-layers-widget/index.html)
 
 ##Usage notes:
-The following code snippets show how to use the widget in your application.
+All layers added to the above sample must use "https". The following code snippets show how to use the widget in your application.
 
 Import the bootstrap.css and addLayers.css stylesheets as well as jquery and bootstrap.js. All of these are needed for the widget to work:
 ```html
