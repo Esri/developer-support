@@ -6,7 +6,7 @@ This widget allows users to add layers to the map on the fly. Simply select the 
 [Live Sample](http://esri.github.io/developer-support/web-js/select-by-attribute-widget/SelectByAtt/index.html)
 
 ##Usage notes:
-The following code snippets show how to use the widget in your application
+The following code snippets show how to use the widget in your application.
 
 Import the bootstrap.css and addLayers.css stylesheets as well as jquery and bootstrap.js. All of these are needed for the widget to work:
 ```html
@@ -37,6 +37,12 @@ Include the widget in your require statement:
 ], function(Map, AddLayers){
 
 ```
+Some layers require the use of a proxy to display. Set the default proxy url to be used in your application:
+```javascript
+esriConfig.defaults.io.proxyUrl = "<url_to_proxy>"
+esriConfig.defaults.io.alwaysUseProxy = false;
+```
+
 Create an html element to attach the widget to:
 ```html
 <div id="addLayers"></div>
@@ -53,15 +59,15 @@ map.on("layer-add-result", function() {
 ```
 
 ##Supported Layer Types:
-ArcGISDynamicMapServiceLayer
-ArcGISTiledMapServiceLayer
-ArcGISImageServiceLayer
-FeatureLayer
-WFSLayer
-WMSLayer
-WMTSLayer
-KMLLayer
-CSVLayer
+ArcGISDynamicMapServiceLayer<br/>
+ArcGISTiledMapServiceLayer<br/>
+ArcGISImageServiceLayer<br/>
+FeatureLayer<br/>
+WFSLayer<br/>
+WMSLayer<br/>
+WMTSLayer<br/>
+KMLLayer<br/>
+CSVLayer<br/>
 GeoRSSLayer
 
 <b>Constructor:</b><br/>
