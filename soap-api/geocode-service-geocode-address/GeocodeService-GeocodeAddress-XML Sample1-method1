@@ -1,0 +1,181 @@
+Geodoce Address - Method 1
+
+SOAP Request:
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.esri.com/schemas/ArcGIS/10.1">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ns:GeocodeAddress>
+         <Address>
+            <PropertyArray>
+               <!--Zero or more repetitions:-->
+               <PropertySetProperty>
+                  <Key>Address</Key>
+                  <!--Optional:-->
+                  <Value>3225 Springbank Ln, Charlotte, NC, 28226</Value>
+               </PropertySetProperty>
+            </PropertyArray>
+         </Address>
+      </ns:GeocodeAddress>
+   </soapenv:Body>
+</soapenv:Envelope>
+
+
+---------------------------------------------RESPONSE------------------------------------------------------
+SOAP Respond:
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.esri.com/schemas/ArcGIS/10.1">
+   <soap:Body>
+      <tns:GeocodeAddressResponse>
+         <Result xsi:type="tns:PropertySet">
+            <PropertyArray xsi:type="tns:ArrayOfPropertySetProperty">
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Shape</Key>
+                  <Value xsi:type="tns:PointN">
+                     <X>-80.783143069087089</X>
+                     <Y>35.10151663438257</Y>
+                     <SpatialReference xsi:type="tns:GeographicCoordinateSystem">
+                        <WKT>GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433],AUTHORITY["EPSG",4326]]</WKT>
+                        <XOrigin>-400</XOrigin>
+                        <YOrigin>-400</YOrigin>
+                        <XYScale>1111948722.2222221</XYScale>
+                        <ZOrigin>-100000</ZOrigin>
+                        <ZScale>10000</ZScale>
+                        <MOrigin>-100000</MOrigin>
+                        <MScale>10000</MScale>
+                        <XYTolerance>8.983152841195215e-009</XYTolerance>
+                        <ZTolerance>0.001</ZTolerance>
+                        <MTolerance>0.001</MTolerance>
+                        <HighPrecision>true</HighPrecision>
+                        <LeftLongitude>-180</LeftLongitude>
+                        <WKID>4326</WKID>
+                        <LatestWKID>4326</LatestWKID>
+                     </SpatialReference>
+                  </Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Status</Key>
+                  <Value xsi:type="xsd:string">M</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Score</Key>
+                  <Value xsi:type="xsd:double">100</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Match_addr</Key>
+                  <Value xsi:type="xsd:string">3225 Springbank Ln, Charlotte, North Carolina, 28226</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>StAddr</Key>
+                  <Value xsi:type="xsd:string">3225 Springbank Ln</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Country</Key>
+                  <Value xsi:type="xsd:string">USA</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Addr_type</Key>
+                  <Value xsi:type="xsd:string">StreetAddress</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Distance</Key>
+                  <Value xsi:type="xsd:double">0</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>X</Key>
+                  <Value xsi:type="xsd:double">-80.783143999999993</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Y</Key>
+                  <Value xsi:type="xsd:double">35.101517000000001</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>DisplayX</Key>
+                  <Value xsi:type="xsd:double">-80.783143999999993</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>DisplayY</Key>
+                  <Value xsi:type="xsd:double">35.101517000000001</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Xmin</Key>
+                  <Value xsi:type="xsd:double">-80.785144000000003</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Xmax</Key>
+                  <Value xsi:type="xsd:double">-80.781143999999998</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Ymin</Key>
+                  <Value xsi:type="xsd:double">35.099516999999999</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Ymax</Key>
+                  <Value xsi:type="xsd:double">35.103516999999997</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Side</Key>
+                  <Value xsi:type="xsd:string">R</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>AddNum</Key>
+                  <Value xsi:type="xsd:string">3225</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>AddNumFrom</Key>
+                  <Value xsi:type="xsd:string">3245</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>AddNumTo</Key>
+                  <Value xsi:type="xsd:string">3123</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>StPreDir</Key>
+                  <Value xsi:type="xsd:string"/>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>StPreType</Key>
+                  <Value xsi:type="xsd:string"/>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>StName</Key>
+                  <Value xsi:type="xsd:string">Springbank</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>StType</Key>
+                  <Value xsi:type="xsd:string">Ln</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>StDir</Key>
+                  <Value xsi:type="xsd:string"/>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>City</Key>
+                  <Value xsi:type="xsd:string">Charlotte</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Region</Key>
+                  <Value xsi:type="xsd:string">North Carolina</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>RegionAbbr</Key>
+                  <Value xsi:type="xsd:string">NC</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Postal</Key>
+                  <Value xsi:type="xsd:string">28226</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>LangCode</Key>
+                  <Value xsi:type="xsd:string">ENG</Value>
+               </PropertySetProperty>
+               <PropertySetProperty xsi:type="tns:PropertySetProperty">
+                  <Key>Timeout_expired</Key>
+                  <Value xsi:type="xsd:boolean">false</Value>
+               </PropertySetProperty>
+            </PropertyArray>
+         </Result>
+      </tns:GeocodeAddressResponse>
+   </soap:Body>
+</soap:Envelope>
+
