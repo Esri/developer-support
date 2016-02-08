@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Create web map from id</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/AddLayers.css">
+	<style>
+	  html,body {
+		height:100%;
+		width:100%;
+		margin:0;
+		padding:0;
+	  }
+
+	  body {
+		background-color:#FFF;
+		overflow:hidden;
+		font-family:"Helvetica";
+	  }
+
+	  .roundedCorners {
+		-o-border-radius:4px;
+		-moz-border-radius:4px;
+		-webkit-border-radius:4px;
+		border-radius:4px;
+	  }
+
+	  .shadow {
+		-webkit-box-shadow:4px 4px 8px #adadad;
+		-moz-box-shadow:4px 4px 8px #adadad;
+		-o-box-shadow:4px 4px 8px #adadad;
+		box-shadow:4px 4px 8px #adadad;
+	  }
+	  #rightPane{
+		background-color:#E8E8E8;
+		border:solid 2px #B8B8B8;
+		margin:5px; 
+		width:520px;
+	  }
+	  #map {
+		background-color:#FFF;
+		border:solid 2px #B8B8B8;
+		margin:5px;
+		padding:0;
+  }
+	</style>
+	<script type="text/javascript">
+        var dojoConfig = {
+            packages: [{
+                name: "application",
+                location: "/AddLayersWidget"
+            }]
+        };
+    </script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://js.arcgis.com/3.15/"></script>
+    <script>
+      require([
+        "dojo/parser",
+        "dojo/ready",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/dom",
+		"application/js/AddLayers",
+        "esri/map", 
+        "dojo/domReady!"
+      ], function(
+        parser,
+        ready,
+        BorderContainer,
+        ContentPane,
+        dom,
+		AddLayers,
+        Map
+      ) {
+
+        parser.parse();
+		
+		var map = new Map("map", {
+			basemap: "streets",
+			center: [-98, 37],
+			zoom: 5
+		});
+		
+		map.on("load", function() {
+			var addLayers = new AddLayers({
+				map: map
+			}, "addLayers");
+			addLayers.startup();
+		});
+
+       });
+    </script>
+  </head>
+
+  <body class="claro">
+    <div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="width:100%; height:100%;">
+      <div id="map" class="roundedCorners shadow" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+      <div id="rightPane" class="roundedCorners shadow" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'" >
+        <div id="addLayers"></div>
+      </div>
+    </div>
+  </body>
+</html>
