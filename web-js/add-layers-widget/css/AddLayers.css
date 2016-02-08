@@ -1,0 +1,21 @@
+#urlInput {
+	width: 500px;
+}
+#layerTypeDD {
+	right: 0;
+	left: auto;
+}
+#subLayerTypeDD {
+	right: 0;
+	left: auto;
+}
+.optionLabel {
+	font-weight: 700;
+	width: 130px;
+}
+.optionInput {
+	width: 370px;
+}
+.optionCell {
+	padding-bottom: 8px;
+}

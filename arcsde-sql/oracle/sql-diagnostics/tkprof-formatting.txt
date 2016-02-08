@@ -1,0 +1,46 @@
+/***********************************************************************
+
+tkprof-formatting.txt  --  Oracle DBMS Trace
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Purpose:
+ This sample script for the TKPROF utility demostrate the different
+methods for sorting data in formatted Oracle traces.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+History:
+
+Christian Wells        07/01/2015               Original coding.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Versions Supported:
+EGDB: All
+DBMS: Oracle
+DBMS Version: 11.2.0
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Tags:
+Trace, Oracle, TKPROF
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Resources:
+http://docs.oracle.com/cd/E25178_01/server.1111/e16638/sqltrace.htm#i4763
+
+***********************************************************************/
+
+#Create a TKPROF formatted trace file
+TKPROF <INPUT> <OUTPUT>
+
+#Create a TKPROF formatted trace file SQL file of non-recursive statements
+TKPROF <INPUT> <OUTPUT> RECORD=<SQLFILE>
+
+#Create a TKPROF formatted trace file with a DDL/DML for statistics
+TKPROF <INPUT> <OUTPUT> INSERT=<SQLFILE>clear
+
+#Create a TKPROF formatted trace file with sorted queries
+TKPROF <INPUT> <OUTPUT> SORTS=(EXEELA, FCHELA, PRSELA)

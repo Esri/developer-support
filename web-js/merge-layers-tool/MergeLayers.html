@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html dir="ltr">
+   <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+   <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css"/>
+   <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css"/>
+   <style>
+      html, body, #border-container{
+         height: 100%;
+         margin: 0;
+      }
+	  .esriAnalysis .esriAnalysisCloseIcon
+      {
+		display: none;
+      }
+   </style>
+
+	<script src="http://js.arcgis.com/3.14/"></script>
+	<script>
+      require([
+        "esri/map",
+		"dojo/parser",
+		"esri/layers/FeatureLayer",
+		"esri/dijit/analysis/MergeLayers",
+		"esri/urlUtils",
+		"dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+		"dojo/domReady!"
+      ], function (Map, parser, FeatureLayer, MergeLayers, urlUtils) {
+	  
+		parser.parse();
+		
+         var map = new Map("map", {
+			basemap: "streets",
+            center: [-97, 38], // lon, lat
+            zoom: 5
+         });
+		 
+		 //The layer to merge
+		 var inputLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
+		 //The layer that the input layer will be merged into
+		 var mergeLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0");
+		 
+		 map.addLayers([inputLayer, mergeLayer]);
+		 
+		 //After the layers have been added, initialize the merge layers tool
+		 map.on("layers-add-result", initializeTool);
+		 
+		 function initializeTool() {
+			 var mergeLayersTool = new MergeLayers({
+				inputLayer: inputLayer,
+				mergeLayers: [mergeLayer],
+				map: map,
+				//The name of the layer to be created in your AGOL account
+				outputLayerName: "MyTestLayer",
+				//The url to your Portal
+				portalUrl: "http://www.arcgis.com",
+				showHelp: true,
+				//Allow the user to select the folder on their AGOL account where the feature layer will be created
+				showSelectFolder: true
+			 }, "merge");
+			 mergeLayersTool.startup();
+			 
+			 mergeLayersTool.on("job-result", function(result) {
+				//Remove the input and merge layers
+				map.removeLayer(inputLayer);
+				map.removeLayer(mergeLayer);
+				//Access the url returned by the merge operation and add the layer to the map as a feature layer
+				map.addLayer(new FeatureLayer(result.value.url));
+			 });
+		  }
+      });
+   </script>
+</head>
+
+<body class="claro">
+   <div id="border-container" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false">
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"
+            style="padding: 0;">
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width: 300px;">
+            <div id="merge"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>CHANGE LEGEND TITLE</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.15/esri/css/esri.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.15/dijit/themes/tundra/tundra.css">
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #info {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 10px;
+            background-color: #999;
+            font: 14px Segoe UI;
+            width: 200px;
+            text-align: center;
+            border-radius: 0 0 0 10px;
+            z-index: 40;
+        }
+    </style>
+    <script src="http://js.arcgis.com/3.15/"></script>
+    <script>
+        var map;
+        require([
+            "esri/map", "esri/layers/FeatureLayer", "esri/InfoTemplate",
+            "esri/symbols/SimpleLineSymbol", "esri/symbols/SimpleFillSymbol",
+            "esri/renderers/UniqueValueRenderer", "esri/Color",
+            "dojo/number",
+            "esri/dijit/Print",
+            "esri/tasks/PrintTemplate",
+            "esri/request",
+            "esri/config",
+            "dojo/_base/array",
+            "dojo/dom",
+            "dojo/parser",
+            "esri/tasks/LegendLayer",
+            "dojo/domReady!"
+        ], function(
+            Map, FeatureLayer, InfoTemplate,
+            SimpleLineSymbol, SimpleFillSymbol,
+            UniqueValueRenderer, Color, number, Print, PrintTemplate, esriRequest, esriConfig, arrayUtils, dom, parser, LegendLayer
+        ) {
+
+            parser.parse();
+            esriRequest.setRequestPreCallback(myCallbackFunction);
+            var printUrl = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task";
+            //PLEASE CHANGE THE PROXY TO USE YOURS
+            esriConfig.defaults.io.proxyUrl = "/proxy/";
+
+
+            map = new Map("map", {
+                basemap: "streets",
+                center: [-95.625, 39.243],
+                zoom: 4,
+                slider: false
+            });
+
+
+
+            var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_SOLID).setColor(new Color([125, 50, 125, 0.75]));
+            defaultSymbol.outline.setStyle(SimpleLineSymbol.STYLE_SOLID);
+
+            //create renderer
+            var renderer = new UniqueValueRenderer(defaultSymbol, "SUB_REGION");
+            renderer.defaultLabel = "DEFAULT Label";
+
+            //add symbol for each possible value
+            renderer.addValue({
+                value: "Pacific",
+                symbol: new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])),
+                label: "Pacific LABEL"
+            });
+            renderer.addValue({
+                value: "Mtn",
+                symbol: new SimpleFillSymbol().setColor(new Color([0, 255, 0, 0.5])),
+                label: "Mountain LABEL"
+            });
+            renderer.addValue({
+                value: "N Eng",
+                symbol: new SimpleFillSymbol().setColor(new Color([0, 0, 255, 0.5])),
+                label: "North Eng LABEL"
+            });
+            renderer.addValue({
+                value: "S Atl",
+                symbol: new SimpleFillSymbol().setColor(new Color([255, 0, 255, 0.5])),
+                label: "South Alt LABEL"
+            });
+            renderer.addValue({
+                value: "Mid Atl",
+                symbol: new SimpleFillSymbol().setColor(new Color([255, 255, 255, 0.75])),
+                label: "Mid Atlantic LABEL"
+            });
+            renderer.addValue({
+                value: "E N Cen",
+                symbol: new SimpleFillSymbol().setColor(new Color([0, 255, 255, 0.5])),
+                label: "E N Cen LABEL"
+            });
+            renderer.addValue({
+                value: "W N Cen",
+                symbol: new SimpleFillSymbol().setColor(new Color([255, 255, 0, 0.5])),
+                label: "W N Cen LABEL"
+            });
+            renderer.addValue({
+                value: "E S Cen",
+                symbol: new SimpleFillSymbol().setColor(new Color([127, 127, 127, 0.5])),
+                label: "E S Cen LABEL"
+            });
+            //renderer.addValue("W S Cen", new SimpleFillSymbol().setColor(new Color([0, 0, 0, 0.5])));
+
+            var featureLayer = new FeatureLayer("http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer/1", {
+                id: "FL",
+                infoTemplate: new InfoTemplate(" ", "${SUB_REGION}"),
+                mode: FeatureLayer.MODE_ONDEMAND,
+                outFields: ["SUB_REGION"]
+            });
+
+            featureLayer.setRenderer(renderer);
+            featureLayer.name = "";
+            map.addLayer(featureLayer);
+
+            // get print templates from the export web map task
+            var printInfo = esriRequest({
+                "url": printUrl,
+                "content": {
+                    "f": "json"
+                }
+            });
+            printInfo.then(handlePrintInfo, handleError);
+
+            function handlePrintInfo(resp) {
+                var layoutTemplate, templateNames, mapOnlyIndex, templates;
+
+                layoutTemplate = arrayUtils.filter(resp.parameters, function(param, idx) {
+                    return param.name === "Layout_Template";
+                });
+
+                if (layoutTemplate.length === 0) {
+                    console.log("print service parameters name for templates must be \"Layout_Template\"");
+                    return;
+                }
+                templateNames = layoutTemplate[0].choiceList;
+
+                // remove the MAP_ONLY template then add it to the end of the list of templates 
+                mapOnlyIndex = arrayUtils.indexOf(templateNames, "MAP_ONLY");
+                if (mapOnlyIndex > -1) {
+                    var mapOnly = templateNames.splice(mapOnlyIndex, mapOnlyIndex + 1)[0];
+                    templateNames.push(mapOnly);
+                }
+
+                var stateLegend = new LegendLayer();
+                stateLegend.layerId = "FL";
+                // create a print template for each choice
+                templates = arrayUtils.map(templateNames, function(ch) {
+                    var plate = new PrintTemplate();
+                    plate.layout = plate.label = ch;
+                    plate.format = "PDF";
+                    plate.layoutOptions = {
+                        "authorText": "Made by:  Esri's JS API Team",
+                        "copyrightText": "AKSHAY HARSHE ",
+                        "legendLayers": [stateLegend],
+                        "titleText": "Southern and Northern States",
+                        "scalebarUnit": "Miles"
+                    };
+                    return plate;
+                });
+
+                // create the print dijit
+                var printer = new Print({
+                    "map": map,
+                    "templates": templates,
+                    url: printUrl
+                }, dom.byId("print_button"));
+                printer.startup();
+            }
+
+            function handleError(err) {
+                console.log("Something broke: ", err);
+            }
+           
+		   // Call this function every time the "execute" request is sent for print
+           function myCallbackFunction(ioArgs) {
+                // inspect ioArgs to see if we sent execute request
+                if (ioArgs.url.indexOf("execute") > -1) {
+                    //Store webmapAsJson request in the variable                   
+                    var jsontxt = ioArgs.content.Web_Map_as_JSON;
+                    //Create a Json object          
+                    var tempObj = JSON.parse(jsontxt);
+                    //Access the name property to change it.
+                    //Make sure you include at least space, Do not keep it empty.
+                    tempObj.operationalLayers[1].featureCollection.layers[0].layerDefinition.name = "CHANGED THE LAYER NAME";
+                    //Convert Json object to string
+                    var modjson = JSON.stringify(tempObj);
+                    //assign the string back to WebMapAsJson
+                    ioArgs.content.Web_Map_as_JSON = modjson;
+                    // don't forget to return ioArgs.
+                    return ioArgs;
+                } else {
+                    return ioArgs;
+                }
+            } 
+            
+
+
+        });
+    </script>
+</head>
+
+<body class="tundra">
+    <div id="map"></div>
+    <div id="info">
+        <div style="font-size: 36px;">States</div>
+        <div id="legend"></div>
+        <div id="print_button"></div>
+
+    </div>
+</body>
+
+</html>
