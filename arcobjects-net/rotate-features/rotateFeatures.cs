@@ -23,7 +23,7 @@ namespace ArcMapAddin1
             //
             //  TODO: Sample code showing how to access button host
             //
-            ArcMap.Application.CurrentTool = null;
+            
 
             UID id = new UID();
             id.Value = "esriEditor.Editor";
@@ -65,6 +65,8 @@ namespace ArcMapAddin1
                 }
             }
             editor.StopOperation("DONE");
+            ArcMap.Document.ActiveView.Refresh();
+            ArcMap.Application.CurrentTool = null;
         }
         protected override void OnUpdate()
         {
