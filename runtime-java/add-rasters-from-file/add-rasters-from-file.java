@@ -41,10 +41,10 @@ public class LocalRasterApp {
   
   public LocalRasterApp() { rasters = new ArrayList<>(); }
   /**
-	 * Checks a folder for files matching an extension
-	 * 
-	 * @throws Exception
-	 */
+  * Checks a folder for files matching an extension
+  * 
+  * @throws Exception
+  */
   private void addRaster() throws Exception {
 
 	  GraphicsLayer gLayer = new GraphicsLayer();
@@ -54,49 +54,49 @@ public class LocalRasterApp {
 		rasters.add(gLayer);
 		gLayer.setName("Raster Layer");
 		
-        // Open the folder containing the images
+        	// Open the folder containing the images
 		String baseFolder = "D:" + FSP + "Landsat_p114r75";
 		System.out.println(baseFolder);
 		File folder = new File(baseFolder);
         
-        //Define footprints
+        	//Define footprints
 		Symbol symbol = new SimpleLineSymbol(Color.magenta, 2);
-        /*
-         * Create a graphics layer, add rasters to the graphics layer, 
-         * add graphics layer to the map. 
-        */
+	        /*
+	         * Create a graphics layer, add rasters to the graphics layer, 
+	         * add graphics layer to the map. 
+	        */
 		for (File rasterFile : folder.listFiles()) {
 			try {
 				if (!rasterFile.getName().endsWith(".tif")) {
 					continue;
-				}
+			}
 
-                //New raster from file
+	                	//New raster from file
 				rasterSource = new FileRasterSource(rasterFile.getAbsolutePath());
 				rasterSource.project(map.getSpatialReference());
-				
-                // new raster layer
+					
+	                	// new raster layer
 				RasterLayer rasterLayer = new RasterLayer(rasterSource);
 				rasterLayer.setName(rasterFile.getName());
-				
-                // Create a raster layer graphic.  Add the raster and footprint
+					
+	                	// Create a raster layer graphic.  Add the raster and footprint
 				Graphic g = new Graphic(rasterLayer.getFullExtent(), symbol);
 				gLayer.addGraphic(g);
 				
-                //Make sure it's not null or not in the map already
+	                	//Make sure it's not null or not in the map already
 				if ((rasterLayer == null) || (!rasterLayer.isVisible())) {
 				    return;
 				}
-				
-                //Apply an RGBRenderer
+					
+	                	//Apply an RGBRenderer
 				addRgbRenderer(rasterLayer, true);
-				
+					
 				//Populate the layer array for looping (optional)
 				rasters.add(rasterLayer);
-
-                // Add the layer array to the map.
+	
+	                	// Add the layer array to the map.
 				map.getLayers().add(rasterLayer);
-				
+			
 				//Zoom to the newly added raster layers.
 				map.zoomTo(rasterLayer.getFullExtent());
 				
@@ -115,7 +115,7 @@ public class LocalRasterApp {
   public void addRgbRenderer(RasterLayer mRasterLayer, boolean isDefault) throws Exception{
 	  //Basic stretch renderer usage
 	  RGBRenderer renderer=new RGBRenderer();
-      renderer.setBandIds(new int[]{0,1,2});
+      	  renderer.setBandIds(new int[]{0,1,2});
 
 	  StretchParameters.MinMaxStretchParameters stretchParameters = new StretchParameters.MinMaxStretchParameters();
 	  stretchParameters.setGamma(1);
