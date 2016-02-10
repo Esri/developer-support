@@ -7,6 +7,7 @@ Simple ArcGIS Runtime for Java application that adds supported images to the map
 
 * Create a RasterLayer using the FileRasterSource class.
 * Demonstrates opening a folder and searching files.
+* Demonstrates the use of RGB and Stretch renderers.
 * Bonus array of raster layers included.
 
 =======
@@ -31,3 +32,5 @@ Supported raster formats:
 [FileRasterSource](https://developers.arcgis.com/java/api-reference/com/esri/core/raster/FileRasterSource.html)
 
 [RasterLayer](https://developers.arcgis.com/java/api-reference/com/esri/map/RasterLayer.html)
+
+[RGBRenderer](https://developers.arcgis.com/java/api-reference/com/esri/core/renderer/RGBRenderer.html)
