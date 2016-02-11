@@ -115,7 +115,12 @@ public class LocalRasterApp {
   public void addRgbRenderer(RasterLayer mRasterLayer, boolean isDefault) throws Exception{
 	  //Basic stretch renderer usage
 	  RGBRenderer renderer=new RGBRenderer();
-      	  renderer.setBandIds(new int[]{0,1,2});
+	  if(isDefault){
+		  renderer.setBandIds(new int[]{0,1,2});
+	  }
+	  else {
+		  renderer.setBandIds(new int[]{0,2,1});
+	  }
 
 	  StretchParameters.MinMaxStretchParameters stretchParameters = new StretchParameters.MinMaxStretchParameters();
 	  stretchParameters.setGamma(1);
