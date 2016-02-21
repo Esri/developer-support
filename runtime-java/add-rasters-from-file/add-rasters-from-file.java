@@ -47,7 +47,7 @@ public class LocalRasterApp {
   */
   private void addRaster() throws Exception {
 
-	  GraphicsLayer gLayer = new GraphicsLayer();
+	GraphicsLayer gLayer = new GraphicsLayer();
 	map.getLayers().add(gLayer);
 	
 	//Add graphics layer to the array
@@ -61,40 +61,39 @@ public class LocalRasterApp {
 
 	//Define footprints
 	Symbol symbol = new SimpleLineSymbol(Color.magenta, 2);
-        /*
-         * Create a graphics layer, add rasters to the graphics layer, 
-         * add graphics layer to the map. 
-        */
+	
+        /* Create a graphics layer, add rasters to the graphics layer, 
+         * add graphics layer to the map. */
 	for (File rasterFile : folder.listFiles()) {
 		try {
 			if (!rasterFile.getName().endsWith(".tif")) {
 				continue;
-		}
+			}
 
-                	//New raster from file
+	        	//New raster from file
 			rasterSource = new FileRasterSource(rasterFile.getAbsolutePath());
 			rasterSource.project(map.getSpatialReference());
 				
-                	// new raster layer
+	        	// new raster layer
 			RasterLayer rasterLayer = new RasterLayer(rasterSource);
 			rasterLayer.setName(rasterFile.getName());
 				
-                	// Create a raster layer graphic.  Add the raster and footprint
+	        	// Create a raster layer graphic.  Add the raster and footprint
 			Graphic g = new Graphic(rasterLayer.getFullExtent(), symbol);
 			gLayer.addGraphic(g);
 			
-                	//Make sure it's not null or not in the map already
+	        	//Make sure it's not null or not in the map already
 			if ((rasterLayer == null) || (!rasterLayer.isVisible())) {
 			    return;
 			}
 				
-                	//Apply an RGBRenderer
+	        	//Apply an RGBRenderer
 			addRgbRenderer(rasterLayer, true);
 				
 			//Populate the layer array for looping (optional)
 			rasters.add(rasterLayer);
-
-                	// Add the layer array to the map.
+	
+	        	// Add the layer array to the map.
 			map.getLayers().add(rasterLayer);
 		
 			//Zoom to the newly added raster layers.
@@ -104,7 +103,6 @@ public class LocalRasterApp {
 			e.printStackTrace();
 		}
 	}
-		
 		//Do something with the optional array of layers
 		System.out.println("Layers added:");
 		for (Layer layer : rasters) {
@@ -153,78 +151,78 @@ public class LocalRasterApp {
 
   /** GUI Components **/
   public JComponent createUI() {
-    // application content
-    contentPane = createContentPane();
-
-    // UI elements
-    JPanel buttonPanel = createUserPanel();
-    contentPane.add(buttonPanel);
-
-    // map
-    map = createMap();
-    map.setHidingNoDataTiles(true);
-    contentPane.add(map);
-
-    return contentPane;
+	// application content
+	contentPane = createContentPane();
+	
+	// UI elements
+	JPanel buttonPanel = createUserPanel();
+	contentPane.add(buttonPanel);
+	
+	// map
+	map = createMap();
+	map.setHidingNoDataTiles(true);
+	contentPane.add(map);
+	
+	return contentPane;
   }
 
 
   private JMap createMap() {
-    final JMap jMap = new JMap();
-
-    ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
-    jMap.getLayers().add(tiledLayer);
-        jMap.setExtent(new Envelope(-19856505, -8827900, 18574809, 16806021));
-    
-    return jMap;
+	final JMap jMap = new JMap();
+	
+	ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
+	jMap.getLayers().add(tiledLayer);
+	jMap.setExtent(new Envelope(-19856505, -8827900, 18574809, 16806021));
+	
+	return jMap;
   }
 
   private JPanel createUserPanel() {
-    JPanel panel = new JPanel();
-    panel.setLayout(new BorderLayout(0, 0));
-    panel.setSize(140, 35);
-    panel.setLocation(10, 10);
-
-    // button
-    button = createButton();
-
-    panel.add(button, BorderLayout.SOUTH);
-    panel.setBackground(new Color(0, 0, 0, 0));
-    panel.setBorder(new LineBorder(new Color(0, 0, 0, 80), 5, false));
-
-    return panel;
+	JPanel panel = new JPanel();
+	panel.setLayout(new BorderLayout(0, 0));
+	panel.setSize(140, 35);
+	panel.setLocation(10, 10);
+	
+	// button
+	button = createButton();
+	
+	panel.add(button, BorderLayout.SOUTH);
+	panel.setBackground(new Color(0, 0, 0, 0));
+	panel.setBorder(new LineBorder(new Color(0, 0, 0, 80), 5, false));
+	
+	return panel;
   }
 
   private JButton createButton() {
-    JButton button1 = new JButton("Add Raster");
-    button1.addActionListener(new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent arg0) {
-    	  try {
-			addRaster();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	JButton button1 = new JButton("Add Raster");
+	button1.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+		      try {
+				addRaster();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-      }
-    });
-    return button1;
+	});
+	return button1;
   }
 
   private static JFrame createWindow() {
-    JFrame window = new JFrame();
-    window.setBounds(100, 100, 1000, 700);
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    window.getContentPane().setLayout(new BorderLayout(0, 0));
-    window.setVisible(true);
-    return window;
+	JFrame window = new JFrame();
+	window.setBounds(100, 100, 1000, 700);
+	window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	window.getContentPane().setLayout(new BorderLayout(0, 0));
+	window.setVisible(true);
+	return window;
   }
 
   private static JLayeredPane createContentPane() {
-    JLayeredPane contentPane = new JLayeredPane();
-    contentPane.setBounds(100, 100, 1000, 700);
-    contentPane.setLayout(new BorderLayout(0, 0));
-    contentPane.setVisible(true);
-    return contentPane;
+	JLayeredPane contentPane = new JLayeredPane();
+	contentPane.setBounds(100, 100, 1000, 700);
+	contentPane.setLayout(new BorderLayout(0, 0));
+	contentPane.setVisible(true);
+	return contentPane;
   }
 }
