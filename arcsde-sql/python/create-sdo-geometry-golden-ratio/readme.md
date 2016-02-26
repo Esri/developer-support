@@ -15,3 +15,5 @@ This sample script demonstrates how to connect to Oracle and insert sdo geometry
 uin ="golden" #Table name
 connection ="connectionstring" #connection, i.e. "dataowner/dataowner@instance/sid
 ```
+![This is where an JPG should be. Sorry you can't see it. Try using Chrome](golden.jpg "Golden Ratio Polygons")
+
