@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Geoprocessing</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
+	<link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
+    <style>
+      html, body{
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+	  #submitJob {
+		top: 100px;
+		left: 100px;
+		z-index: 100;
+		position: absolute;
+	  }
+	  #dirHeader {
+		width: 400px;
+		text-align: center;
+	  }
+    </style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://js.arcgis.com/3.15/"></script>
+    <script>
+		//set out gp and serviceToken variables here - these will be importatn later
+      var map, gp, serviceToken;
+	  
+      require([
+		"esri/Color",
+		"esri/graphic",
+		"esri/InfoTemplate",
+		"esri/map",
+		"esri/geometry/Point",
+		"esri/layers/GraphicsLayer",
+		"esri/symbols/SimpleLineSymbol",
+		"esri/symbols/SimpleMarkerSymbol",
+		"esri/tasks/FeatureSet",
+		"esri/tasks/Geoprocessor",
+		"esri/IdentityManager",
+		"dojo/parser",
+		
+		"dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+		"dojo/domReady!"
+	 ], function(Color, Graphic, InfoTemplate, Map, Point, GraphicsLayer, SimpleLineSymbol, SimpleMarkerSymbol, FeatureSet, Geoprocessor, esriId, parser) {
+	 
+		parser.parse();
+		
+        map = new Map("map", {
+          basemap: "topo",
+          center: [-86, 33],
+          zoom: 6
+        });
+		
+		//graphics layer to hold the routes and points
+		var gLayer = new GraphicsLayer();
+		map.addLayer(gLayer);
+		
+		//symbols for the route and stop graphics
+		var routesSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 3);
+		var stopsSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 12, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,255,255]), 1), new Color([0,0,255]));
+		
+		//popup for the route graphics
+		var routesPopup = new InfoTemplate("<b>Route ${ObjectID}</b>",
+											"<b>Vehicle</b>: ${Name}<br/>" +
+											"<b>Start Time</b>: ${StartTime:DateString(local:true)}<br/>" +
+											"<b>End Time</b>: ${EndTime:DateString(local:true)}<br/>" +
+											"<b>Travel Time</b>: ${TotalTravelTime:NumberFormat(places:2)} Hours<br/>" +
+											"<b>Total Distance</b>: ${TotalDistance:NumberFormat(places:3)} Miles"								
+		);
+		
+		//popup for the stop graphics
+		var stopsPopup = new InfoTemplate("<b>${Name}</b>",
+										    "<b>Route Name</b>: ${RouteName}<br/>" +
+											"<b>Arrive Time</b>: ${ArriveTime:DateString(local:true)}<br/>" +
+											"<b>Depart Time</b>: ${DepartTime:DateString(local:true)}<br/>" +
+											"<b>Wait Time</b>: ${WaitTime:NumberFormat(places:2)} Hours<br/>"						
+		);
+		
+		//url of the vehicle routing problem service
+		var geoprocessorURL = "https://logistics.arcgis.com/arcgis/rest/services/World/VehicleRoutingProblem/GPServer/SolveVehicleRoutingProblem";
+		
+		//Object to hold the depot and orders locations. It's convient to hold the points in this object as the service does not return the geometry of the stops
+		var stops = {
+			"Home": new Point(-86.00754,33.4495065),
+			"Destination1": new Point(-85.60800,33.9194254),
+			"Destination2": new Point(-85.769384,33.8177462)
+		}
+		
+		//After a credential has been created set the serviceToken variable and call the submitJob function
+		esriId.on("credential-create", function(c) {
+			if(c.credential.resources[0] == geoprocessorURL && !serviceToken) {
+				serviceToken = c.credential.token;
+				submitJob();
+			}
+		});
+		
+		//function to get the credentials to access the vehicle routing problem service
+		function getCredentials() {
+			//if a token has already been generated go ahead and submit the job
+			if(serviceToken) {
+				submitJob();
+			}
+			//if a token has not be generated, launch the signin box and create a token
+			else {
+				var credential = esriId.getCredential(geoprocessorURL,{
+					error:null,
+					oAuthPopupConfirmation: true,
+					retry:false,
+					token:null
+				});
+			}
+		}
+		
+		//send the request to the geoprocessing service
+		function submitJob() {
+			//clear the current graphics and remove the current directions
+			gLayer.clear();
+			$("#dirTable").empty();
+			
+			//if the gp variable is null, create the geoprocessor object. The token appended to the url allows the service to be accessed
+			if(!gp) {
+				gp = new Geoprocessor(geoprocessorURL + "?token=" + serviceToken);
+			}
+			//The parameter object to send to the service
+			var params = {
+				//the default UTC date in milliseconds. This is key!
+				"default_date": 1455609600000,
+				//The units of the output time variables such as "travel-time"
+				"time_units": "Hours",
+				"distance_units": "Miles",
+				"depots": '{"features":[{"geometry":{"x":'+ stops["Home"].x +',"y":'+ stops["Home"].y +'},"attributes":{"Name": "Home"}}]}',
+				"orders": '{"features":[{"geometry":{"x":'+ stops["Destination1"].x +',"y":'+ stops["Destination1"].y +'},"attributes":{"Name": "Destination1"}},{"geometry":{"x":'+ stops["Destination2"].x +',"y":'+ stops["Destination2"].y +'},"attributes":{"Name": "Destination2"}}]}',
+				"routes": '{"features":[{"attributes":{"Name":"vehicle_one","StartDepotName": "Home","EndDepotName":"Home","EarliestStartTime":1455609600000,"LatestStartTime":1455609600000}}]}',
+				//directions? yes please!
+				"populate_directions":true
+			};
+			//call the submit job method as we want to run this tool asynchronously
+			gp.submitJob(params, processingComplete, null, executeFailed);
+		}
+		
+		//callback from the submit job operation
+		function processingComplete(results) {
+			//call the getResultData method to access the different results directories in the jobs folder of the service
+			gp.getResultData(results.jobId, "out_routes", showRoutes);
+			gp.getResultData(results.jobId, "out_stops", showStops);
+			gp.getResultData(results.jobId, "out_directions", showDirections);
+		}
+		
+		//the "errorback" function
+		function executeFailed(error) {
+			console.log(error);
+		}
+		
+		//show the directions in the content pane on the right
+		function showDirections(results) {
+			var features = results.value.features;
+			//loop through the features
+			for(var i = 0; i < features.length; i++) {
+				//create a new table row
+				var row = "<tr><td>" + i + "</td><td>" + features[i].attributes.Text + "</td></tr>";
+				//append the table row to the table
+				$("#dirTable").append(row);
+			}
+		};
+		
+		//add the routes to the graphics layer
+		function showRoutes(results) {
+			var features = results.value.features;
+			for(var i = 0; i < features.length; i++) {
+				//create a graphic
+				var graphic = new Graphic(features[i].geometry, routesSymbol, features[i].attributes, routesPopup);
+				//zoom to the extent of the graphic
+				map.setExtent(graphic.geometry.getExtent());
+				//add the graphic to the graphics layer
+				gLayer.add(graphic);
+			}
+		};
+
+		//add the stops to the graphics layer
+		function showStops(results) {
+			var features = results.value.features;
+			for(var i = 0; i < features.length; i++) {
+				//create a graphic. Note the geometry comes from our stops object defined above
+				var graphic = new Graphic(stops[features[i].attributes.Name], stopsSymbol, features[i].attributes, stopsPopup);
+				//add the graphic to the graphics layer
+				gLayer.add(graphic);
+			}			
+		};
+		
+		//once the submit job button is clicked run the getCredentials 
+		$("#submitJob").click(getCredentials);
+      });
+	  
+	  
+    </script>
+  </head>
+
+	<body class="claro">
+		<div id="mainWindow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="width:100%; height:100%;">
+			<div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+			<button id="submitJob">Submit Job</button>
+			<div id="rightPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'" >
+				<div id="dirHeader">
+					<h2>Directions</h2>
+				</div>
+				<div id="dirList">
+					<table id="dirTable"></table>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+ 
