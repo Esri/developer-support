@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Feature Layer - 4.0beta3</title>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0beta3/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.0beta3/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/Color",
+      "esri/views/SceneView",
+      "esri/layers/SceneLayer",
+      "esri/layers/FeatureLayer",
+      "esri/renderers/SimpleRenderer",
+      "esri/symbols/MeshSymbol3D",
+      "esri/symbols/FillSymbol3DLayer",
+      "esri/symbols/PolygonSymbol3D",
+      "esri/symbols/ObjectSymbol3DLayer",
+
+      "dojo/domReady!"
+    ], function(Map, Color, SceneView, SceneLayer, FeatureLayer, SimpleRenderer, MeshSymbol3D,
+      FillSymbol3DLayer, PolygonSymbol3D,ObjectSymbol3DLayer) {
+
+      //Create map
+      var map = new Map({
+        basemap: "dark-gray"
+      });
+
+      //Create SceneView
+      var view = new SceneView({
+        container: "viewDiv",
+        map: map,
+        camera: {
+            position: [-75.150874,39.65010, 29500],
+            tilt: 50,
+            heading: 0
+          }
+      });
+
+      //Create featureLayer and add to the map
+      var featureLayer = new FeatureLayer({
+        url: "http://services.arcgis.com/q7zPNeKmTWeh7Aor/arcgis/rest/services/PA_American_Communities_Survey/FeatureServer/0",
+        definitionExpression: "NAME_1 = 'Philadelphia'"
+      });
+      map.add(featureLayer);
+      
+
+
+      var symbol = new PolygonSymbol3D(
+        new ObjectSymbol3DLayer({
+          width: 5,
+          height: 20,
+          resource: { primitive: "cube" }
+        })
+      );
+
+      var renderer = new SimpleRenderer({
+          symbol: symbol,
+          visualVariables: [{
+              type: "sizeInfo",
+              field: "ACSBPOVMCF",
+              minSize: 1000,
+              maxSize: 10000,
+              minDataValue: 1,
+              maxDataValue: 1000
+            }, {
+              type: "colorInfo",
+              field: "ACSBPOVNFF",
+              minDataValue: 1,
+              maxDataValue: 200,
+              colors: ["#FFFFFF","#F50057"]
+            }]
+        });
+
+      featureLayer.renderer = renderer;
+      
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>

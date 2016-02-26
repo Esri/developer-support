@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="initial-scale=1,maximum-scale=1,user-scalable=no" name=
+    "viewport">
+    <title>Load a basic WebScene - 4.0beta3</title>
+    <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    </style>
+    <link href="https://js.arcgis.com/4.0beta3/esri/css/main.css" rel=
+    "stylesheet">
+    <script src="https://js.arcgis.com/4.0beta3/">
+    </script>
+    <script>
+    var scene;
+    require([
+      "esri/views/SceneView",
+      "esri/portal/PortalItem",
+      "esri/WebScene",
+      "esri/renderers/SimpleRenderer",
+      "esri/symbols/PolygonSymbol3D",
+      "esri/symbols/ExtrudeSymbol3DLayer",
+      "dojo/domReady!"
+    ], function(
+      SceneView, PortalItem, WebScene,SimpleRenderer,PolygonSymbol3D,ExtrudeSymbol3DLayer
+    ) {
+
+      /************************************************************
+       * Creates a new WebScene instance. A WebScene must reference
+       * a PortalItem ID that represents a WebScene saved to 
+       * arcgis.com or an on premise portal.
+       * 
+       * To load a WebScene from an onpremise portal, set the portal 
+       * url in esriConfig.portalUrl.
+       ************************************************************/
+      scene = new WebScene({
+        portalItem: new PortalItem({
+          id: "5cb4a3d1408b41d69e1bebe912ed513a"
+        })
+      });
+
+      /************************************************************
+       * Set the WebScene instance to the map property in a SceneView.
+       ************************************************************/
+      var view = new SceneView({
+        map: scene,
+        container: "viewDiv"
+      });
+      
+      view.then(function(){
+          console.log(view.map);
+          view.map.layers.find(function(lyr){
+        	  console.log(lyr.id);
+        	  if(lyr.id === "1531760e3bc-layer-12"){
+                  console.log("great!");
+                  var extrudePolygonRenderer = new SimpleRenderer({
+                      symbol: new PolygonSymbol3D({
+                        symbolLayers: [new ExtrudeSymbol3DLayer()]
+                      }),
+                      visualVariables: [{
+                        type: "sizeInfo",
+                        field: "HEIGHTROOF"
+                      }]
+                    });
+
+                    lyr.renderer = extrudePolygonRenderer;
+              }
+          });
+          }, function(error){
+          console.log("The view's resources failed to load: ", error);
+      });
+    });
+    </script>
+</head>
+<body>
+    <div id="viewDiv"></div>
+</body>
+</html>
