@@ -57,12 +57,8 @@
 				esriRequest({
 					url: PORTALTOKENURL,
 					content: {
-						//the type of request being made
-						request: "getToken",
 						username: "<Your Portal Username>",
 						password: "<Your Portal Password>",
-						//specify a referer so the token is only valid if used within your application
-						clientid: "ref." + window.location.href,
 						f:"json"
 					},
 					handleAs: "json",
