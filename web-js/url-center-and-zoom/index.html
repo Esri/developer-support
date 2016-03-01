@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>URL Center and Zoom</title>
+    <link rel="stylesheet" href="//js.arcgis.com/3.15/dijit/themes/tundra/tundra.css">
+    <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/esri.css">
+    <style>
+      html, body, #mapDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+      }
+      #messages{
+        background-color: #fff;
+        box-shadow: 0 0 5px #888;
+        font-size: 1.1em;
+        max-width: 15em;
+        padding: 0.5em;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        z-index: 40;
+      }
+    </style>
+    <script src="//js.arcgis.com/3.15/"></script>
+    <script>
+      var map;
+      require([
+        "esri/map",
+		"dojo/domReady!"
+      ], function(
+        Map
+      ) {
+        
+		map = new Map("mapDiv", { 
+          basemap: "streets"
+        });
+		
+		//call the getParameterByName function to get the center and zoom url parameters
+		var center = getParameterByName("center");
+		var zoom = getParameterByName("zoom");
+		
+		//if the center parameter has a value
+		if(center) {
+			//split the center value to the the lat and long values
+			var coords = center.split(",");
+			var lon = parseFloat(coords[0]);
+			var lat = parseFloat(coords[1]);
+			//check the lat long values to see if they are a valid number
+			if(isNaN(lon) == false && isNaN(lat) == false && lon <= 180 && lon >= -180 && lat <= 90 && lat >= -90) {
+				map.centerAt([lon, lat]);
+			}
+		}
+		//if the zoom parameter has a value
+		if(zoom) {
+			zoom = parseInt(zoom);
+			//check the zoom variable to see if it is a valid value
+			if(isNaN(zoom) == false && zoom <= 19 && zoom >= 0) {
+				map.setZoom(zoom);
+			}
+		}
+		
+		//This function searches for the value passed to it in the application url
+		function getParameterByName(name) {
+			//clean the parameter
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+			//create regular expression based on the value passed in
+			var regex = new RegExp("[\\?&]" + name + "=([^&#]*)");
+			//search the application url for the expression created above
+			results = regex.exec(location.search);
+			// if results is not null return the value of the parameters
+			return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
+		}
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="mapDiv"></div>
+  </body>
+</html>

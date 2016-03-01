@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>OpenStreetMap</title> 
+    <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/esri.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+      html, body, #map {
+        padding: 0px;
+        margin: 0px;
+        height: 100%;
+      }
+	  #dropdown {
+		top: 50px;
+		right: 50px;
+		position: absolute;
+		z-index: 100;
+	  }
+    </style>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="//js.arcgis.com/3.15/"></script>
+    <script>
+	  var osmData;
+      require([
+        "esri/map",
+        "esri/layers/OpenStreetMapLayer",
+        "dojo/domReady!"
+      ], function (Map, OpenStreetMapLayer){
+
+        var map, openStreetMapLayer;
+
+        map = new Map("map", {
+          center: [-82.42,35.61],
+          zoom: 13
+        });
+		
+		$.get("https://nhaney90.github.io/change-osm-servers/OSMSERVER.json").done(function(data) {
+			osmData = data.servers;
+			addOSMData(Object.keys(osmData)[0]);
+			populateDropdown();
+		});
+		
+		function populateDropdown() {
+			for(var server in osmData) {
+				if(osmData.hasOwnProperty(server)) {
+					$("#basemapSelect").append("<option>" + server + "</option>");
+				}
+			}
+		}
+
+		function addOSMData(value) {
+			if(openStreetMapLayer) {
+				map.removeLayer(openStreetMapLayer);
+				openStreetMapLayer = null;
+			}
+			openStreetMapLayer = new OpenStreetMapLayer({
+				tileServers: osmData[value]
+			});
+			map.addLayer(openStreetMapLayer);
+		}
+		
+		$("#basemapSelect").change(function() {
+			addOSMData($("#basemapSelect").val());
+		});
+      });
+    </script>
+  </head> 
+  
+  <body>
+    <div id="map"></div>
+	<div id="dropdown" class="form-group">
+		<label for = "basemapSelect" class="">Select Basemap</label>
+		<select id="basemapSelect" value="" Class="form-control">
+		</select>
+	</div>
+  </body> 
+</html>
