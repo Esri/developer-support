@@ -48,7 +48,7 @@ if(center) {
 	}
 }
 ```
-If the zoom parameter has a value parse it's value into an integer. If the zoom value is value set the zoom of the map to that value.
+If the zoom parameter has a value parse it's value into an integer. If the zoom value is valid set the zoom of the map to that value.
 ```javascript
 if(zoom) {
 	zoom = parseInt(zoom);
