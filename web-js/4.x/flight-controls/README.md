@@ -7,7 +7,7 @@ This is a simple application showing how to control the position of the camera i
 
 ##Usage Notes
 
-The keyboard commands can be shown by clicking on the "Show Map Controls" button. The map MUST be in focus to use the keyboard commands. Click on the map object to bring it in focus. The range slider allows you to increase the map movement speed. There are 7 preset locations which can be reached by clicking the buttons in the two button groups.
+The keyboard commands can be shown by clicking the "Show Map Controls" button. The map MUST be in focus to use keyboard commands. Click the map to bring it into focus. The range slider allows you to increase the map movement speed. There are 7 preset locations which can be reached by clicking the buttons in the two button groups.
 
 ##How it works:
 The following snippets highlight the important portions of the code.
