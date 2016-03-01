@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Esri Map Tours</title>
+  <style>
+    html, body, #viewDiv{
+      padding: 0;
+      margin: 0;
+	  width: 100%;
+	  height: 100%;
+    }
+	#controlsContainer{
+		top: 0px;
+		right: 0px;
+		width: 400px;
+		height: 215px;
+		z-index:50;
+		position: absolute;
+		background-color: gray;
+	}
+	#js-rangeslider-0 {
+		top: 40px;
+		width: 375px;
+		z-index: 100;
+		left: 12px;
+		position: absolute;
+	}
+	#row1 {
+		top: 80px;
+		position: absolute;
+		left: 30px;
+	}
+	#row2 {
+		top: 120px;
+		position: absolute;
+		left: 47px;
+	}
+	#showControls {
+		top: 160px;
+		left: 20px;
+		position: absolute;
+	}
+	.header {
+		color: white;
+		left: 20px;
+		position: absolute;
+	}
+  </style>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.0.2/rangeslider.min.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0beta3/esri/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  
+  <script src="https://js.arcgis.com/4.0beta3/"></script>
+  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <script>
+    require([
+	  "esri/Camera",
+      "esri/Map",
+	  "esri/geometry/Point",
+      "esri/views/SceneView",
+	  "https://cdnjs.cloudflare.com/ajax/libs/rangeslider.js/2.0.2/rangeslider.min.js",
+	  "dojo/on",
+      "dojo/domReady!"
+    ], function(Camera, Map, Point, SceneView, rangeSlider, on) {
+	  //The preset locations where the camera can be centered
+	  var places = {
+		scene1:{"x":137.72331001521673,"y":36.50423051795302,"z":2537,"tilt":73,"heading":251},
+		scene2:{"x":168.19090124071417,"y":-44.64902966023007,"z":2954.59,"tilt":71,"heading":307},
+		scene3:{"x":135.65127442170262,"y":35.01877144154965,"z":371.514,"tilt":71,"heading":107},
+		scene4:{"x":-3.9257767771556127,"y":32.50972766152526,"z":2726.65,"tilt":79,"heading":228.46},
+		scene5:{"x":25.866476327419495,"y":-17.92673984653034,"z":2089.87,"tilt":71.61,"heading":253.168},
+		scene6:{"x":-81.4447043924216,"y":30.68223199800126,"z":1160,"tilt":78.6,"heading":356.81},
+		scene7:{"x":-82.26199004727297,"y":35.76577512019366,"z":2068,"tilt":69,"heading":286.83},
+	  }
+	  //The variable that controls how quick the movement tools are
+	  var speedMultiplier = 1;
+	  
+	  //Instantiate the range slider object
+	  $('input[type="range"]').rangeslider({
+		polyfill: false,
+		onSlide: changeSpeed
+	  });
+	  
+	  //Create the map object with a satellite basemap
+      var map = new Map({
+        basemap: "satellite"
+      });
+	  
+	  //Create the view object
+      var view = new SceneView({
+        container: "viewDiv",
+        map: map,
+        scale: 50000000,
+        center: [-101.17, 21, 78]
+      });
+	  
+	  //The event handler for the range slider object
+	  function changeSpeed(position, value) {
+		if(value == 0) {
+			value++;
+		}
+		//increase the speed multiplier
+		speedMultiplier = value;
+	  }
+	  
+	  //Set the camera to the selected location
+	  function animateRoute(evt) {
+		//get the location of interest
+		var scene = places[evt.target.id];
+		//create a new map point
+		point = new Point({
+			x: scene.x,
+			y: scene.y,
+			z: scene.z,
+			spatialReference: 4326
+		});
+		//create a new camera object
+		var camera = new Camera({
+			position: point,
+			tilt: scene.tilt,
+			heading: scene.heading,
+			fov: 100
+		});
+		//set the view to the location of the new camera
+		view.animateTo(camera);
+	  }
+	  
+	  //listener for keyboard commands
+	  window.onkeypress = function(evt) {
+		//check which key was pressed
+		switch(evt.keyCode) {
+			case 97: rotateLeft(); break;
+			case 100: rotateRight(); break;
+			case 119: tiltUp(); break;
+			case 115: tiltDown(); break;
+			case 113: moveHigher(); break;
+			case 101: moveLower(); break;
+		}
+	  }
+	  
+	  //rotate the camera left
+	  function rotateLeft() {
+	    var newHeading = view.camera.heading - (1 * speedMultiplier);
+		view.animateTo({
+			heading: newHeading
+		});
+	  }
+	  
+	  //rotate the camera right
+	  function rotateRight() {
+	    var newHeading = view.camera.heading + (1 * speedMultiplier);
+		view.animateTo({
+			heading: newHeading
+		});	  
+	  }
+	  
+	  //tilt the camera up
+	  function tiltUp() {
+	    var newTilt = view.camera.tilt - (1 * speedMultiplier);
+		view.animateTo({
+			tilt: newTilt
+		});		
+	  }
+	  
+	  //tilt the camera down
+	  function tiltDown() {
+	    var newTilt = view.camera.tilt + (1 * speedMultiplier);
+		view.animateTo({
+			tilt: newTilt
+		});	  
+	  }
+	  
+	  //increase the height of the camera
+	  function moveHigher() {
+	    var point = view.camera.position;
+		point.z += (100 * speedMultiplier);
+		view.animateTo({
+			position: point
+		});
+	  }
+	  
+	  //decrease the height of the camera
+	  function moveLower() {
+	    var point = view.camera.position;
+		point.z -= (100 * speedMultiplier);
+		view.animateTo({
+			position: point
+		});
+	  }
+	  
+	  //Add click events to the buttons
+	  $("#scene1").click(animateRoute);
+	  $("#scene2").click(animateRoute);
+	  $("#scene3").click(animateRoute);	  
+	  $("#scene4").click(animateRoute);
+	  $("#scene5").click(animateRoute);
+	  $("#scene6").click(animateRoute);
+	  $("#scene7").click(animateRoute);	  
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  <div id="controlsContainer">
+	<h4 class="header">Change Movement Speed</h4>
+	<input class="range" type="range" min="0" max="25" step="1" value="0" data-orientation="horizontal"></input>
+	<div id="row1" class = "btn-group">
+		<button id="scene1" class = "btn btn-primary">Takase Dam</button>
+		<button id="scene2" class = "btn btn-primary">Fjordland</button>
+		<button id="scene3" class = "btn btn-primary">Kyoto</button>
+		<button id="scene4" class = "btn btn-primary">Atlas Mts</button>
+	</div>
+	<div id="row2" class = "btn-group">
+		<button id="scene5" class = "btn btn-primary">Victoria Falls</button>
+		<button id="scene6" class = "btn btn-primary">Golden Isles</button>
+		<button id="scene7" class = "btn btn-primary">Mt Mitchell</button>
+	</div>
+	<button id="showControls" class="btn btn-default" data-target = "#myModal" data-toggle = "modal" >Show Map Controls</button>
+  </div>
+  <div class = "modal fade" id = "myModal" tabindex = "-1" role = "dialog" aria-labelledby = "myModalLabel" aria-hidden = "true">
+	   <div class = "modal-dialog">
+		  <div class = "modal-content">
+			 <div class = "modal-header">
+				<button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+					  &times;
+				</button>
+				<h4 class = "modal-title" id = "myModalLabel">
+				   Map Movement Keyboard Controls
+				</h4>
+			 </div>
+			 <div class = "modal-body">
+				<table style="width:100%">
+					<tr>
+						<td>Up Arrow</td>
+						<td>Move Forward</td> 
+					</tr>
+					<tr>
+						<td>Down Arrow</td>
+						<td>Move Backwards</td> 
+					</tr>
+					<tr>
+						<td>Left Arrow</td>
+						<td>Move Forward</td> 
+					</tr>
+					<tr>
+						<td>Down Arrow</td>
+						<td>Move Backwards</td> 
+					</tr>
+					<tr>
+						<td>A</td>
+						<td>Rotate Left</td> 
+					</tr>
+					<tr>
+						<td>D</td>
+						<td>Rotate Right</td> 
+					</tr>
+					<tr>
+						<td>W</td>
+						<td>Tilt Up</td> 
+					</tr>
+					<tr>
+						<td>S</td>
+						<td>Tilt Down</td> 
+					</tr>
+					<tr>
+						<td>Q</td>
+						<td>Increase Elevation</td> 
+					</tr>
+					<tr>
+						<td>E</td>
+						<td>Decrease Elevation</td> 
+					</tr>
+				</table>
+			 </div>
+			 <div class = "modal-footer">
+				<h5 style="left:10px; position:absolute;">Click on the map to enable keyboard input</h5>
+				<button type = "button" class = "btn btn-default" data-dismiss = "modal">
+				   Close
+				</button>
+			 </div>
+		  </div>
+	   </div>
+	</div>
+</body>
+</html>
