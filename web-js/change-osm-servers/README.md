@@ -6,12 +6,12 @@ Esri's default basemaps include an Open Street Map basemap. However this basemap
 [Live Sample](http://nhaney90.github.io/change-osm-servers/index.html)
 
 ##Usage notes
-While Open Street Map basemaps are free and publically available some do have specific attribution and use requires. Please research the requirement for each basemap before including it in your project. This application uses so many basemaps that the server information was cluttering the code. I moved this information to a seperate JSON file which I query and then use to populate the different basemap options.
+While Open Street Map basemaps are free and publically available some do have specific attribution and use requirements. Please research the requirement for each basemap before including it in your project. This application uses so many basemaps that the server information was cluttering the code. I moved this information to a seperate JSON file which I query and then use to populate the different basemap options.
 
 ##How it works:
 The following snippets highlight the important portions of the code.
 
-Make a get request to retrieve the server information. Use the first basemap in the file as the default basemap in the application.
+Make a get request to retrieve the server information. Use the first basemap in the response as the default basemap in the application.
 ```javascript
 $.get("https://nhaney90.github.io/change-osm-servers/OSMSERVER.json").done(function(data) {
 	osmData = data.servers;
@@ -19,7 +19,7 @@ $.get("https://nhaney90.github.io/change-osm-servers/OSMSERVER.json").done(funct
 	populateDropdown();
 });
 ```
-Look through the properties in the response object and create an option in the dropdown for each basemap
+Loop through the properties in the response object and create an option in the dropdown for each basemap
 ```javascript
 for(var server in osmData) {
 	if(osmData.hasOwnProperty(server)) {
