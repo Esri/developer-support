@@ -3,8 +3,6 @@ Publish Feature Service to ArcGIS Online
 
 ## Instructions
 
-#NOTE 
-
 1. This script processes all file geodatabases in a specified directory
 2. For each File Geodatabase it adds layers to an Untitled Document and saves out a new document / mxd
 3. Once the ArcMap document is created this script publishes the content as a hosted feature service in ArcGIS Online.
