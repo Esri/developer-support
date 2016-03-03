@@ -1,50 +1,60 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-US">
 <head>
-    <title>Charts</title>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js">
-    </script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
-    </script>
-    <style media="screen" type="text/css">
-    /* <!-- */
+  <title>Charts</title>
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://js.arcgis.com/3.16/esri/css/esri.css" rel="stylesheet">
+  <style media="screen" type="text/css">
     html, body {
-    margin:0;
-    padding:0;
-    height:100%;
+      margin:0;
+      padding:0;
+      height:100%;
     }
 
     #map {
-    margin:0;
-    padding:0;
+      margin:0;
+      padding:0;
+      height: 1000px; 
+      width: 100%;
     }
-
-    .map-area {
-    position:relative;
-    display:inline-block;
+    
+    .chart-area{
+      margin-left:28px;
+      margin-top:4px;
     }
-    .chart-area {
-    position:relative;
-    display:inline-block;
+    
+    .chart-area div{
+      margin:4px;
     }
 
     .container-fluid{
-    height:100%;
-    width:100%;
+      height:100%;
+      width:100%;
     }
 
-    .col-map {
-    padding-left: 0;
-    padding-right: 0;
+    .col-divide {
+      padding-left: 0;
+      padding-right: 0;
+      background-color:#000; 
+      color:#FFF; 
+      height:46px
     }
 
     h3{
-    margin-top:12px;
-    margin-left:14px;
+      margin-top:12px;
+      margin-left:14px;
     }
-    </style>
-    <script>
+    
+    .hamburger {
+      margin-right:30px; 
+      width:24px;
+      height:24px;
+      float:right;
+      margin-top:12px;
+      margin-left:100px       
+    }
+  </style>
+  <script>
     var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
     window.dojoConfig = {
     async: true,
@@ -68,12 +78,11 @@
       }
     ]
     };
-    </script>
-    <link href="https://js.arcgis.com/3.15/esri/css/esri.css" rel="stylesheet">
-    <script src="https://js.arcgis.com/3.15/">
-    </script>
-    <script>
-       
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://js.arcgis.com/3.16/"></script>
+  <script>
     require(["esri/geometry/webMercatorUtils","esri/dijit/Gauge","cedar", "esri/map", "esri/layers/FeatureLayer", "esri/symbols/SimpleMarkerSymbol", "esri/symbols/SimpleLineSymbol",
          "esri/renderers/SimpleRenderer",  "esri/renderers/UniqueValueRenderer", "esri/Color", "dojo/domReady!"], function(webMercatorUtils, Gauge, Cedar, Map, FeatureLayer, 
             SimpleMarkerSymbol, SimpleLineSymbol, SimpleRenderer, UniqueValueRenderer, Color) { 
@@ -83,8 +92,6 @@
            new Color([198,12,70,1]), 1),
            new Color([248,187,37,0.9]));
          
-         
-
          var rend = new SimpleRenderer(defaultSymbol);
 
          var featureLayer = new FeatureLayer("http://services.arcgis.com/q7zPNeKmTWeh7Aor/arcgis/rest/services/PA_American_Communities_Survey_Points/FeatureServer/0",{
@@ -93,7 +100,6 @@
            outFields: ["*"]
          });
 
-         //create esri map
          var map = new Map("map", {
            center: [-75.3581787109362,40.248379903676856], //-8394337.547246445 , 4908828.548308863 -75.10,39.57
            zoom: 12,
@@ -113,10 +119,10 @@
             console.log(webMercatorUtils.webMercatorToGeographic(evt.mapPoint)); 
          });
 
-
          window.map = map;
 
          featureLayer.setRenderer(rend);
+         
          map.addLayer(featureLayer);
          
          var gaugeParams = {
@@ -133,9 +139,10 @@
          };
          
          var gauge = new Gauge(gaugeParams, "gauge");
+         
          gauge.startup();
 
-         var dataset = {
+         var datasetBar = {
            "url":"http://services.arcgis.com/q7zPNeKmTWeh7Aor/arcgis/rest/services/PA_American_Communities_Survey_Points/FeatureServer/0",
            "query": {
              "where": "NAME_1 IN('Philadelphia', 'Bucks', 'Berks','Montgomery')",
@@ -151,10 +158,11 @@
              "y": {"field":"ACSBPOVNFF_SUM","label":"Poverty"}
            }
          };
-         var chart = new Cedar({"type": "bar", "dataset": dataset});
+         var chartBar = new Cedar({"type": "bar", "dataset": datasetBar});
 
-         chart.override = {
-           "height": 300,
+         chartBar.override = {
+           "height": 220,
+           "width":240,
            "marks": [{"properties": {
                "hover": {"fill": {"value": "#f8bb25"}},
                "update": {"fill": {"value": "#FF4500"}}
@@ -163,10 +171,10 @@
          };
 
          //create and render a chart
-         chart.show({
+         chartBar.show({
            'elementId': '#chart'
          });
-         window.chart = chart;
+         window.chart = chartBar;
          
          
          var datasetPie = {
@@ -183,7 +191,7 @@
                     "mappings":{
                       "label": {"field":"NAME_1","label":"County"},
                       "y": {"field":"Number_of_ACSBPOVNFF","label":"People"},
-                      "radius": 120
+                      "radius": 100
                     }
                   };
          
@@ -191,8 +199,8 @@
          chartPie.dataset = datasetPie;
          chartPie.show({
              elementId: "#chartPie",
-             width: 300,
-             height: 300
+             width: 280,
+             height: 280
          });
          
          chartPie.override = {
@@ -206,44 +214,43 @@
          function onExtentChanged(){
            var extent = map.extent;
            extent = JSON.stringify(extent);
-           chart.dataset.query.geometry = extent;
-           chart.update();
+           chartBar.dataset.query.geometry = extent;
+           chartBar.update();
            chartPie.dataset.query.geometry = extent;
            chartPie.update();
          }
 
 
        });
-    </script>
+  </script>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-8 col-map" style="background-color:#000; color:#FFF; height:46px">
-                <h3>Philadelphia Families in Poverty - American Community Survey</h3>
-            </div>
-            <div class="col-sm-4 col-map" style="background-color:#000; color:#FFF; height:46px"><img alt="hamburger" src="images/hamburger.png" style=
-            "margin-right:30px; width:24px; height:24px; float:right; margin-top:12px; margin-left:100px"></div>
-        </div>
-        <div class="row">
-            <div class="col-sm-8 col-map">
-                <div class="map-area" style="height: 100%; width: 100%;">
-                    <div id="map" style="height: 1000px; width: 100%;"></div>
-                </div>
-            </div>
-            <div class="col-sm-4 chart-area">
-                <div class="chart-area">
-                    <div style="margin-left:88px; margin-top:4px;">
-                        <h2>Interactive guage widget</h2>
-                        <div id="gauge" style="margin:4px;"></div>
-                        <h2>Bar chart</h2>
-                        <div id="chart" style="margin:4px;"></div>
-                        <h2>Pie chart</h2>
-                        <div id="chartPie" style="margin:4px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-8 col-divide">
+        <h3>Philadelphia Families in Poverty - American Community Survey</h3>
+      </div>
+      <div class="col-sm-4 col-divide"><img alt="hamburger" class="hamburger" src="images/hamburger.png"></div>
     </div>
+    <div class="row">
+      <div class="col-sm-8 col-divide">
+        <div class="map-area">
+          <div id="map"></div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div>
+          <div class="chart-area">
+            <h2>Interactive guage widget</h2>
+            <div id="gauge"></div>
+            <h2>Bar chart</h2>
+            <div id="chart"></div>
+            <h2>Pie chart</h2>
+            <div id="chartPie"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
