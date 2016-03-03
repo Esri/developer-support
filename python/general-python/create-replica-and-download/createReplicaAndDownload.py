@@ -1,17 +1,16 @@
-#Downloads a replica created asynchronously
-#Resources: https://developers.arcgis.com/rest/analysis/api-reference/programmatically-accessing-analysis-services.htm
 import urllib, urllib2, json, time, os
+
+username = "username"                                             #CHANGE
+password = "password"                                             #CHANGE
+replicaURL = "feature service url/FeatureServer/createReplica"    #CHANGE
+replicaLayers = [0]                                               #CHANGE
+replicaName = "replicaTest"                                       #CHANGE
 
 def sendRequest(request):
     response = urllib2.urlopen(request)
     readResponse = response.read()
     jsonResponse = json.loads(readResponse)
     return jsonResponse
-
-username = "username"                                             #CHANGE
-password = "password"                                             #CHANGE
-downloads = r"location of downloads folder"                       #CHANGE
-replicaURL = "feature service url/FeatureServer/createReplica"    #CHANGE
 
 print("Generating token")
 url = "https://arcgis.com/sharing/rest/generateToken"
@@ -25,8 +24,8 @@ token = jsonResponse['token']
 
 print("Creating the replica")
 data = {'f' : 'json',
-    'replicaName' : 'Nov20Test',
-    'layers' : [0,1],
+    'replicaName' : replicaName,
+    'layers' : replicaLayers,
     'returnAttachments' : 'true',
     'returnAttachmentsDatabyURL' : 'false',
     'syncModel' : 'none',
@@ -47,9 +46,13 @@ while not jsonResponse.get("status") == "Completed":
     request = urllib2.Request(url)
     jsonResponse = sendRequest(request)
 
-print("Downloading the replica")
-url = jsonResponse['resultUrl']
-f = urllib2.urlopen(url)
-with open(downloads + "\\" + os.path.basename(url), "wb") as local_file:
-    local_file.write(f.read())
+userDownloads = os.environ['USERPROFILE'] + "\\Downloads"
 
+print("Downloading the replica. In case this fails note that the replica URL is: \n")
+jres = jsonResponse['resultUrl']
+url = "{0}?token={1}".format(jres, token)
+print(url)
+f = urllib2.urlopen(url)
+with open(userDownloads + "\\" + os.path.basename(jres), "wb") as local_file:
+    local_file.write(f.read())
+print("\n Finished!")
