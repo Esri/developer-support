@@ -49,9 +49,10 @@ while not jsonResponse.get("status") == "Completed":
 userDownloads = os.environ['USERPROFILE'] + "\\Downloads"
 
 print("Downloading the replica. In case this fails note that the replica URL is: \n")
-url = jsonResponse['resultUrl']
-print("{0}?token={1}".format(url, token))
+jres = jsonResponse['resultUrl']
+url = "{0}?token={1}".format(jres, token)
+print(url)
 f = urllib2.urlopen(url)
-with open(userDownloads + "\\" + os.path.basename(url), "wb") as local_file:
+with open(userDownloads + "\\" + os.path.basename(jres), "wb") as local_file:
     local_file.write(f.read())
 print("\n Finished!")
