@@ -1,0 +1,18 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://www.esri.com/schemas/ArcGIS/10.1"> 
+  <soapenv:Header/> 
+    <soapenv:Body> 
+      <ns:Query> 
+         <LayerOrTableID>0</LayerOrTableID> 
+         <DefinitionExpression></DefinitionExpression> 
+         <QueryFilter> 
+            <WhereClause>OBJECTID = 1</WhereClause> 
+            <Resolution>0</Resolution> 
+         </QueryFilter> 
+         <ServiceDataOptions> 
+            <Format>NATIVE</Format> 
+         </ServiceDataOptions> 
+         <GdbVersion></GdbVersion> 
+        <MaximumAllowableOffset>0.0</MaximumAllowableOffset> 
+      </ns:Query> 
+   </soapenv:Body> 
+ </soapenv:Envelope> 
