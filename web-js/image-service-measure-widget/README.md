@@ -1,6 +1,6 @@
-#How to implement ImageServiceMeasure widget
+# How to implement ImageServiceMeasure widget
 
-##About
+## About
 
 ArcGIS JavaScript provides an ImageServiceMeasure widget from v3.14. However, there isn't any practical sample to show how to use this widget. Plus, the current [online documentation](https://developers.arcgis.com/javascript/jsapi/imageservicemeasure-amd.html) for this widget is not addressed correctly. And we already logged an enhancement bug [ENH-000094580 Incomplete documentation for ImageServiceMeasure widget]
 
@@ -13,12 +13,12 @@ This sample shows how to use this widget correctly
 [Live Sample](https://goldenlimit.github.io/image-service-measure-widget/index.html)
 
 
-##Usage Notes
+## Usage Notes
 
-In order to appropriately use this widget to work, it is better to startup the widget once the imageService layer loaded. 
+In order to appropriately running this widget, it is better to startup the widget after the imageService layer loaded. 
 
 
-##How it works:
+## How it works:
 
 The following snippets highlight the important portions of how to initialize the widget.
 
@@ -48,3 +48,16 @@ var ism = new ImageServiceMeasure({
 }, "ism");
 ism.startup();
 ```
+## Resources
+
+* [ArcGIS for JavaScript API Resource Center](http://help.arcgis.com/en/webapi/javascript/arcgis/index.html)
+* [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
+* [twitter@esri](http://twitter.com/esri)
+
+## Issues
+
+Find a bug or want to request a new feature?  Please let us know by submitting an issue.
+
+## Contributing
+
+Anyone and everyone is welcome to contribute.
