@@ -5,7 +5,10 @@
 ArcGIS JavaScript provides an ImageServiceMeasure widget from v3.14. However, there isn't any practical sample to show how to use this widget. Plus, the current [online documentation](https://developers.arcgis.com/javascript/jsapi/imageservicemeasure-amd.html) for this widget is not addressed correctly. And we already logged an enhancement bug [ENH-000094580 Incomplete documentation for ImageServiceMeasure widget]
 
 
-This sample shows how to use this widget correctly 
+This sample shows how to use this widget correctly
+
+
+![Alt text](https://github.com/goldenlimit/developer-support/blob/imageWidgetJS/web-js/image-service-measure-widget/screenshot.JPG "ImageServiceMeasure widget")
 
 [Live Sample](https://goldenlimit.github.io/image-service-measure-widget/index.html)
 
