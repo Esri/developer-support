@@ -1,0 +1,11 @@
+#mapDiv {
+	min-height:100%; 
+    max-height:100%; 
+}
+#serviceDropdown{
+    visibility: hidden;
+}
+
+#add-data-dropdown{
+    visibility: hidden;
+}
