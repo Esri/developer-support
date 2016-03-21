@@ -24,6 +24,8 @@ Feel free to file an [issue](https://github.com/Esri/developer-support/issues/ne
 * Add a readme file describing what the code achieves and how to run it
 * Remove framework files and unnecessary files
 * Try to keep screenshots under 1MB (~800px) whenever possible
+* **No `--force` pushing** or modifying the Git history in any way
+* Dedicated feature branches should be used for ongoing work.
 
 ### Resources
 

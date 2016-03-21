@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+    on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title></title>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #map {
+            padding: 0;
+        }
+    </style>
+
+    <script src="http://js.arcgis.com/3.14/"></script>
+    <script>
+        var map;
+        require([
+            "esri/arcgis/utils",
+            "esri/dijit/BasemapGallery",
+            "esri/dijit/Basemap",
+            "esri/dijit/BasemapLayer",
+            "esri/map",
+            "esri/dijit/BasemapToggle",
+            "dojo/parser",
+            "dojo/domReady!"
+        ], function(
+            arcgisUtils, BasemapGallery, Basemap, BasemapLayer, Map, BasemapToggle, parser
+        ) {
+            parser.parse();
+//Create an array to hold the basemap and basemap layers
+            var basemaps = [];
+            var map1 = new Basemap({
+                title: "WTL",
+                layers: [
+                    new BasemapLayer({
+                        url: "http://${subDomain}.tile.opencyclemap.org/cycle/${level}/${col}/${row}.png",
+                        subDomains: ["a", "b", "c"],
+                        copyright: "Open Cycle Map",
+						 //specifying the type is required
+                        type: "WebTiledLayer"
+                    })
+                ],
+                id: "Open Cycle Map"
+            });
+            basemaps.push(map1);
+            map = new Map("map", {
+                center: [-70.6508, 43.1452],
+                zoom: 16,
+                basemap: "topo"
+            });
+			//add the Web Tiled Layer to the BasemapGallery
+            var gallery = new BasemapGallery({
+                    showArcGISBasemaps: true,
+                    basemaps: basemaps,
+                    map: map
+                },
+                "basemapGallery");
+            gallery.startup();
+        });
+    </script>
+</head>
+
+<body class="claro">
+    <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline', gutters:false" style="width:100%;height:100%;margin:0;">
+
+        <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'" style="padding:0;">
+
+            <div style="position:absolute; right:20px; top:10px; z-Index:999;">
+                <div data-dojo-type="dijit/TitlePane" data-dojo-props="title:'Switch Basemap', closable:false, open:false">
+                    <div data-dojo-type="dijit/layout/ContentPane" style="width:380px; height:280px; overflow:auto;">
+                        <div id="basemapGallery"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+</html>

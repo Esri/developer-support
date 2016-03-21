@@ -1,0 +1,76 @@
+<div>
+	<form role="form">
+		<div class = "form-group">
+			<label for = "layerType" class = "control-label padLabels">Layer Type</label>
+			<div>
+				<div class="input-group" style="width:500px">                                            
+					<input type="TextBox" id="layerType" Class="form-control"></input>
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul id="layerTypeDD" class="dropdown-menu dropdown-menu-left">
+							<li><a href="#">ArcGIS Server Service</a></li>
+							<li><a href="#">WFS OGC Service</a></li>
+							<li><a href="#">WMS OGC Service</a></li>
+							<li><a href="#">WMTS OGC Service</a></li>
+							<li><a href="#">KML File</a></li>
+							<li><a href="#">CSV File</a></li>
+							<li><a href="#">GeoRSS File</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div id="dialog">
+		<form role="form" id="subLayerDialog" style="display:none">
+			<div class = "form-group">
+				<label for = "subLayerType" class = "control-label padLabels">ArcGIS Server Layer Type</label>
+				<div>
+					<div class="input-group" style="width:500px">                                            
+						<input type="TextBox" id="subLayerType" Class="form-control"></input>
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+								<span class="caret"></span>
+							</button>
+							<ul id="subLayerTypeDD" class="dropdown-menu dropdown-menu-left">
+								<li><a href="#">ImageServiceLayer</a></li>
+								<li><a href="#">ArcGISDynamicMapServiceLayer</a></li>
+								<li><a href="#">FeatureLayer</a></li>
+								<li><a href="#">ArcGISTiledMapServiceLayer</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class = "form-group" id="urlInputForm" style="display:none">
+			<label for = "urlInput" class = "control-label padLabels">Service URL</label>
+			<div>
+				<input type = "text" class = "form-control" id = "urlInput" placeholder = "Enter URL">
+			</div>
+		</div>	
+		<table>
+			<tbody id="optionsTable">
+			</tbody>
+		</table>
+		<table style="width: 500px;">
+			<tbody id="dialogTable" style="display:none">
+				<tr id="actionButtons">
+					<td>
+						<button id="addLayerBtn" type = "button" class = "btn btn-primary btn-sm" disabled>Add Layer</button>
+					<td/>
+					<td>
+						<button id="cancelBtn" type = "button" class = "btn btn-info btn-sm">Cancel</button>
+					<td/>
+					<td>
+						<div class="checkbox checkbox-primary">
+							<label><input type="checkbox" name="advancedOptions" id="advancedOptions"/>Advanced Options</label>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

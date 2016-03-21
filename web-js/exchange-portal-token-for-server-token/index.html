@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Portal to Server</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.15/esri/css/esri.css">
+
+    <style>
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+
+    <script src="http://js.arcgis.com/3.15/"></script>
+    <script>
+        require([
+            "esri/config",
+            "esri/layers/ArcGISDynamicMapServiceLayer",
+            "esri/map",
+            "esri/request",
+            "dojo/domReady!",
+        ], function(
+            esriConfig,
+            ArcGISDynamicMapServiceLayer,
+            Map,
+            esriRequest
+        ) {
+			//Your domain to the CORS enabled servers list
+            esriConfig.defaults.io.corsEnabledServers.push("<Your Domain>");
+			
+			//The url to the secured server service your wish to access
+			var SECURELAYERURL = "https://<Your Domain>/arcgis/rest/services/SampleWorldCities/MapServer";
+			var PORTALTOKENURL = "https://<Your Domain>/portal/sharing/generateToken";
+			var SERVERURL = "https://<Your Domain>/arcgis/rest/services";
+			
+            var map = new Map("map", {
+                basemap: "topo",
+                center: [-86, 33],
+                zoom: 4,
+                slider: false
+            });
+			
+			//Call the function to get a Portal token
+			getPortalToken();
+
+			//Gets a portal token
+			function getPortalToken() {
+				//use esriRequest to send the get token request
+				esriRequest({
+					url: PORTALTOKENURL,
+					content: {
+						username: "<Your Portal Username>",
+						password: "<Your Portal Password>",
+						f:"json"
+					},
+					handleAs: "json",
+					load: portalTokenObtained,
+					error: tokenRequestFailed
+				}, {
+					usePost: true
+				});
+			}
+			
+            function portalTokenObtained(response) {
+				//pass the Portal token to the getServerToken method
+				getServerToken(response.token)
+            }
+			function tokenRequestFailed(error) {
+				console.log(error);
+			}
+			//exchanges the Portal token for a server token
+			function getServerToken(portalToken) {
+				esriRequest({
+					url: PORTALTOKENURL,
+					content: {
+						token: portalToken,
+						//The url to the REST endpoint of your server
+						serverURL: SERVERURL,
+						f: "json"
+					},
+					handleAs: "json",
+					load: serverTokenObtained,
+					error: tokenRequestFailed
+				}, {
+					usePost:true
+				});
+			}
+			
+			function serverTokenObtained(response) {
+				//pass the token to the addSecureLayer function
+				addSecureLayer(response.token);
+			}
+			
+			//add the secure layer to the map
+			function addSecureLayer(serverToken) {
+				//append the server token to the url of the secured layer
+				var secureLayer = new ArcGISDynamicMapServiceLayer(SECURELAYERURL + "?token=" + serverToken);
+				map.addLayer(secureLayer);
+			}
+        });
+    </script>
+</head>
+
+<body class="claro">
+    <div id="map" />
+</body>
+
+</html>

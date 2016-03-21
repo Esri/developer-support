@@ -318,7 +318,11 @@ App {
                     spacing: 7
                     Text{
                         font.pointSize: 10
-                        text:"Click on a point, then click on any button to query for relationships. \nAfter fields are populated, change the values, and press enter to save"
+                        lineHeight: 0.5
+                        text:"Click on a point, then click on either Query Button.
+\nFirst Query Button finds feature to table relates
+\nSecond Query Button finds feature to feature relates
+\nPress enter to save Edits"
                     }
                 }
             }
@@ -335,6 +339,16 @@ App {
                         id: listModel1
                     }
 
+                    Rectangle{
+                        id: tableArea1
+                        anchors.fill: parent
+                    Text{
+                        id: tablename1
+                        text: "Feature to Table Relationship"
+                        font.pixelSize: 15
+                        height: 20
+                    }
+
                     TableView{
                         id: tableView1
                         model: listModel1
@@ -346,7 +360,8 @@ App {
                             right: parent.right
                             left: parent.left
                             bottom: parent.bottom
-                            margins: 10
+                            topMargin: 20
+
                         }
 
                         itemDelegate: TextInput{
@@ -356,6 +371,7 @@ App {
                             }
                         }
 
+                    }
                     }
 
                     Component {
@@ -391,7 +407,7 @@ App {
                         spacing: 1
                         Button{
                             id: firstRel
-                            text: "Query 1"
+                            text: "Query"
                             enabled: queryenabled
                             onClicked: {
                                 queryForRelationships(tableView1, tableViewColumn1, 0)
@@ -403,11 +419,18 @@ App {
                 ContentBlock{
                     id: tableBlock2
 
-
-
-
                     ListModel{
                         id: listModel2
+                    }
+
+                    Rectangle{
+                        id: tableArea2
+                        anchors.fill: parent
+                    Text{
+                        id: tablename2
+                        text: "Feature to Feature Relationship"
+                        font.pixelSize: 15
+                        height: 20
                     }
                     TableView{
                         id: tableView2
@@ -421,7 +444,7 @@ App {
                             right: parent.right
                             left: parent.left
                             bottom: parent.bottom
-                            margins: 10
+                            topMargin: 20
                         }
 
                         itemDelegate: TextInput{
@@ -430,6 +453,7 @@ App {
                                 updateField(tableView2, listModel2, text, styleData)
                             }
                         }
+                    }
                     }
 
                     Component {
@@ -466,7 +490,7 @@ App {
                         spacing: 1
                         Button{
                             id: secondRel
-                            text: "Query 2"
+                            text: "Query"
                             enabled: queryenabled
                             onClicked: {
                                 queryForRelationships(tableView2, tableViewColumn2, 1)
@@ -572,4 +596,3 @@ App {
         id: featureQuery
     }
 }
-

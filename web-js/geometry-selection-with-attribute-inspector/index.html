@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--The viewport meta tag is used to improve the presentation and behavior of the samples 
+      on iOS devices-->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Attribute Inspector interact with different geometry selections</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.15/esri/css/esri.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
+    <style>
+    html, body, #mapDiv {
+        padding:0;
+        margin:0;
+        height:100%;
+    }
+        
+    #title {
+    min-height: 20px;
+    min-width: 220px;
+    padding: 10px;
+    position: absolute;
+    z-index: 40;
+    left: 30%;
+    border: solid 2px #666;
+    font-size: 110%;
+    background-color: limegreen;
+}
+    #rightPane {
+        padding: 0;
+        width:250px;
+    }
+        
+    #cleardiv {
+        background: #fff;
+        box-shadow: 0 0 5px #888;
+        left: 95em;
+        padding: 0.5em;
+        position: absolute;
+        top: 2em;
+        z-index: 40;
+      }
+    button {
+        display: block;
+    }
+        
+    .esriAttributeInspector .atiLayerName {display:none;}
+    .esriAttributeInspector .saveButton {
+        float:right; 
+    }
+    </style>
+    
+    <script src="http://js.arcgis.com/3.15/"></script>
+    <script>
+        var map, tb, updateFeature, clickFeature;
+    require([
+    "esri/map", 
+    "esri/toolbars/draw", 
+    "dojo/promise/all",
+    "esri/symbols/SimpleMarkerSymbol", 
+    "esri/symbols/SimpleLineSymbol", 
+    "esri/symbols/SimpleFillSymbol",
+    "esri/symbols/PictureFillSymbol", 
+    "esri/symbols/CartographicLineSymbol",
+    "esri/layers/FeatureLayer",
+    "esri/graphic",
+    "esri/tasks/query", 
+    "esri/tasks/QueryTask", 
+    "esri/dijit/AttributeInspector",
+    "esri/geometry/Point", 
+    "esri/SpatialReference",
+    "esri/geometry/webMercatorUtils",
+    "esri/geometry/Extent",
+    "esri/Color", 
+    "dojo/dom", 
+    "dojo/on", 
+    "dojo/parser", 
+    "dojo/dom-construct",
+    "dojo/_base/connect",
+    "dijit/form/Button",
+    "dijit/layout/BorderContainer", 
+    "dijit/layout/ContentPane",
+    "dijit/layout/AccordionContainer", 
+    "dojo/domReady!"
+    ], function (Map, Draw, All,SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol,PictureFillSymbol, CartographicLineSymbol, FeatureLayer, Graphic, Query, QueryTask, AttributeInspector, Point, SpatialReference, webMercatorUtils, Extent, Color, dom, on, parser,domConstruct, connect, Button) {
+
+    parser.parse();
+    
+    map = new Map("mapDiv", {
+        basemap: "dark-gray",
+        center: [-97.395, 37.537],
+        zoom: 5
+    });
+    map.on("load", initToolbar);
+    
+    var fieldsSelectionSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE).setColor(new Color([220, 20, 60, 1]));
+    
+    var featureLayer = new FeatureLayer("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0", {
+        mode: FeatureLayer.MODE_ONDEMAND,
+        outFields: ["*"]
+    });
+    
+    featureLayer.setDefinitionExpression("quality <1");
+
+    map.addLayer(featureLayer);
+    featureLayer.setSelectionSymbol(fieldsSelectionSymbol);
+    map.on("click", clickFeaturelayer);
+    
+    function clickFeaturelayer(evt) {
+        //check if the red point is clicked or not, make sure only selected red points return infowindow
+        console.log("Point click");
+        var centerPoint = new Point(evt.mapPoint.x,evt.mapPoint.y,evt.mapPoint.spatialReference);
+        var mapWidth = map.extent.getWidth();
+
+        //Divide width in map units by width in pixels
+        var pixelWidth = mapWidth/map.width;
+
+        //Calculate a 10 pixel envelope width (5 pixel tolerance on each side)
+        var tolerance = 35 * pixelWidth;
+
+        //Build tolerance envelope and set it as the query geometry
+        var queryExtent = new Extent(1,1,tolerance,tolerance,evt.mapPoint.spatialReference);
+        
+        var clickQuery = new Query();
+
+        clickQuery.geometry = queryExtent.centerAt(centerPoint);
+        clickQuery.outFields = ["*"];
+        clickQuery.returnGeometry = true;
+        featureLayer.selectFeatures(clickQuery, FeatureLayer.SELECTION_NEW, function(features) {
+            if (features.length > 0) {
+                clickFeature = features[0];
+                map.infoWindow.setTitle(features[0].getLayer().name);
+                map.infoWindow.show(evt.mapPoint, map.getInfoWindowAnchor(evt.screenPoint));
+            } else {
+            map.infoWindow.hide();
+            }
+        });
+        
+        map.infoWindow.on("hide", function() {
+        featureLayer.clearSelection();
+      });
+    };
+    
+    var layerInfos = [
+        {
+          'featureLayer': featureLayer,
+          'showAttachments': false,
+          'isEditable': true,
+          'fieldInfos': [
+            {'fieldName': 'objectid', 'isEditable': false, 'label': 'objectid:'},
+            {'fieldName': 'facility', 'isEditable': true, 'tooltip': 'facility', 'label': 'facility:'},
+            {'fieldName': 'description', 'isEditable': true, 'label': 'description:'},
+            {'fieldName': 'quality', 'isEditable': true, 'tooltip': 'Quality', 'label': 'Quality:'},
+            {'fieldName': 'observed', 'isEditable': true, 'tooltip': 'Observed:', 'label': 'observed:'}
+          ]
+        }
+      ];
+    
+    var attInspector = new AttributeInspector({
+        layerInfos: layerInfos
+      }, domConstruct.create("div"));
+    
+    //add a save button next to the delete button
+    var saveButton = new Button({ label: "Save", "class": "saveButton"},domConstruct.create("div"));
+      domConstruct.place(saveButton.domNode, attInspector.deleteBtn.domNode, "after");
+
+    saveButton.on("click", function() {
+        clickFeature.getLayer().applyEdits(null, [clickFeature], null);
+        console.log("Updated the feature objectID is " + clickFeature.attributes.objectid);
+        
+      });
+
+    attInspector.on("delete", function(){
+    clickFeature.getLayer().applyEdits(null,null,[clickFeature]);
+    console.log("Delete the feature objectID is " + clickFeature.attributes.objectid);
+     map.infoWindow.hide();
+    });
+    
+    map.infoWindow.setContent(attInspector.domNode);
+    map.infoWindow.resize(350, 240);
+    
+    // fill symbol used for extent, polygon and freehand polygon    
+    var fillSymbol = new SimpleFillSymbol();
+
+    function initToolbar() {
+        tb = new Draw(map);
+        tb.on("draw-end", queryMapService);
+
+        // event delegation so a click handler is not    
+        // needed for each individual button    
+        on(dom.byId("info"), "click", function (evt) {
+            if (evt.target.id === "info") {
+                return;
+            }
+            var tool = evt.target.id.toLowerCase();
+            map.disableMapNavigation();
+            tb.activate(tool);
+        });
+    }
+
+    function queryMapService(evt) {
+        var query = new Query();
+        query.returnGeometry = true;
+        query.outFields = ["*"];
+        query.geometry = evt.geometry;
+        
+        featureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(results){
+            if (results.length > 0) {
+                updateFeature = results[0];
+                map.infoWindow.setTitle(results[0].getLayer().name);
+                map.infoWindow.show(results[0].geometry, map.getInfoWindowAnchor(results[0].geometry));
+            }
+        });
+        tb.deactivate();
+    }
+
+    function showResults(results) {
+        var resultCount = results.length;
+        console.log(resultCount);
+    }
+});
+    </script>
+
+<body class='claro'>  
+    <div id="title">
+            <label>Attribute Inspector interacts with different geometry selections</label>
+        </div> 
+    <div id="mainWindow" data-dojo-type="dijit.layout.BorderContainer" data-dojo-props="design:'headline',gutters:false" style="width:100%; height:100%;">
+        <div id="mapDiv" class="shadow roundedCorners" data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'center'"></div>
+        <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="region:'right'" class="roundedCorners" id="rightPane">
+            <div data-dojo-type="dijit.layout.AccordionContainer">
+                <div data-dojo-type="dijit.layout.ContentPane" data-dojo-props="title:'Graphics'" id='graphics'>
+                    <div id="info">
+                        <div>Select a shape then draw on map to select features</div>
+                        <button id="Triangle">Triangle</button>
+                        <button id="Extent">Rectangle</button>
+                        <button id="Circle">Circle</button>
+                        <button id="Ellipse">Ellipse</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
