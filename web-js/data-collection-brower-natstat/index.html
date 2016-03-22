@@ -6,7 +6,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="/img/favicon.ico" rel="shortcut icon">
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
     </script>
 
@@ -16,11 +16,11 @@
     background: transparent url("includes/bluebullet.gif") no-repeat
         scroll -2px 5px
     }
-    
+
     .subheading {
 		margin-left:14px;
     }
-    
+
     #footer {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -30,7 +30,7 @@
 	height: 250px;
 	clear: both
 }
-    
+
 
     @font-face {
     font-family: 'IcoMoon';
@@ -42,7 +42,7 @@
     font-weight: normal;
     font-style: normal
     }
-    
+
     [data-icon]:before {
 	font-family: 'IcoMoon';
 	content: attr(data-icon);
@@ -58,7 +58,7 @@
 	font-weight: normal;
 	-webkit-font-smoothing: antialiased
 }
-    
+
 
 .icon-green:before {
 	color: #35ac46
@@ -167,7 +167,7 @@
     @media (min-width: 768px)
     .container {
     width: 750px;
-    } 
+    }
     .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -379,8 +379,8 @@
     .r{
     margin-left:24px;
     }
-    
-    
+
+
 #footer-social-nav {
 	list-style-type:none;
 	font-size: 1.5em;
@@ -427,13 +427,13 @@
 	color: inherit
 }
     </style>
-    
-    
+
+
     <script>
     var proxy = "http://54.214.96.171/proxy/php/proxy.php";
     var webServer = "http://esri.github.io/developer-support/web-js/data-collection-brower-natstat/index.html"
-    
-    	
+
+
 
   function getUrlParameters(parameter, decode) {
       var staticURL = window.location;
@@ -467,7 +467,7 @@
       while (results.firstChild) {
           results.removeChild(results.firstChild);
       }
-      
+
       var url = proxy +
           "?http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/Geoenrichment/dataCollections/" +
           countryCode + "/" + collection + "?f=json";
@@ -475,7 +475,7 @@
       $.get(url, function(data) {
           data = JSON.parse(data);
           document.getElementById("total-num-vars-container").innerHTML = "Total number of variables: " + data.DataCollections[0].data.length;
-          
+
           if (data.DataCollections[0].metadata) {
               document.getElementById("collectionTitle").innerHTML =
                   data.DataCollections[0].metadata.title;
@@ -491,7 +491,7 @@
               th.appendChild(textElement);
               tr.appendChild(th);
               tbody.appendChild(tr);
-              
+
               table.className = "table table-striped"; //.table-striped
               for (i = 0; i < data.DataCollections[0].data.length; i++) {
                   variable = data.DataCollections[0].data[i];
@@ -513,7 +513,7 @@
           }
       });
   }
-  
+
   function inArray(needle, haystack){
   	var idx = haystack.indexOf(needle);
   	var result = idx > -1 ? true : false;
@@ -1122,7 +1122,7 @@
              "order": "5"
          }
      ];
-      
+
       var div = document.createElement("div");
       var items = [];
       for(i=0; i<links.length; i++){
@@ -1169,7 +1169,7 @@
   }
 
     </script>
-    
+
 </head>
 <body>
     <div class="topbanner">
@@ -1182,7 +1182,7 @@
         </div>
         <div>
             <h1>National Statistics and Demographic Data Collection Explorer for IBM</h1>
-            
+
             <div class="r"><img src="includes/connect.png"></div>
         </div>
     </div>
@@ -1192,7 +1192,7 @@
                 <a href="https://www.arcgis.com/features/free-trial.html" target="_blank">Try ArcGIS for Free</a>
             </li>
             <li>
-                <a href="mailto:dcarroll@esri.com?Subject=NatSTAT%20or%20ArcGIS520Data%20Collection%20Question" target="_top">Need More Information?</a>
+                <a href="mailto:dcarroll@esri.com?Subject=NatSTAT%20Question" target="_top">Need More Information?</a>
             </li>
             <li>
                 <a href="https://doc.arcgis.com/en/arcgis-online/use-maps/perform-analysis.htm" target="_blank">Learn More About Advanced Tooling</a>
