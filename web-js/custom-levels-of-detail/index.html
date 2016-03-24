@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Custom Level of Detail</title>
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/3.16/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+      }
+   </style>
+
+    <script src="https://js.arcgis.com/3.16/"></script>
+    <script>
+      var map;
+	  //The scale at which the custom zoom levels begin to be displayed
+	  var customZoomLevelStart = 4000;
+	  //the custom levels of detail
+	  var customLODS = [
+	   {"level":17, "scale":4000, "resolution":1.19},
+	   {"level":18, "scale":2000, "resolution":0.59},
+	   {"level":19, "scale":1000, "resolution":0.29},
+	   {"level":20, "scale":500, "resolution":0.14},
+	   {"level":21, "scale":250, "resolution":0.07}
+	  ]
+
+      require([
+        "esri/map", "esri/layers/ArcGISTiledMapServiceLayer", "esri/layers/ArcGISDynamicMapServiceLayer","dojo/dom",
+
+        "dojo/domReady!"
+      ], function(
+        Map, ArcGISTiledMapServiceLayer, DLayer, dom
+      ) {
+
+		//the tiled basemap, limit the display levels of the basemap.
+        var satTiled = new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer", {
+          displayLevels: [10,11,12,13,14,15,16]
+        });
+		
+		//the basemap used as a dynamic layer
+		var satDynamic = new DLayer("http://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer");
+		
+		//wait for the basemap to load
+		satTiled.on("load", function() {
+			//remove the levels of interest
+			var temp = satTiled.tileInfo.lods.slice(10, 17);
+			//add the custom lods
+			customLODS = temp.concat(customLODS);
+			//set the level of details for the tiled basemap
+			satTiled.tileInfo.lods = customLODS;
+			//now create the map 
+			createMap();
+		});
+
+        function createMap() {
+			//set the custom zoom levels for the map
+			map = new Map("map", {
+				center: [-86, 33],
+				lods : customLODS
+			});
+			
+			//call the check scale method when the extent of the map changes
+			map.on("extent-change", checkScale);
+		    map.addLayer(satTiled);
+			map.addLayer(satDynamic);
+		}
+		
+		//check the scale of the map
+		function checkScale(evt) {
+			//if the scale is greater than 4000 (the scale of our custom lods)
+			if(evt.lod.scale > customZoomLevelStart) {
+				//check to see if the dynamic layer is visible
+				if(satDynamic.visible == true) {
+					//if so hide the dynamic layer and show the tiled layer
+					satDynamic.hide();
+					satTiled.show();
+				}
+			}
+			else {
+				if(satDynamic.visible == false) {
+					satDynamic.show();
+					satTiled.hide();
+				} 
+			}
+		}
+      });
+    </script>
+
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
