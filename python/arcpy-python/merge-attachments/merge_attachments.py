@@ -20,8 +20,6 @@
 
 import arcpy
 
-FILE = open("schemaChanges.txt", "w")
-
 #START OF VARIABLES TO CHANGE
 GDB_location = r"path-to-gdb\geodatabase.gdb" #If not using a file geodatabase, specify database connection file.
 feature_class_1 = "FC1"
@@ -41,10 +39,16 @@ secondtable = "deleteme2"
 
 arcpy.env.workspace = GDB_location
 arcpy.env.overwriteOutput = True
+arcpy.env.qualifiedFieldNames = True
+
+fieldsyntax = output_feature_class + "_" + "OBJECTID"
+if dataowner != None: fieldsyntax = dataowner + "_" + fieldsyntax
+if geodatabase_name != None: fieldsyntax = geodatabase_name + "_" + fieldsyntax
 
 fields = {feature_class_1: "fc1oid", feature_class_2: "fc2oid",
           attachment_table_1: "a1reloid", attachment_table_2: "a2reloid"}
 
+FILE = open("schemaChanges.txt", "w")
 print("Schema changes:")
 FILE.write("Schema changes:\n")
 
@@ -71,15 +75,6 @@ for table in fields.keys():
 print("Merging {0} and {1}, creating {2}".format(feature_class_1, feature_class_2, output_feature_class))
 FILE.write("Merging {0} and {1}, creating {2}\n".format(feature_class_1, feature_class_2, output_feature_class))
 arcpy.Merge_management([feature_class_1, feature_class_2], output_feature_class)
-
-desc = arcpy.Describe(output_feature_class)
-for i in desc.fields:
-    if i.type == "OID":
-        oid = i.name
-
-fieldsyntax = output_feature_class + "_" + oid
-if dataowner != None: fieldsyntax = dataowner + "_" + fieldsyntax
-if geodatabase_name != None: fieldsyntax = geodatabase_name + "_" + fieldsyntax
 
 print("Enabling attachments on {0}, creating {1}".format(output_feature_class, attachment_table_merge))
 FILE.write("Enabling attachments on {0}, creating {1}\n".format(output_feature_class, attachment_table_merge))
