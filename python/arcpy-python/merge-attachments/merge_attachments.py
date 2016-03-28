@@ -12,6 +12,7 @@
 #3. The feature classes are stored in the same GDB.
 #4. The field names fc1oid, fc2oid, a1reloid, a2reloid do not already exist. These fields will be created.
 #5. The file, schemaChanges, does not exist in the same directory this python script is stored in. If it does, it will be overwritten.
+#6. The two feature classes have the same fields, and are in the same spatial reference.
 
 # Notes:
 # Helps work around NIM078105.
@@ -37,10 +38,6 @@ attachment_table_merge = output_feature_class + "__ATTACH"
 jointable = "testmerge"
 firsttable = "deleteme1"
 secondtable = "deleteme2"
-
-fieldsyntax = output_feature_class + "_OBJECTID"
-if dataowner != None: fieldsyntax = dataowner + "_" + fieldsyntax
-if geodatabase_name != None: fieldsyntax = geodatabase_name + "_" + fieldsyntax
 
 arcpy.env.workspace = GDB_location
 arcpy.env.overwriteOutput = True
@@ -74,6 +71,15 @@ for table in fields.keys():
 print("Merging {0} and {1}, creating {2}".format(feature_class_1, feature_class_2, output_feature_class))
 FILE.write("Merging {0} and {1}, creating {2}\n".format(feature_class_1, feature_class_2, output_feature_class))
 arcpy.Merge_management([feature_class_1, feature_class_2], output_feature_class)
+
+desc = arcpy.Describe(output_feature_class)
+for i in desc.fields:
+    if i.type == "OID":
+        oid = i.name
+
+fieldsyntax = output_feature_class + "_" + oid
+if dataowner != None: fieldsyntax = dataowner + "_" + fieldsyntax
+if geodatabase_name != None: fieldsyntax = geodatabase_name + "_" + fieldsyntax
 
 print("Enabling attachments on {0}, creating {1}".format(output_feature_class, attachment_table_merge))
 FILE.write("Enabling attachments on {0}, creating {1}\n".format(output_feature_class, attachment_table_merge))

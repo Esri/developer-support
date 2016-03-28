@@ -13,6 +13,7 @@ Merge attachments from two feature classes. Creates an output feature class.
 * The feature classes are stored in the same GDB.
 * The field names fc1oid, fc2oid, a1reloid, a2reloid do not already exist. These fields will be created.
 * The file, schemaChanges, does not exist in the same directory this python script is stored in. If it does, it will be overwritten.
+* The two feature classes have the same fields, and are in the same spatial reference.
 
 ## Instructions
 Change these variables in the script:
