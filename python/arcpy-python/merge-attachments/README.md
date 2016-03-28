@@ -2,7 +2,7 @@
 Merge attachments from two feature classes. Creates an output feature class.
 
 ##Testing Environment
-* Tested with Python 2.7, 10.4 Rile GDB, Oracle 12c, and SQL Server 2012.
+* Tested with Python 2.7, 10.4 File GDB, Oracle 12c, and SQL Server 2012.
 * Executed as a standalone script.
 * Did not test with versioned datasets.
 * The script was not extensively tested. Always check the output. Always backup data.
