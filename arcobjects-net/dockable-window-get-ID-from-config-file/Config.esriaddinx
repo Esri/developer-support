@@ -4,7 +4,7 @@
   <Description>ArcMapAddin_DockWindowTest</Description>
   <Version>1.0</Version>
   <Image>Images\ArcMapAddin_DockWindowTest.png</Image>
-  <Author>sami5889</Author>
+  <Author>sami</Author>
   <Company>esri</Company>
   <Date>4/19/2016</Date>
   <Targets>
