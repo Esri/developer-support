@@ -37,8 +37,12 @@ namespace ArcMapAddin_SpatialReference
             string areaText = null; 
             while (feature != null)
             {
+                // Project the feature (geometry) from its current coordinate system into the one specified (UTMz11N_WGS84)
+                ((IGeometry5)feature.Shape).ProjectEx(toSpatialReference, esriTransformDirection.esriTransformReverse, pGeoTransB, false, 0.0, 0.0);
                 IPolygon polygon = (IPolygon)feature.Shape;
+                // Compute the area 
                 IArea area = polygon as IArea;
+                // Build a string to output to a message box
                 areaText += "OID = " + feature.OID + " , " + "Area =" + area.Area.ToString() + " \n";
                 feature = featureCursor.NextFeature();
             }
