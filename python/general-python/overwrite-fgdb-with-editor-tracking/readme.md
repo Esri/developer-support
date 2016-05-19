@@ -1,13 +1,14 @@
-#Overwrite File Geodatabase with editor tracking enabled
+#Overwrite a hosted service with an uploaded file geodatabase
 
 ##Purpose 
-Publish an already-uploaded File Geodatabase to overwrite an existing service that preserves editor tracking information
+Publish an already-uploaded file geodatabase to overwrite an existing service that preserves editor tracking information
 
 ##Requirements
-- Have new data uploaded to ArcGIS Online
-- Input username, and password for user who owns items
-- Input item ID of uploaded file geodatabase
-- Input Service Name of service to be overwritten
+- Requests module is needed: http://docs.python-requests.org/en/master/
+- Have new data (in a zipped file geodatabase) uploaded to ArcGIS Online
+- Script will prompt for username and password for item owner
+- Script will prompt for item ID of uploaded file geodatabase
+- Script will prompt for service name to be overwritten
 
 ##Additional Information
 - Author:  Kelly Gerrow
