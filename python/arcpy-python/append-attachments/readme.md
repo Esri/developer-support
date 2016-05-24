@@ -1,9 +1,9 @@
 #Append attachments into a new feature class
-Appends attachments from one feature class into a new empty feature class.
+Appends records from one feature class into a new empty feature class.
+Appends attachments from the original feature class into the attachment table of the new feature class.
 
 ##Usage
-- Attachments related by GLOBALID.
-- Workaround to NIM078105: Geodatabase attachments are not carried over to geoprocessing outputs. 
+- Assumes attachments related by GLOBALID.
 - Helpful in the event that fields need to be reordered, in which case a new table must be created. The new table will have different global ids than the original table. The attachments need to therefore be reassigned.
 
 ##Steps:
