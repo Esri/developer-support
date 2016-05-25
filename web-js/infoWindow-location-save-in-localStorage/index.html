@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Center Map based on the last infowindow location Demo</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.16/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/css/esri.css">
+  <style>
+    html, body, #map {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    #info {
+        bottom: 20px;
+        color: #444;
+        height: auto;
+        font-family: arial;
+        left: 20px;
+        margin: 5px;
+        padding: 10px;
+        position: absolute;
+        text-align: left;
+        width: 200px;
+        z-index: 40;
+      }
+    #extentInfo {
+      bottom: 20px;
+      color: #444;
+      height: auto;
+      font-family: arial;
+      right: 20px;
+      margin: 5px;
+      padding: 10px;
+      position: absolute;
+      text-align: left;
+      width: 200px;
+      z-index: 40;
+    }
+    .label {
+      display: inline-block;
+      width: 4em;
+      font-weight: bold;
+      color: darkgreen;
+    }
+  </style>
+
+  <script src="https://js.arcgis.com/3.16/"></script>
+  <script>
+    var map;
+    require([
+      "esri/config",
+      "esri/InfoTemplate",
+      "esri/map",
+      "esri/geometry/Point",
+      "esri/geometry/Extent",
+      "esri/layers/FeatureLayer",
+      "esri/symbols/SimpleFillSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/tasks/GeometryService",
+      "esri/geometry/webMercatorUtils",
+      "esri/tasks/query",
+      "dojo/string",
+      "dijit/registry",
+      "dojo/dom",
+      "dojo/dom-construct",
+      "dojo/dom-class",
+      "dojo/parser",
+      "esri/Color",
+      "dojo/domReady!"
+    ],
+      function (
+        esriConfig, InfoTemplate, Map, Point, Extent, FeatureLayer, SimpleFillSymbol, SimpleLineSymbol,
+        GeometryService, webMercatorUtils, Query, string, registry, dom, domConstruct, domClass, parser, Color
+      ) {
+        
+        parser.parse();
+
+        map = new Map("map", {
+          basemap: "topo",
+          center: [-88.14, 41.74],
+          zoom: 14
+        });
+        
+        var json = {title:"ObjectID: ${objectid}",content:"Facility ID: ${facilityid}<br>Facility Name: ${facname}"}
+        var template = new InfoTemplate(json);
+        var featureLayer = new FeatureLayer("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NapervilleShelters/FeatureServer/0",
+          {
+            mode: FeatureLayer.ON_DEMAND,
+            outFields: ["*"],
+            infoTemplate: template,
+          });
+        map.addLayer(featureLayer);
+        
+        //Dectect if there is any localStorage item related to infoWindow Location, if there is then we parse the item from localStorage then use centerat method to locate map 
+        if (window.localStorage.getItem("infoWindowLocation")){
+            console.log('Find InfoWindowLocation from local storage' + window.localStorage.getItem("infoWindowLocation"));
+            var centerPoint = new Point(JSON.parse(window.localStorage.getItem("infoWindowLocation"))[0], JSON.parse(window.localStorage.getItem("infoWindowLocation"))[1]);
+            map.centerAt(centerPoint);
+            featureLayer.on("load", displayMapCenter);
+        }; 
+        
+        map.on("extent-change", changeExtent);
+        function changeExtent(evt) {
+            dom.byId("xmin").innerHTML = evt.extent.xmin;
+            dom.byId("xmax").innerHTML = evt.extent.xmax;
+            dom.byId("ymin").innerHTML = evt.extent.ymin;
+            dom.byId("ymax").innerHTML = evt.extent.ymax;
+            console.log(evt);
+        };
+
+        map.on("click", function (event) {    
+            var query = new Query();
+            query.geometry = pointToExtent(map, event.mapPoint, 100);
+            var deferred = featureLayer.selectFeatures(query,
+              FeatureLayer.SELECTION_NEW);
+            map.infoWindow.show(event.mapPoint);  
+        });
+        
+        //Set an event handle when infowindow is show up, then trigger this function and we need to convert the Web Mecator to Lat&Lon to use in map.center
+        map.infoWindow.on("show", function(){
+            var infowindowPointX = map.infoWindow.location.x;
+            var infowindowPointy = map.infoWindow.location.y;
+            var infowindowPoint = webMercatorUtils.xyToLngLat(infowindowPointX,infowindowPointy);
+            window.localStorage.setItem("infoWindowLocation",dojo.toJson(infowindowPoint));
+            console.log(infowindowPoint);
+        });
+        
+        function displayMapCenter(){
+            var mapCenter = map.geographicExtent.getCenter();
+            console.log(mapCenter);
+            var content = string.substitute("<h4>The current map center is (${lat}, ${lon}).</h4>",{lat:mapCenter.x, lon:mapCenter.y});
+            registry.byId("mapCenterPopup").setContent(content);
+            registry.byId("mapCenterPopup").show();
+        }
+
+        function pointToExtent (map, point, toleranceInPixel) {
+          var pixelWidth = map.extent.getWidth() / map.width;
+          var toleranceInMapCoords = toleranceInPixel * pixelWidth;
+          return new Extent(point.x - toleranceInMapCoords,
+                            point.y - toleranceInMapCoords,
+                            point.x + toleranceInMapCoords,
+                            point.y + toleranceInMapCoords,
+                            map.spatialReference);
+        };
+      });
+  </script>
+</head>
+
+<body class="claro">
+  <div id="map">
+    <div id="extentInfo" class="esriSimpleSlider">
+          <span> The current map extent: </span> 
+          <span class="label">Xmin:</span> <span id="xmin"></span>
+          <span class="label">Xmax:</span> <span id="xmax"></span>
+          <span class="label">Ymin:</span> <span id="ymin"></span>
+          <span class="label">Ymax:</span> <span id="ymax"></span>
+      </div>
+    </div>
+    <div data-dojo-type="dijit.Dialog" id="mapCenterPopup" title="Current Map Center"></div>
+    <div id="info" class="esriSimpleSlider">
+      Refresh browser, then map will based on your last open infoWindow to center the map dynamically.
+    </div>
+</body>
+</html>
