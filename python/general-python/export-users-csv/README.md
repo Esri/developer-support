@@ -17,3 +17,5 @@ Python Script to exports the usernames and some account information for al users
 ## Use Case
 
 This script queries the member details of allthe members in your organization. The output is helpful to understand who your users are, and what roles and types they are.
+
+You can download and the following item in ArcGIS Online to get the script with the needed requests library in order to access a ready to use script: https://www.arcgis.com/home/item.html?id=d3adb69578ba42e9baa0cc6950c08121

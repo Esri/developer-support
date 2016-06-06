@@ -1,77 +1,27 @@
-Python Script to update a web map (proof of concept)
+Python Script to overwrite feature service and maintain editor tracking (based on item type)
 =========================
 
 ## Instructions
 
-1. This script relies on the urllib, urllib2, and json modules
+1. This script relies on the requests,time and json modules
 
 2. This script is designed to be run through an IDE
 
-3. Access the data of your web map as JSON using: 
-  ``` 
-	 http://www.arcgis.com/sharing/rest/content/items/<web map ID>/data?f=pjson
-  ```
-  NOTE:  The above link will only work if the web map is public.  If the webmap is not public, a token would need to be appended to the end of the link.  To generate a token, run the script and use ArcGISOnline.generateToken passing in your username and password to the method.  This will allow a token to be generated for consumption in this request.
-  ```
-	 http://www.arcgis.com/sharing/rest/content/items/<web map ID>/data?f=pjson&token=<INSERT_TOKEN>
-  ```
+3. This script publishes from a filegeodatabase that has already been uploaded to arcgis online. The filegeodatabase must belong to the organization of the administrator running the script, or belong to a user without the adminsitrator role.
 
-4. The JSON file that was downloaded should be modified.  In order to delete an entire layer from the webmap, the entire dictionary definition for that layer should be removed.
+4. To determine the item id of the navigate to the item and copy the item number from the Url: https://cloudygis.maps.arcgis.com/home/item.html?id=6ce5aae1a98b45a496a2fd8acdf736bb . Item Id = 6ce5aae1a98b45a496a2fd8acdf736bb
 
-5. Replace the following in the JSON using a text editor(See sample JSON below):
+5. To overwrite a specific feature service, you must input the feature service name as indicated at the rest endpoint: 
+https://services.arcgis.com/6tVsHR2ERRUR1RFd/arcgis/rest/services/2015_Total_Population_NY/FeatureServer/0 Service name = 2015_Total_Population_NY/FeatureServer/0
 
-	true > True
-	
-	false > False
-	
-	null > None
-	
-5. On line 96, replace "Replace with JSON, remove the quotes" with your edited JSON
+6. Enter username, Password, Item ID and service name when prompted
 
-6. Run the script and input your username, password, and web map title
+#use case
 
+If you want to overwrite a service with data in which editor tracking was already collected, use this tool.
 
+#Additions
+You can modify the publish parameters in paramDict further to include more capabilities by referring to the following documentation:
+http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Publish_Item/02r300000080000000/
 
-## Use Case
-
-This script is useful for someone who is not familiar with python but needs to update their existing web map, not through the UI of ArcGIS Online. This is a workaround for BUG-000085088 (Provide users with the ability to delete or replace inactive URLs for map services in a Web Map.).
-
-This is often required if a service that was previously accessible has been turned off or removed. If you do not care about maintaining your existing web map ID, simply save a copy of the web map.
-
-NOTE: This script assumes that there is ONLY one web map in your content(all folders) with this title.
-
-While the [ArcGIS Online Assistant](http://ago-assistant.esri.com/) does allow for similar functionality in remapping of URLs, the ArcGIS Online Assistant does not completely remove URLs which is available with this script.
-
-## Sample JSON
-```javascript
-{
-    "applicationProperties": {
-        "viewing": {
-            "basemapGallery": {
-                "enabled": True
-            },
-            "routing": {
-                "enabled": True
-            },
-            "measure": {
-                "enabled": True
-            }
-        }
-    },
-    "operationalLayers": [],
-    "baseMap": {
-        "baseMapLayers": [
-			{
-                "opacity": 1,
-                "url": "http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer",
-                "id": "World_Light_Gray_Base_4394",
-                "visibility": True,
-                "itemId": "ed712cb1db3e4bae9e85329040fb9a49"
-            }
-        ],
-        "title": "Sample Web Map"
-    },
-    "version": "1.9"
-}
-
-```
+You can download and the following item in ArcGIS Online to get the script with the needed requests library in order to access a ready to use script: https://www.arcgis.com/home/item.html?id=2d7027b148e24005916e55ab2cb74b50
