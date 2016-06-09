@@ -7,7 +7,7 @@ Python Script to overwrite feature service and maintain editor tracking (based o
 
 2. This script is designed to be run through an IDE
 
-3. This script publishes from a filegeodatabase that has already been uploaded to arcgis online. The filegeodatabase must belong to the organization of the administrator running the script, or belong to a user without the adminsitrator role.
+3. This script publishes from a filegeodatabase that has already been uploaded to arcgis online. The file geodatabase must belong to the organization of the administrator running the script, or belong to a user without the adminsitrator role.  Also the file geodatabase should be enabled with editor tracking active (turned on).
 
 4. To determine the item id of the navigate to the item and copy the item number from the Url: https://cloudygis.maps.arcgis.com/home/item.html?id=6ce5aae1a98b45a496a2fd8acdf736bb . Item Id = 6ce5aae1a98b45a496a2fd8acdf736bb
 
