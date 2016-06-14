@@ -16,6 +16,14 @@ GDBService.setServiceInterval(getApplicationContext(), !serviceOn);
 * The current interval is set via the constant **SYNC_INTERVAL**.
 * We used setInexactRepeating with the AlarmManager so as to be easier on the battery.  Therefore, if the device is currently on snooze, we are not going to send out a update until the device *wakes up* again.
 
+#### AndroidManifest.xml
+
+One line is needed to register this service with the application.  We needed to add the following within the application tag:
+
+```xml
+<service android:name=".GDBService" />
+```
+
 ## Known issues with this sample:
 * There is not a broadcast receiver to turn on the service on device restarts.  This could be implemented via the manifest.
 
