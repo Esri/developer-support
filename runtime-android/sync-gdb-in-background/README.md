@@ -33,6 +33,8 @@ One line is needed to register this service with the application.  We needed to 
 
 * The sample service is from my ArcGIS Online account and might get deleted.  May update to a more reliable sync service.
 
+* Resource files removed to save space within the repository.
+
 ## Useful References:
 
 * Android Programming: The Big Nerd Ranch Guide (Chapter 26: Background Services) (ISBN-13: 978-0134171456)
