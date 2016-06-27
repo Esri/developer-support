@@ -1,14 +1,14 @@
 {
-  "imageServiceUrl": "http://myserver:6080/arcgis/rest/services/service/ImageServer",
-  "mosaicMethod": "METHOD_VIEWPOINT",
+  "imageServiceUrl": "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Oblique/WU_Oblique/ImageServer",
+  "mosaicMethod": "METHOD_NADIR",
   "extent": {
-    "xmin": 462784.814,
-    "ymin": 3157523.41,
-    "xmax": 462961.432,
-    "ymax": 3157792.86,
+    "xmin": -10053819.307050291,
+    "ymin": 4671370.585576834,
+    "xmax": -10053293.15437704,
+    "ymax": 4671650.37822235,
     "spatialReference": {
-      "wkid": 32617,
-      "latestWkid": 32617
+    "wkid": 102100,
+    "latestWkid": 3857
     }
   }
 }
