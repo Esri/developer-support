@@ -27,6 +27,10 @@ Config file is a .json file with the following structure:
 }
 ```
 
+## Live Sample:
+
+http://esri.github.io/developer-support/web-js/oblique-viewer-SingleView-app/ObliqueViewer.html?configUrl=http://esri.github.io/developer-support/web-js/oblique-viewer-SingleView-app/SampleConfig.json
+
 
 ## Technical notes:
 - App needs to be run on a web server.

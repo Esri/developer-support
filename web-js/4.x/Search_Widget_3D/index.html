@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Search Widget 3D</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.0/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.0/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/widgets/Search",
+      "esri/widgets/Search/SearchViewModel",
+      "esri/tasks/Locator",
+      "esri/symbols/PictureMarkerSymbol",
+      "esri/config",
+      "dojo/domReady!"
+    ], function(
+      Map,
+      SceneView,
+      Search,
+      SearchVM,
+      Locator,
+      PictureMarkerSymbol,
+      esriConfig
+      ) {
+
+
+      ///////////////////////////////////////////////////////////////////////////////////////////
+      // welcome to JavaScript 4.0, here is a link to the official announcement blog           //
+      // https://blogs.esri.com/esri/arcgis/2016/05/03/arcgis-api-for-javascript-4-0-released  //
+      ///////////////////////////////////////////////////////////////////////////////////////////
+      
+
+      // push a known GitHub server to support CORS specification 
+      // https://developers.arcgis.com/javascript/latest/api-reference/esri-config.html#request
+      esriConfig.request.corsEnabledServers.push("http://noashx.github.io/");
+
+      // create a new map instance, with a defined 3D terrain
+      // https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#ground
+      var map = new Map({
+        basemap: "national-geographic",
+        ground: "world-elevation"
+      });
+
+      // create a new 3D SceneView, views are used specifically to visualize the data 
+      // within your map or scene. A map contains the actual data or layers to display, 
+      // whereas the view handles displaying this data 
+      // https://developers.arcgis.com/javascript/latest/guide/migrating/index.html#views
+      // we would typically define some extents here, but this is unnecessary for this demo
+      // if you do want to set-up a custom 3D view, here is a very useful tool to get the x/y/z values
+      // http://bsnider.github.io/super-duper-extent-helper-4/
+      var view = new SceneView({
+        scale: 123456789,
+        container: "viewDiv",
+        map: map
+      });
+
+      // set-up the environment to show ambient occlusion shading and the atmosphere contains all the logic 
+      // (properties and methods) that controls this widget's behavior
+      // https://developers.arcgis.com/javascript/latest/api-reference/esri-views-SceneView.html#environment
+      view.environment.atmosphereEnabled = true;
+      view.environment.ambientOcclusionEnabled = true;
+
+      // create a new Search widget, the widget constructor handles styling, and the ViewModel  
+      // contains all the logic (properties and methods) that controls this widget's behavior
+      // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search.html
+      var searchWidget = new Search({
+        visible: true, 
+        
+        // one of the new awesome features of 4.0 is the separation of the styling and the business logic, such that
+        // all widgets now have their own ViewModel, similar to what is shown below
+        // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html
+        viewModel: new SearchVM({
+          view: view, // reference to the SceneView
+          autoNavigate: true, // automatically navigate to the selected result once selected
+          maxResults: 5, // the maximum number of search results to return, the default value is 6     
+          maxSuggestions: 3, // maximum number of suggestions returned by the widget
+          popupEnabled: true, // display the Popup when the feature is clicked
+          popupOpenOnSelect: false, // will not show the Popup when a result is selected from the Search results
+
+          // define which services will be used for the search
+          // https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Search-SearchViewModel.html#sources
+          sources: [{
+            locator: new Locator("//geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"),
+            singleLineFieldName: "SingleLine",
+            outFields: ["Addr_type"],
+            placeholder: "JavaScript 4.0",
+            resultSymbol: new PictureMarkerSymbol({
+               url: "http://noashx.github.io/img/support.png",
+               size: 50,
+               width: 50,
+               height: 50,
+               xoffset: 0,
+               yoffset: 0
+            }) // closes resultSymbol
+          }] // closes sources
+        }) // closes viewModel
+      }); // closes searchWidget
+     
+      // Add the search widget to the top left corner of the view
+      // https://developers.arcgis.com/javascript/latest/api-reference/esri-views-ui-UI.html
+      view.ui.add(searchWidget, {
+        position: "top-left",
+        index: 0
+      });
+
+      // let's do some console logging to watch the events unfold
+      searchWidget.viewModel.on("search-start", function(evt){
+        console.log("Search started");
+      });
+      searchWidget.on("search-complete", function(evt){
+        // The results are stored in the evt Object[]
+        console.log("Result of the search: ", evt.searchTerm);
+        // with developer tools open, the debugger statement automatically stops the code from running
+        // and allows you to interrogate some variables, event callbacks, and more 
+        // https://medium.com/@kulor/5-javascript-debugging-tips-to-save-your-sanity-f31f4b2b475f#.sfhx2kxmy
+        // debugger; // (uncomment this line and open dev tools in browser to see debugger statement in action)
+      });
+      searchWidget.on("select-result", function(evt){
+        console.log("The selected search result: ", evt.result.name);
+      });
+      // last thing is to clear the search term
+       searchWidget.on("search-clear", function(evt){
+        console.log("Search input textbox was cleared.");
+      });
+
+      // start it up 
+      searchWidget.startup();
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>

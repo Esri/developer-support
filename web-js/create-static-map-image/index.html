@@ -1,0 +1,295 @@
+<html>
+<head>
+    <title>Static Maps API - ArcGIS (Code generator)</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="http://js.arcgis.com/3.16/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="http://esri.github.io/bootstrap-map-js/src/css/bootstrapmap.css">
+    <link rel="stylesheet" href="css/generator.css">
+
+    <script>
+        var dojoConfig = (function(){
+            var base = location.href.split("/");
+            base.pop();
+            base = base.join("/");
+            return {
+                async: true,
+                isDebug: true,
+                packages:[{
+                    name: 'esriES', location: base + '/js'
+                },{
+                    name: 'jquery',
+                    location: 'http://ajax.googleapis.com/ajax/libs/jquery/1.11.1',
+                    main: 'jquery'
+                },{
+                    name: 'jsrender',
+                    location: base + '/utils',
+                    main: 'jsrender.min'
+                }]
+
+            };
+        })();
+    </script>
+    <script src="http://js.arcgis.com/3.16/"></script>
+    <script src="utils/generator.js"></script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="col-md-12 text-center ">
+    <h1>Static Maps API - ArcGIS (Code generator)</h1>
+    <p class="mb-25">
+        This generator allows you to test the <a href="https://github.com/esri-es/Static-Maps-API-ArcGIS/blob/master/js/staticmap.js">custom class staticmap.js</a> and generate a sample code to generate a static image. <br>
+        <small><i>(This generator does not include xoffset & yoffset in markers but the class does.)</i></small>
+    </p>
+</div>
+<div class="col-md-6">
+    <form class="form-horizontal box">
+
+        <div class="form-group">
+            <label for="basemap" class="col-sm-3 control-label">Basemap:</label>
+            <div class="col-sm-4">
+                <select name="basemap" class=" form-control" id="basemap">
+                    <option value="streets">Streets</option>
+                    <option value="satellite" selected>Satellite</option>
+                    <option value="topo">Topographic</option>
+                    <option value="light-gray">Light gray</option>
+                    <option value="dark-gray">Dark gray</option>
+                    <option value="hybrid">Hybrid</option>
+                    <option value="oceans">Oceans</option>
+                    <option value="national-geographic">National geographic</option>
+                    <option value="osm">Open StreetMaps</option>
+                </select>
+            </div>
+
+            <label for="zoom" class="col-sm-2 control-label">Zoom:</label>
+            <div class="col-sm-3">
+                <input type="number" name="zoom" id="zoom" min="1" max="15" value="3" class=" form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="locationType" class="col-sm-3 control-label">Location type:</label>
+            <div class="col-sm-9">
+                <select name="locationType" class="form-control" id="locationType">
+                    <option value="typeAddress">Address</option>
+                    <option value="typeLatlong" selected="selected">Latitude & Longitud</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group locationType" id="typeAddress" style="display:none">
+            <label class="col-sm-3 control-label">Direction:</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="text" name="address" id="address" value="Emilio Muñoz 35, Madrid">
+            </div>
+        </div>
+
+        <div class="form-group locationType" id="typeLatlong" >
+            <label for="latitude" class="col-sm-3 control-label">Latitude:</label>
+            <div class="col-sm-4">
+                <input type="text" name="latitude" value="40.432781" id="latitude" class="form-control"/>
+            </div>
+            <label for="longitude" class="col-sm-2 control-label">Longitude:</label>
+            <div class="col-sm-3">
+                <input type="text" name="longitude" value="-3.626666" id="longitude" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="width" class="col-sm-3 control-label">Width:</label>
+            <div class="col-sm-4">
+                <input type="text" name="width" value="510" id="width" class="form-control"/>
+            </div>
+            <label for="height" class="col-sm-2 control-label">Height:</label>
+            <div class="col-sm-3">
+                <input type="text" name="height" value="250" id="height" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+
+            <label for="format" class="col-sm-3 control-label">Format:</label>
+            <div class="col-sm-9">
+                <select name="format" class="form-control" id="format">
+                    <option value="PNG32">PNG32</option>
+                    <option value="PNG8">PNG8</option>
+                    <option value="JPG">JPG</option>
+                    <option value="GIF">GIF</option>
+                    <option value="EPS">EPS</option>
+                    <option value="SVG">SVG</option>
+                    <option value="SVG2">SVG2</option>
+                    <option value="PDF">PDF</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9 mb-15">
+                <button id="addMarker" class="btn btn-info btn-block">Add new marker</button>
+            </div>
+            <ul id="markers">
+                <li class="clearfix mb-15">
+                    <div class="col-sm-1">
+                        <button class=" btn btn-danger" onclick="removeMarker(this)">X</button>
+                    </div>
+                    <label class="col-sm-2 control-label">Lat:</label>
+                    <div class="col-sm-2">
+                        <input type="text" value="40.432781" class="lat form-control">
+                    </div>
+                    <label class="col-sm-1 control-label">Lon:</label>
+                    <div class="col-sm-2">
+                        <input type="text" value="-3.626666" class="lon form-control">
+                    </div>
+                    <label class="col-sm-1 control-label">Color:</label>
+                    <div class="col-sm-3">
+                        <select class="color form-control">
+                            <option value="orange">Orange</option>
+                            <option value="purple">Purple</option>
+                        </select>
+                    </div>
+
+                </li>
+
+            </ul>
+        </div>
+        <p><input type="submit" value="Update static image & source code" class="btn btn-primary btn-block btn-lg"></p>
+    </form>
+</div>
+<div id="result" class="col-md-6">
+    <div class="box text-center">
+        <div id="loading" style="display:none">Loading...</div>
+        <a href="#" id="imgURL">
+            <img id="img">
+        </a>
+    </div>
+    <p>Source code:</p>
+<pre id="code" class="prettyprint lang-html">
+&lt;html&gt;
+&lt;head&gt;
+   &lt;script type="text/javascript"&gt;
+    var dojoConfig = (function(){
+        var base = "http://esri-es.github.io/Static-Maps-API-ArcGIS";
+        return {
+            async: true,
+            isDebug: true,
+            packages:[{
+                name: 'esriES', location: base + '/js', main: "staticmap"
+            }]
+        };
+    })();
+    &lt;/script&gt;
+
+    &lt;link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css"&gt;
+    &lt;script src="http://js.arcgis.com/3.14/"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript"&gt;
+    require([
+        "esriES/staticmap",
+        "dojo/domReady!"
+    ], function(StaticMap) {
+        var staticMap = new StaticMap();
+
+        var options = {
+            basemap: "streets",
+            zoom: 3,
+            address: "Balcon de Europa, Nerja",
+            markers:[
+                {
+                    latitude: 36.744426,
+                    longitude: -3.875497,
+                    color: "orange",
+                    yoffset: 10
+                },
+                {
+                    latitude: 36.745053,
+                    longitude : -3.877257,
+                    color: "purple"
+                }
+            ],
+            size: [510, 250],
+            format: "PNG32"
+        };
+
+        staticMap.getImage(options).then(function(imageURL){
+            document.getElementById("staticImage").src = imageURL;
+        });
+
+    });
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;img src="" id="staticImage"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+
+<script id="markerTmpl" type="text/x-jsrender">
+
+    <li class="clearfix mb-15">
+        <div class="col-sm-1">
+            <button class=" btn btn-danger" onclick="removeMarker(this)">X</button>
+        </div>
+        <label class="col-sm-2 control-label">Lat:</label>
+        <div class="col-sm-2">
+            <input type="text" value="" class="lat form-control"/>
+        </div>
+        <label class="col-sm-1 control-label">Lon:</label>
+        <div class="col-sm-2">
+            <input type="text" value="" class="lon form-control">
+        </div>
+        <label class="col-sm-1 control-label">Color:</label>
+        <div class="col-sm-3">
+            <select class="color form-control">
+                <option value="orange">Orange</option>
+                <option value="purple">Purple</option>
+            </select>
+        </div>
+
+    </li>
+    </script>
+
+<script id="codeTmpl" type="text/x-jsrender">&lt;html&gt;
+&lt;head&gt;
+   &lt;script type="text/javascript"&gt;
+    var dojoConfig = (function(){
+        var base = "http://esri-es.github.io/Static-Maps-API-ArcGIS";
+        return {
+            async: true,
+            isDebug: true,
+            packages:[{
+                name: 'esriES', location: base + '/js', main: "staticmap"
+            }]
+        };
+    })();
+    &lt;/script&gt;
+
+    &lt;link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css"&gt;
+    &lt;script src="http://js.arcgis.com/3.14/"&gt;&lt;/script&gt;
+
+    &lt;script type="text/javascript"&gt;
+    require([
+        "esriES/staticmap",
+        "dojo/domReady!"
+    ], function(StaticMap) {
+        var staticMap = new StaticMap();
+
+var options = {{:options}};
+
+        staticMap.getImage(options).then(function(imageURL){
+            document.getElementById("staticImage").src = imageURL;
+        });
+
+    });
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;img src="" id="staticImage"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</script>
+<a href="https://github.com/esri-es/Static-Maps-API-ArcGIS"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+</body>
+</html>

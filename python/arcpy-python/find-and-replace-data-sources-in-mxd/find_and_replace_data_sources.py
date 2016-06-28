@@ -1,7 +1,7 @@
 #-------------------------------------------------------------------------------
 # Name:        Find and Replace Data Sources in MXD
 # Purpose:     Takes an input workspace to recursively walk through a directory
-#              and replace a specified path. A commone use case is when the name
+#              and replace a specified path. A common use case is when the name
 #              of a server has changed and all paths in MXDs are borken
 #
 # Author:      Lucas Danzinger
