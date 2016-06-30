@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+      <title>3D Map and Cedar example</title>
+      <style>
+        html, body, #viewDiv {
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          width: 100%;
+        }
+        #cedarDiv{
+          position: absolute;
+          top: 10px;
+          z-index: 1;
+          background-color: rgba(255,255,255,.8);
+          right: 10px;
+          padding: 20px;
+        }
+      </style>
+      <script type="text/javascript" src="//esri.github.io/cedar/js/d3.min.js"></script>
+      <script type="text/javascript" src="//esri.github.io/cedar/js/vega.js"></script>
+      <script type="text/javascript" src="//esri.github.io/cedar/js/cedar.js"></script>
+      <link rel="stylesheet" href="https://js.arcgis.com/4.0/esri/css/main.css">
+      <script src="https://js.arcgis.com/4.0/"></script>
+
+
+      <script>
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/MapImageLayer",
+        'esri/tasks/support/Query',
+        "esri/symbols/PolygonSymbol3D",
+        "esri/symbols/ExtrudeSymbol3DLayer",
+        "esri/tasks/QueryTask",
+        "esri/layers/GraphicsLayer",
+        "esri/symbols/SimpleFillSymbol",
+        "esri/widgets/Home",
+        "dojo/domReady!"
+      ], function(Map, SceneView,MapImageLayer,Query,PolygonSymbol3D,ExtrudeSymbol3DLayer,QueryTask,GraphicsLayer,SimpleFillSymbol,Home){
+        //defining 3D map and view
+        map = new Map({
+          basemap: "oceans",
+          ground: "world-elevation"
+        });
+        var view = new SceneView({
+          container: "viewDiv",
+          map: map,
+          camera: {
+          position: [
+                 -100,
+                   20,
+                5000000
+              ],
+              tilt: 20,
+              heading: 10
+            },
+          environment:{
+            lighting: {
+              directShadowsEnabled: true,
+              date: new Date("Sun Mar 15 2015 18:00:00 GMT+0100 (CET)")
+            }
+          }
+        });
+        //Home button
+        var homeWidget = new Home({
+          view: view
+        });
+        view.ui.add(homeWidget, "top-left");
+        // setting popuptemplate for graphics layer
+        var template = {
+          title: "{STATE_NAME}",
+          content: "Population: {POP2000}",
+        };
+        //Creating the graphics layer & adding it to the map
+        var graphicsLayer = new GraphicsLayer({popupTemplate: template});
+        map.add(graphicsLayer);
+        var usaStatesUrl = 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3';
+        applySymbologyWindow = applySymbology;
+        applySymbology();
+
+
+        //*******************
+        //*                 *
+        //*     CEDAR       *
+        //*                 *
+        //*******************
+
+        //Cedar graphics fields and popup params
+        var xField = "POP2000",
+          yField = "STATE_NAME",
+          toolTipTitle1 = "{POP2000}",
+          toolTipTitle2 = "{STATE_NAME}";
+
+        //Cedar chart:
+        var chart = new Cedar({
+          "type": "bar-horizontal",
+          "dataset": {
+            "url":usaStatesUrl,
+            "mappings":{
+              "x": {"field":xField,"label":"Population"},
+              "y": {"field":yField,"label":"States"},
+              "sort": xField + " DESC"  
+            }
+          },
+          "tooltip": {
+            "id": "tooltip-url",
+            "title": toolTipTitle2,
+            "content": "Population: " + toolTipTitle1 
+          }
+        });
+        //Showing chart
+        chart.show({
+          elementId: "#cedarDiv",
+          autolabels: true
+        });
+        //when we click on a graphic bar then trigger clickBar function
+        chart.on('click', clickBar);
+
+        //***********
+        //*Functions:
+        //***********
+
+        //function to apply the symbology
+        function applySymbology (highlighted){
+          //clear the graphics
+          graphicsLayer.removeAll();
+          //query that returns all values
+          var queryTask = new QueryTask({
+            url: usaStatesUrl
+          });
+          var query = new Query();
+          query.returnGeometry = true;
+          query.outFields = ["POP2000","STATE_NAME"];
+          query.outSpatialReference = {wkid: 102100};
+          query.where = "1=1";
+          queryTask.execute(query).then(function(results){
+            var features = results.features;
+            var symbol;
+
+            // Go through the array, if we found the selected state then highlight it and go to
+            for (var i = 0; i < features.length; i++) {
+            var size = (features[i].attributes.POP2000)/40;
+              if (features[i].attributes.STATE_NAME === highlighted) {
+                view.goTo(features[i].geometry);
+                symbol = new PolygonSymbol3D({
+                  symbolLayers: [new ExtrudeSymbol3DLayer({
+                    size: size,
+                    material: { color: "rgb(0, 182, 234)" }
+                  })]
+                });
+              }else {
+                symbol = new PolygonSymbol3D({
+                  symbolLayers: [new ExtrudeSymbol3DLayer({
+                    size: size,
+                    material: { color: "blue" }
+                  })]
+                });
+              }
+              features[i].symbol = symbol;
+              graphicsLayer.add(features[i]);
+            }
+          });
+        }
+        //function that triggers when we click on a graphic bar
+        function clickBar(event,data){
+          var selected = data[chart.dataset.mappings.y.field];
+          applySymbology(selected);
+        }
+      });
+      
+      </script>
+    </head>
+    <body>
+      <div id="viewDiv"></div>
+      <div id="cedarDiv">
+        <a href="#" onclick="applySymbologyWindow(); return false"> Reset simbology</a>
+        <span id="filter"> Click on bars to highlight selected in map</span>
+      </div>
+    </body>
+  </html>
