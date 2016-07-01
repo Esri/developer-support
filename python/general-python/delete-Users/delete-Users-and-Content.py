@@ -13,12 +13,10 @@ import accountHelperDelete
 
 if __name__ == '__main__':
     ## invite multiple users
-    user = 'kgerrow_admin'
-    pw  = 'Browncow1'
+    user = 'username'
+    pw  = 'password'
 
-    #emails = ['oreosampson@outlook.com' ]
-   # username = 'monashell10_locadv'
-    roleID = 'User'
+    roleID = 'Delete'
     #Generates Token
     t=accountHelperDelete.agolAdmin(user,pw)
 
