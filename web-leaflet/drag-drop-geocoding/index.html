@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>Batch Geocoding</title>
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
+<style>
+#map {
+	height: 100%;
+	width: 100%;
+}
+#csv {
+	margin:8px;
+}
+</style>
+</head>
+<body>
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
+
+	<div id="csv"><a href="http://esri.github.io/developer-support/web-leaflet/drag-drop-geocoding/sample.csv">Download CSV containing address</a></div>
+	<div id="map"></div>
+	<script>
+		var tokenkey = "PCZj0n5V4Oh4L6Xhe6Mj63v2_QSugtIWbri1z3O2-8o9kjxHowA6jW9ksL9de0Tqqb-WxS-ApnCOZXbD6YDfxG1LdlKoXCXrrM10VUj_ykW2n3gCxdeMYcJvHDJ_XtZ7PBajmIaGRGBKXbFYi0Xkog..";
+		
+		var map = L.map('map', {
+			center : [ 35.10418, -106.62987 ],
+			zoom : 5
+		});
+		
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+
+		/** kudos to http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data **/
+		function CSVToArray(strData, strDelimiter) {
+		    strDelimiter = (strDelimiter || ",");
+		    var delimiters = "(\\" + strDelimiter + "|\\r?\\n|\\r|^)";
+		    var quotedfields = "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|";
+		    var standardfields = "([^\"\\" + strDelimiter + "\\r\\n]*))";
+		    var objPattern = new RegExp((delimiters + quotedfields + standardfields), "gi");
+		    var arrData = [[]];
+		    var arrMatches = null;
+		    while (arrMatches = objPattern.exec(strData)) {
+		        var strMatchedDelimiter = arrMatches[1];
+		        if (strMatchedDelimiter.length && strMatchedDelimiter !== strDelimiter) {
+		            arrData.push([]);
+		        }
+		        var strMatchedValue;
+		        if (arrMatches[2]) {
+		            strMatchedValue = arrMatches[2].replace(new RegExp("\"\"", "g"), "\"");
+		        } else {
+		            strMatchedValue = arrMatches[3];
+		        }
+		        arrData[arrData.length - 1].push(strMatchedValue);
+		    }
+		    return (arrData);
+		}
+
+		function handleFileSelect(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			var files = evt.dataTransfer.files; 
+			var reader = new FileReader();
+			reader.onload = function(event) {
+			    var lines = this.result.split('\n');
+			    records = [];
+			    var a = CSVToArray(lines, ",");
+			    for(i=0;i<a.length;i++){
+			    		if(i==0){ continue; }
+			    		var record = {};
+			    		var obj = {
+		                "OBJECTID": a[i][0],
+		                "Address": a[i][1],
+		                "Neighborhood": "",
+		                "City": a[i][3],
+		                "Subregion": "",
+		                "Region": a[i][4]
+	            		};
+			    		record.attributes = obj;
+			    		records.push(record);
+			    }
+			    
+			    var requestData = {};
+			    requestData.records = records;
+			    console.log(requestData);
+			    
+			    var url = "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/geocodeAddresses";
+			    
+			    $.post(url, {f:"pjson", token:tokenkey, addresses:JSON.stringify(requestData)}, function( data ) {
+			      var data = JSON.parse(data);
+			      var locations = data.locations;
+			      for(j=0;j<locations.length;j++){
+			      	var place = locations[j];
+			      	L.marker([parseFloat(place.location.y),parseFloat(place.location.x)])
+			      	.addTo(map)
+			      	.bindPopup(place.address);
+			      }
+			    });
+			}
+			var s = reader.readAsText(files[0], "UTF-8");
+
+		}
+		
+		/**kudo's to https://geonet.esri.com/thread/107874  **/
+
+		function handleDragOver(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+			evt.dataTransfer.dropEffect = 'copy';
+		}
+
+		var dropZone = document.getElementById('map');
+		dropZone.addEventListener('dragover', handleDragOver, false);
+		dropZone.addEventListener('drop', handleFileSelect, false);
+	</script>
+</body>
+</html>
