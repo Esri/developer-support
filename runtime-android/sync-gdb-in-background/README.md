@@ -24,7 +24,7 @@ This is the main activity that the user runs in their application.  This is what
 One line is needed to register this service with the application.  We needed to add the following within the application tag:
 
 ```xml
-<service android:name=".GDBService"
+<service android:name=".GDBSyncService"
   android:process=":somenamehere"/> <!-- somenamehere can replaced with whatever process you wish to call it -->
 ```
 
