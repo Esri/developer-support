@@ -33,8 +33,18 @@ import java.util.concurrent.TimeoutException;
 public class GDBSyncService extends Service {
 
   private static final String TAG = "GDBSyncService";
-  private static final long SYNC_INTERVAL = 1000 * 12; //60 seconds is the minimum at android 5.1+
-  Job x;
+
+  /**
+   * The intent we want to notify when the sync completes.
+   */
+  public static final String ACTION_SYNC_GDB_COMPLETE =
+      "com.arcgis.androidsupportcases.backgroundsyncgeodatabase.SYNC_GDB_COMPLETE";
+
+  /**
+   * This is the permission required to fire our broadcast receiver so others cannot snoop in and fire it without our permission
+   */
+  public static final String PRIVATE_BROADCAST =
+      "com.arcgis.androidsupportcases.backgroundsyncgeodatabase.PRIVATE";
 
   /**
    * Called by the system when the service is first created.  Do not call this method directly.
@@ -142,7 +152,7 @@ public class GDBSyncService extends Service {
           + "data" + File.separator + "default.geodatabase";
       Log.e("NOHE", PATH);
       filecheck = new File(PATH);
-      //GeodatabaseSyncTask gdbSyncTask = new GeodatabaseSyncTask(getApplicationContext(), "http://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/NoheLayer2/FeatureServer");   //Fails
+
       agfsi = new ArcGISFeatureServiceInfo("http://services.arcgis.com/Wl7Y1m92PbjtJs5n/ArcGIS/rest/services/NoheLayer2/FeatureServer");
       Log.e("NOHE", "TEST");
       agfsi.addDoneLoadingListener(new Runnable() {
@@ -232,7 +242,13 @@ public class GDBSyncService extends Service {
 
               notificationManagerCompat.notify(0, failedNotification);
             } else if (job.getResult() != null) {
-              Log.wtf("NOHE", "" + job.getStatus());
+              Log.e("NOHE", "" + job.getStatus());
+
+              /**
+               * So we know when the Sync has completed and we can update the GUI as needed.
+               */
+              sendBroadcast(new Intent(ACTION_SYNC_GDB_COMPLETE), PRIVATE_BROADCAST);
+
               notificationManagerCompat.notify(0, doneNotification);
 
             }

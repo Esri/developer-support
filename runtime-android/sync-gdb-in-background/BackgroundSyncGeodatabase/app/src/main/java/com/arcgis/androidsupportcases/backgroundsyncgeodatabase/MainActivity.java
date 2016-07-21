@@ -1,6 +1,9 @@
 package com.arcgis.androidsupportcases.backgroundsyncgeodatabase;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
   Button gdbSyncBtn;
   Button insertBtn;
+  BroadcastReceiver mOnSyncComplete;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -44,6 +48,24 @@ public class MainActivity extends AppCompatActivity {
     {
       insertBtn.setEnabled(true);
     }
+
+    /**
+     * A dynamically created broadcast receiver so we can monitor the status of the synchronization and update the UI when it is completed.
+     * Using GDBSyncService.PRIVATE_BROADCAST we are able to prevent others from calling this within their applications and allows us to control
+     * when the broadcast is received and valid.
+     */
+
+    mOnSyncComplete = new BroadcastReceiver() {
+      @Override public void onReceive(Context context, Intent intent) {
+        if (new File(PATH).exists())
+        {
+          insertBtn.setEnabled(true);
+        }
+      }
+    };
+
+    IntentFilter filter = new IntentFilter(GDBSyncService.ACTION_SYNC_GDB_COMPLETE);
+    this.registerReceiver(mOnSyncComplete, filter, GDBSyncService.PRIVATE_BROADCAST, null);
 
     insertBtn.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
@@ -93,5 +115,13 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+  }
+
+  @Override protected void onStop() {
+    super.onStop();
+    /**
+     * Since we registered the receiver dynamically, we need to unregister is dynamically as well.
+     */
+    this.unregisterReceiver(mOnSyncComplete);
   }
 }

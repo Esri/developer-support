@@ -28,9 +28,46 @@ One line is needed to register this service with the application.  We needed to 
   android:process=":somenamehere"/> <!-- somenamehere can replaced with whatever process you wish to call it -->
 ```
 
-## Known issues with this sample:
-* There is not a broadcast receiver to receive when the geodatabase is initially downloaded.  At the time, if the geodatabase is not already on the device, the insert point will be greyed out and unclickable.  If it does exist on the device, it will be clickable.  Therefore, if the geodatabase is downladed, the activity will need to be restarted.
+We also have a custom permission that prevents others from calling our broadcast receiver unless it contains the app was created with the same certificate.
+```xml
+<permission android:name="com.arcgis.androidsupportcases.backgroundsyncgeodatabase.PRIVATE"
+      android:protectionLevel="signature" />
 
+<uses-permission android:name="com.arcgis.androidsupportcases.backgroundsyncgeodatabase.PRIVATE" />
+```
+
+#### Dynamically Created BroadcastReceiver
+In the MainActivity.java file we are creating a BroadcastReceiver dynamically.  It has a signature level permission applied to it which only allows apps signed with the same certificate to invoke this receiver.  This prevents anyone else from seeing our broadcasts and intercepting them or calling them on their own.
+
+We are invoking the broadcast intent in the GDBSyncService.java file with:
+
+```java
+public static final String PRIVATE_BROADCAST =
+      "com.arcgis.androidsupportcases.backgroundsyncgeodatabase.PRIVATE";
+public static final String ACTION_SYNC_GDB_COMPLETE =
+      "com.arcgis.androidsupportcases.backgroundsyncgeodatabase.SYNC_GDB_COMPLETE";
+sendBroadcast(new Intent(ACTION_SYNC_GDB_COMPLETE), PRIVATE_BROADCAST);
+```
+
+We are receiving this broadcast in the MainActivity.java file with:
+```java
+BroadcastReceiver mOnSyncComplete;
+
+mOnSyncComplete = new BroadcastReceiver() {
+      @Override public void onReceive(Context context, Intent intent) {
+        if (new File(PATH).exists())
+        {
+          insertBtn.setEnabled(true);
+        }
+      }
+    };
+
+    IntentFilter filter = new IntentFilter(GDBSyncService.ACTION_SYNC_GDB_COMPLETE);
+    this.registerReceiver(mOnSyncComplete, filter, GDBSyncService.PRIVATE_BROADCAST, null);
+```
+By calling a permission with the receiver and the broadcast intent, we are ensuring that we are able to safely receive the intents without others spoofing the call and running unintended tasks within our app.
+
+## Known issues with this sample:
 * This sample was also written using the Beta Release 2 of the Quartz API.  All sample code shown here is subject to change up to the final release of Quartz.
 
 * It does not check for a network connection before running.  This will attempt to run whether or not it is on Wifi as well as whether or not it is connected to a network.  No pause has been implemented in case the network drops while trying to upload.  This will cause an error.
