@@ -27,5 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
+    <Button
+        android:id="@+id/addLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Insert Location"
+        android:enabled="false"
+        />
   </LinearLayout>
 </RelativeLayout>
