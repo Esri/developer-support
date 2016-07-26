@@ -1,4 +1,4 @@
-mport java.awt.BorderLayout;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.IOException;
 
@@ -51,7 +51,7 @@ public class ConnectToSDE {
 		
 		frame.setSize(900, 400);
 		frame.getContentPane().add(map, BorderLayout.CENTER);
-		button = new JButton("Testing SQL connection");
+		button = new JButton("Connect to SDE");
 		frame.getContentPane().add(button, BorderLayout.SOUTH);
 		//After the button is clicked connect to the SDE
 		button.addActionListener((e)->{
@@ -121,7 +121,7 @@ public class ConnectToSDE {
 		map.getLayers().add(localDynamicLayer);	
 	}
 
-	public static void main(String...strings){
+	public static void main(String[] args){
 		SwingUtilities.invokeLater(()->{
 			ConnectToSDE sdeTest = new ConnectToSDE();
 		});
