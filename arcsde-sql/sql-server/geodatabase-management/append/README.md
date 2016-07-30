@@ -1,13 +1,18 @@
 ## Append (Insert cursor)
 ### Move rows from a spatial table into a non-versioned feature class table
 
-###Target table
-Use ArcGIS to create a feature class in an SQL Server geodatabase.  Add a varchar(n) column called Name.  
-The objectid and shape column are created automagically.
+This T-SQL script uses the enterprise geodatabase built-in [next_rowid](http://desktop.arcgis.com/en/arcmap/10.3/manage-data/using-sql-with-gdbs/next-rowid.htm) function to generate an objectid value from the target feature class.  The insertion of the geometry uses the standard SQL Server Geometry constructor [STGeomFromWKB](https://msdn.microsoft.com/en-us/library/bb933882.aspx) to calculate the geometry transfer.
+
+  Some things to note:
+  * Ensure there is a homogeneous SRID for each row in the target table.  This script is designed to grab the first SRID value found in input table (see below for more info about the input table).
+  * This sample uses the binary constructor for the geometry object.  Use [STAsText](https://msdn.microsoft.com/en-us/library/bb933823.aspx) as an alternative.
+  
+### The target table
+To use the sample as-is, use ArcGIS to create a feature class named TargetTable in an SQL Server geodatabase.   Add a nvarchar(n) column called Name to the new feature class.  The objectid and shape column are created automagically.
 
 ###Generate the input table
 ```sql
-CREATE TABLE [dbo].[InputTable2](
+CREATE TABLE [dbo].[InputTable](
 	[OBJECTID] [int] NOT NULL,
 	[Shape] [geometry] NULL,
 	[name] [varchar](100) NULL
