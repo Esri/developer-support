@@ -15,11 +15,14 @@ from arcpy import env
 import arcpy
 import sqlite3
 
-poly1 = r"D:\Data\John-5-blocks.gdb\Water"
-poly2 = r"D:\Data\John-5-blocks.gdb\AOI"
+pathToFgdb = r"D:\Data\John-5-blocks.gdb\
+poly1 = "Water"
+poly2 = "AOI"
+gdbName = "MySqliteGdb"
+sqliteFcName = "new_sqlite_fc"
 
 #Create a spatialite enabled sqlite database with the arcpy gp function
-sqlite_db_spatialite = r'D:\Data\sqlite\Roads.sqlite'
+sqlite_db_spatialite = r'D:\Data\sqlite\{}.sqlite'.format(gdbName)
 arcpy.gp.CreateSQLiteDatabase(sqlite_db_spatialite,'ST_GEOMETRY')
 print("Created - {} as st_geometry".format(sqlite_db_spatialite))
 
@@ -30,14 +33,14 @@ arcpy.env.workspace = wrkspc
 print("Workspace set...")
 
 #move some sample data in
-arcpy.FeatureClassToGeodatabase_conversion([poly1], wrkspc)
+arcpy.FeatureClassToGeodatabase_conversion([pathToGdb + poly1], wrkspc)
 print(arcpy.GetMessages())
-arcpy.FeatureClassToGeodatabase_conversion([poly2], wrkspc)
+arcpy.FeatureClassToGeodatabase_conversion([pathToGdb + poly2], wrkspc)
 print(arcpy.GetMessages())
 
 # Set the sqlite feature class variables
-in_fc = r"{}/main.Water".format(wrkspc)
-aoi = r"{}/main.AOI".format(wrkspc)
+in_fc = r"{}/main.{}".format(wrkspc, poly1)
+aoi = r"{}/main.{}".format(wrkspc, poly2)
 
 #Verify the correct string format with path
 in_features = [aoi,in_fc]
@@ -49,12 +52,13 @@ conn = sqlite3.connect(sqlite_db_spatialite)
 print("connected")
 
 cur = conn.cursor()
-cur.execute("ALTER TABLE Water ADD COLUMN acres REAL")
+alterSQL = "ALTER TABLE {} ADD COLUMN acres REAL".format(poly1)
+cur.execute(alterSQL)
 print("Successfully altered the table -- {}".format(cur.fetchone()))
 
 #set the name and location of the output feature class
 try:
-    new_sl_fc = "{}/new_sl_fc".format(wrkspc)
+    new_sl_fc = "{}/{}".format(wrkspc,sqliteFcName)
     print("{} awakens!".format(new_sl_fc))
 
     #make an intersection
@@ -70,4 +74,4 @@ try:
 except Exception as ex:
     print(arcpy.GetMessages())
         
-print("Done")
+print("Finisimo")
