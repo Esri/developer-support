@@ -26,16 +26,16 @@ http://desktop.arcgis.com/en/desktop/latest/manage-data/using-sql-with-gdbs/next
 -- Since this is done in SQL and not ArcGIS, it's up to you to
 -- make sure the SRIDs of all the features are homogeneous.
 Declare @objectid int, 
-		@name varchar(10), 
-		@shape geometry, 
-		@srid int = (SELECT Top 1 shape.STSrid FROM append_to_buff)
+	@name varchar(10), 
+	@shape geometry, 
+	@srid int = (SELECT Top 1 shape.STSrid FROM InputTable)
 
 -- Declare a cursor to grab the values from the input table.
 -- In this example, the table contains only an objectid, name(varchar) and shape column.
 -- Include any necessary columns (except for an existing objectid column if
 -- the input table is a featue class).
 DECLARE insert_cursor CURSOR FOR 
-SELECT name, shape FROM append_to_buff
+SELECT name, shape FROM InputTable
  
 -- open the cursor
 OPEN insert_cursor
