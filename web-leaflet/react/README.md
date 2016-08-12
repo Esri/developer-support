@@ -84,6 +84,10 @@ calling `npm run production` (only select keywords like `install` and `test` don
 
 check out [this great article](http://www.jayway.com/2014/03/28/running-scripts-with-npm/) on running scripts with npm.  [**@andersjanmyr**](https://github.com/andersjanmyr) does a far better job explaining than i ever could.
 
+## Credits
+
+* this work borrows substantially from @ungoldman's [github-user-map](https://github.com/ungoldman/github-user-map/tree/gh-pages/react) (with permission)
+
 ## More resources
 
 * [React](https://facebook.github.io/react/)
