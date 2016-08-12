@@ -1,0 +1,28 @@
+{
+  "name": "esri-leaflet-react-sample",
+  "main": "app.js",
+  "private": true,
+  "author": "John Gravois <jgravois@esri.com> (http://johngravois.com/)",
+  "license": "Apache-2",
+  "devDependencies": {
+    "babel-core": "^6.13.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-preset-react": "^6.11.0",
+    "esri-leaflet": "^2.0.2",
+    "esri-leaflet-geocoder": "^2.1.1",
+    "http-server": "^0.9.0",
+    "install": "^0.5.4",
+    "leaflet": "^1.0.0-rc.3",
+    "npm": "^3.8.0",
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
+    "standard-react": "^2.1.0",
+    "webpack": "^1.13.1"
+  },
+  "scripts": {
+    "test": "standard-react",
+    "start": "http-server & webpack --config webpack.config.js --progress --profile --colors --watch -d",
+    "production": "webpack --config webpack.config.js --progress --profile --colors"
+  }
+}
