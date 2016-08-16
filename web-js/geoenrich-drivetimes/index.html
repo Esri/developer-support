@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Esri | JS - Sample</title>
+  <link href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css" rel="stylesheet">
+  <link href="http://js.arcgis.com/3.14/esri/css/esri.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+
+        
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+  </style>
+  <script src="http://js.arcgis.com/3.14/">
+  </script>
+  <script>
+    
+    var mapclick, featureLayer;
+    require([
+                "esri/symbols/SimpleFillSymbol",
+                   "dojo/dom-style",
+                   "dijit/form/Select",
+                   "esri/map",
+                   "esri/renderers/Renderer",
+                   "esri/symbols/SimpleMarkerSymbol",
+                   "esri/tasks/FeatureSet",
+                   "esri/graphic",
+                   "esri/IdentityManager",
+                   "esri/InfoTemplate",
+                   "esri/request",
+                   "esri/layers/FeatureLayer",
+                   "esri/styles/basic",
+                   "esri/Color",
+                   "esri/renderers/smartMapping",
+                   "esri/dijit/PopupTemplate",
+                   "dojo/dom", 
+                   "dojo/on",
+                   "dojo/dom-class",
+                   "dojo/dom-attr",
+                   "dojo/domReady!"
+               ], function (
+                    SimpleFillSymbol,
+                   domStyle,
+                   Select,
+                   Map,
+                   SimpleRenderer,
+                   SimpleMarkerSymbol,
+                   FeatureSet,
+                   Graphic,
+                   id,
+                   InfoTemplate,
+                   esriRequest,
+                   FeatureLayer,
+                   esriStylesBasic,
+                   Color,
+                   smartMapping,
+                   PopupTemplate,
+                   dom,
+                   on,
+                   domClass,
+                   domAttr
+                   ) {
+        
+                    on(dom.byId("enrich"), "click", function(evt){
+                        
+                        result = domAttr.get("enrich", "class");
+                        if(result =="btn btn-primary"){
+                            mapclick = map.on("click", runAnalysis);
+                        }else{
+                            console.log("return");
+                            return;
+                        };
+                        console.log(result);
+                    });
+
+                   var map = new Map("map", {
+                       basemap: "gray",
+                       center: [-122.435, 37.785],
+                       zoom: 12,
+                       sliderStyle: "small"
+                   });
+                   
+                   
+                   
+                   function runAnalysis(e){
+                     domClass.toggle("enrich", "btn btn-primary disabled");
+                     mapclick.remove();
+                     var point = e.mapPoint;
+                     graphic = new Graphic(point, new SimpleMarkerSymbol());
+                     map.graphics.add(graphic);
+
+                     var requestHandle = esriRequest({
+                       "url": "http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/GeoEnrichment/enrich",
+                       "content": { 
+                        'inSR':'3857',
+                        'outSR':'3857',
+                        'returnGeometry':true, 
+                        'token':'QnMJ7dEVwmqH-vpPaKBXv-MKHvs5XJhmKX3GYKuoZ-SdS_VdMUZPjJBe3SBCTiRiarRA0JeWkEusMSeMZ05Rou7buVZ2Iv93TU7MIguV5XUtXShFVk2Hg99yhd8of7FTkzjFGphaAzHXkeWm7T5-mQ..', 
+                        'f': "pjson", 
+                        'studyareas': '[{"geometry":{"x":' + point.x + ', "y": '+ point.y  +'},"areaType": "NetworkServiceArea","bufferUnits": "Minutes","bufferRadii": [5,10,15],"travel_mode":"Driving"}]', 'dataCollections': '["KeyGlobalFacts"]'}
+                     });
+                     
+                     requestHandle.then(function(response){
+                       if(featureLayer){
+                         map.removeLayer(featureLayer);
+                       }
+                       
+                       console.log(response);
+
+                       var layerDefinition = {
+                           "geometryType": "esriGeometryPolygon",
+                           "fields": response.results[0].value.FeatureSet[0].fields
+                         } 
+                         var featureCollection = {
+                           layerDefinition: layerDefinition,
+                           featureSet: response.results[0].value.FeatureSet[0]
+                         };
+
+                       var popupTemplate = new PopupTemplate({
+                         title: "{bufferRadii} {bufferUnits} Drive Area",
+                         fieldInfos: [{
+                            "fieldName": 'TOTPOP',
+                            "label": response.results[0].value.FeatureSet[0].fieldAliases['TOTPOP'],
+                            "visible": true,
+                            "format": {
+                               places: 0,
+                               digitSeparator: true
+                            }
+                         },{
+                           "fieldName": 'TOTFEMALES',
+                           "label": response.results[0].value.FeatureSet[0].fieldAliases['TOTFEMALES'],
+                           "visible": true,
+                           "format": {
+                              places: 0,
+                              digitSeparator: true
+                           }
+                        },{
+                          "fieldName": 'TOTMALES',
+                          "label": response.results[0].value.FeatureSet[0].fieldAliases['TOTMALES'],
+                          "visible": true,
+                          "format": {
+                             places: 0,
+                             digitSeparator: true
+                          }
+                       }],
+                         showAttachments: false
+                      });
+                         featureLayer = new FeatureLayer(featureCollection, {
+                           mode: FeatureLayer.MODE_SNAPSHOT,
+                           opacity: 0.5,
+                           infoTemplate:popupTemplate,
+                           id:"drive-time-lyr"
+                         });
+                         
+                         //smartMapping.createColorRenderer({'basemap':'gray', 'layer':featureLayer});
+                         
+                         smartMapping.createClassedColorRenderer({
+                           layer: featureLayer,
+                           basemap: map.getBasemap(),
+                           field: "TOTPOP",
+                           //statistics: "avg",
+                           classificationMethod: "quantile"
+                        }).then(function (response) {
+                          map.graphics.clear();
+                          featureLayer.setRenderer(response.renderer);
+                          featureLayer.redraw();
+                        }, function(err){
+                          console.log(err);
+                        });
+                        domClass.toggle("enrich", "btn btn-primary disabled");
+                        map.addLayer(featureLayer);
+             
+                   }, function(error){
+                       console.log(error)
+                       domClass.toggle("enrich", "btn btn-primary disabled");
+                   });
+                }
+            });
+  </script>
+</head>
+<body class="claro">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header" style="padding-bottom:8px;">
+        <a class="navbar-brand" href="#">Street Network Analysis With Esri's Geoenrichment Services</a>
+      </div>
+      <div style="margin-bottom:4px; margin-left:40px; clear: both; color:#A9A9A9">
+        <button class="btn btn-primary" id="enrich" style="font-size: 200%; font-style: italic" type="button"><i class="fa fa-map-pin"></i></button>
+        <span>Click button and then click on map to generate enriched drive time areas</span>
+      </div>
+    </div>
+  </nav>
+  <div style="margin-top:98px; width:100%; height:100%">
+    <div id="map"></div>
+  </div>
+</body>
+</html>

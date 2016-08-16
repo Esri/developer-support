@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Splash Screen Sample</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="CSS/splash.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://js.arcgis.com/3.15/"></script>
+    <script>
+		//wait for the HTML to fully load
+		$(document).ready(function() {
+			//access the progress bar div
+			var progressbar = $("#progressBar");
+			//this variable will hold the current width of the progress bar
+			var increment = 1;
+			incrementSlider();
+			//a recursive function to increment the progress bar
+			function incrementSlider() {
+				//each to see if the progress bar is full
+				if(increment <= 100) {
+					//Every 20 milliseconds implement the bar's width by one
+					setTimeout(function() {
+						progressbar.css("width", "" + increment + "%");
+						increment += 1;
+						incrementSlider();
+					}, 20);
+				}
+				else {
+					//after one second hide the loading screen and show the splash screen
+					setTimeout(function() {
+						$("#container").hide();
+						$("#splashScreen").fadeIn('slow');
+					}, 1000);
+				}
+			}
+			
+			//add a click event to the button on the splash screen to hide the splash screen
+			$(".btn-primary").click(function() {
+				$("#splashScreen").fadeOut('slow');
+			});
+		});
+
+		require([
+			"esri/map",
+			"esri/layers/FeatureLayer",
+			"dojo/domReady!"
+		], function(Map, FeatureLayer) {
+			var map = new Map("map", {
+				basemap: "topo",
+				center: [-100, 36.5],
+				zoom: 5
+			});
+			
+			var fLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
+			map.addLayer(fLayer);
+		});
+    </script>
+  </head>
+
+  <body>
+    <div id="container">
+		<div class = "page-header">
+			<h1><big>Esri Support Services</big><br/><small style="color:white"> Making Samples For You Since 2015</small></h1>
+		</div>
+		<div id="progressBarContainer" class = "progress progress-striped active">
+			<div id="progressBar" class = "progress-bar progress-bar-info" role = "progressbar" aria-valuenow = "0" aria-valuemin = "0" aria-valuemax = "100" style = "width: 0%;">
+				<span class = "sr-only"></span>
+			</div>
+		</div>
+	</div>
+    <div id="map"></div>
+	<div id="splashScreen" class = "container">
+		<div class = "jumbotron">
+			<h1>Splash Screen Sample</h1>
+			<p>This application is to be used for educational purposes only. Click the button if you agree to this condition</p>
+			<p><a class = "btn btn-primary btn-lg" role = "button">View Map</a></p>
+		</div>
+    </div>
+  </body>
+</html>

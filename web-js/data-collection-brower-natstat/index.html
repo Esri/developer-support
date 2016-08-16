@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>NatSTAT SPSS</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/img/favicon.ico" rel="shortcut icon">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">
+    </script>
+
+    <style>
+    #footer-list ul li, ol li {
+    padding-left: 1.25em;
+    background: transparent url("includes/bluebullet.gif") no-repeat
+        scroll -2px 5px
+    }
+
+    .subheading {
+		margin-left:14px;
+    }
+
+    #footer {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	margin-top: -250px;
+	height: 250px;
+	clear: both
+}
+
+
+    @font-face {
+    font-family: 'IcoMoon';
+    src: url("includes/icomoon.eot");
+    src: url("includes/icomoon.eot?#iefix") format("embedded-opentype"),
+        url("includes/icomoon.woff") format("woff"),
+        url("includes/icomoon.ttf") format("truetype"),
+        url("includes/icomoon.svg#IcoMoon") format("svg");
+    font-weight: normal;
+    font-style: normal
+    }
+
+    [data-icon]:before {
+	font-family: 'IcoMoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+	font-family: 'IcoMoon' !important;
+	font-style: normal;
+	speak: none;
+	font-weight: normal;
+	-webkit-font-smoothing: antialiased
+}
+
+
+.icon-green:before {
+	color: #35ac46
+}
+
+.icon-blue:before {
+	color: #007ac2
+}
+
+.icon-purple:before {
+	color: #762783
+}
+
+.icon-orange:before {
+	color: #f89927
+}
+
+.icon-gray:before {
+	color: #a6a6a6
+}
+
+.icon-large:before {
+	font-size: 30px;
+	line-height: 48px;
+	vertical-align: -5px
+}
+
+.icon-star:before {
+	content: "\3b"
+}
+
+.icon-github:before {
+	content: "\21"
+}
+
+.icon-fork:before {
+	content: "\52"
+}
+
+.icon-twitter:before {
+	content: "\64"
+}
+
+.icon-email:before {
+	content: "\38"
+}
+
+.icon-facebook:before {
+	content: "\22"
+}
+
+    #esri-logo-footer {
+    background: transparent url(includes/esri-footer-social.jpg)
+        no-repeat bottom right;
+    width: 120px;
+    height: 120px;
+    text-indent: -9999px;
+    margin: 0 auto 1em;
+    display: block;
+    border: 6px solid white
+    }
+
+
+    #footer nav {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    padding: 0 0.5em;
+    width: 25%;
+    margin-top: 0em;
+    }
+
+    #footer-social-nav {
+    list-style-type: none;
+    font-size: 1.5em;
+    line-height: 2em;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    padding: 0 0.5em;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    }
+
+
+    main, nav, section {
+    display: block;
+    }
+
+    #footer .container {
+    padding-top: 1.5em;
+    	background-color: #f3f3ee;
+    }
+    @media (min-width: 1200px)
+    .container {
+    width: 1170px;
+    }
+    @media (min-width: 992px)
+    .container {
+    width: 970px;
+    }
+    @media (min-width: 768px)
+    .container {
+    width: 750px;
+    }
+    .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    }
+
+    .container:before, .container:after {
+    content: " ";
+    display: table;
+    }
+
+    .container:after {
+    clear: both;
+    }
+
+    .container:before, .container:after {
+    content: " ";
+    display: table;
+    }
+
+    #footer {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: -250px;
+    height: 250px;
+    clear: both;
+    	background-color: #f3f3ee;
+    }
+
+    ul, ol {
+    list-style-type: none;
+    font-size: 0.875em;
+    line-height: 1.71429em;
+    margin-bottom: 1.5em;
+    padding: 0;
+    margin-top: 0;
+    }
+
+    ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    /*-webkit-margin-before: 1em;*/
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    list-style-type: none;
+    }
+
+    #footer .footer-list li {
+    padding-left: .5 em;
+    }
+
+
+    .topbanner {
+    position: relative;
+    background-color:#2D4859;
+    padding-bottom: 10px;
+    }
+    .tab-content {
+    padding:10px;
+    border:1px solid #ddd;
+    border-bottom:0px;
+    }
+    .nav-tabs {
+    border-bottom: 0px;
+    border-top: 1px solid #ddd;
+    }
+    .nav-tabs > li {
+    margin-bottom:0;
+    margin-top:-1px;
+    }
+
+    h1 {
+    margin-top: 0;
+    font-size: 3.2em;
+    margin-left:28px;
+    color:#FFF;
+    }
+
+    h3{
+    margin-top: 0;
+    }
+
+    #rproject h3{
+    margin-top: 0;
+    color:#fff;
+    }
+
+    .nav-tabs > li > h3 {
+    padding-top: 3px;
+    padding-bottom: 8px;
+    padding-left: 22px;
+    padding-right: 22px;
+    line-height: 20px;
+    border: 1px solid #eee;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    border-radius:0px;
+    -moz-border-radius-bottomright: 205px;
+    -webkit-border-bottom-right-radius: 205px;
+    border-bottom-right-radius: 205px;
+    -moz-border-radius-bottomleft: 205px;
+    -webkit-border-bottom-left-radius: 205px;
+    border-bottom-left-radius: 205px;
+    }
+    .nav-tabs > .active > h3, .nav-tabs > .active > h3:hover, .nav-tabs > .active > h3:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+
+    border-top-color: transparent;
+    }
+
+    .tabbable{
+    float:right;
+    position: relative;
+    margin-right:200px;
+    }
+
+
+    .tab-content {
+    padding:10px;
+    border:1px solid #ddd;
+    border-bottom:0px;
+    }
+    .nav-tabs {
+    border-bottom: 0px;
+    border-top: 1px solid #ddd;
+    list-style-type: none;
+    }
+    .nav-tabs > li {
+    margin-bottom:0;
+    margin-top:-1px;
+    }
+
+    .nav-tabs > li > a {
+    list-style: none;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    line-height: 20px;
+    border: 1px solid transparent;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    border-radius:0px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    }
+    .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-top-color: transparent;
+    list-style: none;
+    }
+
+
+
+
+
+
+
+
+    #tabbable-lower .nav-tabs {
+    border-bottom: 0px;
+    border-top: 1px solid #ddd;
+    }
+    #tabbable-lower .nav-tabs > li {
+    margin-bottom:0;
+    margin-top:-1px;
+    }
+
+    #tabbable-lower .nav-tabs > li > a {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    line-height: 20px;
+    border: 1px solid transparent;
+    -moz-border-radius:0px;
+    -webkit-border-radius:0px;
+    border-radius:0px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    }
+    #tabbable-lower .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-top-color: transparent;
+    }
+
+    #rproject{
+    margin-top:50px;
+    background-color:#2D4859;
+    text-align:center;
+    }
+
+    .r{
+    margin-left:24px;
+    }
+
+
+#footer-social-nav {
+	list-style-type:none;
+	font-size: 1.5em;
+	line-height: 2em;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	padding: 0 0.5em;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	text-align: center
+}
+
+#footer-social-nav li {
+	background: none;
+	padding: 0 .25em 0 0;
+	display: inline;
+	list-style-type: none;
+}
+
+#footer-social-nav a {
+	color: #a6a6a6
+}
+
+#footer-social-nav a:hover {
+	color: gray
+}
+
+#footer-legal {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	float: left;
+	padding: 0 0.5em;
+	width: 100%;
+	margin-top: 0em;
+	padding-bottom: 0em;
+	clear: both
+}
+
+#footer-legal a {
+	color: inherit
+}
+    </style>
+
+
+    <script>
+    var proxy = "http://54.214.96.171/proxy/php/proxy.php";
+    var webServer = "http://esri.github.io/developer-support/web-js/data-collection-brower-natstat/index.html"
+
+
+
+  function getUrlParameters(parameter, decode) {
+      var staticURL = window.location;
+      var queryString = (staticURL.length) ? staticURL : window.location.search;
+      if (queryString == "" || queryString == null) {
+      	window.location.href = webServer + "?collection=populationtotals&countryCode=us";
+          return false;
+      }
+      var keyPairs = queryString.split("?")[1].split("&");
+      var returnBool = true;
+      for (var i = 0; i < keyPairs.length; i++) {
+          pairs = keyPairs[i].split("=");
+          if (pairs[0] == parameter) {
+              return (decode) ? decodeURIComponent(pairs[1]) : pairs[1];
+              returnBool = true;
+          } else {
+              returnBool = false;
+          }
+      }
+      if (!returnBool) return false;
+  }
+
+  function fetchDataCollection(evt) {
+      var collection = getUrlParameters("collection", true);
+      var countryCode = getUrlParameters("countryCode", true);
+      if (collection == false || countryCode == false) {
+          return;
+      }
+      var results = document.getElementById("results");
+      document.getElementById("collectionTitle").innerHTML = "";
+      while (results.firstChild) {
+          results.removeChild(results.firstChild);
+      }
+
+      var url = proxy +
+          "?http://geoenrich.arcgis.com/arcgis/rest/services/World/geoenrichmentserver/Geoenrichment/dataCollections/" +
+          countryCode + "/" + collection + "?f=json";
+      console.log(url);
+      $.get(url, function(data) {
+          data = JSON.parse(data);
+          document.getElementById("total-num-vars-container").innerHTML = "Total number of variables: " + data.DataCollections[0].data.length;
+
+          if (data.DataCollections[0].metadata) {
+              document.getElementById("collectionTitle").innerHTML =
+                  data.DataCollections[0].metadata.title;
+              var table = document.createElement("table");
+              var tbody = document.createElement("tbody");
+              var tr = document.createElement("tr");
+              var th = document.createElement("th");
+              var textElement = document.createTextNode("Variable Name");
+              th.appendChild(textElement);
+              tr.appendChild(th);
+              var th = document.createElement("th");
+              var textElement = document.createTextNode("Description");
+              th.appendChild(textElement);
+              tr.appendChild(th);
+              tbody.appendChild(tr);
+
+              table.className = "table table-striped"; //.table-striped
+              for (i = 0; i < data.DataCollections[0].data.length; i++) {
+                  variable = data.DataCollections[0].data[i];
+                  var tr = document.createElement("tr");
+                  var td = document.createElement("td");
+                  var textnodeId = document.createTextNode(
+                      variable.id);
+                  td.appendChild(textnodeId);
+                  tr.appendChild(td);
+                  var td = document.createElement("td");
+                  var textnodeAlias = document.createTextNode(
+                      variable.alias);
+                  td.appendChild(textnodeAlias);
+                  tr.appendChild(td);
+                  tbody.appendChild(tr)
+              }
+              table.appendChild(tbody);
+              results.appendChild(table);
+          }
+      });
+  }
+
+  function inArray(needle, haystack){
+  	var idx = haystack.indexOf(needle);
+  	var result = idx > -1 ? true : false;
+  	return result;
+  }
+
+  function getNavigation() {
+      var links = [
+         {
+             "id": "populationtotals",
+             "title": "Population Totals",
+             "cat": "Population",
+             "order": "100"
+         },
+         {
+             "id": "gender",
+             "title": "Gender",
+             "cat": "Population",
+             "order": "100"
+         },
+         {
+             "id": "groupquarters",
+             "title": "Group Quarters",
+             "cat": "Population",
+             "order": "100"
+         },
+         {
+             "id": "Wealth",
+             "title": "Wealth Facts",
+             "cat": "Income",
+             "order": "95"
+         },
+         {
+             "id": "networth",
+             "title": "Net Worth",
+             "cat": "Income",
+             "order": "95"
+         },
+         {
+             "id": "disposableincome",
+             "title": "Disposable Income",
+             "cat": "Income",
+             "order": "95"
+         },
+         {
+             "id": "foodstampsSNAP",
+             "title": "Food Stamps/SNAP",
+             "cat": "Income",
+             "order": "95"
+         },
+         {
+             "id": "householdincome",
+             "title": "Household Income",
+             "cat": "Income",
+             "order": "95"
+         },
+         {
+             "id": "incomebyage",
+             "title": "Income by Age",
+             "cat": "Age",
+             "order": "90"
+         },
+         {
+             "id": "5yearincrements",
+             "title": "5 Year Increments",
+             "cat": "Age",
+             "order": "90"
+         },
+         {
+             "id": "1yearincrements",
+             "title": "1 Year Increments",
+             "cat": "Age",
+             "order": "90"
+         },
+         {
+             "id": "presenceofchildren",
+             "title": "Presence of Children",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "householdsbyraceofhouseholder",
+             "title": "Households by Race of Householder",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "householdsbysize",
+             "title": "Households by Size",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "householdtotals",
+             "title": "Household Totals",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "householdtype",
+             "title": "Household Type",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "disability",
+             "title": "Disability",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "householdsbyageofhouseholder",
+             "title": "Households by Age of Householder",
+             "cat": "Households",
+             "order": "85"
+         },
+         {
+             "id": "yearbuilt",
+             "title": "Year Built",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "vehiclesavailable",
+             "title": "Vehicles Available",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "vacant",
+             "title": "Vacant",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "housingunittotals",
+             "title": "Housing Unit Totals",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "homevalue",
+             "title": "Home Value",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "heatingfuel",
+             "title": "Heating Fuel",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "housingcosts",
+             "title": "Housing Costs",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "OwnerRenter",
+             "title": "Owner & Renter",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "housingbysize",
+             "title": "Housing by Size",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "housingbyraceofhouseholder",
+             "title": "Housing by Race of Householder",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "housingbyageofhouseholder",
+             "title": "Housing by Age of Householder",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "unitsinstructure",
+             "title": "Units in Structure",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "KeyGlobalFacts",
+             "title": "Key Global Facts",
+             "cat": "Population"
+         },
+         {
+             "id": "yearmovedin",
+             "title": "Year Moved in",
+             "cat": "Housing",
+             "order": "80"
+         },
+         {
+             "id": "health",
+             "title": "Health",
+             "cat": "Health",
+             "order": "76"
+         },
+         {
+             "id": "healthinsurancecoverage",
+             "title": "Health Insurance Coverage",
+             "cat": "Health",
+             "order": "76"
+         },
+         {
+             "id": "educationalattainment",
+             "title": "Educational Attainment",
+             "cat": "Education",
+             "order": "75"
+         },
+         {
+             "id": "schoolenrollment",
+             "title": "School Enrollment",
+             "cat": "Education",
+             "order": "75"
+         },
+         {
+             "id": "sales",
+             "title": "Sales",
+             "cat": "Business",
+             "order": "70"
+         },
+         {
+             "id": "employees",
+             "title": "Employees",
+             "cat": "Business",
+             "order": "70"
+         },
+         {
+             "id": "industrybysiccode",
+             "title": "Industry by SIC Code",
+             "cat": "Business",
+             "order": "70"
+         },
+         {
+             "id": "industrybynaicscode",
+             "title": "Industry by NAICS Code",
+             "cat": "Business",
+             "order": "70"
+         },
+         {
+             "id": "businesses",
+             "title": "Businesses",
+             "cat": "Business",
+             "order": "70"
+         },
+         {
+             "id": "raceandhispanicorigin",
+             "title": "Race & Hispanic Origin",
+             "cat": "Race",
+             "order": "65"
+         },
+         {
+             "id": "agebyracebysex",
+             "title": "Age by Race by Sex",
+             "cat": "Race",
+             "order": "65"
+         },
+         {
+             "id": "language",
+             "title": "Language",
+             "cat": "Race",
+             "order": "65"
+         },
+         {
+             "id": "hispanicorigin",
+             "title": "Hispanic Origin",
+             "cat": "Race",
+             "order": "65"
+         },
+         {
+             "id": "financial",
+             "title": "Financial",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "food",
+             "title": "Food",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "miscellaneous",
+             "title": "Miscellaneous",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "clothing",
+             "title": "Clothing",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "education",
+             "title": "Education",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "TravelCEX",
+             "title": "Travel",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "transportation",
+             "title": "Transportation",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "HealthPersonalCareCEX",
+             "title": "Health Personal Care",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "entertainment",
+             "title": "Entertainment",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "HousingHousehold",
+             "title": "Housing & Household",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "LifeInsurancePensions",
+             "title": "Life Insurance & Pensions",
+             "cat": "Spending",
+             "order": "60"
+         },
+         {
+             "id": "ElectronicsInternet",
+             "title": "Electronics & Internet",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "HealthPersonalCare",
+             "title": "Health & Personal Care",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "AutomobilesAutomotiveProducts",
+             "title": "Automobiles & Automotive Products",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "BabyProductsToysGames",
+             "title": "Baby Products, Toys & Games",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "CivicActivitiesPoliticalAffiliation",
+             "title": "Civic Activities & Political Affiliation",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "travelMPI",
+             "title": "Travel",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "MediaMagazinesNewspapers",
+             "title": "Media - Magazines & Newspapers",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "HouseholdGoodsFurnitureAppliances",
+             "title": "Household Goods, Furniture & Appliances",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "HomeImprovementGardenLawn",
+             "title": "Home Improvement, Garden & Lawn",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "MediaRadioOtherAudio",
+             "title": "Media - Radio & Other Audio",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "sports",
+             "title": "Sports",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "GroceryAlcoholicBeverages",
+             "title": "Grocery & Alcoholic Beverages",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "shopping",
+             "title": "Shopping",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "MediaTVViewing",
+             "title": "Media - TV Viewing",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "PetsPetProducts",
+             "title": "Pets & Pet Products",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "PhonesYellowPages",
+             "title": "Phones & Yellow Pages",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "restaurants",
+             "title": "Restaurants",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "PsychographicsAdvertising",
+             "title": "Psychographics & Advertising",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "ClothingShoesAccessories",
+             "title": "Clothing, Shoes & Accessories",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "FinancialInsurance",
+             "title": "Financial & Insurance",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "LeisureActivitiesLifestyle",
+             "title": "Leisure Activities & Lifestyle",
+             "cat": "Behaviors",
+             "order": "55"
+         },
+         {
+             "id": "women",
+             "title": "Women",
+             "cat": "Jobs",
+             "order": "50"
+         },
+         {
+             "id": "veterans",
+             "title": "Veterans",
+             "cat": "Jobs",
+             "order": "50"
+         },
+         {
+             "id": "occupation",
+             "title": "Occupation",
+             "cat": "Jobs",
+             "order": "50"
+         },
+         {
+             "id": "industry",
+             "title": "Industry",
+             "cat": "Jobs",
+             "order": "50"
+         },
+         {
+             "id": "commute",
+             "title": "Commute",
+             "cat": "Jobs",
+             "order": "50"
+         },
+         {
+             "id": "population",
+             "title": "Population",
+             "cat": "Poverty",
+             "order": "45"
+         },
+         {
+             "id": "households",
+             "title": "Households",
+             "cat": "Poverty",
+             "order": "45"
+         },
+         {
+             "id": "maritalstatustotals",
+             "title": "Marital Status Totals",
+             "cat": "Marital Status",
+             "order": "40"
+         },
+         {
+             "id": "tapestryhouseholdsNEW",
+             "title": "Tapestry Households",
+             "cat": "Tapestry (2015)",
+             "order": "36"
+         },
+         {
+             "id": "tapestryadultsNEW",
+             "title": "Tapestry Adults",
+             "cat": "Tapestry (2015)",
+             "order": "36"
+         },
+         {
+             "id": "tapestrypopulationNEW",
+             "title": "Tapestry Population",
+             "cat": "Tapestry (2015)",
+             "order": "36"
+         },
+         {
+             "id": "urbanizationgroupsNEW",
+             "title": "Urbanization Groups",
+             "cat": "Tapestry (2015)",
+             "order": "36"
+         },
+         {
+             "id": "lifemodegroupsNEW",
+             "title": "Lifemode Groups (2015)",
+             "cat": "Tapestry (2015)",
+             "order": "35"
+         },
+         {
+             "id": "AtRisk",
+             "title": "At Risk",
+             "cat": "At Risk",
+             "order": "30"
+         },
+         {
+             "id": "KeyUSFacts",
+             "title": "Key US Facts",
+             "cat": "Key Facts",
+             "order": "25"
+         },
+         {
+             "id": "retailmarketplace",
+             "title": "Retail MarketPlace",
+             "cat": "Supply and Demand",
+             "order": "23"
+         },
+         {
+             "id": "Policy",
+             "title": "Policy Facts",
+             "cat": "Policy",
+             "order": "20"
+         },
+         {
+             "id": "Infrastructure",
+             "title": "Infrastructure",
+             "cat": "Landscape",
+             "order": "5"
+         },
+         {
+             "id": "LandCover",
+             "title": "Landcover",
+             "cat": "Landscape",
+             "order": "5"
+         },
+         {
+             "id": "LandscapeFacts",
+             "title": "Landscape Facts",
+             "cat": "Landscape",
+             "order": "5"
+         },
+         {
+             "id": "Soils",
+             "title": "Soils",
+             "cat": "Landscape",
+             "order": "5"
+         },
+         {
+             "id": "WaterWetlands",
+             "title": "Water and Wetlands",
+             "cat": "Landscape",
+             "order": "5"
+         },
+         {
+             "id": "PublicLands",
+             "title": "Public Lands",
+             "cat": "Landscape",
+             "order": "5"
+         }
+     ];
+
+      var div = document.createElement("div");
+      var items = [];
+      for(i=0; i<links.length; i++){
+      	var item = links[i];
+      	var isInArray = inArray(item.cat, items);
+      	if(isInArray){
+      		//Create subheading
+      		var subheading = createLink(item);
+        		div.appendChild(subheading);
+      	}else{
+      		//Create heading and subheading
+      		items.push(item.cat); //Keep track of what's been put in the display so we don't repeat stuff that's there
+      		var heading = document.createElement("p");
+          	var textnode = document.createTextNode(item.cat);
+          	heading.appendChild(textnode);
+          	div.appendChild(heading);
+          	var subheading = createLink(item);
+          	div.appendChild(subheading);
+      	}
+      }
+      document.getElementById("sidenav").appendChild(div);
+  }
+
+  function createLink(collection) {
+      var p = document.createElement("p");
+      var textnode = document.createTextNode(collection.title);
+      var url = webServer + "?collection=" + collection.id + "&countryCode=us";
+      var p = document.createElement("p");
+      var a = document.createElement("a");
+      a.title = collection.title;
+      a.href = url;
+      a.className = "subheading";
+      var textnode = document.createTextNode(collection.title);
+      a.appendChild(textnode);
+      p.appendChild(a);
+      return p;
+  }
+  window.onload = function() {
+      fetchDataCollection()
+      getNavigation();
+      $("#ibmextension").click(function() {
+    	  	window.location.href = "http://ibmpredictiveanalytics.github.io/";
+    	  });
+  }
+
+    </script>
+
+</head>
+<body>
+    <div class="topbanner">
+        <div class="tabbable">
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <h3 id="ibmextension">NatSTAT</h3>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h1>National Statistics and Demographic Data Collection Explorer for IBM</h1>
+
+            <div class="r"><img src="includes/connect.png"></div>
+        </div>
+    </div>
+    <div class="tabbable-lower">
+        <ul class="nav nav-tabs">
+            <li>
+                <a href="https://www.arcgis.com/features/free-trial.html" target="_blank">Try ArcGIS for Free</a>
+            </li>
+            <li>
+                <a href="mailto:dcarroll@esri.com?Subject=NatSTAT%20Question" target="_top">Need More Information?</a>
+            </li>
+            <li>
+                <a href="https://doc.arcgis.com/en/arcgis-online/use-maps/perform-analysis.htm" target="_blank">Learn More About Advanced Tooling</a>
+            </li>
+            <li>
+                <a href="http://www.esri.com/partners/partners-alliance/ibm/ibm-solutions">Check out Esri and IBM Products</a>
+            </li>
+            <li>
+                <a href="https://r-arcgis.github.io/">Visit R – ArcGIS Community</a>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <h3 id="collectionTitle"></h3>
+        <div class="row" id="header" style="display:block; border-bottom:8px;">
+            <div class="col-sm-8" class="total-num-vars-container">
+                <small id="total-num-vars-container"></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 table-responsive" id="results"></div>
+            <div class="col-sm-3">
+            <h4>Collection Categories</h4>
+            <div id="sidenav"></div>
+            </div>
+            </div>
+            </div>
+            <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <nav>
+                    <h4>Arc<span>GIS</span> for Organizations</h4>
+                    <ul class="footer-list">
+                        <li>
+                            <a href="http://www.arcgis.com/about/">Home</a>
+                        </li>
+                        <li>
+                            <a href="http://www.arcgis.com/about/features.html">Features</a>
+                        </li>
+                        <li>
+                            <a href="http://www.arcgis.com/about/pricing.html">Pricing</a>
+                        </li>
+                        <li>
+                            <a href="http://www.arcgis.com/about/trial.html">30-Day Free Trial</a>
+                        </li>
+                        <li>
+                            <a href="https://www.arcgis.com/home/signin.html">Sign In</a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav>
+                    <h4>Arc<span>GIS</span> for Developers</h4>
+                    <ul class="footer-list">
+                        <li>
+                            <a href="http://developers.arcgis.com/en/">Home</a>
+                        </li>
+                        <li>
+                            <a href="http://developers.arcgis.com/en/features">Features</a>
+                        </li>
+                        <li>
+                            <a href="http://developers.arcgis.com/en/sign-in">Sign In</a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav>
+                    <h4>About Esri</h4>
+                    <ul class="footer-list">
+                        <li>
+                            <a href="http://www.esri.com/about-esri">About Us</a>
+                        </li>
+                        <li>
+                            <a href="http://www.esri.com/careers">Careers</a>
+                        </li>
+                        <li>
+                            <a href="http://blogs.esri.com/esri/esri-insider/">Insiders Blog</a>
+                        </li>
+                        <li>
+                            <a href="http://www.esri.com/events/user-conference/index.html">Users Conference</a>
+                        </li>
+                        <li>
+                            <a href="http://www.esri.com/events/devsummit/index.html">Developer Summit</a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav class="last">
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <a href="http://esri.com" id="esri-logo-footer">Esri</a>
+                        </li>
+                        <li style="list-style: none; display: inline">
+                            <ul id="footer-social-nav" style="list-style-type: none;">
+                                <li>
+                                    <a class="icon-twitter" href="https://twitter.com/Esri"></a>
+                                </li>
+                                <li>
+                                    <a class="icon-facebook" href="https://www.facebook.com/esrigis"></a>
+                                </li>
+                                <li>
+                                    <a class="icon-github" href="http://github.com/Esri"></a>
+                                </li>
+                                <li>
+                                    <a class="icon-email" href="http://www.esri.com/about-esri/contact"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav><small id="footer-legal">© Copyright 2015 Environmental Systems Research Institute, Inc. | <a href=
+                "http://www.esri.com/legal/privacy">Privacy</a> | <a href="http://www.esri.com/legal/software-license">Legal</a></small>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

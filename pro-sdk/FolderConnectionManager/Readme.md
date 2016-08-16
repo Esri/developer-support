@@ -4,9 +4,6 @@
 Allows saving and loading folder connections to a Project.   
   
 
-
-<a href="http://pro.arcgis.com/en/pro-app/sdk/" target="_blank">View it live</a>
-
 <!-- TODO: Fill this section below with metadata about this sample-->
 ```
 Language:      C#

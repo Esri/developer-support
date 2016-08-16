@@ -1,0 +1,48 @@
+<html>
+<head>
+    <script type="text/javascript">
+        var dojoConfig = (function(){
+            var base = "http://esri-es.github.io/Static-Maps-API-ArcGIS";
+            return {
+                async: true,
+                isDebug: true,
+                packages:[{
+                    name: 'esriES', location: base + '/js', main: "staticmap"
+                }]
+            };
+        })();
+    </script>
+
+    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+    <script src="http://js.arcgis.com/3.14/"></script>
+
+    <script type="text/javascript">
+        require([
+            "esriES/staticmap",
+            "dojo/domReady!"
+        ], function(StaticMap) {
+            var staticMap = new StaticMap();
+
+            var options = {
+                basemap: "satellite",
+                address: "Emilio Muñoz 35, Madrid",
+                markers: [{
+                    latitude: 40.432508,
+                    longitude: -3.627031,
+                    color: "orange",
+                    yoffset: 10
+                }]
+
+            };
+
+            staticMap.getImage(options).then(function(imageURL){
+                document.getElementById("staticImage").src = imageURL;
+            });
+
+        });
+    </script>
+</head>
+<body>
+<img src="" id="staticImage">
+</body>
+</html>

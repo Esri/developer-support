@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Save Map State</title>
+    <link rel="stylesheet" href="http://js.arcgis.com/3.15/esri/css/esri.css">
+
+ <style>
+    html, body, #mapDiv
+	{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+ </style>
+ 
+<script src="https://js.arcgis.com/3.15/"></script>
+<script>
+	var map, countyLayer, parcelsLayer, boundaryLayer, placesLayer;
+	
+    require([
+		"esri/map",
+        "esri/graphic",
+		"esri/geometry/Extent",
+		"esri/geometry/Point",
+		"esri/geometry/screenUtils",
+		"esri/layers/FeatureLayer",
+		"esri/tasks/query",
+		"esri/InfoTemplate",
+		"dojo/domReady!"],
+ 
+	function (
+		Map,
+        Graphic,
+		Extent,
+		Point,
+		screenUtils,
+		FeatureLayer,
+		Query,
+		InfoTemplate
+	){
+		//the object to hold the information to be saved to local storage
+		var storageData = {};
+		
+		//hyperlink for the url stored in the 
+	    var popupString = "<a href=${URL}>More Information</a>";
+	   
+	    //create the template used by the infoWindow
+	    var infoTemplate = new InfoTemplate();
+	    infoTemplate.setTitle("<b>${Name}</b>");
+		infoTemplate.setContent(popupString);
+		
+		//create the map object
+	    map = new Map("mapDiv",{
+            basemap: "streets",
+			center: [-80.8, 35.22],
+			zoom: 12
+        });
+		
+		//create the feature layer, be sure to include all outfields
+		placesLayer = new FeatureLayer("http://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/MayTripDetails/FeatureServer/0", {
+			mode: FeatureLayer.MODE_SNAPSHOT,
+			outFields: ["*"],
+			infoTemplate: infoTemplate,
+			id: "placesLayer"
+		});
+		
+		//add the feature layer to the map
+		map.addLayers([placesLayer]);
+		
+		//after the layes have been added, check the values in local storage
+		map.on("layers-add-result", function() {
+			//get the _MapData entry from local storage
+			var storedInformation = localStorage.getItem('_MapData');
+			//if the variable in localStorage had a value
+			if(storedInformation) {
+				//convert the string value to JSON
+				var temp = JSON.parse(storedInformation);
+				//create an extent object from the extent information retrieved from local storage
+				var extent = new Extent(temp.extent.xmin, temp.extent.ymin, temp.extent.xmax, temp.extent.ymax, map.spatialReference);
+				map.setExtent(extent);
+				var query = new Query();
+				query.where = temp.features;
+				//select features from the feature layer using the FIDs retrieved from local storage
+				placesLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW, function(results) {
+					//map sure the infoWindow and map objects are ready by using the timeout function
+					setTimeout(function() {
+						//set the features displayed in the infoWindow to the selected features in the feature layer
+						map.infoWindow.setFeatures(placesLayer.getSelectedFeatures());
+						//create a screenpoint to center the infoWindow on based on the selected feature's geometry
+						var point = screenUtils.toScreenPoint(extent, map.width, map.height, new Point(map.infoWindow.features[0].geometry.x, map.infoWindow.features[0].geometry.y, map.spatialReference));
+						map.infoWindow.show(point);
+					}, 500);
+				});
+			}
+		});
+		
+		//when the current selection in the infoWindow changes update the storage information
+		map.infoWindow.on("selection-change", function(evt) {
+			//if the selectedIndex is greater than one a feature was selected
+			if(evt.target.selectedIndex > -1) {
+				//get the FID of the current feature, this will allow us to reselect it later
+				storageData.features = "FID=" + evt.target.features[evt.target.selectedIndex].attributes.FID;
+			}
+		});
+		
+		//when the map unloads, store the map state in local storage
+		map.on("unload", function(evt) {
+			//store the current map extent as a JSON object
+			storageData.extent = {"xmin":map.extent.xmin, "ymin":map.extent.ymin, "xmax":map.extent.xmax, "ymax":map.extent.ymax};
+			//set the _MapData item with the string representation of the storageData object
+			localStorage.setItem('_MapData', JSON.stringify(storageData));
+		});
+	});
+ 
+ </script>
+</head>
+<body class="tundra">
+   <div id="mapDiv" class="map"></div>
+</body>

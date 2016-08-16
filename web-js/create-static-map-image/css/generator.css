@@ -1,0 +1,40 @@
+.mb-15{
+    margin-bottom: 15px !important;
+}
+.mb-25{
+    margin-bottom: 25px !important;
+}
+.radio .mb-15 input[type="text"]{
+    margin-top: 10px;
+}.radio .mb-15 span{
+     font-weight: bold;
+ }
+.box{
+    position: relative;
+    padding: 15px 15px 15px;
+    margin: 0 -15px 15px;
+    border-style: solid;
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#markers{
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+#result .box{position:relative;}
+
+
+#imgURL{
+    display: inline-block;
+    background-color: #3498DB;
+    background-image: url("../images/oval.svg");
+    background-repeat: no-repeat;
+    background-position: 50%;
+}

@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Show Line Direction</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+	  #arrowEnd, #arrowAll, #showLabels, #clearAll {
+		height: 40px;
+		width: 100px;
+		left: 100px;
+		top: 100px;
+		position: absolute;
+	  }
+	  #arrowAll {
+		left: 220px;
+	  }
+	  #showLabels {
+		left: 340px;
+	  }
+	  #clearAll {
+		left: 460px;
+	  }
+    </style>
+    <script src="https://js.arcgis.com/3.15/"></script>
+    <script>
+      var map;
+
+      require([
+		"esri/Color",
+		"esri/graphic",
+		"esri/map",
+		"esri/geometry/Point",
+		"esri/geometry/webMercatorUtils",
+		"esri/layers/FeatureLayer",
+		"esri/layers/GraphicsLayer",
+		"esri/symbols/Font",
+		"esri/symbols/SimpleMarkerSymbol",
+		"esri/symbols/TextSymbol",
+		"dojo/domReady!"
+	 ], function(Color, Graphic, Map, Point, webMercatorUtils, FeatureLayer, GraphicsLayer, Font, SimpleMarkerSymbol, TextSymbol) {
+	 
+        map = new Map("map", {
+          basemap: "topo",
+          center: [137.26, 36.15],
+          zoom: 15
+        });
+		
+		//SVG arrow
+		var iconPath = "m90.50001,242.05447l102.18257,-82.07448l-102.18257,-82.07507l58.40251,-46.90492l160.59748,128.97999l-160.59748,129.02";
+		
+		var fLayer = new FeatureLayer("https://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/Trip_Routes/FeatureServer/0", {
+			mode: FeatureLayer.MODE_SNAPSHOT
+		});
+		
+		//Graphics layer to hold the direction information
+		var gLayer = new GraphicsLayer();
+		
+		map.addLayers([fLayer, gLayer]);
+		
+		//loop through the feature layer's graphics and calculate the bearing between each point
+		function traverseGraphics(labelAll) {
+			gLayer.clear();
+			for(var i = 0; i < fLayer.graphics.length; i++) {
+				var temp = fLayer.graphics[i].geometry.paths[0];
+				//find the bearing of all line segments
+				if(labelAll) {
+					for(var j = 0; j < temp.length - 1; j++) {
+						var point1 = temp[j]
+						var point2 =  temp[j + 1]
+						calculateBearing(point1, point2);
+					}
+				}
+				//find the bearing of the end of the line
+				else {
+					var point1 = temp[(temp.length - 2)];
+					var point2 =  temp[(temp.length - 1)];
+					calculateBearing(point1, point2);
+				}
+			}
+		}
+		
+		//calculate the bearing of two points
+		function calculateBearing(point1, point2) {
+			//convert the points to lat long
+			var firstPoint = webMercatorUtils.webMercatorToGeographic(new Point(point1[0], point1[1], fLayer.spatialReference));
+			var secondPoint = webMercatorUtils.webMercatorToGeographic(new Point(point2[0], point2[1], fLayer.spatialReference));
+			//calculate the bearing
+			deltaX = (secondPoint.x - firstPoint.x);
+			deltaY = (secondPoint.y - firstPoint.y);
+			bearing = (Math.atan2(deltaX, deltaY) * 180 / Math.PI);
+			//convert the bearing to a 0 - 360 scale
+			if(bearing < 0) {
+				bearing = (180 + bearing) + 180;
+			}
+			//calculate the midPoint, used for the text symbol
+			var midPoint = calculateMidpoint(firstPoint, secondPoint);
+			//add an arrow to the segment
+			addArrow(point2, Math.round(bearing), midPoint);
+		}
+		
+		//calculate the midpoint of the segment
+		function calculateMidpoint(p1, p2) {
+			return new Point((p1.x+p2.x)/2,(p1.y+p2.y)/2);
+		}
+		
+		//add an arrow to the segment
+		function addArrow(point, bearing, midPoint) {
+			//create a new point
+			var point = new Point(point[0], point[1], fLayer.spatialReference);
+			//create a symbol for the arrow
+			var symbol = new SimpleMarkerSymbol();
+			symbol.setPath(iconPath);
+			//rotate the arrow 90 degrees as my SVG points to the right
+			symbol.setAngle(bearing - 90);
+			symbol.setColor(new esri.Color("#000"));
+			symbol.setSize(20);
+			//create a new graphic and add it to the graphics layer
+			var graphic = new Graphic(point, symbol, {"bearing":bearing, "midPoint":midPoint});
+			gLayer.add(graphic);
+		}
+		
+		//Create text labels for the segments
+		function createLabels() {
+			//loop through the graphics in the graphics layer
+			for(var i = 0; i < gLayer.graphics.length; i++) {
+				if(gLayer.graphics[i].attributes) {
+					//create a text symbol to display the bearing
+					var ts = new TextSymbol(gLayer.graphics[i].attributes.bearing, new Font("12pt").setWeight(Font.WEIGHT_BOLD),new Color([0,0,0]));
+					//calculate the angle of the text symbol
+					ts.setAngle(calcuateLabelAngle(gLayer.graphics[i].attributes.bearing));
+					var graphic = new Graphic(gLayer.graphics[i].attributes.midPoint, ts);
+					gLayer.add(graphic);
+				}
+			}
+		}
+		
+		//calculate the angle to display the text. The idea is to display the text at an angle condusive to allow for easy reading
+		function calcuateLabelAngle(angle) {
+			angle -= 90;
+			if(angle < -90 && angle < -270) {
+				angle += 180;
+			}
+			else if(angle < 270 && angle > 90) {
+				angle += 180;
+			}
+			return angle;	
+		}
+		
+		document.getElementById("arrowEnd").addEventListener("click", function() {traverseGraphics(false);});
+		document.getElementById("arrowAll").addEventListener("click", function() {traverseGraphics(true);});
+		document.getElementById("clearAll").addEventListener("click", function() {gLayer.clear();});
+				
+		document.getElementById("showLabels").addEventListener("click", function() {
+			if(gLayer.graphics.length < 1) {
+				alert("Add Direction Arrows to the Map First!");
+			}
+			else {
+				createLabels();
+			}
+		});
+		
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+	<button id="arrowEnd">Show Direction</button>
+	<button id="arrowAll">Show Seg Direction</button>
+	<button id="showLabels">Label Segments</button>
+	<button id="clearAll">Clear All Graphics</button>
+  </body>
+</html>

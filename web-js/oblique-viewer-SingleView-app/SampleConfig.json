@@ -1,0 +1,14 @@
+{
+  "imageServiceUrl": "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Oblique/WU_Oblique/ImageServer",
+  "mosaicMethod": "METHOD_NADIR",
+  "extent": {
+    "xmin": -10053819.307050291,
+    "ymin": 4671370.585576834,
+    "xmax": -10053293.15437704,
+    "ymax": 4671650.37822235,
+    "spatialReference": {
+    "wkid": 102100,
+    "latestWkid": 3857
+    }
+  }
+}

@@ -1,0 +1,49 @@
+html, body, #map {
+    height: 100%;
+	width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#map {
+	position: absolute;
+}
+#container {
+	height: 100%;
+	width: 100%;
+	color: white;
+	z-index: 100;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	background-color: rgb(72, 85, 102);
+}
+#progressBarContainer {
+	width: 60%;
+	top: 60%;
+	position: absolute;
+	height: 20px;
+	left: 20%;
+	z-index: 200;
+}
+#progressBar {
+	position:absolute;
+	height: 20px;
+}
+#splashScreen {
+	display: none;
+	top: 15%;
+	position: relative;
+	z-index: 100;
+	background-color: rgb(72, 85, 102);
+}
+.page-header {
+	top: 10%;
+	text-align: center;
+	position: relative;
+	border-bottom: 0px solid black;
+}
+.jumbotron {
+	background-color: rgb(72, 85, 102);
+	color: white;
+	text-align: center;
+}

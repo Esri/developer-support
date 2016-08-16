@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">BackgroundSyncGeodatabase</string>
+  <string name="sync_notification_title">Portal View</string>
+  <string name="sync_updating">GDB Sync in Progress</string>
+  <string name="sync_done">GDB Sync Completed</string>
+  <string name="sync_failed">GDB Sync Failed</string>
+</resources>
