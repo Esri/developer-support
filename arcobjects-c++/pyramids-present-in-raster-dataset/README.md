@@ -8,7 +8,7 @@ This code sample shows how to programmatically discover that there are pyramids 
 * [IRasterPyramid3 Interface](http://help.arcgis.com/en/sdk/10.0/arcobjects_net/componenthelp/index.html#//001q00000306000000)
 
 ####Authors:
-* Sami E. - [Original sample](https://github.com/Esri/developer-support/tree/master/arcobjects-net/pyramids-present-in-raster-dataset)
+* Sami E. - [Original sample](https://github.com/Esri/developer-support/tree/gh-pages/arcobjects-net/pyramids-present-in-raster-dataset)
 
 * Alexander Nohe
 

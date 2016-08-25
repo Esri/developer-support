@@ -7,6 +7,6 @@ This code sample shows how to programmatically discover that there are pyramids 
 * [Uses IAoInitialize](http://help.arcgis.com/en/sdk/10.0/java_ao_adf/api/arcobjects/com/esri/arcgis/system/AoInitialize.html)
 
 ####Authors:
-* Sami E. - [Original sample](https://github.com/Esri/developer-support/tree/master/arcobjects-net/pyramids-present-in-raster-dataset)
+* Sami E. - [Original sample](https://github.com/Esri/developer-support/tree/gh-pages/arcobjects-net/pyramids-present-in-raster-dataset)
 
 * Alexander Nohe

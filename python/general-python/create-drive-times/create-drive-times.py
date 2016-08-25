@@ -1,7 +1,7 @@
 """
 Importing concepts found at:
 GitHub Developer Support
-https://github.com/Esri/developer-support/tree/master/python/general-python/update-webmap-json
+https://github.com/Esri/developer-support/tree/gh-pages/python/general-python/update-webmap-json
 https://developers.arcgis.com/rest/analysis/api-reference/programmatically-accessing-analysis-services.htm
 https://developers.arcgis.com/rest/analysis/api-reference/create-drivetime.htm
 """

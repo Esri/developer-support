@@ -16,7 +16,7 @@ To visualize the location updates that get sent to the Feature Service, create a
 
 ##Screen Shot
 
-![alt text](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/location-tracking.png "Location tracking w/ Android and Esri")
+![alt text](https://raw.githubusercontent.com/Esri/developer-support/gh-pages/repository-images/location-tracking.png "Location tracking w/ Android and Esri")
 
 NOTE: Feel free to update to this repo!
 
