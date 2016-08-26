@@ -10,7 +10,7 @@ Much of the code contained here is samples created by Esri staff to help develop
 
 ## Contributing
 
-Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md).
+Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/gh-pages/CONTRIBUTING.md).
 
 ## Licensing
 Copyright 2015 Esri
