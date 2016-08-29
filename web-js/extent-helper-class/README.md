@@ -12,7 +12,7 @@ Sample contains an extent helper class that chops up extents into different quad
 * Contains methods for finding the four midpoints of an extent
 
 
-![alt text](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/extent-helper.png "Client heatmap")
+![alt text](https://raw.githubusercontent.com/Esri/developer-support/gh-pages/repository-images/extent-helper.png "Client heatmap")
 
 NOTE: Feel free to update to this repo!
 

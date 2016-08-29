@@ -14,5 +14,5 @@ This a Java sample that shows how to set the Coordinate System of your Data Fram
 * Uses [IElement](http://resources.arcgis.com/en/help/arcobjects-java/api/arcobjects/com/esri/arcgis/carto/IElement.html)
 
 ######Authors
-* Sami E. - [Original Script](https://github.com/Esri/developer-support/blob/master/arcobjects-net/set-coordinate-system-and-add-point-graphic-to-IActiveView/README.md)
+* Sami E. - [Original Script](https://github.com/Esri/developer-support/blob/gh-pages/arcobjects-net/set-coordinate-system-and-add-point-graphic-to-IActiveView/README.md)
 * Alexander N.
