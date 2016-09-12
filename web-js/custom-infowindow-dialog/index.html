@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="description" content="Custom Identity Manager">
+	<meta name="author" content="Bradley Snider">
+	<title>Calcite-Maps - ArcGIS Sample</title>
+
+	<!-- Calcite-Maps -->
+	<link rel="stylesheet" href="css/calcite-maps-bootstrap-arcgis-3.x.min.css">
+
+	<!-- ArcGIS JS 3.x -->
+	<link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/dijit/calcite.css">
+	<link rel="stylesheet" href="https://js.arcgis.com/3.16/esri/themes/calcite/esri/esri.css">
+
+	<style>
+		html,
+		body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+		}
+	</style>
+</head>
+
+<body class="calcite calcite-maps map-position-absolute nav-position-top nav-space-all zoom-top-left theme-inline-left">
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-text-light navbar-fixed-top calcite-dark-purple">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand">
+					<span class="esri-icon esri-icon-map-pin"></span>
+				</a>
+				<div class="navbar-info">
+					<div class="navbar-title text-overflow">Custom Identity Manager</div>
+					<div class="navbar-subtitle text-overflow">Create a custom identity manager using Calcite Bootstrap</div>
+				</div>
+			</div>
+			<!-- Navbar collapse -->
+			<div id="mainNav" class="collapse navbar-collapse" aria-expanded="false">
+				<!--/.nav -->
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+		<!--/.container-fluid -->
+	</nav>
+	<!--/.navbar -->
+
+	<!-- Modal -->
+	<div class="modal fade " id="signInModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Sign in to ArcGIS Online to view a secured web map</h4>
+				</div>
+				<div class="modal-body">
+					<form id="loginForm">
+						<div class="form-group">
+							<label for="webMapID">Web map id:</label>
+							<input type="text" name="webMapID" class="form-control" id="webMapID" value="499ed2766bb7452fabb573e2ece345c0">
+						</div>
+						<div class="form-group">
+							<label for="usr">Username:</label>
+							<input type="text" name="usr" class="form-control" id="usr">
+						</div>
+						<div class="form-group">
+							<label for="pwd">Password:</label>
+							<input type="password" name="pwd" class="form-control" id="pwd">
+						</div>
+						<button type="button" class="btn btn-primary" id="submit" data-dismiss="modal">Submit</button>
+					</form>
+				</div>
+			</div>
+			<!-- /Modal content -->
+		</div>
+	</div>
+	<!-- /Modal -->
+
+	<!-- Map Container  -->
+	<div class="map-container">
+		<div id="mapViewDiv" class="map-position-absolute"></div>
+	</div>
+	<!-- /.container -->
+
+	<!-- Bootstrap core JavaScript
+		  ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Include all  plugins or individual files as needed -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<!--script src="../../assets/js/ie10-viewport-bug-workaround.js"></script-->
+
+	<!-- Calcite-Maps -->
+	<!-- <script src="../../dist/js/jquery/calcitemaps.js"></script> -->
+	<script src="js/jquery/calcitemaps.js"></script>
+
+	<!-- ArcGIS JS 3.16 -->
+	<script src="https://js.arcgis.com/3.16/"></script>
+
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>

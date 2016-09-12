@@ -1,0 +1,27 @@
+{
+  "name": "dojo-bootstrap",
+  "version": "3.0.2",
+  "main": "main",
+  "description": "Implementation of Bootstrap using the Dojo Toolkit.",
+  "repository": "xsokev/Dojo-Bootstrap",
+  "licenses": [
+    {
+      "type": "Apache License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "bugs": "https://github.com/xsokev/Dojo-Bootstrap/issues",
+  "keywords": [
+    "JavaScript",
+    "Dojo",
+    "Bootstrap"
+  ],
+  "homepage": "https://github.com/xsokev/Dojo-Bootstrap",
+  "dojoBuild": "bootstrap.profile.js",
+  "devDependencies": {
+    "intern": "^2.0.0",
+    "grunt": "^0.4.5",
+    "grunt-se-launch": "^0.1.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

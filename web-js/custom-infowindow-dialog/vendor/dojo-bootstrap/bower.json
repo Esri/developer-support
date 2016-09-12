@@ -1,0 +1,28 @@
+{
+  "name": "Dojo-Bootstrap",
+  "version": "3.0.2",
+  "homepage": "https://github.com/xsokev/Dojo-Bootstrap",
+  "authors": [
+    "Kevin Armstrong <kevin@kevinandre.com>"
+  ],
+  "description": "An implementation of the Twitter Bootstrap framework using Dojo.",
+  "main": "bootstrap.profile.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "Dojo",
+    "Bootstrap"
+  ],
+  "license": "Apache",
+  "ignore": [
+    "**/.*",
+    "*.md",
+    "LICENSE",
+    "node_modules",
+    "vendor",
+    "tests",
+    "composer.json",
+    "Gruntfile.js"
+  ]
+}
