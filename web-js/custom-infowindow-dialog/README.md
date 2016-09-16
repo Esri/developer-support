@@ -5,7 +5,7 @@ This sample shows the creation of a custom identity manager using the esri/reque
 
  Calcite Bootstrap
 
-[Live Sample](http://esri.github.io/developer-support/web-js/custom-identity-manager.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/custom-identity-manager/index.html)
 
 ##Usage Notes
 
