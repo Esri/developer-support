@@ -35,8 +35,8 @@ $(window).load(function() {
           request: "generateToken",
           username: usrVal,
           password: pwdVal,
-          //referer: "http://esri.github.io/",
-          referer: "http://brads.esri.com",
+          referer: "http://esri.github.io/",
+          //referer: "http://brads.esri.com",
           f: "json"
         },
         handleAs: "json",
