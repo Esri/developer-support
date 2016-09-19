@@ -36,7 +36,6 @@ $(window).load(function() {
           username: usrVal,
           password: pwdVal,
           referer: "http://esri.github.io/",
-          //referer: "http://brads.esri.com",
           f: "json"
         },
         handleAs: "json",
@@ -60,6 +59,7 @@ $(window).load(function() {
         return usePortal();
       }
 
+      //load the secured resource
       function usePortal() {
         arcgisUtils.createMap(webMapVal, "mapViewDiv");
       }
