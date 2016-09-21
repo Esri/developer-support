@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="description" content="Custom Identity Manager">
+	<meta name="author" content="Bradley Snider">
+	<title>Custom Identity Manager</title>
+
+
+  <!-- Calcite Bootstrap -->
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Esri/calcite-maps/master/dist/css/calcite-bootstrap-maps.min-v0.2.css">
+	<!-- Calcite-Maps -->
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Esri/calcite-maps/master/dist/css/calcite-maps-arcgis-3.x.min-v0.2.css">
+	<!-- ArcGIS JS 3.x -->
+	<link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/themes/calcite/dijit/calcite.css">
+	<link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/themes/calcite/esri/esri.css">
+
+  <style>
+    html, body, #mapViewDiv, .map-container {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body class="calcite calcite-maps calcite-nav-top calcite-margin-all calcite-zoom-top-left calcite-layout-inline-left">
+
+  <!-- Navbar -->
+
+  <nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark calcite-bgcolor-dark-purple">
+    <!-- Menu -->
+    <a class="navbar-brand">
+      <span class="esri-icon esri-icon-map-pin"></span>
+    </a>
+    <!-- Title -->
+    <div class="calcite-title calcite-overflow-hidden">
+      <span class="calcite-title-main">Custom Identity Manager</span>
+      <span class="calcite-title-divider hidden-xs"></span>
+      <span class="calcite-title-sub hidden-xs">Create a custom identity manager using Calcite Bootstrap</span>
+    </div>
+
+  </nav><!--/.navbar -->
+
+  <!-- Map Container  -->
+  <div class="map-container">
+    <div id="mapViewDiv" class="calcite-map-absolute"></div>
+  </div>
+  <!-- /.container -->
+
+	<!-- Modal -->
+	<div class="modal fade " id="signInModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-md">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Sign in to ArcGIS Online to view a secured web map</h4>
+				</div>
+				<div class="modal-body">
+					<form id="loginForm">
+						<div class="form-group">
+							<label for="webMapID">Web map id:</label>
+							<input type="text" name="webMapID" class="form-control" id="webMapID" value="499ed2766bb7452fabb573e2ece345c0">
+						</div>
+						<div class="form-group">
+							<label for="usr">Username:</label>
+							<input type="text" name="usr" class="form-control" id="usr">
+						</div>
+						<div class="form-group">
+							<label for="pwd">Password:</label>
+							<input type="password" name="pwd" class="form-control" id="pwd">
+						</div>
+						<button type="button" class="btn btn-primary" id="submit" data-dismiss="modal">Submit</button>
+					</form>
+				</div>
+			</div>
+			<!-- /Modal content -->
+		</div>
+	</div>
+	<!-- /Modal -->
+
+	<!-- Bootstrap core JavaScript
+		  ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- jQuery (for Bootstrap's JavaScript plugins). NOTE: You can also use pure Dojo. See examples. -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Include all  plugins or individual files as needed -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+	<!--script src="../../assets/js/ie10-viewport-bug-workaround.js"></script-->
+
+	<!-- Calcite-Maps -->
+  <script src="https://cdn.rawgit.com/Esri/calcite-maps/master/dist/js/jquery/calcitemaps-v0.2.js"></script>
+
+	<!-- ArcGIS JS 3.16 -->
+	<script src="https://js.arcgis.com/3.17/"></script>
+
+	<script src="main.js"></script>
+
+</body>
+
+</html>

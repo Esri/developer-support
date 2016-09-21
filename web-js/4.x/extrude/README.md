@@ -4,5 +4,5 @@
 
 NOTE: Feel free to update to this repo!
 
-### [Live Sample](http://esri.github.io/developer-support/web-js/4.x/extrude/nyc.html)
-### [Live Sample](http://esri.github.io/developer-support/web-js/4.x/extrude/cube.html)
+### [Live Sample - NYC](http://esri.github.io/developer-support/web-js/4.x/extrude/nyc.html)
+### [Live Sample - Cube](http://esri.github.io/developer-support/web-js/4.x/extrude/cube.html)
