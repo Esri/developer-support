@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Passive Location Updater</string>
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
+    <string name="last_locations_recorded">Last Location Recorded</string>
+    <string name="service_not_started">Service Not Started</string>
+    <string name="service_running">Service Running</string>
+</resources>
