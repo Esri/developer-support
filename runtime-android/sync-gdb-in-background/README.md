@@ -68,7 +68,7 @@ mOnSyncComplete = new BroadcastReceiver() {
 By calling a permission with the receiver and the broadcast intent, we are ensuring that we are able to safely receive the intents without others spoofing the call and running unintended tasks within our app.
 
 ## Known issues with this sample:
-* This sample was also written using the Beta Release 2 of the Quartz API.  All sample code shown here is subject to change up to the final release of Quartz.
+* This sample was also written using the Beta Release 2 of the ArcGIS Runtime Version 100 API.  All sample code shown here is subject to change up to the final release of ArcGIS Runtime Version 100.
 
 * It does not check for a network connection before running.  This will attempt to run whether or not it is on Wifi as well as whether or not it is connected to a network.  No pause has been implemented in case the network drops while trying to upload.  This will cause an error.
 
@@ -83,4 +83,4 @@ By calling a permission with the receiver and the broadcast intent, we are ensur
 * [IntentService](https://developer.android.com/reference/android/app/IntentService.html)
 * [Notifications](https://developer.android.com/guide/topics/ui/notifiers/notifications.html)
 * [BroadcastReceiver](https://developer.android.com/reference/android/content/BroadcastReceiver.html)
-* [ArcGIS Runtime Quartz Beta](https://developers.arcgis.com/android/beta/)
+* [ArcGIS Runtime Version 100 Beta](https://developers.arcgis.com/android/beta/)
