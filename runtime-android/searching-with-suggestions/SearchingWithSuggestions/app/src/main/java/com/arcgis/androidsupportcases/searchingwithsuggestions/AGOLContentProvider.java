@@ -16,21 +16,29 @@ import com.arcgis.androidsupportcases.searchingwithsuggestions.Data.VirtualConte
 
 public class AGOLContentProvider extends ContentProvider {
 
+    //A static reference to the authority so we can see what it looks like.
     static final String AUTHORITY = "com.arcgis.androidsupportcases.searchingwithsuggestions.agolcontentprovider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/search");
 
+    private final String TAG = "ESS";
+
+    //This lets us know that the content provider was created.  This can be used to check while the
+    //application is being debugged.
     @Override
     public boolean onCreate() {
-        Log.e("NOHE", "CREATED");
-        Log.e("NOHE", CONTENT_URI.toString());
+        Log.d(TAG, "CREATED");
+        Log.d(TAG, CONTENT_URI.toString());
         return true;
     }
 
+    //This is what powers the search suggestions.  As the user types in the search widget,
+    //this will go and recreate the cursor from ArcGIS Online to get realtime suggestions
+    //on what the user is typing.
     @Nullable
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        Log.e("NOHE", uri.getLastPathSegment());
+        Log.d(TAG, uri.getLastPathSegment());
         Cursor c = VirtualContent.getSuggestions(uri.getLastPathSegment());
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
@@ -39,8 +47,7 @@ public class AGOLContentProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(Uri uri) {
-        Log.e("NOHE", "YUP");
-        Log.e("NOHE", uri.toString());
+        Log.e(TAG, uri.toString());
         return null;
     }
 

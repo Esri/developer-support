@@ -17,7 +17,9 @@ import java.util.concurrent.ExecutionException;
  */
 
 /**
+ * General notes.
  * Creating a Cursor without a table
+ *
  If your search suggestions are not stored in a table format (such as an SQLite table) using the
  columns required by the system, then you can search your suggestion data for matches and then format
  them into the necessary table on each request. To do so, create a MatrixCursor using the required
@@ -27,9 +29,11 @@ import java.util.concurrent.ExecutionException;
 
 public class VirtualContent {
 
+    //This is what is invoked when the query in the AGOLContentProvider is called.
+    //This returns a new cursor so we can see the search suggestions in our widget.
     public static MatrixCursor getSuggestions(String query) {
 
-        MatrixCursor mC = new MatrixCursor(new String[] {"_ID", "SUGGEST_COLUMN_TEXT_1"});
+        MatrixCursor mC = new MatrixCursor(new String[] {"_id", SearchManager.SUGGEST_COLUMN_TEXT_1, SearchManager.SUGGEST_COLUMN_INTENT_DATA});
 
         try {
             mC = new SuggestionsGet().execute(query).get();
@@ -42,7 +46,10 @@ public class VirtualContent {
         return mC;
     }
 
+    //This runs the LocatorSuggestions asynchronously as to avoid ANR errors.
     private static class SuggestionsGet extends AsyncTask<String, Void, MatrixCursor> {
+
+        private final String TAG = "ESS";
 
         @Override
         protected MatrixCursor doInBackground(String... strings) {
@@ -61,7 +68,7 @@ public class VirtualContent {
 
                 int i = 0;
                 for (LocatorSuggestionResult result : lsr) {
-                    Log.e("Nohe", result.getText());
+                    Log.d(TAG, result.getText());
                     mC.addRow(new Object[]{i, result.getText(), i});
                     i++;
                 }

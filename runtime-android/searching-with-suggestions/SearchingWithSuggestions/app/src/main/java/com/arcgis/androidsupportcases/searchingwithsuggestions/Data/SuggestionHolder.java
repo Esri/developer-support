@@ -13,8 +13,11 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Created by alex7370 on 11/10/2016.
+ * A singleton class so we can access the LocatorSuggestionResult directly and use that to its full
+ * potential.  This would simulate the magickey call via the REST API.
  */
 public class SuggestionHolder {
+
     private static SuggestionHolder ourInstance = new SuggestionHolder();
 
     private ArrayList<LocatorSuggestionResult> lsr;
@@ -27,6 +30,7 @@ public class SuggestionHolder {
         lsr = new ArrayList<>();
     }
 
+    //This ensures that the arraylist holds the correct data to be accessed outside the content provider
     public void PopulateSuggestions(List<LocatorSuggestionResult> lsrArray) {
         lsr.clear();
         for(LocatorSuggestionResult ls : lsrArray) {
@@ -34,6 +38,7 @@ public class SuggestionHolder {
         }
     }
 
+    //Called from the MainActivity so we can interact with the search suggestions directly.
     public LocatorGeocodeResult FindFeatureFromSearch(int index) {
         LocatorGeocodeResult lgr = new LocatorGeocodeResult();
         try {
@@ -46,6 +51,7 @@ public class SuggestionHolder {
         return lgr;
     }
 
+    //Runs geocoding async so we do not block the thread.
     private class GetLocatorResult extends AsyncTask<Integer, Void, LocatorGeocodeResult> {
 
         List<String> outFields = new ArrayList<>();

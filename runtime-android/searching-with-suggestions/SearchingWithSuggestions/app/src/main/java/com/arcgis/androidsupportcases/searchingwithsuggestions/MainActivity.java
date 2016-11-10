@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     MapView mMapView;
     GraphicsLayer gL;
+    private final String TAG = "ESS";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +54,22 @@ public class MainActivity extends AppCompatActivity {
         handleIntent(intent);
     }
 
+    /** This will add the point to the mapview if the intent is ACTION_VIEW.  This will be invoked
+     *  when the search suggestion is clicked on.
+     */
     private void handleIntent(Intent intent) {
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-        }
         if(Intent.ACTION_VIEW.equals(intent.getAction())) {
-            Log.e("TEST", intent.getData().toString());
+            Log.d(TAG, intent.getData().toString());
             LocatorGeocodeResult lgr = SuggestionHolder.getInstance().FindFeatureFromSearch(Integer.parseInt(String.valueOf(intent.getData())));
-            Log.e("NOHE",lgr.getAttributes().toString());
+            Log.d(TAG,lgr.getAttributes().toString());
             Point point = new Point(Double.parseDouble(lgr.getAttributes().get("DisplayX")), Double.parseDouble(lgr.getAttributes().get("DisplayY")));
             addAddressToMap(point);
         }
     }
 
+    /**
+     * This creates the menu and the search widget.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
@@ -78,11 +82,15 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     *
+     * This adds the geocoded point to the mapview.
+     */
     public void addAddressToMap(Point point) {
         gL.removeAll();
         Geometry x = GeometryEngine.project(point, SpatialReference.create(4326),SpatialReference.create(102100));
         gL.addGraphic(new Graphic(x, new SimpleMarkerSymbol(Color.RED, 12, SimpleMarkerSymbol.STYLE.DIAMOND)));
-        mMapView.zoomToScale((Point) x, 7500);
+        mMapView.zoomToScale((Point) x, 15000);
     }
 
 }
