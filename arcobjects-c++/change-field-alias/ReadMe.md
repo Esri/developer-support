@@ -12,5 +12,5 @@ You want to change fieldname alias to match that of your new convention for all 
 * [Interface ILayer](http://resources.arcgis.com/en/help/arcobjects-cpp/componenthelp/index.html#//0005000006z1000000)
 
 ######Authors
-* Doug Carroll with [original script](https://github.com/Esri/developer-support/blob/master/arcobjects-net/change-layer-fieldname-alias/ChangeFieldAlias.cs)
+* Doug Carroll with [original script](https://github.com/Esri/developer-support/blob/gh-pages/arcobjects-net/change-layer-fieldname-alias/ChangeFieldAlias.cs)
 * Alexander Nohe

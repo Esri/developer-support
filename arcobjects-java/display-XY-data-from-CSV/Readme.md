@@ -11,4 +11,4 @@ Kwasi Asante
 
 Alexander Nohe
 
-Doug Carroll - [Original .NET Sample](https://github.com/Esri/developer-support/tree/master/arcobjects-net/display-XY-data-from-CSV)
+Doug Carroll - [Original .NET Sample](https://github.com/Esri/developer-support/tree/gh-pages/arcobjects-net/display-XY-data-from-CSV)

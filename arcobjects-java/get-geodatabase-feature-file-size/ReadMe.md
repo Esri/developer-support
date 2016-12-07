@@ -5,4 +5,4 @@ This will allow users to track the size of individual features in their geodatab
 
 ######Authors
 * Alexander Nohe
-* Doug Carroll with the [original](https://github.com/Esri/developer-support/tree/master/arcobjects-net/get-geodatabase-feature-file-size)
+* Doug Carroll with the [original](https://github.com/Esri/developer-support/tree/gh-pages/arcobjects-net/get-geodatabase-feature-file-size)
