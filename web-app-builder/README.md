@@ -11,8 +11,8 @@ On [**video.esri.com**](http://video.esri.com/search/web-appbuilder) you will fi
 
 |Event|Title|
 |---|---|
-|DevSummit 2016|[Web AppBuilder for ArcGIS: Development Tools and Techniques](http://www.esri.com/videos/watch?videoid=5049&channelid=LegacyVideo&isLegacy=true&title=web-appbuilder-for-arcgis:-development-tools-and-techniques)
-|DevSummit 2016|[Web AppBuilder for ArcGIS: Customizing and Extending](http://www.esri.com/videos/watch?videoid=5048&channelid=LegacyVideo&isLegacy=true&title=web-appbuilder-for-arcgis:-customizing-and-extending)
+|[DevSummit 2016](http://www.esri.com/events/devsummit)|[Web AppBuilder for ArcGIS: Development Tools and Techniques](http://www.esri.com/videos/watch?videoid=5049&channelid=LegacyVideo&isLegacy=true&title=web-appbuilder-for-arcgis:-development-tools-and-techniques)
+|[DevSummit 2016](http://www.esri.com/events/devsummit)|[Web AppBuilder for ArcGIS: Customizing and Extending](http://www.esri.com/videos/watch?videoid=5048&channelid=LegacyVideo&isLegacy=true&title=web-appbuilder-for-arcgis:-customizing-and-extending)
 
 And of course you can search the [most viewed Web AppBuilder videos on Youtube](https://www.youtube.com/results?q=web+appbuilder&sp=CAM%253D).
 
