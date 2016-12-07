@@ -13,7 +13,7 @@ Here you will find some sites you can use to improve your skills developing on W
 
 ## Code
 * Widgets & Themes:
-  * [Query "Web AppBuilder" on Esri's Github](https://github.com/esri?utf8=%E2%9C%93&query=appbuilder)
+  * [Query "Web AppBuilder" on Esri's Github](https://github.com/search?q=org%3AEsri+appbuilder)
   * [Custom Widgets directory](http://esri-es.github.io/Web-AppBuilder-Custom-Widgets/)
 * Tools:
   * [Yeoman generator to help customize Esri's Web AppBuilder](https://github.com/Esri/generator-esri-appbuilder-js)
