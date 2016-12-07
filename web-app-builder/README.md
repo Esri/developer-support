@@ -2,9 +2,19 @@
 Here you will find some sites you can use to improve your skills developing on Web AppBuilder.
 
 ## Training
+First resources you should know are:
 * [Developers site documentation](https://developers.arcgis.com/web-appbuilder/)
-* [Videos at: **video.esri.com**](http://video.esri.com/search/web-appbuilder)
-* [Presentations at: **proceedings.esri.com**](https://www.google.es/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=site%3Aproceedings.esri.com%20appbuilder)
+* [Esri Training courses](http://www.esri.com/training/Bookmark/ryPXXVrml)
+
+### Videos / Technical talks
+On [**video.esri.com**](http://video.esri.com/search/web-appbuilder) you will find many technical talks an it's slides use to be at [**proceedings.esri.com**](https://www.google.es/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=site%3Aproceedings.esri.com%20appbuilder).
+
+|Event|Title|
+|---|---|
+|DevSummit 2016|[Web AppBuilder for ArcGIS: Development Tools and Techniques](http://www.esri.com/videos/watch?videoid=5049&channelid=LegacyVideo&isLegacy=true&title=web-appbuilder-for-arcgis:-development-tools-and-techniques)
+|DevSummit 2016|[Web AppBuilder for ArcGIS: Customizing and Extending](http://www.esri.com/videos/watch?videoid=5048&channelid=LegacyVideo&isLegacy=true&title=web-appbuilder-for-arcgis:-customizing-and-extending)
+
+And of course you can search the [most viewed Web AppBuilder videos on Youtube](https://www.youtube.com/results?q=web+appbuilder&sp=CAM%253D).
 
 ## Community
 * [Custom Widgets GeoNet Group ](https://geonet.esri.com/groups/web-app-builder-custom-widgets)
