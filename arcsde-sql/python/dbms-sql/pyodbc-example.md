@@ -12,8 +12,6 @@ conn = pyodbc.connect("DRIVER={SQL SERVER}; SERVER=MY_SERVER; DATABASE=MY_DATABA
 
 sql = "SELECT objectid, name FROM dbuser.some_table"
 
-cursor = conn.cursor()
-result = cursor.execute(sql)
 try:
     cursor = conn.cursor()
     result = cursor.execute(sql)
