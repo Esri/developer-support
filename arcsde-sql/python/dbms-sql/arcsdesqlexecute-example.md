@@ -14,6 +14,7 @@ env.workspace = wkspc
 
 # simple example of querying multiple columns and handling the each row as an array    
 try:
+    exe = arcpy.ArcSDESQLExecute(wkspc)
     sql = "SELECT objectid, name FROM gis.some_table"
     results = exe.execute(sql)
     for row in results:
