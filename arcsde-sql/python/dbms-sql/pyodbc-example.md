@@ -20,7 +20,6 @@ try:
 
 except Exception as e:
     print "Fail\n", e
-    print type(result)
 
 '''
 results -
