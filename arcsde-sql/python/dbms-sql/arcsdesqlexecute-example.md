@@ -20,8 +20,7 @@ try:
         print("Objectid: {0}, Name: {1}".format(row[0], row[1]))
 
 except Exception as ex:
-    ex = sys.exc_info()[0]
-    print("There was an error: %s" % ex)
+    print "Fail\n", ex[0]
 
 '''
 results -
