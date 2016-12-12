@@ -15,6 +15,8 @@ sql = "SELECT objectid, name FROM dbuser.some_table"
 cursor = conn.cursor()
 result = cursor.execute(sql)
 try:
+    cursor = conn.cursor()
+    result = cursor.execute(sql)
     for row in result.fetchall():
         print("Objectid: {0}, Name: {1}".format(row[0], row[1]))
 
