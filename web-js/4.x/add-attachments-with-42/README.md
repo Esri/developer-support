@@ -1,7 +1,7 @@
 #Add Attachments To FeatureService with JavaScript 4.2
 
 ##About
-FeatureServices can be configured to allow files to be attached to individual features in the service. In the 3.x JavaScript API methods to retrieve, add and delete attachments were provided as part of the FeatureLayer class. Additionally widgets such as the attachment and attribute inspector allowed attachments to be viewed and edited. In the 4.x API no widgets or methods have been provided to work with attachments at this time. However it is still possible to directly query and edit attachments using the ArcGIS REST API. This sample shows how to work with attachments within a 4.x application.
+FeatureServices can be configured to allow files to be attached to individual features in the service. In the 3.x JavaScript API methods to retrieve, add and delete attachments were provided as part of the FeatureLayer class. Additionally widgets such as the attachment and attribute inspector allowed attachments to be viewed and edited. In the 4.2 API no widgets or methods have been provided to work with attachments. However it is still possible to directly query and edit attachments using the ArcGIS REST API. This sample shows how to work with attachments within a 4.2 application.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](AddAttachments.gif "Application Demo")
 
@@ -29,7 +29,7 @@ html += "</div>";
 view.popup.content.innerHTML += html;
 ```
 
-To download an attachment I use a bit of trick. First I create a hyperlink element. The reference of this hyperlink is the url of the attachment on the ArcGIS Server. The hyperlink is then appended to the body of the document. The hyperlink is unseen by the user. The "click" event of the hyperlink is then triggered causing the file to be downloaded. The link is then removed from the body and deleted.
+A bit of a trick is required to actually download the attachment. First a hyperlink element is created. The reference of this hyperlink is the url of the attachment on the ArcGIS Server. The hyperlink is then appended to the body of the document. The hyperlink is unseen by the user. The "click" event of the hyperlink is then triggered causing the file to be downloaded. The link is then removed from the body and deleted.
 ```javascript
 var link = document.createElement("a");
 link.download = name;
