@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Feature Service Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Add CSS for Bootstrap, ArcGIS JS API, Bootstrap-map-js, and local css file -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.15/esri/css/esri.css">   
+    <link rel="stylesheet" type="text/css" href="http://esri.github.io/bootstrap-map-js/src/css/bootstrapmap.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">   
+  </head>
+  <body>
+
+    <!--Start navbar-->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Feature Service Viewer</a>
+        </div>
+        <!-- navbar content -->
+        <div id="navbar" class="navbar-collapse collapse">
+          
+          <form action="#" class="navbar-form navbar-right">
+            <div class="input-group" id="input-sign-in">
+              <input type="text" id="appid" placeholder="app-id" class="form-control">
+            </div>
+            <div class="input-group" id="sign-in-button">
+              <button id="sign-in" type="submit" class="btn btn-success">Sign in</button>
+            </div>
+          </form>       
+        </div>
+        <!--end navbar content -->
+      </div>
+    </nav>
+    <!--End navbar-->
+
+    <!-- HTML section to define the layout of the map and page -->
+    <!-- Main jumbotron for a primary message with instructions for demoing -->
+    <div class="jumbotron" id="primary-message-callout" style="visible">
+      <div class="container">
+        <h1>Welcome!</h1>
+        <p>This is a sample that demonstrates how to implement the OAuth2 pattern for accessing portal content.  You will need to generate an AppID in your developer account and then sign in to view your services. Follow the 3 easy steps below to get started!</p>
+      </div>
+    </div>
+
+    <!-- Container show steps to run sample -->
+    <div id="steps-to-run" class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Step 1</h2>
+          <p>Create a free ArcGIS Developer account or sign in to your existing account!</p>
+          <p><a class="btn btn-default" href="https://developers.arcgis.com/sign-in/" role="button">Get an Account! &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+          <h2>Step 2</h2>
+          <p>Create an application to generate an App-ID and add the referer URLS.  See the 3rd step of the readme for the proper referer URL.</p>
+          <p><a class="btn btn-default" href="https://developers.arcgis.com/authentication/accessing-arcgis-online-services/#registering-your-application" role="button">View details &raquo;</a></p>
+       </div>
+        <div class="col-md-4">
+          <h2>Step 3</h2>
+          <p>Paste your App-ID into the app-id text box above and click sign in!</p>
+          <p><a class="btn btn-default" href="https://dl.dropboxusercontent.com/u/343305078/Demo_final.gif" role="button">View details &raquo;</a></p>
+        </div>
+      </div>
+    </div> 
+    <!-- /container -->
+
+    <!-- Container for map and add data dropdown -->
+    <div class="container-fluid" style="padding-top:50px;">
+      <div class="row">
+        <div class="col-xs-2" id="add-data-dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+              Add Data
+              <span class="caret"></span>
+            </button>
+
+            <ul class="dropdown-menu" id="service-dropdown-list">
+              <!--Services Dynamically appended here-->
+            </ul>
+        </div>
+        <!--Map Div Container -->
+        <div class="col-xs-10">
+          <div id="mapDiv"></div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Container for footer -->
+    <div class="container" id="footer-container">
+      <hr>
+      <footer>
+        <p>Sample courtesy of <a href="https://github.com/david-chambers">David Chambers</a></p>
+      </footer>
+    </div>
+
+    <!-- Add JS to Load the responsive map -->
+    <script type="text/javascript">
+        var package_path = "//esri.github.com/bootstrap-map-js/src/js";
+        var dojoConfig = {
+            packages: [{
+                name: "application",
+                location: package_path
+            }]
+        };
+    </script>
+
+    <!-- ArcGIS JS API -->
+    <script src="//js.arcgis.com/3.15compact"></script>
+    <!--Local JS -->
+    <script src="js/oauth.js" type="text/javascript"></script>
+    <!-- jQuery (for Bootstrap's JavaScript plugins). -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+  </body>
+</html>

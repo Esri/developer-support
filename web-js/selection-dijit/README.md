@@ -36,7 +36,7 @@ selectionWidget.startup();
 
 #Screen Grab
 
-![Image of Selection Widget](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/selection-widget.png "Selection widget screenshot")
+![Image of Selection Widget](https://raw.githubusercontent.com/Esri/developer-support/gh-pages/repository-images/selection-widget.png "Selection widget screenshot")
 
 
 

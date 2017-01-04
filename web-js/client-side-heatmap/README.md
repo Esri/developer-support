@@ -16,7 +16,7 @@ This is a sample shows how to use the Heatmap Renderer against a layer completel
 * Shows how to attach a Heatmap Renderer to a FeatureLayer constructed on the client
 
 
-![alt text](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/client-heatmap.png "Client heatmap")
+![alt text](https://raw.githubusercontent.com/Esri/developer-support/gh-pages/repository-images/client-heatmap.png "Client heatmap")
 
 NOTE: Feel free to update to this repo!
 

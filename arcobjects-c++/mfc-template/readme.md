@@ -28,7 +28,7 @@ This is supposed to be a sample showing you what needs to be added to the blank 
 #import "C:\Program Files (x86)\Common Files\ArcGIS\bin\ArcGISVersion.dll" raw_interfaces_only, raw_native_types, no_namespace, named_guids, rename("esriProductCode", "esriVersionProductCode")
 ```
 
-6)  Open the program file that you created (in the sample, it would be the MFCTemplate.cpp file, not the MFCTemplateDlg.cpp file) and find the BOOL CMFCTemplateApp::InitInstance() method.  Add the following to it which will initialize the application and check out a license.
+6)(Optional) In lieu of adding the license control in step #4, open the program file that you created (in the sample, it would be the MFCTemplate.cpp file, not the MFCTemplateDlg.cpp file) and find the BOOL CMFCTemplateApp::InitInstance() method.  Add the following to it which will initialize the application and check out a license.
 ```cpp
 ::CoInitialize(NULL);
 {

@@ -1,0 +1,473 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Oblique Viewer</title>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.16/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" type="text/css" href="http://js.arcgis.com/3.16/esri/css/esri.css">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.16/dgrid/css/dgrid.css">
+  <link rel="stylesheet" href="http://js.arcgis.com/3.16/dgrid/css/skins/claro.css">
+  <style>
+    html, body, #map {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-size: 13px;
+      background-color: rgb(239, 242, 250);
+      background-position: 0 0, 10px 10px;
+      overflow: hidden;
+    }
+
+    .esriPopup .titlePane, .esriPopup .contentPane, .esriPopup .actionsPane,
+    .esriPopup .pointer, .outerPointer .left, .outerPointer .right, .esriPopup .outerPointer {
+      background-color: rgba(0,0,0, 0.75) !important;
+      color: white;
+      font-family: 'Source Sans Pro', sans-serif !important;
+      font-weight: 300;
+      font-size: 14px;
+    }
+
+    *:focus {
+      outline: 0;
+    }
+
+    .esriPopup .titlePane {
+      font-size: 15px;
+      padding-top: 3px;
+      padding-left: 10px;
+    }
+
+
+    .esriImageServiceMeasure, .dijitMenuItemLabel, .dijitButtonText, body {
+      font-family: 'Source Sans Pro', sans-serif !important;
+      font-weight: 300;
+    }
+
+    .dijitButtonText, .dijitTitlePaneTitle, .dijitMenuItemLabel {
+      font-size: 16px !important;
+    }
+
+    .obliqueRotationDivActive {
+      display: block;
+      position: absolute;
+      background-color: rgba(255, 255, 255, .5);
+      bottom: 40px;
+      right: 40px;
+      border-radius: 10px;
+      border: 2px solid #008db8;
+      padding: 10px;
+    }
+
+    .obliqueRotationDivPassive {
+      display: block;
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0);
+      bottom: 40px;
+      right: 40px;
+      border-radius: 10px;
+      border: 2px solid rgba(0,0,0,0);
+    }
+
+    .ovwShow {
+      background: url(../images/overview.png) 0px 0px;
+    }
+
+    .ovwHide {
+      background: url(../images/overview.png) 0px -78px;
+    }
+
+    .esriSimpleSliderTL {
+      display: none;
+    }
+
+    #toolbar {
+      position: absolute;
+      display: block;
+      top: 20px;
+      left: 40px;
+      height: 45px;
+      overflow: visible;
+    }
+
+    #measureWidget {
+      display: inline;
+      float: right;
+    }
+
+    #listDivTitlePane {
+      display: inline;
+      float: left;
+      margin-top: 2px;
+    }
+
+    .dijitReset.dijitInline.dijitButtonNode.esriCheckedMeasureButton {
+      background-color: rgba(5, 0, 170, 0.5) !important;
+    }
+
+    .dijitTitlePaneContentInner {
+      padding: 2px!important;
+    }
+
+    .dijitTitlePaneTitle {
+      border: 1px solid transparent!important;
+      background: rgba(0,0,0,0.75)!important;
+      border-radius: 5px 5px 0px 0px;
+      -moz-border-radius: 5px 5px 0px 0px;
+      -webkit-border-radius: 5px 5px 0px 0px;
+      color: white!important;
+    }
+
+    .dijitTitlePane {
+      border: 1px solid rgba(255,255,255,0.5)!important;
+      -webkit-box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.2);
+      -moz-box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.2);
+      box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.2);
+      border-radius: 5px 5px 0px 0px;
+      -moz-border-radius: 5px 5px 0px 0px;
+      -webkit-border-radius: 5px 5px 0px 0px;
+    }
+
+    .claro .dijitDropDownButton .dijitButtonNode {
+      background: rgba(0,0,0,0.75)!important;
+      margin-left: 0;
+      color: white;
+      border-radius: 0;
+      -moz-border-radius: 0;
+      -webkit-border-radius: 0;
+      border: none!important;
+      padding: 4px 4px 6px 4px;
+      border: 1px solid rgba(255,255,255,0.5)!important;
+    }
+
+    .esriImageServiceMeasureDropdownContainer .dijitButtonNode {
+      height: 22px;
+      border-radius: 0px 5px 5px 0px!important;
+      -moz-border-radius: 0px 5px 5px 0px!important;
+      -webkit-border-radius: 0px 5px 5px 0px!important;
+    }
+
+    .dijit.dijitReset.dijitInline.esriImageServiceMeasureDropdownContainer.dijitDropDownButton {
+      margin-left: 5px;
+    }
+
+    .claro .dijitButton .dijitButtonNode {
+      background: rgba(0,0,0,0.75)!important;
+      margin-left: 0!important;
+      color: white!important;
+    }
+
+    .claro .dijitButtonDisabled .dijitButtonNode {
+      background: rgba(100,100,100,0.75);
+      color: rgb(200, 200, 200);
+    }
+
+    .dijitButton {
+      border: 1px solid rgba(255,255,255,0.5)!important;
+      border-radius: 5px !important;
+      -moz-border-radius: 5px !important;
+      -webkit-border-radius: 5px !important;
+    }
+
+    .dijitDropDownButton {
+      margin-top: 2px;
+      margin-left: 6px;
+      border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      -webkit-border-radius: 0 !important;
+      border-left: none;
+    }
+
+
+    .claro .dijitTitlePane .dijitArrowNode {
+      float: right;
+      margin-top: 7px;
+      background-image: url("http://js.arcgis.com/3.16/dijit/themes/claro/form/images/buttonArrows.png")!important;
+      background-position: -51px 53%!important;
+      width: 15px!important;
+    }
+
+    #zoomButtonContainer {
+      position: absolute;
+      display: block;
+      top: 20px;
+      right: 40px;
+    }
+
+    #bookmarkSelectContainer {
+      position: absolute;
+      display: block;
+      top: 80px;
+      right: 40px;
+    }
+
+    .zoomIcon {
+      height: 16px;
+      width: 16px;
+      background: url(http://js.arcgis.com/3.16/dijit/themes/claro/form/images/buttonArrows.png) no-repeat 0 0;
+    }
+
+    #extentChangeButtons {
+      position: absolute;
+      display: block;
+      bottom: 50px;
+      left: 20px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var dojoConfig = {
+      parseOnLoad: false,
+      isDebug: true,
+      async: true
+    };
+  </script>
+  <script src="https://js.arcgis.com/3.16/"></script>
+  <script type="text/javascript">
+    require(["dojo/parser",
+      "esri/map", "esri/config",
+      "esri/layers/ArcGISImageServiceLayer",
+      "esri/dijit/ObliqueViewer",
+      "dojo/on",
+      "esri/geometry/Extent",
+      "esri/dijit/ImageServiceMeasure",
+      "dojo/_base/url",
+      "dijit/registry",
+      "esri/layers/MosaicRule",
+      "esri/request", "esri/layers/RasterFunction",
+      "dojo/_base/array",
+      "dijit/form/Select",
+	    "dijit/form/DropDownButton",
+      "dijit/TitlePane", "dijit/form/Button",
+      "dojo/domReady!"],
+            function (parser, Map, esriConfig, ImageServiceLayer, ObliqueViewer, on,
+              Extent, ImageServiceMeasure, Url, registry, MosaicRule, esriRequest, RasterFunction, array, Select) {
+
+              parser.parse();
+
+              var configParams, isUrl, mosaicMethod, extentJson, azimuthField, elevationField, renderingRule, bookmarks;
+              var loadingIndicator, listTitlePane, zoomButton, oblique, measureWidget;
+              var map, imageServiceLayer;
+
+              function getParameterByName(name) {
+                name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+                var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+              }
+
+              function parseBookmarks() {
+                //Prepare bookmarks for Select dijit
+                if (!bookmarks || !bookmarks.length) {
+                  return;
+                }
+                var selectInitOption = {
+                  value: "",
+                  label: "Select Area",
+                  selected: true
+                };
+                array.forEach(bookmarks, function (bookmark) {
+                  bookmark.value = bookmark.id;
+                  bookmark.label = bookmark.name;
+                });
+                bookmarks.push(selectInitOption);
+              }
+
+              function setupBookmarkSelect() {
+                if (!bookmarks || !bookmarks.length) {
+                  return;
+                }
+                var select = new Select({
+                  name: "bookmarkSelect",
+                  options: bookmarks,
+                  onChange: function (selectedBookmarkId) {
+                    console.log("bookmark", arguments);
+                    array.some(bookmarks, function (bookmark) {
+                      if (bookmark.id === selectedBookmarkId) {
+                        return oblique.locate(new Extent(bookmark.extent));
+                      }
+                    });
+                  }
+                }, "bookmarkSelect");
+                select.startup();
+              }
+
+              function getConfigParams() {
+                //get parameters from the config file
+                if (configParams) {
+                  mosaicMethod = configParams.mosaicMethod || ("METHOD_" + imageServiceLayer.defaultMosaicMethod.toUpperCase());
+                  extentJson = configParams.extent || imageServiceLayer.fullExtent;
+                  azimuthField = configParams.azimuthField || "SensorAzimuth";
+                  elevationField = configParams.elevationField || "SensorElevation";
+                  renderingRule = configParams.renderingRule || null;
+                  bookmarks = configParams.bookmarks;
+                }
+              }
+
+              function getUIElements() {
+                //Get handles to UI elements
+                loadingIndicator = document.getElementById("loadingIndicator");
+                listTitlePane = registry.byId("listDivTitlePane");
+                zoomButton = registry.byId("zoomButton");
+              }
+
+              function initObliqueViewer() {
+                //Initializing the oblique viewer widget in nadir mode, by providing azimuthAngle as null 
+                //Assigning div's to the UI elements of the widget
+                oblique = new ObliqueViewer({
+                  map: map,
+                  imageServiceLayer: imageServiceLayer,
+                  azimuthField: azimuthField, //SensorAzimuth
+                  elevationField: elevationField, //SensorElevation
+                  rotationDiv: document.getElementById("obliqueRotationDiv"),
+                  azimuthAngle: null,
+                  rasterListDiv: document.getElementById("rasterListDiv"),
+                  rasterListRefresh: listTitlePane.open
+                });
+				oblique.startup();
+              }
+
+              function initMeasureWidget() {
+                measureWidget = new ImageServiceMeasure({
+                  layer: imageServiceLayer,
+                  map: map
+                }, "measureWidget");
+                measureWidget.startup();
+              }
+
+              function setupEvents() {
+                //Refresh the list only when it is showing to avoid unnecessary network overhead
+                listTitlePane.on("show", function () {
+                  oblique.set("rasterListRefresh", true);
+                });
+
+                listTitlePane.on("hide", function () {
+                  oblique.set("rasterListRefresh", false);
+                });
+
+                //show full extent of the image on clicking the zoom button
+                zoomButton.on("click", function () {
+                  oblique.zoomToSelectedImage();
+                });
+
+                //Set appropriate list title on azimuth change
+                oblique.on("azimuth-change", function (evt) {
+                  var azimuth = evt.azimuth;
+                  if (azimuth === null || azimuth === "undefined") {
+                    listTitlePane.set("title", "Oblique Images");
+                    zoomButton.set("disabled", true);
+                  } else {
+                    zoomButton.set("disabled", false);
+                    if ((azimuth > 315 && azimuth <= 360) || (azimuth >= 0 && azimuth <= 45)) {
+                      listTitlePane.set("title", "Viewed from North");
+                    } else if (azimuth > 45 && azimuth <= 135) {
+                      listTitlePane.set("title", "Viewed from East");
+                    } else if (azimuth > 135 && azimuth <= 225) {
+                      listTitlePane.set("title", "Viewed from South");
+                    } else {
+                      listTitlePane.set("title", "Viewed from West");
+                    }
+                  }
+                });
+
+                //Show/hide loading indicator
+                on(map, "update-start", function () {
+                  loadingIndicator.style.display = "block";
+
+                });
+
+                on(map, "update-end", function () {
+                  loadingIndicator.style.display = "none";
+                });
+              }
+
+              function initApp() {
+                //Image service URL can be specified as a query parameter to the app, or in the configuration file
+                isUrl = getParameterByName("isUrl") || configParams.imageServiceUrl;
+                getUIElements();
+
+                //Initialize the image service layer
+                imageServiceLayer = new ImageServiceLayer(isUrl);
+
+                imageServiceLayer.on("load", function () {
+                  getConfigParams();
+                  map = new Map("map", {
+                    extent: new Extent(extentJson)
+                  });
+
+                  map.addLayer(imageServiceLayer);
+                  map.setExtent(map.extent);
+
+                  //Set mosaic rule on the image service layer, the mosaic rule can be provided in the configuration file
+                  if (mosaicMethod) {
+                    var mosaicRule = imageServiceLayer.defaultMosaicRule || new MosaicRule();
+                    mosaicRule.method = mosaicMethod ? MosaicRule[mosaicMethod] : mosaicRule.method;
+                    imageServiceLayer.setMosaicRule(mosaicRule);
+                  }
+
+                  if (renderingRule) {
+                    renderingRule = new RasterFunction(renderingRule);
+                    imageServiceLayer.setRenderingRule(renderingRule);
+                  }
+
+                  initObliqueViewer();
+                  initMeasureWidget();
+                  parseBookmarks();
+                  setupBookmarkSelect();
+                  setupEvents();
+                });
+              }
+
+              //Get the configuration paramters from the config file
+              /*
+              The config file is a json file with the following possible parameters
+              imageServiceUrl: The REST end point to the image service containing oblique imagery
+              mosaicMethod: Mosaic method to be applied on the image service layer in nadir mode
+              extent: starting extent of the map
+              azimuthField: Field name that defines sensor azimuth in the image service, defaults to "SensorAzimuth"
+              elevationField: Field name that defines sensor elevation in the image service, defaults to "SensorElevation"
+              */
+
+              var configUrl = require.toUrl(getParameterByName("configUrl")) || require.toUrl("/config.json");
+              if (configUrl) {
+                esriConfig.defaults.io.corsEnabledServers.push(new Url(configUrl).authority);
+                esriRequest({
+                  url: configUrl,
+                  handleAs: "json",
+                  load: function (response) {
+                    console.log(response);
+                    configParams = response;
+                    initApp();
+                  },
+                  error: function (error) {
+                    console.error("Could not retrieve configuration settings.");
+                    initApp();
+                  }
+                });
+              } else {
+                initApp();
+              }
+
+            });
+  </script>
+</head>
+<body class="claro">
+  <div id="map"></div>
+  <div class="obliqueRotationDivPassive" id="rotationDivContatiner" style="height: 130px; width: 130px;">
+    <div id="obliqueRotationDiv"></div>
+  </div>
+  <div id="loadingIndicator" style="background-color: black; color: white; position: absolute; z-index: 1000; left: 10px; bottom: 10px; padding: 3px; border-radius: 3px;">Loading...</div>
+  <div id="toolbar">
+    <div title="Oblique Images" id="listDivTitlePane" data-dojo-type="dijit/TitlePane" data-dojo-props="open: false">
+      <div id="rasterListDiv"></div>
+    </div>
+    <div id="measureWidget"></div>
+  </div>
+  <div id="zoomButtonContainer">
+    <button id="zoomButton" data-dojo-type="dijit/form/Button" data-dojo-props="iconClass: 'zoomIcon', disabled: true">Zoom to visible extent</button>
+  </div>
+  <div id="bookmarkSelectContainer">
+    <div id="bookmarkSelect" style="width: 150px"></div>
+  </div>
+</body>
+</html>

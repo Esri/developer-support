@@ -24,7 +24,7 @@ understand and use geohashes.
 [http://blog.factual.com/how-geohashes-work](http://blog.factual.com/how-geohashes-work)
 
 
-![alt text](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/geohashes.png "Client heatmap")
+![alt text](https://raw.githubusercontent.com/Esri/developer-support/gh-pages/repository-images/geohashes.png "Client heatmap")
 
 NOTE: Feel free to update to this repo!
 
