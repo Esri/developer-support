@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Using OAuth</string>
+    <string name="launch_oauth">Launch OAuth</string>
+</resources>
