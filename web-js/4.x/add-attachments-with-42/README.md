@@ -1,14 +1,14 @@
 #Add Attachments To FeatureService with JavaScript 4.2
 
 ##About
-FeatureServices can be configured to allow files to be attached to individual features in the service. In the 3.x JavaScript API methods to retrieve, add and delete attachments were provided as part of the FeatureLayer class. Additionally widgets such as the attachment and attribute inspector allowed attachments to be viewed and edited. In the 4.x API no widgets or methods have been provided to work with attachments. However it is still possible to directly query and edit attachments using the ArcGIS REST API. This sample shows how to work with attachments within a 4.2 application.
+FeatureServices can be configured to allow files to be attached to individual features in the service. In the 3.x JavaScript API methods to retrieve, add and delete attachments were provided as part of the FeatureLayer class. Additionally widgets such as the attachment and attribute inspector allowed attachments to be viewed and edited. In the 4.x API no widgets or methods have been provided to work with attachments at this time. However it is still possible to directly query and edit attachments using the ArcGIS REST API. This sample shows how to work with attachments within a 4.x application.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](AddAttachments.gif "Application Demo")
 
 [Live Sample](https://nhaney90.github.io/add-attachments-with-42/index.html)
 
 ##Usage Notes
-This sample allows the user to click on a feature in the map to view a popup. At the bottom of the popup is a button called "Add Attachments". Clicking this button allows attachments to be added view a file picker dialog. Attachments currently attached to the feature will be shown in the popup. These attachments can be downloaded or deleted by clicking the buttons beside them.
+This sample allows the user to click on a feature in the map to view a popup. At the bottom of the popup is a button called "Add Attachments". Clicking this button allows attachments to be added using a file picker dialog. Attachments currently attached to the feature will be shown in the popup. These attachments can be downloaded or deleted by clicking the buttons beside them.
 
 ##How It Works
 When a new feature is shown in the popup a request is sent to get any attachments associated with that feature. This is a GET request made with jQuery.
@@ -19,7 +19,7 @@ $.get(url + "/attachments?f=json", function(data, status) {
 });
 ```
 
-Using a for loop the attachements returned by the above get request are iterated and added to an html string. This html is then appended to the end of the popup's html. As the number of attachments is unknown this cannot be configured with a popup template and must be added programatically each time a new feature is loaded.
+Using a for loop the attachments returned by the above GET request are iterated and added to an HTML string. This string is then appended to the end of the popup's HTML. As the number of attachments is unknown this cannot be configured with a popup template and must be added programatically each time a new feature is loaded.
 ```javascript
 var html = "<div class='attachment-header'>Attachments:";
 for(var i = 0; i < json.attachmentInfos.length; i++) {
