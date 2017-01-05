@@ -33,21 +33,19 @@
 	}
 	.delete-attachment {
 		display:inline-block;
-		background-image: url("https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/128x128/DeleteRed.png");
-		background-size: contain;
 		margin-left:5px;
 		width: 16px;
 		height: 16px;
 		cursor: pointer;
+		font-size: 16px;
 	}
 	.download-attachment {
 		display: inline-block;
-		background-image: url("http://www.drodd.com/images12/icon-download29.png");
-		background-size: contain;
 		width: 16px;
 		height: 16px;
 		margin-left: 5px;
 		cursor: pointer;
+		font-size: 16px;
 	}
   </style>
   
@@ -87,7 +85,7 @@
 		var addAttachments = {
 			title: "Add Attachments",
 			id: "add-attach",
-			image: "https://cdn4.iconfinder.com/data/icons/pastel-svg-email/16/attach_attachment_add-128.png"
+			className: "esri-icon-attachment"
 		};
 	  
 		var normalContent = "Event Date: {eventdate}";
@@ -136,7 +134,7 @@
 			if(json.attachmentInfos.length > 0) {
 				var html = "<div class='attachment-header'>Attachments:";
 				for(var i = 0; i < json.attachmentInfos.length; i++) {
-					html += "<div class='attachment-item'><div class='attachment-name'>" + json.attachmentInfos[i].name + "</div><div class='download-attachment' value='" + url + "/attachments/" + json.attachmentInfos[i].id + "'></div><div class='delete-attachment' value='" + url + "/deleteAttachments?f=json&attachmentIds=" + json.attachmentInfos[i].id + "'></div></div>";
+					html += "<div class='attachment-item'><div class='attachment-name'>" + json.attachmentInfos[i].name + "</div><div class='download-attachment esri-icon-download' value='" + url + "/attachments/" + json.attachmentInfos[i].id + "'></div><div class='delete-attachment esri-icon-trash' value='" + url + "/deleteAttachments?f=json&attachmentIds=" + json.attachmentInfos[i].id + "'></div></div>";
 				}
 				html += "</div>";
 				view.popup.content.innerHTML += html;
