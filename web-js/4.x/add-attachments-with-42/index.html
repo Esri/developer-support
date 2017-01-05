@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Add and Remove Attachments With 4.2</title>
+
+  <style>
+    html, body, #viewDiv {
+		padding: 0;
+		margin: 0;
+		height: 100%;
+		width: 100%;
+    }
+	#data {
+		visibility: hidden;
+	}
+	.attachment-header {
+		font-weight: bold;
+		margin-top: 10px;
+		font-size: 15px;
+		margin-bottom: 5px;
+	}
+	.attachment-item {
+		font-weight: normal;
+		margin-bottom: 0px;
+		font-size: 14px;
+		margin-top: 0px;
+	}
+	.attachment-name {
+		display:inline-block;
+		margin-left:10px;
+	}
+	.delete-attachment {
+		display:inline-block;
+		margin-left:5px;
+		width: 16px;
+		height: 16px;
+		cursor: pointer;
+		font-size: 16px;
+	}
+	.download-attachment {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		margin-left: 5px;
+		cursor: pointer;
+		font-size: 16px;
+	}
+  </style>
+  
+  <link rel="stylesheet" href="https://js.arcgis.com/4.2/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.2/esri/css/main.css">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://js.arcgis.com/4.2/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/layers/FeatureLayer",
+      "esri/views/MapView",
+      "esri/geometry/geometryEngine",
+      "dojo/domReady!"
+    ], function(
+      Map,
+      FeatureLayer,
+      MapView,
+      geometryEngine
+    ) {
+	
+		var currentFeature = null;
+
+		var map = new Map({
+			basemap: "gray"
+		});
+
+		var view = new MapView({
+			container: "viewDiv",
+			map: map,
+			center: [-100, 38],
+			zoom: 4
+		});
+	  
+		var addAttachments = {
+			title: "Add Attachments",
+			id: "add-attach",
+			className: "esri-icon-attachment"
+		};
+	  
+		var normalContent = "Event Date: {eventdate}";
+
+		var template = {
+			title: "Add Attachments",
+			content: normalContent,
+			actions: [addAttachments]
+		};
+
+		featureLayer = new FeatureLayer({
+			url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0",
+			outFields: ["*"],
+			popupTemplate: template
+		});
+		
+		map.add(featureLayer);
+
+		view.popup.on("trigger-action", function(event) {
+			if (event.action.id === "add-attach") {
+				$( "#fileSelector" ).trigger( "click" );
+			}
+		});
+	  
+		view.popup.watch("selectedFeature", function(newValue, oldValue, property, object) {
+			currentFeature = newValue;
+			$(".attachment-header").remove();
+			if(newValue) getAttachments(newValue);
+		});
+		
+		view.popup.watch("visible", function(newValue, oldValue, property, object) {
+			if(newValue == false) view.popup.features = [""]; 
+		});
+	  
+		$("#fileSelector").change(uploadFile);
+		
+		function getAttachments(feature) {
+			var url = feature.layer.url + "/" + feature.layer.layerId + "/" + feature.attributes.objectid;
+			$.get(url + "/attachments?f=json", function(data, status) {
+				addAttachmentsToPopup(data, status, url);
+			});
+		}
+		
+		function addAttachmentsToPopup(data, status, url) {
+			var json = JSON.parse(data);
+			if(json.attachmentInfos.length > 0) {
+				var html = "<div class='attachment-header'>Attachments:";
+				for(var i = 0; i < json.attachmentInfos.length; i++) {
+					html += "<div class='attachment-item'><div class='attachment-name'>" + json.attachmentInfos[i].name + "</div><div class='download-attachment esri-icon-download' value='" + url + "/attachments/" + json.attachmentInfos[i].id + "'></div><div class='delete-attachment esri-icon-trash' value='" + url + "/deleteAttachments?f=json&attachmentIds=" + json.attachmentInfos[i].id + "'></div></div>";
+				}
+				html += "</div>";
+				view.popup.content.innerHTML += html;
+			}
+			
+			$(".download-attachment").click(function(evt) {
+				downloadFile(evt.target.attributes.value.nodeValue, evt.target.previousElementSibling.innerHTML);
+			});
+			
+			$(".delete-attachment").click(function(evt) {
+				deleteAttachment(evt.target.attributes.value.nodeValue, evt.target);
+			});
+		}
+		
+		function downloadFile(url, name) {
+			var link = document.createElement("a");
+			link.download = name;
+			link.href = url;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			delete link;
+		}
+
+		function deleteAttachment(url, element) {
+			$.get(url, function(data, status) {
+				var json = JSON.parse(data);
+				$(element).parent().remove();
+			});
+		}
+	  
+		function uploadFile() {
+			var form = $("#data")[0];
+			var formData = new FormData(form);
+		
+			var request = new XMLHttpRequest();
+
+			request.open("POST", view.popup.selectedFeature.layer.url + "/" + view.popup.selectedFeature.layer.layerId + "/" + view.popup.selectedFeature.attributes.objectid + "/addAttachment");
+			request.onload = function(e) {
+				var json = JSON.parse(request.responseText);
+				if(json.addAttachmentResult.success == true) {
+					updatePopup();
+				}
+				else {
+					alert("Could not upload the file!");
+				}
+			}
+			request.onerror = function(e) {
+				alert("Could not upload the file!");
+			}
+			
+			request.send(formData);
+		}
+		
+		function updatePopup() {
+			$(".attachment-header").remove();
+			getAttachments(view.popup.selectedFeature);
+		}
+    });
+  </script>
+</head>
+
+<body>
+	<div id="viewDiv"></div>
+	<form id="data" enctype="multipart/form-data" method="post" >
+		<input id="fileSelector" type="file" name="attachment">
+		<input name="f" value="json">
+	</form>
+</body>
+
+</html>
