@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+	<title>Upload Shapefile to Portal</title>
+	<link rel="stylesheet" href="https://js.arcgis.com/3.19/esri/css/esri.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<style type="text/css">
+		html, body{
+			height: 100%; width: 100%;
+			margin:0;
+		}
+		label {
+			float: left;
+			padding-top: 5px;
+		}
+		#signedInUser {
+			margin-right: 20px !important;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+			padding-left: 20px;
+			padding-right: 20px;
+			padding-bottom: 20px;
+			position: relative;
+			text-align: center;
+		}
+		.column {
+			display: flex;
+			flex-direction: column;
+		}
+		.content-container {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+		.flex-box {
+			display: flex;
+			height: 100%;
+			top: 75px;
+			flex-grow: 1;
+		}
+		.form-container {
+			padding-left: 20px;
+			width: 400px;
+			overflow: hidden;
+		}
+		.form-group {
+			text-align: center;
+			margin-bottom: 0px;
+		}
+		.btn {
+			float: left;
+		}
+		.input-elements {
+			float: right;
+			width: 220px !important;
+			display: inline-block;
+		}
+		.navbar {
+			color:#fff;
+			background-color:#337ab7;
+		}
+		.navbar-brand {
+			color:#fff;
+		}
+		.pending-text {
+			top: 50%;
+			left: 0px;
+			right: 0px;
+			z-index: 100;
+			position: absolute;
+			-webkit-animation:fade-in 2s infinite;
+			visibility: hidden;
+		}
+		@-webkit-keyframes fade-in{
+			from{
+				opacity:1;
+			}
+			to{
+				opacity:0;
+			}
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://js.arcgis.com/3.19/"></script>
+    <script type="text/javascript">
+
+    require([
+		"esri/map",
+		"esri/layers/FeatureLayer",
+		"dojo/domReady!"
+    ], function (
+		Map,
+		FeatureLayer
+    ) {
+        esri.config.defaults.io.corsEnabledServers.push("https://www.arcgis.com");
+		
+		var token = null;
+		var featureLayer = null;
+		
+		var map = new Map("map", {
+            basemap: "streets",
+            center: [-98, 37],
+            zoom: 2
+        });
+
+		$("#data").on("submit", function(evt) {
+			evt.preventDefault();
+			addLayerItem();
+		});
+		
+		$("#signInBtn").click( function(evt) {
+			getToken();
+		});
+
+        function getToken() {
+			esri.config.defaults.io.corsEnabledServers.push("https://" + $("#org").val());
+			
+            var layersRequest = esri.request({
+                url: "https://" + $("#org").val() + "/sharing/rest/generateToken",
+                content: {
+                    username: $("#username").val(),
+                    password: $("#password").val(),
+                    client: "referer",
+					referer: window.location.href,
+                    expiration: 5,
+                    f: "json"
+                },
+                handleAs: "json"
+            }, { "usePost": true });
+
+            layersRequest.then(
+				function (response) {
+					token = response.token;
+					$("#currentUser").text($("#username").val());
+				},
+				function (error) {
+					alert("cannot get token");
+				}
+			);
+        } 
+		
+        function addLayerItem() {
+			var form = $("#data")[0];
+			var formData = new FormData(form);
+			formData.append("type", "Shapefile");
+			formData.append("title", $("#title").val());
+			formData.append("itemType", "file");
+			formData.append("purpose", "Ready To Use");
+			formData.append("typeKeywords","Data, Layer");
+			formData.append("async", "false");
+			formData.append("f","json");
+			formData.append("token",token);
+			
+			var request = new XMLHttpRequest();
+			request.open("POST", "https://" + $("#org").val() + "/sharing/rest/content/users/" + $("#username").val() + "/addItem");
+			request.onload = function(e) {
+				var json = JSON.parse(request.responseText);
+				if(json.success == true) {
+				
+					//Uncomment if you want to view the newly created item in AGOL
+					//window.open("https://" + $("#org").val() + "/home/item.html?id=" + json.id + "&token=" + token);
+					
+					if($('#featureServiceCB').prop('checked') == true) {
+						createFeatureService(json.id);
+					}
+				}
+				else {
+					alert("Could not upload the file!");
+				}
+			}
+			request.onerror = function(e) {
+				alert("Could not upload the file!");
+			}
+			
+			request.send(formData);
+		}
+		
+		function createFeatureService(id) {
+			var createServiceRequest = esri.request({
+                url: "https://" + $("#org").val() + "/sharing/rest/content/users/" + $("#username").val() + "/publish",
+                content: {
+                    token: token,
+					itemId: id,
+					filetype: "shapefile",
+					publishParameters: '{"hasStaticData":true, "name":"' + $("#title").val() + '","maxRecordCount":2000,"layerInfo":{"capabilities":"Query"}}',
+                    f: "json"
+                },
+                handleAs: "json",
+                headers: {
+                    "X-Requested-With": null
+                }
+            }, { "usePost": true });
+			
+			createServiceRequest.then(
+				function (response) {
+					if($('#addServiceCB').prop('checked') == true) {
+						checkServiceStatus(response.services[0].serviceurl + "/0");
+					}
+				},
+				function (error) {
+					alert("Could not create Service");
+				}
+			);
+		}
+		
+		function checkServiceStatus(url) {
+		
+			$("#pendingText").css("visibility", "visible");
+		
+			var checkStatusRequest = esri.request({
+                url: url,
+                content: {
+					token: token,
+                    f: "json"
+                },
+                handleAs: "json"
+            }, { "usePost": false });
+
+            checkStatusRequest.then(
+				function (response) {
+					addFeatureLayer(url + "?token=" + token);
+					$("#pendingText").css("visibility", "hidden");
+				},
+				function (error) {
+					setTimeout(function() {
+						checkServiceStatus(url);
+					}, 1500);
+				}
+			);
+		}
+		
+		function addFeatureLayer(url) {
+			if(featureLayer) {
+				map.removeLayer(featureLayer);
+				featureLayer = null;
+			}
+			featureLayer = new FeatureLayer(url);
+			map.addLayers([featureLayer]);
+		}
+		
+    });
+    </script>
+</head>
+
+<body class="tundra">
+	<div class="content-container">
+		<div class="nav-container">
+			<nav class = "navbar" role = "navigation">
+				<div class = "navbar-header">
+					<p class = "navbar-brand">Upload Shapefile to ArcGIS Online</p>
+				</div>
+				<div>
+					<p id="signedInUser" class = "navbar-text navbar-right">
+						Signed in as: 
+						<a id="currentUser" class = "navbar-link" style="color: #fff !important" ></a>
+					</p>
+				</div>
+			</nav>
+		</div>
+		<div class = "flex-box">
+			<div class = "form-container column">
+				<div class = "form-group">
+					<label for = "org" class="label-config">Organization</label>
+					<input type = "text" class = "form-control input-elements" id = "org" placeholder = "Ex: ess.maps.arcgis.com" >
+				</div><br/>
+				<div class = "form-group">
+					<label for = "username">Username</label>
+					<input type = "text" class = "form-control input-elements" id = "username" placeholder = "Enter Username" >
+				</div><br/>
+				<div class = "form-group">
+					<label for = "password">Password</label>
+					<input type = "password" class = "form-control input-elements" id = "password" placeholder = "Enter Password" >
+				</div><br/>
+				<div class = "form-group">
+					<button id = "signInBtn" type = "submit" class = "btn btn-primary">Sign In</button><br/>
+				</div><br/>
+				<div class = "form-group">
+					<label for = "title">Item Title</label>
+					<input type = "text" class = "form-control input-elements" id = "title" placeholder = "Enter Item Name">
+				</div><br/>
+				<form id="data" enctype="multipart/form-data" method="post" role = "form">
+					<div class = "form-group" style="margin-bottom: 27px !important">
+						<label for = "file">Select File</label>
+						<input type = "file" id = "file" name = "file" class="btn input-elements" style="margin-right: 15px">
+					</div><br/>
+					<div class = "checkbox" style="margin-top: 0px">
+						<label><input id="featureServiceCB" type = "checkbox" checked>Create FeatureService</label>
+					</div><br/>
+					<div class = "checkbox" style="margin-bottom: 27px; margin-top: 0px">
+						<label><input id="addServiceCB" type = "checkbox" checked>Add Service to Map</label>
+					</div><br/>
+					<button type = "submit" class = "btn btn-primary" >Submit</button>
+				</form>
+			</div>
+			<div id="map" class="column">
+				<h1 id="pendingText" class="pending-text">Pending</h1>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
