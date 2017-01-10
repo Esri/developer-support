@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Timestamp WMS Requests</title> 
+    <link rel="stylesheet" href="http://js.arcgis.com/3.19/esri/css/esri.css">
+	<script type="text/javascript">
+	</script>
+	
+    <style>
+      html, body, #map {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="http://js.arcgis.com/3.19/"></script> 
+    <script> 
+		var map;
+
+		require([
+			"esri/map",
+			"esri/layers/WMSLayer",
+			"esri/config",
+			"dojo/domReady!"
+		],function(Map, WMSLayer, esriConfig) {
+
+			esriConfig.defaults.io.proxyUrl = "<Path to your Esri Resource proxy>";
+			  
+			map = new Map("map", {
+				basemap: "streets",
+				center: [-98, 37],
+				zoom: 5
+			});
+
+			var wmsLayer = new WMSLayer("http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer", {
+				format: "png",
+				visibleLayers: [2]
+			});
+			  
+			map.addLayer(wmsLayer);
+			  
+			map.on("layer-add-result", function(evt) {
+				var getImageUrl = wmsLayer.getImageUrl;
+				if(evt.layer.title == "Specialty/ESRI_StatesCitiesRivers_USA") {
+					wmsLayer.getImageUrl = function (extent, width, height, callback) {
+						var result = getImageUrl.call(wmsLayer, extent, width, height, function(url) {
+							callback.call(wmsLayer, url + "&_timeStamp=" + new Date().getTime() );
+						})
+						return result;
+					};
+				}
+			});
+
+			wmsLayer.setRefreshInterval(0.2);
+		});
+    </script> 
+  </head> 
+  
+  <body> 
+      <div id="map">
+  </body> 
+</html>
