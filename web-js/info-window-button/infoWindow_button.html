@@ -73,7 +73,7 @@
         });
 		
 		
-		var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+	var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         var infoTemplate = new InfoTemplate();
           infoTemplate.setTitle("Location");
@@ -114,34 +114,26 @@
 
 		  }
 	
-          var location ;
+                  var location ;
 		  var graphicsLayer, graphic_org ;
-	 	  
-		 		  
+	 	 	  
 		  var graphicsLayer = new GraphicsLayer() ;
 		  map.addLayer(graphicsLayer) ;
-		  
-		 // var originAddress = " ";
-		 // var DestinationAddress = "";
-		  
-		  
+			  
 		  var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 		  var infoTemplate = new InfoTemplate();
-          infoTemplate.setTitle("Location");
-          infoTemplate.setContent("<b>Address :</b>${Address}<br/><br/><button id='LabelButton' onclick='myFunction();'>Label it</button>"); 
+                  infoTemplate.setTitle("Location");
+                  infoTemplate.setContent("<b>Address :</b>${Address}<br/><br/><button id='LabelButton' onclick='myFunction();'>Label it</button>"); 
 		  
 		  locator.on("location-to-address-complete", function (evt) {
-              if (evt.address.address) {
-                  locator.outSpatialReference = map.spatialReference;  //// *** THIS
+                  if (evt.address.address) {
+                  locator.outSpatialReference = map.spatialReference;  
                   address = evt.address.address;
-                  location = evt.address.location;  //// *** THIS
-          				 
-				// graphic_org = new Graphic(location, symbol, address, infoTemplate);
+                  location = evt.address.location;       				 
+		  graphic_org = new Graphic(location, symbol, address, infoTemplate);
+                  graphicsLayer.add(graphic_org);
 				 
-				 graphic_org = new Graphic(location, symbol, address, infoTemplate);
-                 graphicsLayer.add(graphic_org);
-				 
-				  map.infoWindow.setTitle(graphic_org.getTitle());
+		  map.infoWindow.setTitle(graphic_org.getTitle());
                   map.infoWindow.setContent(graphic_org.getContent());
 
                   //display the info window with the address information
