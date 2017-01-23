@@ -1,7 +1,7 @@
 #Register Server Token with Identity Manager
 
 ##About
-The IdentityManager class manages user credentials for secure resources. After credentials have been registered with the IdentityManager tokens will be automatically appended to requests to secured resources. In some cases developers may want to generate a token using custom code and later register the token with the IdentityManager. This allows the developer to control how a token is created but does not force them to control how the token is used. oAuth tokens can easily be registered with IdentityManager using it's registerToken method. However ArcGIS Server does not issue oAuth tokens. Registering an ArcGIS Server token with IdentityManager is more complex.
+The IdentityManager class manages user credentials for secure resources. After credentials have been registered with the IdentityManager tokens will be automatically appended to requests to secured resources. In some cases developers may want to generate a token using custom code and later register the token with the IdentityManager. Reasons for this may include the need to create the token with server side code, the need to create a custom login screen seperate from the map view or the need retrieve a Server token from a cookie or local storage. This allows the developer to control how a token is created but does not force them to control how the token is used. oAuth tokens can easily be registered with IdentityManager using it's registerToken method. However ArcGIS Server does not issue oAuth tokens. Registering an ArcGIS Server token with IdentityManager is more complex.
 
 [Live Sample](https://nhaney90.github.io/register-server-token-with-identity-manager/index.html)
 
