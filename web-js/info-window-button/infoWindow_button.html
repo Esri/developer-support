@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>InfoTemplate with Button</title>
+	<link rel="stylesheet" href="https://js.arcgis.com/3.15/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.15/esri/css/esri.css">
+    
+
+    <script src="https://js.arcgis.com/3.15/"></script>
+    <script>
+      require([
+		
+		"dojo/on",
+		"esri/InfoTemplate",
+		"dijit/registry",
+		"dojo/number",
+		"esri/Color",
+		"esri/symbols/SimpleLineSymbol",
+		"esri/symbols/SimpleMarkerSymbol", 
+		"esri/layers/GraphicsLayer",
+		"esri/symbols/TextSymbol",
+		"esri/geometry/webMercatorUtils",
+                "esri/graphic",
+		"esri/tasks/locator",
+		"dojo/parser",
+                "dojo/ready",
+                "dijit/layout/BorderContainer",
+                "dijit/layout/ContentPane",
+                "dojo/dom",
+                "esri/map", 
+                "esri/urlUtils",
+                "esri/arcgis/utils",
+                "esri/dijit/Legend",
+               "esri/dijit/Scalebar",
+               "dojo/domReady!"
+      ], function(
+		on,
+		InfoTemplate,
+		registry,
+		number,
+		Color,
+		SimpleLineSymbol,
+		SimpleMarkerSymbol,
+		GraphicsLayer,
+		TextSymbol,
+		webMercatorUtils,
+		Graphic,
+		Locator,
+                parser,
+                ready,
+                BorderContainer,
+                ContentPane,
+                dom,
+                Map,
+                urlUtils,
+                arcgisUtils,
+                Legend,
+                Scalebar
+      ) {
+
+        parser.parse();
+
+		 var map, location ;
+		 var address ;
+		 var graphicsLayer, graphic_org ;
+		
+		  map = new Map("map", { 
+          basemap: "streets", 
+          center: [-95.273, 38.95],
+          zoom: 14
+        });
+		
+		
+	var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+
+        var infoTemplate = new InfoTemplate();
+          infoTemplate.setTitle("Location");
+          infoTemplate.setContent("<b>Address :</b>${SingleKey}<br/> <button id='InfoButton' onclick='myFunction();javascript:window.close();'>Label</button>"); 
+		  
+		  
+        var symbol = new SimpleMarkerSymbol(
+          SimpleMarkerSymbol.STYLE_CIRCLE, 
+          15, 
+          new SimpleLineSymbol(
+            SimpleLineSymbol.STYLE_SOLID, 
+            new Color([0, 0, 255, 0.5]), 
+            8
+          ), 
+          new Color([0, 0, 255])
+        );
+
+		  window.myFunction = function(){
+			
+			 var point = location ; 
+			 var symbol_stay = new SimpleMarkerSymbol().setStyle("diamond");
+		      
+				
+			 var graphic = new Graphic(point, symbol_stay);
+			 graphic.attr = address.Address;
+			 
+			 var textSymbol = new TextSymbol() ;
+			 textSymbol.Text =  graphic.attr ; //graphic.Attributes["Address"] ; 
+			 
+			 var textGraphic = new Graphic()  ;
+			 textGraphic.geometry = point ;
+			 textGraphic.symbol = textSymbol ;
+			 
+			 map.graphics.add(graphic);
+			 map.graphics.add(textGraphic) ;
+			 graphicsLayer.remove(graphic_org) ;
+			 map.infoWindow.hide();
+
+		  }
+	
+                  var location ;
+		  var graphicsLayer, graphic_org ;
+	 	 	  
+		  var graphicsLayer = new GraphicsLayer() ;
+		  map.addLayer(graphicsLayer) ;
+			  
+		  var locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+		  var infoTemplate = new InfoTemplate();
+                  infoTemplate.setTitle("Location");
+                  infoTemplate.setContent("<b>Address :</b>${Address}<br/><br/><button id='LabelButton' onclick='myFunction();'>Label it</button>"); 
+		  
+		  locator.on("location-to-address-complete", function (evt) {
+                  if (evt.address.address) {
+                  locator.outSpatialReference = map.spatialReference;  
+                  address = evt.address.address;
+                  location = evt.address.location;       				 
+		  graphic_org = new Graphic(location, symbol, address, infoTemplate);
+                  graphicsLayer.add(graphic_org);
+				 
+		  map.infoWindow.setTitle(graphic_org.getTitle());
+                  map.infoWindow.setContent(graphic_org.getContent());
+
+                  //display the info window with the address information
+                  var screenPnt = map.toScreen(location);
+                  map.infoWindow.resize(200, 100);
+                  map.infoWindow.show(screenPnt, map.getInfoWindowAnchor(screenPnt));
+              }
+          });
+		  
+  
+
+          map.on("click", function (evt) {
+          	 graphicsLayer.remove(graphic_org) ;
+             locator.locationToAddress(evt.mapPoint, 100);  
+          });  
+		 
+	//});
+});
+    
+    </script>
+  </head>
+
+  <body class="claro">
+          <div id="map" class="roundedCorners shadow" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+     
+  </body>
+</html>

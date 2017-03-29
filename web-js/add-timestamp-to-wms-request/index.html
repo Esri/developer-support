@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Timestamp WMS Requests</title> 
+    <link rel="stylesheet" href="http://js.arcgis.com/3.19/esri/css/esri.css">
+	<script type="text/javascript">
+	</script>
+	
+    <style>
+      html, body, #map {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="http://js.arcgis.com/3.19/"></script> 
+    <script> 
+		var map;
+
+		require([
+			"esri/map",
+			"esri/layers/WMSLayer",
+			"esri/config",
+			"dojo/domReady!"
+		],function(Map, WMSLayer, esriConfig) {
+
+			//Required by the API to access WMS services
+			//Read this doc for more info: https://developers.arcgis.com/javascript/3/jsapi/wmslayer-amd.html
+			esriConfig.defaults.io.proxyUrl = "<Path to your Esri Resource proxy>";
+			
+			//Create a map object
+			map = new Map("map", {
+				basemap: "streets",
+				center: [-98, 37],
+				zoom: 5
+			});
+			
+			//Create the WMSLayer and display only the 2nd sublayer
+			var wmsLayer = new WMSLayer("http://sampleserver1.arcgisonline.com/ArcGIS/services/Specialty/ESRI_StatesCitiesRivers_USA/MapServer/WMSServer", {
+				format: "png",
+				visibleLayers: [2]
+			});
+			
+			//Add the layer to the map
+			map.addLayer(wmsLayer);
+			
+			//Fires after each layer has been added sucessfully
+			map.on("layer-add-result", function(evt) {
+				//Check to see if the event was triggered by the WMSLayer
+				if(evt.layer.title == "Specialty/ESRI_StatesCitiesRivers_USA") {
+					//Make a copy of the WMSLayer's getImageUrl method
+					var getImageUrl = wmsLayer.getImageUrl;
+					//Re-implement the getImageUrl function
+					wmsLayer.getImageUrl = function (extent, width, height, callback) {
+						//Envoke the getImageUrl method with the wmsLayer as the context. Use the arguments passed in by the WMSLayer
+						var result = getImageUrl.call(wmsLayer, extent, width, height, function(url) {
+							//Envoke the callback function with the wmsLayer as the context. Append the timestamp parameter to the url with the current epoch date
+							callback.call(wmsLayer, url + "&_timeStamp=" + new Date().getTime() );
+						})
+						//Return the result of the callback to the wmsLayer
+						return result;
+					};
+				}
+			});
+
+			//Refresh the WMSLayer every 0.2 minutes
+			wmsLayer.setRefreshInterval(0.2);
+		});
+    </script> 
+  </head> 
+  
+  <body> 
+      <div id="map">
+  </body> 
+</html>

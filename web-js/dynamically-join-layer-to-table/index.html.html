@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+		<title></title>
+		<link rel="stylesheet" href="//js.arcgis.com/3.17/dijit/themes/claro/claro.css">
+		<link rel="stylesheet" href="//js.arcgis.com/3.17/esri/css/esri.css">
+		<style>
+			html, body, #mapDiv{
+				padding: 0;
+				margin: 0;
+				height: 100%;
+				width: 100%;
+			}
+			
+			#join1, #join2 {
+				top: 100px;
+				left: 100px;
+				z-index: 100;
+				position: absolute;
+				width: 120px;
+			}
+			
+			#join2 {
+				top: 200px;
+			}
+		</style>
+		<script src="//js.arcgis.com/3.17/"></script>
+		<script>
+			require([
+				"esri/map",
+				"esri/InfoTemplate",
+				"esri/layers/ArcGISDynamicMapServiceLayer", 
+				"esri/layers/DynamicLayerInfo",
+				"esri/layers/JoinDataSource",
+				"esri/layers/LayerDrawingOptions",
+				"esri/layers/LayerMapSource",
+				"esri/layers/LayerDataSource",
+				"esri/layers/TableDataSource",
+				"esri/symbols/SimpleLineSymbol", 
+				"esri/symbols/SimpleFillSymbol",
+				"esri/renderers/SimpleRenderer",
+				"esri/renderers/ClassBreaksRenderer",
+				"esri/tasks/IdentifyTask",
+				"esri/tasks/IdentifyParameters",
+				"esri/tasks/LegendLayer",
+				"esri/Color",
+				"esri/config",
+				"dojo/domReady!"
+			], function (Map, InfoTemplate, ArcGISDynamicMapServiceLayer, DynamicLayerInfo, JoinDataSource, LayerDrawingOptions, LayerMapSource, LayerDataSource, TableDataSource, SimpleLineSymbol, SimpleFillSymbol, SimpleRenderer, ClassBreaksRenderer, IdentifyTask, IdentifyParameters, LegendLayer, Color, esriConfig) {
+			
+				//If needed
+				esriConfig.defaults.io.corsEnabledServers.push("<YOUR ARCGIS SERVER DOMAIN>");
+				
+				var mapServiceURL = "<URL TO YOUR MAP SERVICE>";
+				
+				//Join Information
+				var join1 = {'leftTableKey':'JoinField', 'rightTableKey':'JoinField', 'rightTableName':'Editing.DBO.FakeData1','renderingField':'Editing.DBO.FakeData1.TheDatas', 'popupField':'TheDatas'};
+				var join2 = {'leftTableKey':'JoinField', 'rightTableKey':'JoinField', 'rightTableName':'Editing.DBO.FakeData2','renderingField':'Editing.DBO.FakeData2.TheDatas2', 'popupField':'TheDatas2'};
+				
+				//Set the templates to be used within the popup
+				var popupTemplate = new InfoTemplate();
+				popupTemplate.title = "<b>${OBJECTID}<b/>";
+				popupTemplate.content =  "<b>Join Field:<b/> ${JoinField}<br />";
+				
+				//Configure the identify task- this will be used to display the popup information
+				var identifyTask = new IdentifyTask(mapServiceURL);
+				var identifyParams = new IdentifyParameters();
+				identifyParams.tolerance = 3;
+				identifyParams.returnGeometry = true;
+				identifyParams.layerIds = [0];
+				
+				var map = new Map("mapDiv", {
+					basemap: "topo",
+					center: [-86, 33],
+					zoom: 8,
+					slider: false
+				});
+
+				//Create the dynamic map service information
+				var layer = new ArcGISDynamicMapServiceLayer(mapServiceURL);
+				layer.id = "MyLayer";
+				map.addLayers([layer]);
+				
+				//Execute the identify task when the map is clicked
+				map.on("click", executeIdentifyTask);
+				
+				//Add event listeners to join buttons
+				document.getElementById("join1").addEventListener("click", function() {
+					setDynamicOptions(join1);
+				});
+				document.getElementById("join2").addEventListener("click", function() {
+					setDynamicOptions(join2);
+				});
+					
+				//Create the Join
+				function setDynamicOptions(joinOptions) {
+					//Create the JoinDataSource object that contains the join information
+					var joinDataSource = new JoinDataSource({
+						joinType: "left-outer-join",
+						leftTableSource: new LayerMapSource({
+							type: "mapLayer",
+							mapLayerId: 0
+						}),
+						leftTableKey: joinOptions.leftTableKey,
+						rightTableKey: joinOptions.rightTableKey,
+						rightTableSource: new LayerDataSource({
+							//Use the TableDataSource object as we are joining a table to the layer
+							dataSource: new TableDataSource({
+								type: "table",
+								workspaceId: "SQLServer",
+								dataSourceName: joinOptions.rightTableName
+							})
+						})
+					});
+						
+					var dynamicLayerDataSource = new LayerDataSource({
+						dataSource: joinDataSource
+					});
+						
+					var dynamicLayerInfosArray = layer.createDynamicLayerInfosFromLayerInfos();
+					var dynamicLayerInfo = dynamicLayerInfosArray.find(function(dynamicLayerInfoItem){
+						return dynamicLayerInfoItem.name === "DynamicLayerPolys";
+					});
+						
+					dynamicLayerInfo.source = dynamicLayerDataSource;
+					layer.setDynamicLayerInfos([dynamicLayerInfo], true);
+					
+					//Set the dynamic layer information in the identify parameters
+					identifyParams.dynamicLayerInfos = [dynamicLayerInfo];
+					popupTemplate.content = "<b>Join Field:<b/> ${JoinField}<br />" +
+											"<b>Fake Value:<b/> ${" + joinOptions.popupField + "}<br />";
+					
+					//Create a class breaks renderer for the layer
+					var sfs = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT,new Color([255,0,0]), 2),new Color([255,255,0,0.25]));
+					var renderer = new ClassBreaksRenderer(sfs,joinOptions.renderingField);
+					renderer.addBreak(0, 2000, new SimpleFillSymbol().setColor(new Color([56, 168, 0, 0.5])));
+					renderer.addBreak(2000, 4000, new SimpleFillSymbol().setColor(new Color([139, 209, 0, 0.5])));
+					renderer.addBreak(4000, 6000, new SimpleFillSymbol().setColor(new Color([255, 255, 0, 0.5])));
+					renderer.addBreak(6000, 8000, new SimpleFillSymbol().setColor(new Color([255, 128, 0, 0.5])));
+					renderer.addBreak(8000, 10000, new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])));
+
+					//Use the renderer to set the layer drawing options
+					var optionsArray = [];
+					var drawingOptions = new LayerDrawingOptions();
+					drawingOptions.renderer = renderer;
+					optionsArray[0] = drawingOptions;
+					layer.setLayerDrawingOptions(optionsArray);					
+				};
+				
+				//Execute the identify task using the location on the map where the user clicked
+				function executeIdentifyTask(evt) {
+					identifyParams.geometry = evt.mapPoint;
+					identifyParams.mapExtent = map.extent;
+					identifyTask.execute(identifyParams, function(results) {
+						var features = [];
+						map.infoWindow.clearFeatures();
+						for(var i = 0; i < results.length; i++) {
+							results[i].feature.setInfoTemplate(popupTemplate);
+							features.push(results[i].feature);
+						}
+						setFeatures(features, evt.mapPoint);
+					});
+				}
+				
+				function setFeatures(features, point) {
+					if(features.length > 0) {
+						map.infoWindow.setFeatures(features);
+						map.infoWindow.show(point);
+					}
+					else {
+						map.infoWindow.hide();
+					}
+				}
+			});
+		</script>
+	</head>
+	<body >
+		<div id="mapDiv"></div>
+		<button id="join1">Join Table One</button>
+		<button id="join2">Join Table Two</button>
+	</body>
+</html>

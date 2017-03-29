@@ -67,8 +67,11 @@ mOnSyncComplete = new BroadcastReceiver() {
 ```
 By calling a permission with the receiver and the broadcast intent, we are ensuring that we are able to safely receive the intents without others spoofing the call and running unintended tasks within our app.
 
+## Scheduling the task
+JobScheduler was introduced at API level 21 with Android.  What it does is when certain criteria is met, the job will run.  This can be useful for scheduling tasks that require a sync, therefore, if you wanted to sync your geodatabase every morning, you may want to ensure that you have network, the device is charging, and that it is only run once every 24 hours. Using the AlarmManager would schedule it at the system level and would perhaps run without ensuring that the aforementioed conditions are met.  It is prefereable to use the JobScheduler for networking tasks rather than the alarm manager as this could cause the device to use unwanted amounts of data to be used if you do not meet the network requirements.
+
 ## Known issues with this sample:
-* This sample was also written using the Beta Release 2 of the Quartz API.  All sample code shown here is subject to change up to the final release of Quartz.
+* This sample was also written using the Beta Release 2 of the ArcGIS Runtime Version 100 API.  All sample code shown here is subject to change up to the final release of ArcGIS Runtime Version 100.
 
 * It does not check for a network connection before running.  This will attempt to run whether or not it is on Wifi as well as whether or not it is connected to a network.  No pause has been implemented in case the network drops while trying to upload.  This will cause an error.
 
@@ -83,4 +86,5 @@ By calling a permission with the receiver and the broadcast intent, we are ensur
 * [IntentService](https://developer.android.com/reference/android/app/IntentService.html)
 * [Notifications](https://developer.android.com/guide/topics/ui/notifiers/notifications.html)
 * [BroadcastReceiver](https://developer.android.com/reference/android/content/BroadcastReceiver.html)
-* [ArcGIS Runtime Quartz Beta](https://developers.arcgis.com/android/beta/)
+* [ArcGIS Runtime Version 100 Beta](https://developers.arcgis.com/android/beta/)
+* [Android JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler.html)
