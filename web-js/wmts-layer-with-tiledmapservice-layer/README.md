@@ -2,7 +2,6 @@
 
 ## About
 
-
 ![Alt text](https://github.com/goldenlimit/developer-support/blob/wmtslayerJS/repository-images/WMTSLayerwithTiledLayer.JPG "Load WMTSLayer and ArcGISTiledMapServiceLayer together")
 
 [Live Sample](http://goldenlimit.github.io/wmts-layer-with-tiledmapservice-layer/index.html)
@@ -18,10 +17,9 @@ Well, if that's the easy case, we don't need to create this sample... :sweat_smi
 This sample shows how to load both OGC Map and Esri's normal tiled mapservice together as a hybrid basemap reference.
 
 
-<<<<<<< HEAD
 ## Usage Notes
 Normally we can directly setup the proxy to load the WMTSLayer, like this way:
-=======
+
 ![Alt text](https://github.com/goldenlimit/developer-support/blob/wmtslayerJS/repository-images/WMTSLayerwithTiledLayer.JPG "Load WMTSLayer and ArcGISTiledMapServiceLayer together")
 
 [Live Sample](http://goldenlimit.github.io/wmts-layer-with-tiledmapservice-layer/index.html)
@@ -80,12 +78,7 @@ The default behavior of a WMTSLayer is to execute a WMTS GetCapabilities request
                      ]
         });
 ```
-
-<<<<<<< HEAD
-3. Setup the initial Extent so that prepare for the WMTSLayerInfo Object. Also, you need to STUDY the WMTSLayer XML in order to put the right parameters into the WMTSLayerInfo, for example, in the sample, we reference all those parameters based on this [wmts-getcapabilities.xml](http://v2.suite.opengeo.org/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetCapabilities):
-=======
 3. Setup the initial Extent so that prepare for the WMTSLayerInfo Object. Also, you need to STUDY the WMTSLayer XML in order to put the right parameters into the WMTSLayerInfo, for exmaple, in the sample, we reference all those parameters based on this [wmts-getcapabilities.xml](http://v2.suite.opengeo.org/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetCapabilities):
->>>>>>> origin/wmtslayerJS
 
 	*	identifier
 	*	tileMatrixSet
