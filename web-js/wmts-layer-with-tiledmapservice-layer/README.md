@@ -13,7 +13,7 @@ Well, if that's the easy case, we don't need to create this sample... :sweat_smi
 This sample shows how to load both OGC Map and Esri's normal tiled mapservice together as a hybrid basemap reference.
 
 
-![Alt text](https://github.com/goldenlimit/developer-support/blob/localStorage/web-js/infoWindow-location-save-in-localStorage/infoWindow_localStorage.png "Load WMTSLayer and ArcGISTiledMapServiceLayer together")
+![Alt text](https://github.com/goldenlimit/developer-support/blob/wmtslayerJS/repository-images/WMTSLayerwithTiledLayer.JPG "Load WMTSLayer and ArcGISTiledMapServiceLayer together")
 
 [Live Sample](https://goldenlimit.github.io/wmts-layer-with-tiledmapservice-layer/index.html)
 
