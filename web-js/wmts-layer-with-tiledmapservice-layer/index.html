@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+  <title>Add WMTS Layer</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/3.20/esri/css/esri.css">
+  <style>
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+    }
+
+    #citationInfo {
+      position: absolute;
+      color: black;
+      font-weight: bold;
+      font-size: 12pt;
+      left: 10px;
+      top: 0;
+    }
+  </style>
+
+  <script src="https://js.arcgis.com/3.20/"></script>
+  <script>
+      var map;
+      require([
+        "esri/map", "esri/config", "esri/SpatialReference", "esri/layers/WMTSLayer", "esri/layers/WMTSLayerInfo", "esri/geometry/Extent", "esri/layers/TileInfo", "esri/layers/ArcGISTiledMapServiceLayer", "esri/SpatialReference",
+        "dojo/domReady!"
+      ], function(
+        Map, esriConfig, SpatialReference, WMTSLayer, WMTSLayerInfo, Extent, TileInfo, ArcGISTiledMapServiceLayer, SpatialReference
+      ) {
+
+        map = new Map("map");
+          
+        var tileInfo = new TileInfo({
+              "dpi": 96,
+              "format": "image/jpeg",
+              "compressionQuality": 0,
+              "spatialReference": new SpatialReference({
+                "wkid": 4326
+              }),
+              "rows": 270,
+              "cols": 270,
+              "origin": {
+                "x": -180,
+                "y": 90
+              },
+              "lods": [{
+                         "level": "EPSG:4326:0",
+                         "resolution": 0.6651572231538215,
+                         "scale": 279541132.0143589
+                     },
+                     {
+                         "level": "EPSG:4326:1",
+                         "resolution": 0.33257861157691077,
+                         "scale": 139770566.00717944
+                     },
+                     {
+                         "level": "EPSG:4326:2",
+                         "resolution": 0.16628930578845538,
+                         "scale": 69885283.00358972
+                     },
+                     {
+                         "level": "EPSG:4326:3",
+                         "resolution": 0.08314465289422769,
+                         "scale": 34942641.50179486
+                     },
+                     {
+                         "level": "EPSG:4326:4",
+                         "resolution": 0.041572326447113846,
+                         "scale": 17471320.75089743
+                     },
+                     {
+                         "level": "EPSG:4326:5",
+                         "resolution": 0.020786163223556923,
+                         "scale": 8735660.375448715
+                     },
+                     {
+                         "level": "EPSG:4326:6",
+                         "resolution": 0.010393081611778461,
+                         "scale": 4367830.1877243575
+                     },
+                     {
+                         "level": "EPSG:4326:7",
+                         "resolution": 0.005196540805889231,
+                         "scale": 2183915.0938621787
+                     },
+                     {
+                         "level": "EPSG:4326:8",
+                         "resolution": 0.0025982704029446154,
+                         "scale": 1091957.5469310894
+                     },
+                     {
+                         "level": "EPSG:4326:9",
+                         "resolution": 0.0012991352014723077,
+                         "scale": 545978.7734655447
+                     },
+                     {
+                         "level": "EPSG:4326:10",
+                         "resolution": 0.0006495676007361538,
+                         "scale": 272989.38673277234
+                     },
+                     {
+                         "level": "EPSG:4326:11",
+                         "resolution": 0.0003247838003680769,
+                         "scale": 136494.69336638617
+                     },
+                     {
+                         "level": "EPSG:4326:12",
+                         "resolution": 0.00016239190018403846,
+                         "scale": 68247.34668319309
+                     },
+                     {
+                         "level": "EPSG:4326:13",
+                         "resolution": 0.00008119595009201923,
+                         "scale": 34123.67334159654
+                     },
+                     {
+                         "level": "EPSG:4326:14",
+                         "resolution": 0.000040597975046009615,
+                         "scale": 17061.83667079827
+                     },
+                     {
+                         "level": "EPSG:4326:15",
+                         "resolution": 0.000020298987523004807,
+                         "scale": 8530.918335399136
+                     },
+                     {
+                         "level": "EPSG:4326:16",
+                         "resolution": 0.000010149493761502404,
+                         "scale": 4265.459167699568
+                     },
+                     {
+                         "level": "EPSG:4326:17",
+                         "resolution": 0.000005074746880751202,
+                         "scale": 2132.729583849784
+                     },
+                     {
+                         "level": "EPSG:4326:18",
+                         "resolution": 0.000002537373440375601,
+                         "scale": 1066.364791924892
+                     },
+                     {
+                         "level": "EPSG:4326:19",
+                         "resolution": 0.0000012686867201878005,
+                         "scale": 533.182395962446
+                     }]
+        });
+          
+        var tileExtent = new Extent(-61.19, -11.299, 81.64, 49.45, new SpatialReference({
+          wkid: 4326
+            })); 
+          
+        var layerInfo = new WMTSLayerInfo({
+           tileInfo: tileInfo,
+           initialExtent: tileExtent,
+           fullExtent: tileExtent,
+           identifier: "opengeo:countries",
+           tileMatrixSet: "EPSG:4326",
+           format: "jpeg",
+           style: "_null"
+        });  
+          
+        var WMTSResourceInfo = {
+          version: "1.0.0",
+          layerInfos: [layerInfo],
+          copyright: "Put copyright for the WMTSLayer."
+        };
+        
+        var options = {
+          serviceMode: "KVP",
+          layerInfo: layerInfo,
+          resourceInfo: WMTSResourceInfo
+        };      
+                 
+       var worldWMTSLayer = new WMTSLayer("http://suite.opengeo.org/geoserver/gwc/service/wmts", options);
+       worldWMTSLayer.setOpacity(0.5);
+          
+       var AfricaWMTSLayer = new ArcGISTiledMapServiceLayer("http://mapsqa.tracker.co.za/arcgis/rest/services/Blank3/MapServer");
+       AfricaWMTSLayer.setOpacity(0.5);
+       map.addLayers([worldWMTSLayer,AfricaWMTSLayer]);
+          
+      });
+  </script>
+</head>
+
+<body>
+  <div id="map">
+    <div id="citationInfo">
+        How to load WMTSLayer and ArcGISTiledMapServiceLayer together as basemap 
+    </div>
+  </div>
+</body>
+</html>
