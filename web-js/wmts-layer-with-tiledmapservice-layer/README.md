@@ -21,7 +21,7 @@ This sample shows how to load both OGC Map and Esri's normal tiled mapservice to
 Normally we can directly setup the proxy to load the WMTSLayer, like this way:
 
 ```javascript
-esriConfig.defaults.io.corsEnabledServers.push("YOUR WMTSLayer/application domain);
+esriConfig.defaults.io.corsEnabledServers.push("YOUR WMTSLayer/application domain");
 esriConfig.defaults.io.proxyUrl = "Yourproxy path";
 ```
 
