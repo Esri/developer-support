@@ -15,7 +15,7 @@ This sample shows how to load both OGC Map and Esri's normal tiled mapservice to
 
 ![Alt text](https://github.com/goldenlimit/developer-support/blob/wmtslayerJS/repository-images/WMTSLayerwithTiledLayer.JPG "Load WMTSLayer and ArcGISTiledMapServiceLayer together")
 
-[Live Sample](https://goldenlimit.github.io/wmts-layer-with-tiledmapservice-layer/index.html)
+[Live Sample](http://goldenlimit.github.io/wmts-layer-with-tiledmapservice-layer/index.html)
 
 
 ## Usage Notes
