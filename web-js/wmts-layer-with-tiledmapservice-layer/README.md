@@ -20,11 +20,6 @@ This sample shows how to load both OGC Map and Esri's normal tiled mapservice to
 ## Usage Notes
 Normally we can directly setup the proxy to load the WMTSLayer, like this way:
 
-![Alt text](https://github.com/goldenlimit/developer-support/blob/wmtslayerJS/repository-images/WMTSLayerwithTiledLayer.JPG "Load WMTSLayer and ArcGISTiledMapServiceLayer together")
-
-[Live Sample](http://goldenlimit.github.io/wmts-layer-with-tiledmapservice-layer/index.html)
->>>>>>> origin/wmtslayerJS
-
 ```javascript
 esriConfig.defaults.io.corsEnabledServers.push("YOUR WMTSLayer/application domain);
 esriConfig.defaults.io.proxyUrl = "Yourproxy path";
