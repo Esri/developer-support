@@ -66,15 +66,14 @@ The default behavior of a WMTSLayer is to execute a WMTS GetCapabilities request
                      ]
         });
 ```
-<br>
-3. Setup the initial Extent so that prepare for the WMTSLayerInfo Object. Also, you need to STUDY the WMTSLayer XML in order to put the right parameters into the WMTSLayerInfo, for exmaple, in the sample, we reference all those parameters:
+
+3. Setup the initial Extent so that prepare for the WMTSLayerInfo Object. Also, you need to STUDY the WMTSLayer XML in order to put the right parameters into the WMTSLayerInfo, for exmaple, in the sample, we reference all those parameters based on this [wmts-getcapabilities.xml](http://v2.suite.opengeo.org/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetCapabilities):
 
 	*	identifier
 	*	tileMatrixSet
 	*	format
 	*	style
 
-	based on this [wmts-getcapabilities.xml](http://v2.suite.opengeo.org/geoserver/gwc/service/wmts/?SERVICE=WMTS&REQUEST=GetCapabilities)
 
 ```javascript
  var tileExtent = new Extent(-61.19, -11.299, 81.64, 49.45, new SpatialReference({
