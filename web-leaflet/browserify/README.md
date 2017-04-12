@@ -10,7 +10,7 @@ install [Node.js](https://nodejs.org/en/)/npm.
 
 1. fork/clone this github repository
 2. navigate into this folder using a command prompt and run `npm install`
-> this will lay down the project [dependencies](https://github.com/Esri/developer-support/blob/gh-pages/web-leaflet/browserify/package.json#L8-L18) in the same folder.
+> this will lay down the project [dependencies](https://github.com/Esri/developer-support/blob/master/web-leaflet/browserify/package.json#L8-L18) in the same folder.
 
 3. run `npm start`
 > afterward you'll be able to check out the sample application running at http://localhost:1337
@@ -41,7 +41,7 @@ instead of
 
 basically, all we've done is reorganized [this previously published sample](http://esri.github.io/esri-leaflet/examples/geocoding-control.html) into a couple different files.
 
-> [index.html](https://github.com/Esri/developer-support/blob/gh-pages/web-leaflet/browserify/index.html)
+> [index.html](https://github.com/Esri/developer-support/blob/master/web-leaflet/browserify/index.html)
 
 ```html
 <body>
@@ -53,7 +53,7 @@ even though the raw source for the app itself is in a file called `main.js`, we 
 
 this is because browserify is going to wrap *all* of our code and **all** the external script tags into a single file.
 
-> [main.js](https://github.com/Esri/developer-support/blob/gh-pages/web-leaflet/browserify/main.js)
+> [main.js](https://github.com/Esri/developer-support/blob/master/web-leaflet/browserify/main.js)
 
 ```js
 var L = require('leaflet')
@@ -63,9 +63,9 @@ var Geocoding = require('esri-leaflet-geocoder')
 
 `main.js` is more or less composed of the same code we find [here](http://esri.github.io/esri-leaflet/examples/geocoding-control.html), with the addition of calling `require()` to reference the external dependencies.
 
-the lines above only resolve because our own project's `package.json` mentions the [same node packages](https://github.com/Esri/developer-support/blob/gh-pages/web-leaflet/browserify/package.json#L9-L11) and we've made sure they are present locally by calling `npm install`.
+the lines above only resolve because our own project's `package.json` mentions the [same node packages](https://github.com/Esri/developer-support/blob/master/web-leaflet/browserify/package.json#L9-L11) and we've made sure they are present locally by calling `npm install`.
 
-> [package.json](https://github.com/Esri/developer-support/blob/gh-pages/web-leaflet/browserify/package.json)
+> [package.json](https://github.com/Esri/developer-support/blob/master/web-leaflet/browserify/package.json)
 
 this is where we declare our own project as a node package and document the dependencies of the application itself:
 
