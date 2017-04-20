@@ -1,6 +1,6 @@
 /*
-    The anonymous pg/plsql scripts below allow one to use the existing X and Y coordinates of a table to
-    insert geometry column into an empty feature class.  Uses ST_GeomFromText for PostGIS data or ST_point 
+    The anonymous pg/plsql scripts below allows one to use the existing X and Y coordinates of a table to
+    insert geometry into an empty feature class.  Uses ST_GeomFromText for PostGIS data or ST_point 
     for Esri ST_Geometry features.
     
     - Geodatabase feature classes created with ArcGIS will have a SHAPE and OBJECTID column by default.

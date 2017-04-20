@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>Simple Map</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.19/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <script src="https://js.arcgis.com/3.19/"></script>
+    <script>
+		require([
+			"esri/map",
+			"esri/layers/ArcGISDynamicMapServiceLayer",
+			"esri/request",
+			"esri/IdentityManager",
+			"dojo/domReady!"
+		], function(Map, DLayer, esriRequest, esriId) {
+			
+			//Sometimes the application complains about the securred resource not using CORS. This can be suppressed by pushing it's domain to the CORS enabled servers list.
+			esri.config.defaults.io.corsEnabledServers.push("sampleserver6.arcgisonline.com");
+			 
+			var securedService = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire_secure/MapServer";
+	  
+			var map = new Map("map", {
+				basemap: "topo",
+				center: [-97, 38],
+				zoom: 4
+			});
+			
+			//Use Esri Request to send a POST request to get a token from the server. 
+			esriRequest({
+                url: "https://sampleserver6.arcgisonline.com/arcgis/tokens/",
+				//These are the minimum parameters required to generate a token
+                content: {
+                    request: "getToken",
+                    username: "user1",
+                    password: "user1",
+                    expiration: 60,
+                    f: "json"
+                },
+                handleAs: "json",
+                load: tokenObtained,
+                error: tokenRequestFailed
+            }, {
+				//Send request as a POST
+                usePost: true
+            });
+			
+			//After the request to get a token has successfully returned a response
+            function tokenObtained(response) {
+                registerToken(response);
+            }
+			
+			//The request failed to generate a token
+			function tokenRequestFailed(error) {
+				console.log("error: ", error);
+			}
+			
+			//This function will register the token with the identity manager
+			function registerToken(tokenInfo) {
+				//The parameters required are not documented. This is why this sample is helpful ;)
+				var credentialsJSON = {
+					serverInfos: [{
+						server: "https://sampleserver6.arcgisonline.com",
+						tokenServiceUrl: "https://sampleserver6.arcgisonline.com/arcgis/tokens/",
+						adminTokenServiceUrl: "https://sampleserver6.arcgisonline.com/arcgis/admin/generateToken",
+						shortLivedTokenValidity: 60,
+						currentVersion: 10.41,
+						hasServer: true
+					}],
+					oAuthInfos: [],
+					credentials: [{
+						userId: "user1",
+						server: "https://sampleserver6.arcgisonline.com/arcgis",
+						token: tokenInfo.token,
+						expires: tokenInfo.expires,
+						validity: 60,
+						isAdmin: false,
+						ssl: false,
+						//Calculate when the token was created by subtracting 60 minutes from the expiration time
+						creationTime: tokenInfo.expires - (60000 * 60),
+						scope: "server",
+						resources: [
+							securedService
+						]
+					}]
+				};
+				//Initialize the IdentityManager with the credentials object created above
+				esriId.initialize(credentialsJSON);
+				//Now that the token is registered with the IdentityManager the securred layer can be added to the map
+				addSecureLayer();
+			}
+			
+			//Add the securred layer to the map
+			function addSecureLayer() {
+				var dLayer = new DLayer(securedService);
+				map.addLayer(dLayer);
+			}
+		});
+	  
+    </script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
