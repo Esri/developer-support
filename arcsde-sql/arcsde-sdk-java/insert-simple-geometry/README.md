@@ -24,8 +24,8 @@ String instance = "sde:oracle11g";
 SeConnection conn = new SeConnection(server, instance, database, user, password);
 ```
 
-### Java SeConnection Direct Connection Example (Oracle):
-Using Oracle's EZConnect syntax on the password:
+### Java SeConnection Direct Connection Example (SQL Server):
+Unlike Oracle, the database name is required.
 ```java
 
 String server = "MyDBServer\Instance_Name";
