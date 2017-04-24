@@ -1,6 +1,4 @@
-#Insert Simple Geometry
-
-
+##Insert Simple Geometry
 
 Insert points, lines and polygons using the ArcSDE SDK for Java
 
