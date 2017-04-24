@@ -35,6 +35,6 @@ String password = "sde";
 String instance = "sde:sqlserver:MyDBServer\Instance_name";
 
 SeConnection conn = new SeConnection(server, instance, database, user, password);
+```
 
-'''
 [ArcSDE SDK API - Java](http://help.arcgis.com/en/geodatabase/10.0/sdk/arcsde/api/japi/japi.htm)
