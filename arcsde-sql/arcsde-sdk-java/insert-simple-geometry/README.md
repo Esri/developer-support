@@ -27,11 +27,11 @@ SeConnection conn = new SeConnection(server, instance, database, user, password)
 Unlike Oracle, the database name is required.
 ```java
 
-String server = "MyDBServer\Instance_Name";
+String server = "MyDBServer\\Instance_Name";
 String database = "MyDatabase";
 String user = "sde";
 String password = "sde";
-String instance = "sde:sqlserver:MyDBServer\Instance_name";
+String instance = "sde:sqlserver:MyDBServer\\Instance_name";
 
 SeConnection conn = new SeConnection(server, instance, database, user, password);
 ```
