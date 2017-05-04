@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700,900");
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+#app {
+  display: block;
+  color: #000;
+  padding: 0 1em;
+  max-width: 300px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background: rgba(0,0,0,.3);
+  overflow: scroll;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin-top: 2rem;
+  font-family: 'Lato', sans-serif;
+  background: FFFACD;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.1rem;
+}
+.searchbox {
+  max-width: 20rem;
+  margin: 1rem auto;
+}
+.searchbox__input {
+  height: 3rem;
+  width: 100%;
+  box-shadow: none;
+  border: none;
+  padding: 0 1rem;
+  color: #000000;
+  border-radius: 0.2rem;
+}
+.searchbox__button {
+  width: 100%;
+  padding: 1rem 2rem;
+  border: none;
+  margin: 1rem 0 0 0;
+  background: #FFFACD;
+  color: #000000;
+  font-weight: 400;
+  border-radius: 0.4rem;
+}
+.searchbox__button:hover {
+  background: #FFFFE0;
+}
+.card {
+  position: relative;
+  background: #FFFACD;
+  max-width: 20rem;
+  margin: 2rem auto 2rem;
+  border: solid 5px #FFFF99;
+  border-radius: 0.4rem;
+  padding: 0rem 2.5rem 1rem;
+}
+.card__match {
+  font-size: 1.3rem;
+  font-weight: 900;
+  text-align: center;
+  margin: 1rem auto;
+}
+.card__notfound {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1rem;
+}
+/* some non-BEM stuff to avoid overloading the JSX for demo purposes */
+dl {
+  margin: 0;
+  padding: 0;
+}
+dt,
+dd {
+  text-align: center;
+}
+dt {
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+dd {
+  margin: 0 0 1rem 0;
+}
