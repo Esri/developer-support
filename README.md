@@ -24,6 +24,10 @@ The easiest way to use these samples without using Git is to download the zip fi
 
 For more information regarding the technology platforms, languages, APIs, and SDKs, please refer to the documentation at: [ArcGIS for Developers - Documentation](https://developers.arcgis.com/documentation/#extending-the-arcgis-platform)
 
+## Instructions for Beginners
+
+The magic of GitHub is that it is an open environment: it’s open to developers, open to moonlighters, and even open to teenagers or adult learners who are looking for a new challenge. If you just want to download these samples and check out the code, click on the "Download ZIP" button in the upper right of this page. Here's a handy blog that describes GitHub, and the Developer Support Respository, in more detail: [Introducing the Esri Support GitHub Repository](http://blogs.esri.com/esri/supportcenter/2015/10/19/introducing-the-esri-support-github-repository/).
+
 ## Contributing
 
 Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md).
@@ -48,5 +52,5 @@ A copy of the license is available in the repository's [LICENSE](/LICENSE) file.
 ## Welcome to our toolbox!
 ![alt text](repository-images/supportdeskdrawer.png "Desk Drawer")
 
-[](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets)
+[](Esri Tags: Developer Support, JavaScript, Android, iOS, C++, Objective-C, .NET, Java, Flex, Silverlight, Widgets, Python)
 [](Esri Language: Mixed)
