@@ -24,12 +24,28 @@ class OpenData(object):
 
     def __init__(self, username, password, OpenDataSite):
         
-        self.username = username
-        self.password = password
-        self.token = self.generateToken()
+        self.__username = username
+        self.__password = password
+        self.__token = self.generateToken()
 
-        self.OpenDataSite = OpenDataSite
-        self.OpenDataItems = self.findAllOpenDataItems()
+        self.__OpenDataSite = OpenDataSite
+        self.__OpenDataItems = self.findAllOpenDataItems()
+
+    @property
+    def token(self):
+        return self.__token
+        
+    @property
+    def OpenDataSite(self):
+        return self.__OpenDataSite
+        
+    @property
+    def OpenDataItems(self):
+        return self.__OpenDataItems
+        
+    @property
+    def username(self):
+        return self.__username
 
     def generateToken(self):
         """
@@ -39,7 +55,7 @@ class OpenData(object):
         """
         url = "https://arcgis.com/sharing/rest/generateToken"
         data = {'username': self.username,
-                'password': self.password,
+                'password': self.__password,
                 'referer': "https://www.arcgis.com",
                 'f': 'json'}
         return requests.post(url, data, verify=False).json()['token']
@@ -53,11 +69,11 @@ class OpenData(object):
         info = requests.get(url, verify=False).json()['datasets']
         return [x['id'] for x in info]
 
-    def refresh(self):
+    def refresh(self, datasets=self.OpenDataItems):
         """
         Refreshes all Open Data datasets and download cache.
         """
-        for dataset in self.OpenDataItems:
+        for dataset in datasets:
             url = "https://opendata.arcgis.com/api/datasets/{0}/refresh.json?token={1}".format(dataset, self.token)
             requests.put(url, verify=False)
 
