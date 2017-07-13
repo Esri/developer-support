@@ -111,12 +111,12 @@ public class Main {
 			partOffsets[0] = 0;
 			
 			ptArray[0] = new SDEPoint(-500.0, -500.0);
-            ptArray[1] = new SDEPoint( 500.0, -500.0);
-            ptArray[2] = new SDEPoint( 500.0, 500.0);
-            ptArray[3] = new SDEPoint(-500.0, 500.0);
-            ptArray[4] = new SDEPoint(-500.0, -500.0);
-			
-            //Generate the geometry using the parts above
+			ptArray[1] = new SDEPoint( 500.0, -500.0);
+			ptArray[2] = new SDEPoint( 500.0, 500.0);
+			ptArray[3] = new SDEPoint(-500.0, 500.0);
+			ptArray[4] = new SDEPoint(-500.0, -500.0);
+
+			//Generate the geometry using the parts above
 			shp.generatePolygon(numPts, numParts, partOffsets, ptArray);
 			
 			//Print out some info about the incoming geometry
@@ -160,10 +160,10 @@ public class Main {
 			/* static array containing a single point*/
 			SDEPoint[] ptArray = new SDEPoint[1];		
 
-            getCoordRefDetails(cr);
+            		getCoordRefDetails(cr);
             
-            /* Loop through 100 points altering their coordinates at intervals of 25*/
-            for (int i = 0; i <= 100; i++) {
+		    /* Loop through 100 points altering their coordinates at intervals of 25*/
+		    for (int i = 0; i <= 100; i++) {
 				System.out.println("Inserting points...");
 				ptArray[0] = new SDEPoint(myX, myY);
 				shp.generatePoint(numPts, ptArray);
@@ -250,16 +250,16 @@ public class Main {
 		/* Add the spatial component */
 		SeLayer layer = new SeLayer(conn);
 		SeCoordinateReference cr = new SeCoordinateReference();
-        cr.setXY( -10737418.225, -10737418.225, 100.0);
-        
-        /* Set spatial properties*/
-		layer.setCoordRef(cr);
-        layer.setTableName(layerName);
-        layer.setSpatialColumnName("SHAPE");
-        layer.setShapeTypes(SeLayer.SE_NIL_TYPE_MASK | shapeTypes);
-        layer.setGridSizes(1000.0, 0.0, 0.0);
-        layer.setCreationKeyword("DEFAULTS");
-        layer.create(10, 3);
+		cr.setXY( -10737418.225, -10737418.225, 100.0);
+
+		/* Set spatial properties*/
+			layer.setCoordRef(cr);
+		layer.setTableName(layerName);
+		layer.setSpatialColumnName("SHAPE");
+		layer.setShapeTypes(SeLayer.SE_NIL_TYPE_MASK | shapeTypes);
+		layer.setGridSizes(1000.0, 0.0, 0.0);
+		layer.setCreationKeyword("DEFAULTS");
+		layer.create(10, 3);
 		
 		return layer;
 		
