@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>KML Downloader</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	
+    <style>
+		html, body, #map {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		#splashScreen {
+			display: none;
+			top: 15%;
+			position: absolute;
+			z-index: 100;
+			background-color: rgb(72, 85, 102);
+			left: 0;
+			right: 0;
+			width: 80%;
+			margin: 0 auto;
+		}
+		.page-header {
+			top: 10%;
+			text-align: center;
+			position: relative;
+			border-bottom: 0px solid black;
+		}
+		.jumbotron {
+			background-color: rgb(72, 85, 102);
+			color: white;
+			text-align: center;
+		}
+    </style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://js.arcgis.com/3.21/"></script>
+    <script>
+    
+	require([
+		"esri/Color",
+		"esri/map",
+		"esri/request",
+		"esri/layers/FeatureLayer",
+		"esri/symbols/SimpleFillSymbol",
+		"esri/tasks/query",
+		"dojo/domReady!"
+	], function(Color, Map, esriRequest, FeatureLayer, SimpleFillSymbol, Query) {
+	
+		$("#splashScreen").fadeIn('slow');
+	
+		$(".btn-primary").click(function() {
+				$("#splashScreen").fadeOut('slow');
+		});
+	  
+        let map = new Map("map", {
+			basemap: "topo",
+			center: [-100, 38],
+			zoom: 4
+        });
+		
+		let statesLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2", {outFields: ["*"]});
+		let selectionSymbol = new SimpleFillSymbol().setColor(new Color([255,255,0,0.5]));
+		statesLayer.setSelectionSymbol(selectionSymbol);
+		map.addLayer(statesLayer);
+		
+		map.on("click", (evt) => {
+			selectState(evt.mapPoint)
+		});
+		
+		function selectState(point) {
+			let query = new Query();
+			query.geometry = point;
+			query.outFields = ["*"];
+			statesLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW, (result) => {
+				if(result.length > 0) {
+					let message = "You have selected " + result[0].attributes.state_name + ". \n Is this the state you want to download?";
+					setTimeout(() => {
+						if(confirm(message) == true) {
+							getKMZ(result[0].attributes.state_name);
+						} else {
+							statesLayer.clearSelection();
+						}
+					}, 500);
+				}
+			});
+		}
+		
+		function getKMZ(statename) {
+			let layersRequest = esriRequest({
+				url: statesLayer.url + "/query",
+				content: {
+					where: "state_name='" + statename + "'",
+					returnGeometry: true,
+					f: "kmz"
+				},
+				handleAs: "blob",
+				callbackParamName: "callback"
+			},{
+				usePost: true
+			});
+			layersRequest.then(
+				function(response) {
+					downloadFile(response, statename + ".kmz");
+				}, function(error) {
+					console.log(error);
+				}
+			);
+		}
+		
+		function downloadFile(blob, fileName) {
+			let link = document.createElement("a");
+			document.body.appendChild(link);
+			link.style = "display: none";
+			url = window.URL.createObjectURL(blob);
+			link.href = url;
+			link.download = fileName;
+			link.click();
+			window.URL.revokeObjectURL(url);
+			body.removeChild(link);
+		}
+		
+	});
+    </script>
+  </head>
+
+  <body>
+    <div id="map"></div>
+	<div id="splashScreen">
+		<div class = "jumbotron">
+			<h1>Download Features as KMZ</h1>
+			<p>Click on a state to select it, then confirm you want to download the data. A KMZ containing the geometry of the state will be downloaded to your device.</p>
+			<p><a class = "btn btn-primary btn-lg" role = "button">Got It!</a></p>
+		</div>
+    </div>
+  </body>
+</html>
