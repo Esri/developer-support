@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+	<title>Find Distance Along Line</title>
+	<link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<style type="text/css">
+		html, body, #map{
+			height: 100%; width: 100%;
+			margin:0;
+		}
+		label {
+			float: left;
+			padding-top: 5px;
+		}
+		#splashScreen {
+			display: none;
+			top: 15%;
+			position: absolute;
+			z-index: 200;
+			background-color: rgb(72, 85, 102);
+			left: 0;
+			right: 0;
+			width: 80%;
+			margin: 0 auto;
+		}
+		.form-container {
+			padding: 20px;
+			width: 250px;
+			overflow: hidden;
+			top: 100px;
+			left: 100px;
+			position: absolute;
+			z-index: 100;
+			background-color: #d2cbcb;
+			border-color: black;
+			border-style: solid;
+			border-width: 2px;
+		}
+		.form-group {
+			text-align: center;
+			margin-bottom: 0px;
+		}
+		.page-header {
+			top: 10%;
+			text-align: center;
+			position: relative;
+			border-bottom: 0px solid black;
+		}
+		.jumbotron {
+			background-color: rgb(72, 85, 102);
+			color: white;
+			text-align: center;
+		}
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://js.arcgis.com/3.21/"></script>
+    <script type="text/javascript">
+      require([
+		"esri/Color",
+		"esri/graphic",
+		"esri/map",
+		"esri/geometry/geometryEngine",
+		"esri/geometry/Point",
+		"esri/geometry/Polyline",
+		"esri/symbols/Font",
+		"esri/symbols/SimpleLineSymbol",
+		"esri/symbols/SimpleMarkerSymbol",
+		"esri/symbols/TextSymbol",
+		"esri/layers/GraphicsLayer",
+		"dojo/domReady!"
+	  ], function(Color, Graphic, Map, geometryEngine, Point, Polyline, Font, SimpleLineSymbol, SimpleMarkerSymbol, TextSymbol, GraphicsLayer) {
+	  
+		const tolerances = {"feet":3,"yards":1,"miles":0.0005682,"meters":1.09361,"kilometers":0.0009144}
+		const startPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 15, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,0,0,1]), 1),new Color([76, 115, 0, 1]));
+		const endPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 15, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,0,0,1]), 1),new Color([230, 0, 0, 1]));
+		const distanceSymbolPath = "M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z";
+		const distanceSymbol = new SimpleMarkerSymbol().setSize(28).setPath(distanceSymbolPath).setStyle(SimpleMarkerSymbol.STYLE_PATH).setColor(new Color([115, 178, 255, 1])).setOffset(0, 14);
+		const startPointText = new TextSymbol("Start").setFont(new Font("20px", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLDER)).setOffset(0, -25);
+		const endPointText = new TextSymbol("End").setFont(new Font("20px", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLDER)).setOffset(-10, 20);
+	  
+        const map = new Map("map", {
+			basemap: "topo",
+			center: [-80.845, 35.207],
+			zoom: 18
+        });
+		
+		let lineGraphic = null;
+		let lineLayer = new GraphicsLayer();
+		let positionLayer = new GraphicsLayer();
+		map.addLayers([lineLayer, positionLayer]);
+		
+		function getPolylineGraphic() {
+			$.getJSON("polyline.json").done(function(data) {
+				addGraphicsToLayer(data);
+			});
+		}
+		
+		function addGraphicsToLayer(graphic) {
+			let startPointMarker = new Graphic(new Point([graphic.geometry.paths[0][0][0], graphic.geometry.paths[0][0][1]], map.spatialReference), startPointSymbol);
+			lineLayer.add(startPointMarker);
+			let startText = new Graphic(new Point([graphic.geometry.paths[0][0][0], graphic.geometry.paths[0][0][1]], map.spatialReference), startPointText);
+			lineLayer.add(startText);
+			let endPointMarker = new Graphic(new Point([graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][0], graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][1]], map.spatialReference), endPointSymbol);
+			lineLayer.add(endPointMarker);
+			let endText = new Graphic(new Point([graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][0], graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][1]], map.spatialReference), endPointText);
+			lineLayer.add(endText);
+			lineGraphic = new Graphic(graphic);
+			lineLayer.add(lineGraphic);
+		}
+		
+		function findLengthOfLine(geometry, unit, distance) {
+			let length = geometryEngine.planarLength(geometry, unit);
+			if(length < distance) {
+				alert("Invalid value! Length of Polyline is less than the specified length");
+			}
+			else if(length == distance) {}
+			else {
+				traverseLineSegments(geometry, unit, distance);
+			}
+		}
+		
+		function traverseLineSegments(geometry, unit, distance) {
+			let runningTotal = 0;
+			for(var i = 0; i < geometry.paths[0].length - 1; i++) {
+				let polylineJSON = {"paths":[[geometry.paths[0][i],geometry.paths[0][i +1]]],"spatialReference":{"wkid":102100}};
+				let polyline = new Polyline(polylineJSON);
+				let length = geometryEngine.planarLength(polyline, unit);
+				if(runningTotal + length < distance) runningTotal += length;
+				else {
+					i = geometry.paths[0].length;
+					calculatePointLocation(polyline.paths[0][0],polyline.paths[0][1], (distance-runningTotal), unit);
+				}
+			}
+		}
+		
+		function calculatePointLocation(point1, point2, distance, unit) {
+			let polylineJSON = {"paths":[[point1,point2]],"spatialReference":{"wkid":102100}};
+			let polyline = new Polyline(polylineJSON);
+			let length = geometryEngine.planarLength(polyline, unit);
+			if(length < (distance + tolerances[unit])) {
+				let point = new Point(point2, map.spatialReference);
+				addPointToMap(point);
+			}
+			else {
+				let point = calculateMidPoint(point1, point2);
+				calculatePointLocation(point1, point, distance, unit);
+			}
+		}
+		
+		function calculateMidPoint(point1, point2) {
+			let x = ((point1[0] + point2[0])/2);
+			let y = ((point1[1] + point2[1])/2);
+			return [x, y];
+		}
+		
+		function addPointToMap(point) {
+			positionLayer.clear();
+			let graphic = new Graphic(point, distanceSymbol);
+			positionLayer.add(graphic);
+		}
+		
+		map.on("layers-add-result", function() {getPolylineGraphic()});
+		
+		$("#placePointBtn").click((evt) => {
+			findLengthOfLine(lineGraphic.geometry, $("#unit").find(":selected").text().toLowerCase(), $("#distance").val());
+		});
+		
+		$("#splashScreen").fadeIn('slow');
+	
+		$(".btn-primary").click(function() {
+			$("#splashScreen").fadeOut('slow');
+		});
+		
+      });	
+    </script>
+</head>
+
+<body class="claro">
+	<div id="map"></div>
+	<div id="splashScreen">
+		<div class = "jumbotron">
+			<h1>Find Distance Along A Line</h1>
+			<p>Select a linear unit, enter a distance and click the "Place Point" buton to place a marker on the line the specified distance from the start.</p>
+			<p><a class = "btn btn-primary btn-lg splashBtn" role = "button">Got It!</a></p>
+		</div>
+    </div>
+	<div class = "form-container">
+		<div class = "form-group">
+			<label for = "unit" class="label-config">Unit</label>
+			<select class="form-control input-elements" id="unit">
+				<option>Feet</option>
+				<option>Yards</option>
+				<option>Miles</option>
+				<option>Meters</option>
+				<option>Kilometers</option>
+			</select>
+		<div class = "form-group">
+			<label for = "distance">Distance</label>
+			<input type = "text" class = "form-control input-elements" id = "distance" >
+		</div><br/>
+		<div class = "form-group">
+			<button id = "placePointBtn" type = "submit" class = "btn btn-primary">Place Point</button><br/>
+		</div>
+	</div>
+</body>
+</html>
