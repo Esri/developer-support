@@ -1,6 +1,6 @@
-#Add XY as Graphics on the map.
+# Add XY as Graphics on the map.
 
-##Steps
+### Steps
 
 1. This sample shows how to add the points on the map just using a Lat - Longs. if there is an array of x,y point you can programatically create point.
 
