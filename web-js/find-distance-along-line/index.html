@@ -66,14 +66,21 @@
 		"esri/geometry/geometryEngine",
 		"esri/geometry/Point",
 		"esri/geometry/Polyline",
+		"esri/symbols/Font",
 		"esri/symbols/SimpleLineSymbol",
 		"esri/symbols/SimpleMarkerSymbol",
+		"esri/symbols/TextSymbol",
 		"esri/layers/GraphicsLayer",
 		"dojo/domReady!"
-	  ], function(Color, Graphic, Map, geometryEngine, Point, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, GraphicsLayer) {
+	  ], function(Color, Graphic, Map, geometryEngine, Point, Polyline, Font, SimpleLineSymbol, SimpleMarkerSymbol, TextSymbol, GraphicsLayer) {
 	  
-		let lineGraphic = null;
-		let tolerances = {"feet":3,"yards":1,"miles":0.0005682,"meters":1.09361,"kilometers":0.0009144}
+		const tolerances = {"feet":3,"yards":1,"miles":0.0005682,"meters":1.09361,"kilometers":0.0009144}
+		const startPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_CIRCLE, 15, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,0,0,1]), 1),new Color([76, 115, 0, 1]));
+		const endPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 15, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0,0,0,1]), 1),new Color([230, 0, 0, 1]));
+		const distanceSymbolPath = "M16,3.5c-4.142,0-7.5,3.358-7.5,7.5c0,4.143,7.5,18.121,7.5,18.121S23.5,15.143,23.5,11C23.5,6.858,20.143,3.5,16,3.5z M16,14.584c-1.979,0-3.584-1.604-3.584-3.584S14.021,7.416,16,7.416S19.584,9.021,19.584,11S17.979,14.584,16,14.584z";
+		const distanceSymbol = new SimpleMarkerSymbol().setSize(28).setPath(distanceSymbolPath).setStyle(SimpleMarkerSymbol.STYLE_PATH).setColor(new Color([115, 178, 255, 1])).setOffset(0, 14);
+		const startPointText = new TextSymbol("Start").setFont(new Font("20px", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLDER)).setOffset(0, -25);
+		const endPointText = new TextSymbol("End").setFont(new Font("20px", Font.STYLE_NORMAL, Font.VARIANT_NORMAL, Font.WEIGHT_BOLDER)).setOffset(-10, 20);
 	  
         const map = new Map("map", {
 			basemap: "topo",
@@ -81,17 +88,26 @@
 			zoom: 18
         });
 		
+		let lineGraphic = null;
 		let lineLayer = new GraphicsLayer();
 		let positionLayer = new GraphicsLayer();
 		map.addLayers([lineLayer, positionLayer]);
 		
 		function getPolylineGraphic() {
 			$.getJSON("polyline.json").done(function(data) {
-				addGraphicToLayer(data);
+				addGraphicsToLayer(data);
 			});
 		}
 		
-		function addGraphicToLayer(graphic) {
+		function addGraphicsToLayer(graphic) {
+			let startPointMarker = new Graphic(new Point([graphic.geometry.paths[0][0][0], graphic.geometry.paths[0][0][1]], map.spatialReference), startPointSymbol);
+			lineLayer.add(startPointMarker);
+			let startText = new Graphic(new Point([graphic.geometry.paths[0][0][0], graphic.geometry.paths[0][0][1]], map.spatialReference), startPointText);
+			lineLayer.add(startText);
+			let endPointMarker = new Graphic(new Point([graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][0], graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][1]], map.spatialReference), endPointSymbol);
+			lineLayer.add(endPointMarker);
+			let endText = new Graphic(new Point([graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][0], graphic.geometry.paths[0][graphic.geometry.paths[0].length - 1][1]], map.spatialReference), endPointText);
+			lineLayer.add(endText);
 			lineGraphic = new Graphic(graphic);
 			lineLayer.add(lineGraphic);
 		}
@@ -143,8 +159,7 @@
 		
 		function addPointToMap(point) {
 			positionLayer.clear();
-			let sms = new SimpleMarkerSymbol(SimpleMarkerSymbol.STYLE_SQUARE, 10, new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255,0,0]), 1), new Color([0,255,0,0.25]));
-			let graphic = new Graphic(point, sms);
+			let graphic = new Graphic(point, distanceSymbol);
 			positionLayer.add(graphic);
 		}
 		
