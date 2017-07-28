@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
+    <title>CSVLayer sample</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.21/esri/css/esri.css">
+	<link rel="stylesheet" href="https://js.arcgis.com/3.21/dijit/themes/claro/claro.css">
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .dijitBorders{
+        margin:5px 5px 5px 5px; 
+        border:solid thin #9CAA9C;
+       -moz-border-radius: 4px;
+      }
+      .labelText{
+        color:#9CAA9C;
+        font-size:12pt;  
+        font-family:"Tahoma";
+        margin:5px;
+      }
+      .headerText{
+        color:#9CAA9C;
+        font-size:16pt;
+        font-weight:bold;
+        font-family: "Tahoma";
+      }
+    </style>
+    <script src="https://js.arcgis.com/3.21/"></script>
+    <script>
+      var map, csv;
+
+      require([
+		"esri/Color",
+		"esri/config",
+		"esri/InfoTemplate",
+        "esri/map",
+		"esri/request",
+		"esri/TimeExtent",
+		"esri/dijit/TimeSlider",
+        "esri/layers/CSVLayer",
+		"esri/layers/FeatureLayer",
+		"esri/layers/TimeInfo",
+		"esri/renderers/SimpleRenderer",
+        "esri/symbols/SimpleMarkerSymbol",
+		"dojo/dom",
+		"dojo/parser",
+		
+		"dijit/layout/BorderContainer",
+		"dijit/layout/ContentPane",
+        "dojo/domReady!"
+      ], function(
+        Color, esriConfig, InfoTemplate, Map, esriRequest, TimeExtent, TimeSlider, CSVLayer, FeatureLayer, TimeInfo, SimpleRenderer, SimpleMarkerSymbol, dom, parser
+      ) {
+		parser.parse();
+        
+        esriConfig.defaults.io.corsEnabledServers.push("earthquake.usgs.gov");
+		
+		const csvFileURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.csv";
+		const latitudeField = "latitude";
+		const longitudeField = "longitude";
+		const dateFields = ["time","updated"];
+		const startTimeField = "time";
+		const endTimeField = "";
+		const timeReference = {
+			timeZone: "UTC",
+			respectDaylightSaving: false
+		}
+
+        map = new Map("map", {
+          basemap: "gray",
+          center: [ -40, 0 ],
+          zoom: 2
+        });
+		
+		function getCSVFile(url) {
+			 esriRequest({
+				url: url,
+				content: {},
+				handleAs: "text"
+			 },{
+				usePost: false
+			 }).then((results) => {
+				parseFile(results);
+			 });
+		}
+		
+		function parseFile(results) {
+			let fields = [];
+			let features = [];
+			let fileLines = results.split(/\r?\n/);
+			let timeFieldIndexes = [];
+			let latitudeIndex = null;
+			let longitudeIndex = null;
+			let startTime = null;
+			let endTime = null;
+			
+			fields.push({
+				name: "OBJECTID",
+				type: "esriFieldTypeOID",
+				alias: "OID"						
+			});
+			
+			for(line in fileLines) {
+				// props to this guy: https://stackoverflow.com/questions/23582276/split-string-by-comma-but-ignore-commas-inside-quotes
+				let splitLine = fileLines[line].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+				splitLine = splitLine || [];
+				if(splitLine.length >= 3) {
+					if(line == 0) {
+						for(item in splitLine) {
+							fields.push({
+								name: splitLine[item],
+								alias: splitLine[item]
+							});
+							if(dateFields.indexOf(splitLine[item]) > -1) timeFieldIndexes.push(item);
+							else if(splitLine[item] == latitudeField) latitudeIndex = item;
+							else if(splitLine[item] == longitudeField) longitudeIndex = item;
+						}
+					}
+					else {
+						let latitude = null;
+						let longitude = null;
+						let attributes = {OBJECTID: features.length};
+						for(item in splitLine) {
+							let type = null;
+							if(timeFieldIndexes.indexOf(item) > -1) {
+								type = "esriFieldTypeDate";
+								splitLine[item] = Date.parse(splitLine[item]);
+								if(startTime && endTime) {
+									if(startTime > splitLine[item]) startTime = splitLine[item];
+									if(endTime < splitLine[item]) endTime = splitLine[item];
+								}
+								else {
+									startTime = splitLine[item];
+									endTime = splitLine[item];
+								}
+							}
+							else if(item == latitudeIndex) {
+								latitude = parseFloat(splitLine[item]);
+								type = "esriFieldTypeString";
+							}
+							else if(item == longitudeIndex) {
+								longitude = parseFloat(splitLine[item]);
+								type = "esriFieldTypeString";
+							}
+							else if(!isNaN(splitLine[item])) {
+								type = "esriFieldTypeDouble";
+								splitLine[item] = parseFloat(splitLine[item]);
+							}
+							else if(splitLine[item].toLowerCase() == "true") {
+								type = "esriFieldTypeBoolean";
+								splitLine[item] = true;
+							}
+							else if(splitLine[item].toLowerCase() == "false") {
+								type = "esriFieldTypeBoolean";
+								splitLine[item] = false;
+							}
+							else {
+								type = "esriFieldTypeString";
+							}
+							if(line == 1) fields[parseInt(item) + 1].type = type;
+							attributes[fields[parseInt(item) + 1].name] = splitLine[item];
+						}
+						
+						let point = {x:longitude, y:latitude, spatialReference:{wkid:4326,latestWkid:4326}};
+						let feature = {geometry:point, attributes: attributes};
+						features.push(feature);
+					}
+				}
+			}
+			createFeatureCollection(features, fields, true, startTime, endTime);
+		}
+		
+		function createFeatureCollection(features, fields, timeEnabled, startTime, endTime) {
+			let featureSet = {
+				objectIdFieldName: "OBJECTID",
+				displayFieldName: dateFields[0],
+				fieldAliases: null,
+				geometryType: "esriGeometryPoint",
+				spatialReference: {wkid:4326,latestWkid:4326},
+				features: features
+			}
+			let layerDefinition = {
+				geometryType: "esriGeometryPoint",
+				fields: fields,
+				timeInfo: {
+					startTimeField: startTimeField,
+					endTimeField: endTimeField,
+					trackIdField: "",
+					timeExtent: [
+						new Date(startTime),
+						new Date(endTime)
+					],
+					timeReference: timeReference,
+					timeInterval: 0,
+					exportOptions: {
+						useTime: false,
+						timeDataCumulative: false,
+						timeOffset: 0,
+						timeOffsetUnits: "esriTimeUnitsCenturies"
+					},
+					hasLiveData: false
+				}
+			}
+			let timeExtent = new TimeExtent(new Date(startTime), new Date(endTime));
+			let featureCollection = {layerDefinition: layerDefinition, featureSet: featureSet};
+			createFeatureLayer(featureCollection, timeExtent);
+		}
+		
+		function createFeatureLayer(featureCollection, timeExtent) {
+			let fLayer = new FeatureLayer(featureCollection, {
+				infoTemplate: new InfoTemplate("${type}", "${*}")
+			});
+			let orangeRed = new Color([238, 69, 0, 0.5]);
+			let marker = new SimpleMarkerSymbol("solid", 15, null, orangeRed);
+			let renderer = new SimpleRenderer(marker);
+			fLayer.setRenderer(renderer);
+			console.log(fLayer);
+			map.on("layers-add-result", (evt) => {
+				map.setTimeExtent(timeExtent);
+				createTimeSlider(evt.layers[0].layer, timeExtent);
+			});
+			map.addLayers([fLayer]);
+		}
+		
+		function createTimeSlider(layer, timeExtent) {
+		    let timeSlider = new TimeSlider({ style: "width: 100%;"}, "timeSlider");
+			timeSlider.setThumbCount(1);
+			timeSlider.createTimeStopsByTimeInterval(timeExtent, 1, TimeInfo.UNIT_DAYS);
+			timeSlider.setThumbIndexes([0]);
+			timeSlider.on("time-extent-change", displayTimeInfo);
+			timeSlider.startup();
+			map.setTimeSlider(timeSlider);
+			timeSlider.play();
+			timeSlider.setLoop(true);
+		}
+		
+		function displayTimeInfo(timeExtent) {
+			let info = timeExtent.startTime.toDateString() + " &nbsp;&nbsp;<i>to<\/i>&nbsp;&nbsp; " + timeExtent.endTime.toUTCString();
+			dom.byId("timeInfo").innerHTML = info;
+        }
+		
+		getCSVFile(csvFileURL);
+      });
+    </script>
+  </head>
+
+  <body>
+   <div id="mainWindow" 
+         data-dojo-type="dijit/layout/BorderContainer" 
+         data-dojo-propx="design:'sidebar', gutters:true" 
+         style="width:100%; height:100%;">
+     
+     <div id="header" 
+          data-dojo-type="dijit/layout/ContentPane" 
+          data-dojo-props="region:'top'" 
+          class="dijitBorders" style="height:100px;">
+      <center>
+        <span class="headerText">Recent Earthquakes</span>
+        <div id="timeInfo" class="labelText"></div>
+        <div id="timeSlider" ></div>
+      </center>
+     </div>
+      
+      <div id="map" data-dojo-type="dijit/layout/ContentPane" 
+           data-dojo-props="region:'center'" class="dijitBorders" 
+           style="background-color:inherit;">
+      </div>
+      
+     </div>
+  </body>
+</html>
