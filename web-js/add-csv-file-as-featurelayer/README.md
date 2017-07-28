@@ -97,7 +97,7 @@ for(item in splitLine) {
 		type = "esriFieldTypeBoolean";
 		splitLine[item] = true;
 	}
-	else if(splitLine[item].toLowerCase == "false") {
+	else if(splitLine[item].toLowerCase() == "false") {
 		type = "esriFieldTypeBoolean";
 		splitLine[item] = false;
 	}
