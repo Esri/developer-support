@@ -1,0 +1,7666 @@
+{
+  "displayFieldName" : "",
+  "fieldAliases" : {
+    "FID" : "FID",
+    "SprayWidth" : "SprayWidth",
+    "Spraying" : "Spraying"
+  },
+  "geometryType" : "esriGeometryPoint",
+  "spatialReference" : {
+    "wkid" : 102100,
+    "latestWkid" : 3857
+  },
+  "fields" : [
+    {
+      "name" : "FID",
+      "type" : "esriFieldTypeOID",
+      "alias" : "FID"
+    },
+    {
+      "name" : "SprayWidth",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "SprayWidth"
+    },
+    {
+      "name" : "Spraying",
+      "type" : "esriFieldTypeInteger",
+      "alias" : "Spraying"
+    }
+  ],
+  "features" : [
+    {
+      "attributes" : {
+        "FID" : 0,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978742.4966132604,
+        "y" : 4171632.2254436286
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 1,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978750.970034346,
+        "y" : 4171641.4049831382
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 2,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978757.678159371,
+        "y" : 4171651.2906410713
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 3,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978764.0332251862,
+        "y" : 4171662.941595064
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 4,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978769.682172576,
+        "y" : 4171675.2986674807
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 5,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978776.7433568146,
+        "y" : 4171691.1863320163
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 6,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978784.1576002631,
+        "y" : 4171706.3678781278
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 7,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978790.1596068665,
+        "y" : 4171723.3147202991
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 8,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978794.0432581976,
+        "y" : 4171734.6126150801
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 9,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978798.9860871639,
+        "y" : 4171752.6186348866
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 10,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978803.9289161302,
+        "y" : 4171769.5654770578
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 11,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978809.2248043083,
+        "y" : 4171784.3939639577
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 12,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978813.4615148511,
+        "y" : 4171801.6938653411
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 13,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978817.3451661821,
+        "y" : 4171818.6407075119
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 14,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978815.9329293352,
+        "y" : 4171833.4691944118
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 15,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978813.8145740628,
+        "y" : 4171850.416036583
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 16,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978810.6370411571,
+        "y" : 4171867.7159379665
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 17,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978808.5186858848,
+        "y" : 4171883.2505432898
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 18,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978806.7533898242,
+        "y" : 4171894.1953788581
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 19,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978803.9289161284,
+        "y" : 4171907.2585696983
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 20,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978801.4575016461,
+        "y" : 4171917.4972868436
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 21,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978799.3391463738,
+        "y" : 4171927.7360039884
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 22,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978797.9269095287,
+        "y" : 4171941.1522540408
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 23,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978795.8085542563,
+        "y" : 4171951.3909711861
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 24,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978792.9840805605,
+        "y" : 4171966.5725172977
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 25,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978790.86572529,
+        "y" : 4171975.3989975951
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 26,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978785.2167779002,
+        "y" : 4171977.8704120787
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 27,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978777.4494752381,
+        "y" : 4171973.2806423237
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 28,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978774.978060754,
+        "y" : 4171966.9255765094
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 29,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978778.8617120851,
+        "y" : 4171959.5113330595
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 30,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978781.6861857809,
+        "y" : 4171949.6256751264
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 31,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978783.4514818396,
+        "y" : 4171938.6808395577
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 32,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978784.8637186885,
+        "y" : 4171927.7360039884
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 33,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978787.3351331707,
+        "y" : 4171916.4381092079
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 34,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978790.1596068665,
+        "y" : 4171905.8463328509
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 35,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978791.9249029253,
+        "y" : 4171893.4892604342
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 36,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978795.1024358328,
+        "y" : 4171880.426069594
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 37,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978796.8677318916,
+        "y" : 4171865.9506419059
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 38,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978799.3391463757,
+        "y" : 4171853.5935694897
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 39,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978800.3983240109,
+        "y" : 4171841.9426154969
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 40,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978802.1636200715,
+        "y" : 4171831.7038983516
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 41,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978802.869738495,
+        "y" : 4171821.8182404186
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 42,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978801.4575016461,
+        "y" : 4171811.9325824855
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 43,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978797.5738503169,
+        "y" : 4171797.8102140091
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 44,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978794.3963174094,
+        "y" : 4171787.9245560761
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 45,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978789.1004292313,
+        "y" : 4171776.2736020833
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 46,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978785.2167779002,
+        "y" : 4171762.8573520314
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 47,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978780.9800673574,
+        "y" : 4171750.8533388264
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 48,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978778.5086528733,
+        "y" : 4171735.3187335031
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 49,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978774.978060754,
+        "y" : 4171722.9616610864
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 50,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978769.682172576,
+        "y" : 4171709.8984702462
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 51,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978761.2087514903,
+        "y" : 4171694.0108057107
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 52,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978754.1475672517,
+        "y" : 4171680.2414964465
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 53,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978748.8516790736,
+        "y" : 4171669.2966608778
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 54,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978744.6149685308,
+        "y" : 4171659.7640621564
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 55,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978739.6721395645,
+        "y" : 4171649.8784042234
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 56,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978731.9048369024,
+        "y" : 4171646.7008713163
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 57,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978724.8436526638,
+        "y" : 4171649.5253450111
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 58,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978717.4294092152,
+        "y" : 4171656.9395884611
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 59,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978719.9008236974,
+        "y" : 4171662.5885358518
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 60,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978726.2558895126,
+        "y" : 4171671.061956937
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 61,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978733.670132963,
+        "y" : 4171682.7129109297
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 62,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978741.0843764115,
+        "y" : 4171694.7169241346
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 63,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978747.0863830149,
+        "y" : 4171706.7209373391
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 64,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978752.382271193,
+        "y" : 4171717.6657729079
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 65,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978757.3251001593,
+        "y" : 4171730.7289637481
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 66,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978761.2087514903,
+        "y" : 4171743.4390953765
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 67,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978765.7985212449,
+        "y" : 4171760.032878336
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 68,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978768.9760541525,
+        "y" : 4171773.8021876002
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 69,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978771.8005278483,
+        "y" : 4171784.747023169
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 70,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978777.0964160264,
+        "y" : 4171799.9285692805
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 71,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978779.5678305086,
+        "y" : 4171810.1672864258
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 72,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978783.8045410514,
+        "y" : 4171822.1712996303
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 73,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978784.5106594767,
+        "y" : 4171833.822253623
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 74,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978782.3923042044,
+        "y" : 4171851.4752142183
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 75,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978779.5678305086,
+        "y" : 4171871.2465300844
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 76,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978776.0372383893,
+        "y" : 4171886.4280761965
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 77,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978774.6250015404,
+        "y" : 4171903.0218591555
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 78,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978772.8597054817,
+        "y" : 4171918.5564644793
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 79,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978771.0944094229,
+        "y" : 4171933.7380105909
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 80,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978767.5638173036,
+        "y" : 4171944.6828461597
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 81,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978762.9740475491,
+        "y" : 4171945.7420237954
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 82,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978757.6781593692,
+        "y" : 4171936.915543498
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 83,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978751.6761527676,
+        "y" : 4171923.1462342339
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 84,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978750.2639159206,
+        "y" : 4171916.7911684196
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 85,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978753.79450804,
+        "y" : 4171911.4952802411
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 86,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978757.6781593692,
+        "y" : 4171897.0198525535
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 87,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978759.4434554297,
+        "y" : 4171883.2505432894
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 88,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978761.2087514885,
+        "y" : 4171867.0098195416
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 89,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978764.3862843961,
+        "y" : 4171853.5935694897
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 90,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978766.8576988801,
+        "y" : 4171839.8242602255
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 91,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978767.5638173036,
+        "y" : 4171826.0549509614
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 92,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978765.4454620313,
+        "y" : 4171816.8754114518
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 93,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978759.7965146415,
+        "y" : 4171800.9877469162
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 94,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978756.6189817339,
+        "y" : 4171791.8082074071
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 95,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978752.3822711911,
+        "y" : 4171778.3919573547
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 96,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978748.1455606483,
+        "y" : 4171767.0940625742
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 97,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978743.5557908937,
+        "y" : 4171750.8533388264
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 98,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978739.6721395627,
+        "y" : 4171737.0840295623
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 99,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978733.3170737494,
+        "y" : 4171720.4902466033
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 100,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978725.5497710872,
+        "y" : 4171704.249522856
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 101,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978717.7824684251,
+        "y" : 4171687.6557398965
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 102,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978708.9559881277,
+        "y" : 4171678.4762003869
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 103,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978702.2478631008,
+        "y" : 4171673.5333714206
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 104,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978690.9499683212,
+        "y" : 4171681.653733294
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 105,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978690.5969091095,
+        "y" : 4171689.4210359561
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 106,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978695.8927972876,
+        "y" : 4171699.6597531009
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 107,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978704.3662183732,
+        "y" : 4171713.7821215773
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 108,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978712.4865802471,
+        "y" : 4171724.7269571461
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 109,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978721.3130605444,
+        "y" : 4171737.0840295623
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 110,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978725.902830299,
+        "y" : 4171749.7941611907
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 111,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978730.4926000535,
+        "y" : 4171764.2695888788
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 112,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978735.4354290199,
+        "y" : 4171782.9817271098
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 113,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978741.4374356233,
+        "y" : 4171802.3999837642
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 114,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978746.7333238013,
+        "y" : 4171818.6407075115
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 115,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978749.9108567089,
+        "y" : 4171829.5855430802
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 116,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978749.9108567089,
+        "y" : 4171842.2956747087
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 117,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978747.0863830131,
+        "y" : 4171855.0058063371
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 118,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978742.8496724702,
+        "y" : 4171872.3057077201
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 119,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978742.4966132585,
+        "y" : 4171885.3688985608
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 120,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978738.6129619274,
+        "y" : 4171890.6647867393
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 121,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978731.9048369005,
+        "y" : 4171876.8954774751
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 122,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978725.902830299,
+        "y" : 4171858.1833392442
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 123,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978728.7273039948,
+        "y" : 4171849.0037997351
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 124,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978731.9048369005,
+        "y" : 4171830.9977799281
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 125,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978728.0211855713,
+        "y" : 4171810.1672864258
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 126,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978717.7824684251,
+        "y" : 4171788.2776152883
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 127,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978713.1926986706,
+        "y" : 4171769.9185362691
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 128,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978707.5437512808,
+        "y" : 4171757.2084046407
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 129,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978700.4825670421,
+        "y" : 4171741.3207401051
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 130,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978694.4805604406,
+        "y" : 4171726.8453124175
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 131,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978683.5357248709,
+        "y" : 4171713.7821215773
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 132,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978676.1214814205,
+        "y" : 4171706.0148189152
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 133,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978667.2950011231,
+        "y" : 4171713.0760031533
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 134,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978666.5888826996,
+        "y" : 4171726.1391939935
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 135,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978680.711251175,
+        "y" : 4171743.7921545887
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 136,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978696.9519749228,
+        "y" : 4171764.2695888788
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 137,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978705.4253960084,
+        "y" : 4171781.2164310501
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 138,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978712.4865802471,
+        "y" : 4171803.4591613999
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 139,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978718.1355276369,
+        "y" : 4171821.1121219946
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 140,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978711.4274026118,
+        "y" : 4171814.0509377569
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 141,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978703.3070407379,
+        "y" : 4171796.7510363734
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 142,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978689.5377314743,
+        "y" : 4171774.8613652359
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 143,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978674.3561853617,
+        "y" : 4171756.8553454289
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 144,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978661.6460537333,
+        "y" : 4171754.7369901575
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 145,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978651.0542773753,
+        "y" : 4171760.032878336
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 146,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978645.0522707738,
+        "y" : 4171769.2124178456
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 147,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978651.4073365889,
+        "y" : 4171788.9837337118
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 148,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978659.527698461,
+        "y" : 4171803.1061021877
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 149,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978668.7072379701,
+        "y" : 4171821.4651812068
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 150,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978677.8867774792,
+        "y" : 4171843.3548523444
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 151,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978685.6540801413,
+        "y" : 4171859.5955760917
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 152,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978696.5989157092,
+        "y" : 4171876.5424182629
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 153,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978705.4253960084,
+        "y" : 4171896.6667933413
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 154,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978714.9579947293,
+        "y" : 4171917.1442276319
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 155,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978723.4314158149,
+        "y" : 4171934.4441290149
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 156,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978731.9048369005,
+        "y" : 4171948.9195567025
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 157,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978741.4374356214,
+        "y" : 4171962.3358067549
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 158,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978748.49861986,
+        "y" : 4171975.7520568073
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 159,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978754.5006264616,
+        "y" : 4171987.4030107995
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 160,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978753.0883896146,
+        "y" : 4171999.7600832162
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 161,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978749.5577974953,
+        "y" : 4172001.5253792759
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 162,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978746.027205376,
+        "y" : 4171994.8172542495
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 163,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978736.8476658668,
+        "y" : 4171981.0479449858
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 164,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978725.1967118736,
+        "y" : 4171957.7460370003
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 165,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978715.6641131528,
+        "y" : 4171941.1522540408
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 166,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978700.4825670402,
+        "y" : 4171917.1442276319
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 167,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978693.0683235917,
+        "y" : 4171900.9035038841
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 168,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978683.8887840807,
+        "y" : 4171883.2505432894
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 169,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978674.0031261481,
+        "y" : 4171863.8322866345
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 170,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978666.5888826977,
+        "y" : 4171845.826266828
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 171,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978656.3501655534,
+        "y" : 4171826.0549509614
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 172,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978647.8767444678,
+        "y" : 4171809.1081087901
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 173,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978640.8155602291,
+        "y" : 4171793.5735034663
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 174,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978636.9319088981,
+        "y" : 4171781.9225494741
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 175,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978626.340132542,
+        "y" : 4171769.9185362691
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 176,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978613.6300009135,
+        "y" : 4171769.2124178456
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 177,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978605.8626982514,
+        "y" : 4171781.5694902618
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 178,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978616.8075338211,
+        "y" : 4171795.338799526
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 179,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978631.2829615083,
+        "y" : 4171818.6407075115
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 180,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978640.8155602291,
+        "y" : 4171834.528372047
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 181,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978650.7012181636,
+        "y" : 4171853.2405102779
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 182,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978660.5868760962,
+        "y" : 4171871.2465300844
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 183,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978671.5317116659,
+        "y" : 4171890.3117275271
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 184,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978677.8867774792,
+        "y" : 4171904.0810367912
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 185,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978685.3010209296,
+        "y" : 4171918.2034052676
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 186,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978698.3642117698,
+        "y" : 4171937.621661922
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 187,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978708.2498697024,
+        "y" : 4171955.6276817289
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 188,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978715.6641131528,
+        "y" : 4171970.1031094166
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 189,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978718.4885868486,
+        "y" : 4171981.4010041975
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 190,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978699.423389405,
+        "y" : 4171967.9847541451
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 191,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978690.9499683194,
+        "y" : 4171956.3338001524
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 192,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978677.8867774792,
+        "y" : 4171939.0338987694
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 193,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978668.0011195466,
+        "y" : 4171923.8523526578
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 194,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978657.4093431886,
+        "y" : 4171905.8463328509
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 195,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978647.523685256,
+        "y" : 4171891.017845951
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 196,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978637.9910865352,
+        "y" : 4171873.717944568
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 197,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978627.7523693889,
+        "y" : 4171856.418043185
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 198,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978618.9258890916,
+        "y" : 4171840.8834378612
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 199,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978612.92388249,
+        "y" : 4171828.5263654445
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 200,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978607.2749350984,
+        "y" : 4171819.6998851472
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 201,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978601.2729284968,
+        "y" : 4171808.4019903662
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 202,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978592.4464481995,
+        "y" : 4171800.2816284928
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 203,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978581.148553418,
+        "y" : 4171803.4591613999
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 204,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978575.1465468165,
+        "y" : 4171817.228470664
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 205,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978585.0322047491,
+        "y" : 4171824.2896549017
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 206,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978595.623981107,
+        "y" : 4171840.1773194373
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 207,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978606.9218758866,
+        "y" : 4171856.7711023968
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 208,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978619.2789483033,
+        "y" : 4171871.2465300844
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 209,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978627.0462509654,
+        "y" : 4171887.13419462
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 210,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978639.0502641704,
+        "y" : 4171901.9626815198
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 211,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978649.2889813147,
+        "y" : 4171918.5564644793
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 212,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978653.5256918576,
+        "y" : 4171931.6196553195
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 213,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978641.1686194409,
+        "y" : 4171928.0890632006
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 214,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978624.5748364832,
+        "y" : 4171915.0258723604
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 215,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978613.2769417018,
+        "y" : 4171901.2565630963
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 216,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978601.6259877086,
+        "y" : 4171887.13419462
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 217,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978591.0342113525,
+        "y" : 4171869.128174813
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 218,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978584.3260863256,
+        "y" : 4171858.8894576682
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 219,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978573.7343099695,
+        "y" : 4171846.8854444637
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 220,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978562.7894743998,
+        "y" : 4171834.8814312587
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 221,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978555.0221717376,
+        "y" : 4171832.4100167756
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 222,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978550.0793427732,
+        "y" : 4171843.0017931326
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 223,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978556.0813493766,
+        "y" : 4171853.5935694897
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 224,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978564.2017112505,
+        "y" : 4171865.2445234824
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 225,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978574.7934876066,
+        "y" : 4171878.3077143226
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 226,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978583.6199679039,
+        "y" : 4171891.017845951
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 227,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978592.0933889896,
+        "y" : 4171907.9646881223
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 228,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978597.0362179559,
+        "y" : 4171921.7339973864
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 229,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978593.5056258384,
+        "y" : 4171929.1482408363
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 230,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978585.3852639645,
+        "y" : 4171926.323767141
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 231,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978575.8526652437,
+        "y" : 4171916.7911684196
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 232,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978566.3200665209,
+        "y" : 4171904.4340960034
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 233,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978556.0813493766,
+        "y" : 4171888.1933722557
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 234,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978550.4324019868,
+        "y" : 4171880.0730103822
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 235,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978544.7834545951,
+        "y" : 4171867.0098195416
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 236,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978538.7814479936,
+        "y" : 4171860.3016945156
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 237,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978526.7774347886,
+        "y" : 4171862.420049787
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 238,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978527.4835532121,
+        "y" : 4171871.5995892966
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 239,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978538.0753295701,
+        "y" : 4171886.0750169843
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 240,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978545.1365138069,
+        "y" : 4171898.4320894009
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 241,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978554.316053316,
+        "y" : 4171912.2013986651
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 242,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978562.0833559781,
+        "y" : 4171922.7931750221
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 243,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978576.2057244554,
+        "y" : 4171936.915543498
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 244,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978582.207731057,
+        "y" : 4171945.3889645836
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 245,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978583.2669086922,
+        "y" : 4171956.6868593646
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 246,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978580.4424349982,
+        "y" : 4171963.3949843906
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 247,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978575.4996060301,
+        "y" : 4171967.2786357217
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 248,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978568.0853625815,
+        "y" : 4171964.807221238
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 249,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978560.3180599194,
+        "y" : 4171958.0990962121
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 250,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978551.491579622,
+        "y" : 4171948.9195567025
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 251,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978543.7242769599,
+        "y" : 4171937.621661922
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 252,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978537.016151933,
+        "y" : 4171925.9707079292
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 253,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978529.6019084845,
+        "y" : 4171913.6136355125
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 254,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978523.5999018811,
+        "y" : 4171904.7871552152
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 255,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978517.9509544913,
+        "y" : 4171895.2545564938
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 256,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978507.7122373469,
+        "y" : 4171885.7219577725
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 257,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978499.2388162594,
+        "y" : 4171894.1953788581
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 258,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978499.9449346829,
+        "y" : 4171907.2585696983
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 259,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978511.9489478879,
+        "y" : 4171919.2625829033
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 260,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978523.2468426675,
+        "y" : 4171935.5033066506
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 261,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978531.3672045413,
+        "y" : 4171947.1542606433
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 262,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978539.4875664152,
+        "y" : 4171962.6888659666
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 263,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978550.0793427732,
+        "y" : 4171973.2806423237
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 264,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978558.9058230706,
+        "y" : 4171983.1663002572
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 265,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978568.7914810032,
+        "y" : 4171991.2866621306
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 266,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978574.7934876066,
+        "y" : 4172000.4662016402
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 267,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978574.0873691812,
+        "y" : 4172011.7640964207
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 268,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978571.9690139107,
+        "y" : 4172018.4722214472
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 269,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978563.8486520369,
+        "y" : 4172015.6477477518
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 270,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978551.1385204084,
+        "y" : 4172005.4090306065
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 271,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978544.7834545951,
+        "y" : 4171996.5825503091
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 272,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978536.6630927213,
+        "y" : 4171987.7560700118
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 273,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978529.9549676944,
+        "y" : 4171978.5765305022
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 274,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978523.9529610928,
+        "y" : 4171969.3969909931
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 275,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978517.9509544894,
+        "y" : 4171960.9235699074
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 276,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978511.5958886761,
+        "y" : 4171952.0970896096
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 277,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978507.0061189216,
+        "y" : 4171942.2114316765
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 278,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978499.2388162594,
+        "y" : 4171931.2665961077
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 279,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978488.2939806897,
+        "y" : 4171920.6748197507
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 280,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978480.1736188158,
+        "y" : 4171914.6728131482
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 281,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978472.053256942,
+        "y" : 4171919.615642115
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 282,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978465.6981911287,
+        "y" : 4171925.617648717
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 283,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978473.8185530026,
+        "y" : 4171938.6808395577
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 284,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978483.7042109352,
+        "y" : 4171948.5664974907
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 285,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978496.7674017753,
+        "y" : 4171961.9827475431
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 286,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978508.0652965568,
+        "y" : 4171977.1642936547
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 287,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978519.0101321246,
+        "y" : 4171993.405017402
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 288,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978526.0713163633,
+        "y" : 4172004.3498529708
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 289,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978533.4855598137,
+        "y" : 4172015.6477477518
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 290,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978545.4895730186,
+        "y" : 4172024.1211688374
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 291,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978554.316053316,
+        "y" : 4172029.0639978042
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 292,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978563.4955928251,
+        "y" : 4172037.1843596776
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 293,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978566.6731257327,
+        "y" : 4172049.5414320943
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 294,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978564.9078296721,
+        "y" : 4172057.6617939677
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 295,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978555.3752309512,
+        "y" : 4172056.9556755442
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 296,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978545.1365138069,
+        "y" : 4172049.894491306
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 297,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978535.2508558724,
+        "y" : 4172038.9496557373
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 298,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978520.4223689735,
+        "y" : 4172025.5334056849
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 299,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978504.8877636492,
+        "y" : 4172012.4702148447
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 300,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978491.1184543855,
+        "y" : 4172000.113142428
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 301,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978484.7633885704,
+        "y" : 4171991.6397213424
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 302,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978470.2879608832,
+        "y" : 4171983.5193594689
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 303,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978454.4002963472,
+        "y" : 4171975.3989975951
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 304,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978440.6309870835,
+        "y" : 4171966.9255765094
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 305,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978433.5698028449,
+        "y" : 4171961.6296883309
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 306,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978435.3350989055,
+        "y" : 4171955.6276817289
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 307,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978444.5146384146,
+        "y" : 4171946.0950830076
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 308,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978457.224770043,
+        "y" : 4171949.2726159147
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 309,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978472.053256942,
+        "y" : 4171963.0419251788
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 310,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978486.1756254192,
+        "y" : 4171975.3989975951
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 311,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978499.5918754712,
+        "y" : 4171988.1091292235
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 312,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978505.8087270483,
+        "y" : 4171983.8967253845
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 313,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978501.5753852483,
+        "y" : 4171974.3717063344
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 314,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978485.7003534995,
+        "y" : 4171962.200848659
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 315,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978473.5294958241,
+        "y" : 4171952.1466618842
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 316,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978457.6544640735,
+        "y" : 4171938.388301034
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 317,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978446.0127741229,
+        "y" : 4171934.1549592339
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 318,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978444.4252709486,
+        "y" : 4171925.1591079091
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 319,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978455.0086254478,
+        "y" : 4171915.1049211337
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 320,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978467.7086508479,
+        "y" : 4171902.404895734
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 321,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978480.9378439728,
+        "y" : 4171894.4673798587
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 322,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978481.9961794224,
+        "y" : 4171890.2340380587
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 323,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978475.1169989966,
+        "y" : 4171883.8840253586
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 324,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978465.062812224,
+        "y" : 4171875.9465094837
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 325,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978457.1252963487,
+        "y" : 4171872.2423354085
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 326,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978445.4836063981,
+        "y" : 4171875.4173417585
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 327,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978436.4877550732,
+        "y" : 4171884.9423608086
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 328,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978430.6669100989,
+        "y" : 4171896.5840507587
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 329,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978427.1115644556,
+        "y" : 4171900.260664016
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 330,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978417.983421199,
+        "y" : 4171890.3387691723
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 331,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978407.2677747682,
+        "y" : 4171875.6543648033
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 332,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978396.9490041304,
+        "y" : 4171862.160587816
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 333,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978385.8364819046,
+        "y" : 4171851.4449413847
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 334,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978375.5177112669,
+        "y" : 4171841.126170747
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 335,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978362.8176858667,
+        "y" : 4171831.9980274905
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 336,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978349.7207846735,
+        "y" : 4171826.441766378
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 337,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978335.433256099,
+        "y" : 4171826.441766378
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 338,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978336.2270076852,
+        "y" : 4171830.4105243157
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 339,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978346.545778323,
+        "y" : 4171837.5542886034
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 340,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978358.4520521369,
+        "y" : 4171847.8730592406
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 341,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978369.9614501558,
+        "y" : 4171858.1918298784
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 342,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978381.0739723798,
+        "y" : 4171865.3355941656
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 343,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978390.5989914294,
+        "y" : 4171876.448116391
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 344,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978396.5521283355,
+        "y" : 4171883.5918806782
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 345,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978406.8708989732,
+        "y" : 4171899.4669124284
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 346,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978415.2052906435,
+        "y" : 4171905.0231735408
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 347,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978414.8084148485,
+        "y" : 4171914.1513167974
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 348,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978406.077147387,
+        "y" : 4171918.5169505286
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 349,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978396.9490041304,
+        "y" : 4171912.1669378285
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 350,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978387.4239850808,
+        "y" : 4171901.8481671908
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 351,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978382.264599761,
+        "y" : 4171893.9106513159
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 352,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978371.5489533301,
+        "y" : 4171883.1950048846
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 353,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978358.84892793,
+        "y" : 4171870.8918552785
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 354,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978350.5145362616,
+        "y" : 4171860.9699604344
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 355,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978340.9895172119,
+        "y" : 4171851.4449413847
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 356,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978329.083243398,
+        "y" : 4171842.3167981282
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 357,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978320.3519759364,
+        "y" : 4171841.5230465406
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 358,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978310.8269568868,
+        "y" : 4171844.6980528906
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 359,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978314.7957148235,
+        "y" : 4171852.2386929719
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 360,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978329.480119193,
+        "y" : 4171864.938718372
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 361,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978343.7676477674,
+        "y" : 4171875.2574890098
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 362,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978358.4520521369,
+        "y" : 4171889.1481417911
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 363,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978370.7552017421,
+        "y" : 4171899.8637882224
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 364,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978377.8989660293,
+        "y" : 4171909.7856830661
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 365,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978387.4239850808,
+        "y" : 4171920.5013294974
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 366,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978390.9958672244,
+        "y" : 4171928.4388453723
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 367,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978398.843026869,
+        "y" : 4171926.0466949819
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 368,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978403.6793561205,
+        "y" : 4171914.5757534089
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 369,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978416.9085492473,
+        "y" : 4171901.8757280088
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 370,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978424.316897396,
+        "y" : 4171890.7632057839
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 371,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978438.6044259723,
+        "y" : 4171872.2423354085
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 372,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978450.7752836458,
+        "y" : 4171862.7173163588
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 373,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978463.475309046,
+        "y" : 4171855.8381359335
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 374,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978469.825321747,
+        "y" : 4171854.2506327587
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 375,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978475.5304112937,
+        "y" : 4171851.4449413847
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 376,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978485.4523061365,
+        "y" : 4171843.9043013034
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 377,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978494.1835735999,
+        "y" : 4171835.5699096345
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 378,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978505.6929716188,
+        "y" : 4171822.4730084408
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 379,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978512.4398601111,
+        "y" : 4171813.7417409779
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 380,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978524.346133925,
+        "y" : 4171798.6604608153
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 381,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978536.6492835302,
+        "y" : 4171787.944814384
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 382,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978543.3961720243,
+        "y" : 4171776.0385405715
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 383,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978556.0961974245,
+        "y" : 4171763.7353909654
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 384,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978567.6055954434,
+        "y" : 4171753.019744534
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 385,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978580.7024966367,
+        "y" : 4171738.3353401651
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 386,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978588.640012512,
+        "y" : 4171728.4134453214
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 387,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978598.1650315616,
+        "y" : 4171718.0946746836
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 388,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978609.6744295806,
+        "y" : 4171707.3790282523
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 389,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978620.7869518064,
+        "y" : 4171695.4727544398
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 390,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978621.9775791876,
+        "y" : 4171684.3602322149
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 391,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978619.1994486321,
+        "y" : 4171677.2164679272
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 392,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978611.6588085499,
+        "y" : 4171676.8195921336
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 393,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978606.102547437,
+        "y" : 4171686.7414869773
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 394,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978594.990025213,
+        "y" : 4171698.2508849963
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 395,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978583.480627194,
+        "y" : 4171710.1571588088
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 396,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978573.9556081444,
+        "y" : 4171722.8571842089
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 397,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978562.0493343305,
+        "y" : 4171731.5884516714
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 398,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978549.7461847253,
+        "y" : 4171746.669731834
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 399,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978537.8399109114,
+        "y" : 4171757.7822540589
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 400,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978531.0930224191,
+        "y" : 4171769.6885278714
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 401,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978518.7898728121,
+        "y" : 4171782.3885532715
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 402,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978504.5023442376,
+        "y" : 4171798.2635850217
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 403,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978497.3585799485,
+        "y" : 4171808.5823556595
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 404,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978489.0241882801,
+        "y" : 4171819.6948778844
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 405,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978479.1022934373,
+        "y" : 4171829.2198969345
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 406,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978468.7835227996,
+        "y" : 4171834.3792822533
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 407,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978464.5336444974,
+        "y" : 4171829.3797496832
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 408,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978460.0522553362,
+        "y" : 4171820.0917536779
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 409,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978467.9897712115,
+        "y" : 4171815.7261199467
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 410,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978476.7210386749,
+        "y" : 4171804.6135977218
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 411,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978484.6585545484,
+        "y" : 4171795.0885786717
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 412,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978496.1679525673,
+        "y" : 4171784.3729322404
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 413,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978504.8992200308,
+        "y" : 4171771.2760310466
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 414,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978516.8054938428,
+        "y" : 4171760.5603846153
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 415,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978526.7273886874,
+        "y" : 4171748.6541108028
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 416,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978538.2367867064,
+        "y" : 4171737.1447127839
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 417,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978546.1743025817,
+        "y" : 4171725.6353147649
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 418,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978556.8899490125,
+        "y" : 4171713.7290409524
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 419,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978564.8274648879,
+        "y" : 4171705.3946492835
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 420,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978574.7493597306,
+        "y" : 4171695.0758786462
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 421,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978583.0837513991,
+        "y" : 4171685.5508595961
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 422,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978594.1962736249,
+        "y" : 4171675.6289647524
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 423,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978603.7212926745,
+        "y" : 4171666.1039457023
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 424,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978612.055684343,
+        "y" : 4171659.7539330022
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 425,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978613.6431875192,
+        "y" : 4171651.0226655398
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 426,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978607.6900506131,
+        "y" : 4171644.2757770461
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 427,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978599.3556589428,
+        "y" : 4171645.4664044273
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 428,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978587.8462609258,
+        "y" : 4171655.388299271
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 429,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978577.527490288,
+        "y" : 4171667.2945730835
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 430,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978567.6055954434,
+        "y" : 4171679.5977226896
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 431,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978556.8899490125,
+        "y" : 4171689.5196175338
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 432,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978544.9836752005,
+        "y" : 4171700.2352639651
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 433,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978536.2524077371,
+        "y" : 4171711.7446619836
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 434,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978523.94925813,
+        "y" : 4171725.6353147649
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 435,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978512.042984318,
+        "y" : 4171740.7165949275
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 436,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978500.1367105059,
+        "y" : 4171749.4478623904
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 437,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978490.2148156613,
+        "y" : 4171760.1635088217
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 438,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978480.6897966117,
+        "y" : 4171771.2760310466
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 439,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978468.3866470046,
+        "y" : 4171785.9604354156
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 440,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978457.2741247807,
+        "y" : 4171797.0729576405
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 441,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978448.58479302,
+        "y" : 4171803.4914498706
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 442,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978439.0178382676,
+        "y" : 4171805.0104735154
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 443,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978431.8740739804,
+        "y" : 4171799.8510881965
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 444,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978437.4303350933,
+        "y" : 4171790.3260691469
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 445,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978446.1616025548,
+        "y" : 4171780.0072985091
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 446,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978456.8772489876,
+        "y" : 4171768.8947762842
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 447,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978467.5928954184,
+        "y" : 4171759.3697572341
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 448,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978479.4991692305,
+        "y" : 4171745.4791044528
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 449,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978490.6116914563,
+        "y" : 4171734.7634580215
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 450,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978504.8992200308,
+        "y" : 4171720.4759294465
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 451,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978519.5836244002,
+        "y" : 4171706.1884008711
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 452,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978531.8867740054,
+        "y" : 4171694.6790028526
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 453,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978543.3961720243,
+        "y" : 4171683.1696048337
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 454,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978562.0493343305,
+        "y" : 4171665.3101941147
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 455,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978572.7649807632,
+        "y" : 4171652.6101687145
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 456,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978569.9868502058,
+        "y" : 4171649.8320381586
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 457,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978550.1430605184,
+        "y" : 4171658.1664298275
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 458,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978541.2949784417,
+        "y" : 4171668.6595135387
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 459,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978531.4898982123,
+        "y" : 4171675.6289647524
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 460,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978516.8054938428,
+        "y" : 4171684.3602322149
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 461,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978502.5179652683,
+        "y" : 4171699.0446365839
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 462,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978488.2304366939,
+        "y" : 4171713.3321651588
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 463,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978475.5304112937,
+        "y" : 4171725.2384389713
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 464,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978461.2428827174,
+        "y" : 4171736.7478369903
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 465,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978448.5428573173,
+        "y" : 4171748.6541108028
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 466,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978435.445956124,
+        "y" : 4171758.9728814401
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 467,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978423.142806517,
+        "y" : 4171771.2760310466
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 468,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978416.7927938178,
+        "y" : 4171780.8010500968
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 469,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978415.9990422297,
+        "y" : 4171789.5323175592
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 470,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978416.9085492473,
+        "y" : 4171799.7463570833
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 471,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978425.0897460319,
+        "y" : 4171806.6664562207
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 472,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978434.3710841723,
+        "y" : 4171811.3880470335
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 473,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978446.012774121,
+        "y" : 4171817.7380597335
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 474,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978456.8772489876,
+        "y" : 4171827.2355179656
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 475,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978461.2428827174,
+        "y" : 4171833.1886548721
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 476,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978476.1753344461,
+        "y" : 4171839.4339364585
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 477,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978476.1753344461,
+        "y" : 4171847.9006200586
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 478,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978461.8878058717,
+        "y" : 4171859.5423100088
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 479,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978450.7752836458,
+        "y" : 4171865.8923227089
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 480,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978457.1252963468,
+        "y" : 4171872.7715031337
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 481,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978468.171715878,
+        "y" : 4171877.0248174258
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 482,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978476.175334448,
+        "y" : 4171883.3548576338
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 483,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978492.2488473654,
+        "y" : 4171881.787326951
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 484,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978505.8087270465,
+        "y" : 4171871.7131676837
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 485,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978523.2712619714,
+        "y" : 4171851.0756264087
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 486,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978544.9671386965,
+        "y" : 4171830.9672528584
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 487,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978558.1963318232,
+        "y" : 4171810.8588793082
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 488,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978569.3088540491,
+        "y" : 4171798.6880216333
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 489,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978580.9505439997,
+        "y" : 4171787.0463316832
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 490,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978599.4714143742,
+        "y" : 4171767.4671258582
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 491,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978621.1672910992,
+        "y" : 4171745.7712491332
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 492,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978643.392335549,
+        "y" : 4171722.4878692329
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 493,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978658.2090318501,
+        "y" : 4171705.0253343079
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 494,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978674.6132313255,
+        "y" : 4171684.3877930325
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 495,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978694.1924371496,
+        "y" : 4171663.7502517574
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 496,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978707.4216302745,
+        "y" : 4171649.4627231825
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 497,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978720.1216556747,
+        "y" : 4171635.7043623324
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 498,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978733.3508487996,
+        "y" : 4171620.3584983074
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 499,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978748.6967128254,
+        "y" : 4171608.7168083573
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 500,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978762.1243871208,
+        "y" : 4171616.4097128576
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 501,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978772.4431577586,
+        "y" : 4171627.5222350829
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 502,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978783.8202638458,
+        "y" : 4171643.1326829707
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 503,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978793.6098667588,
+        "y" : 4171658.7431308585
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 504,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978803.9286373965,
+        "y" : 4171675.1473303339
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 505,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978809.2203146461,
+        "y" : 4171687.0536041469
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 506,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978813.4536564462,
+        "y" : 4171700.5473811347
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 507,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978816.0994950719,
+        "y" : 4171714.5703258472
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 508,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978820.0682530086,
+        "y" : 4171725.1536803478
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 509,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978825.8890979849,
+        "y" : 4171732.5620284979
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 510,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978830.3373709098,
+        "y" : 4171735.5572096091
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 511,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978838.589123385,
+        "y" : 4171725.947431935
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 512,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978836.2905078158,
+        "y" : 4171712.9352893652
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 513,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978833.5123772584,
+        "y" : 4171703.0133945211
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 514,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978829.5932720583,
+        "y" : 4171693.6682007094
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 515,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978825.3599302582,
+        "y" : 4171685.9952686969
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 516,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978821.3911723215,
+        "y" : 4171679.380672134
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 517,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978815.8349112086,
+        "y" : 4171667.4743983215
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 518,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978811.0724016838,
+        "y" : 4171657.4202115461
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 519,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978804.4578051213,
+        "y" : 4171645.5139377336
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 520,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978797.5786246955,
+        "y" : 4171636.5180864083
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 521,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978791.4435431212,
+        "y" : 4171629.1944968835
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 522,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978785.4077670202,
+        "y" : 4171622.2305578329
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 523,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978779.8515059073,
+        "y" : 4171616.1451289952
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 524,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978773.2369093448,
+        "y" : 4171610.3242840203
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 525,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978768.0278712902,
+        "y" : 4171604.5881976709
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 526,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978768.7389836852,
+        "y" : 4171599.2117617945
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 527,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978774.2952447981,
+        "y" : 4171593.6555006816
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 528,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978781.5216482766,
+        "y" : 4171599.031936558
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 529,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978789.4591641519,
+        "y" : 4171605.381949258
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 530,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978798.1077924222,
+        "y" : 4171612.4409549194
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 531,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978807.3185748719,
+        "y" : 4171623.6382357706
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 532,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978812.1307371352,
+        "y" : 4171632.8139123325
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 533,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978817.9515821114,
+        "y" : 4171639.6930927578
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 534,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978822.7140916362,
+        "y" : 4171651.5993665704
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 535,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978827.4766011611,
+        "y" : 4171664.0348081081
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 536,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978831.9745268244,
+        "y" : 4171675.9410819211
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 537,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978837.0016202107,
+        "y" : 4171682.2910946212
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 538,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978845.7328876741,
+        "y" : 4171683.3494300712
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 539,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978849.4370617494,
+        "y" : 4171677.5285850959
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 540,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978849.9662294742,
+        "y" : 4171666.9452305958
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 541,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978846.2620553989,
+        "y" : 4171659.5368824457
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 542,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978839.6474588364,
+        "y" : 4171645.7785215955
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 543,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978833.8266138621,
+        "y" : 4171633.6076639201
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 544,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978828.5349366106,
+        "y" : 4171625.1409803201
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 545,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978820.5974207353,
+        "y" : 4171615.3513774071
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 546,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978810.8904570155,
+        "y" : 4171603.0006944956
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 547,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978798.1077924222,
+        "y" : 4171595.2430038569
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 548,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978788.3181895111,
+        "y" : 4171588.6284072939
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 549,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978782.4973445348,
+        "y" : 4171578.8388043814
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 550,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978785.9369347468,
+        "y" : 4171573.282543269
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 551,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978793.6098667607,
+        "y" : 4171572.7533755437
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 552,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978805.780724436,
+        "y" : 4171578.0450527938
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 553,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978817.1578305233,
+        "y" : 4171587.3054879815
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 554,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978827.2120172977,
+        "y" : 4171596.5659231693
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 555,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978834.3557815868,
+        "y" : 4171608.7367808446
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 556,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978842.5578813236,
+        "y" : 4171619.84930307
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 557,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978846.7912231237,
+        "y" : 4171630.4326575701
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 558,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978851.289148787,
+        "y" : 4171642.6035152455
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 559,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978854.9933228623,
+        "y" : 4171651.8639504332
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 560,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978859.4912485238,
+        "y" : 4171649.4826956703
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 561,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978861.8725032862,
+        "y" : 4171640.2222604826
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 562,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978862.9308387376,
+        "y" : 4171632.8139123325
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 563,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978862.1370871495,
+        "y" : 4171624.08264487
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 564,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978857.9037453495,
+        "y" : 4171614.2930419571
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 565,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978851.5537326485,
+        "y" : 4171605.0326067694
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 566,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978841.7641297355,
+        "y" : 4171593.6555006816
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 567,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978834.0911977235,
+        "y" : 4171585.4534009439
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 568,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978826.682849573,
+        "y" : 4171578.0450527938
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 569,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978818.2161659729,
+        "y" : 4171570.9012885061
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 570,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978810.4935812205,
+        "y" : 4171566.884997264
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 571,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978798.1077924222,
+        "y" : 4171561.376269456
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 572,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978797.3801435251,
+        "y" : 4171554.2125326819
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 573,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978801.2827987727,
+        "y" : 4171554.4970890307
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 574,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978812.9244887233,
+        "y" : 4171555.0262567559
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 575,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978821.9203400481,
+        "y" : 4171558.9950146936
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 576,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978835.4967562277,
+        "y" : 4171567.6787488516
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 577,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978847.5849747118,
+        "y" : 4171574.8700464438
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 578,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978854.546794327,
+        "y" : 4171585.9350353642
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 579,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978862.4843102023,
+        "y" : 4171594.6663028267
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 580,
+        "SprayWidth" : 55,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978860.896807028,
+        "y" : 4171606.5725766392
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 581,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978852.9592911527,
+        "y" : 4171597.0475575896
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 582,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978842.2006931063,
+        "y" : 4171584.8580872552
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 583,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978831.4850466754,
+        "y" : 4171576.1268197927
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 584,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978820.7694002427,
+        "y" : 4171567.7924281238
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 585,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978806.4818716682,
+        "y" : 4171562.6330428049
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 586,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978797.3801435251,
+        "y" : 4171554.2125326819
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 587,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978795.263472626,
+        "y" : 4171540.983339557
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 588,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978784.1642228682,
+        "y" : 4171547.644366994
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 589,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978772.787116779,
+        "y" : 4171559.8152246694
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 590,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978759.8225075174,
+        "y" : 4171572.5152500691
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 591,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978748.7099852916,
+        "y" : 4171582.3048529821
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 592,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978739.97871783,
+        "y" : 4171587.5965302316
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 593,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978733.628705129,
+        "y" : 4171587.8611140945
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 594,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978732.0412019547,
+        "y" : 4171584.6861077445
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 595,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978734.6870405804,
+        "y" : 4171577.5423434568
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 596,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978743.6828919053,
+        "y" : 4171568.5464921319
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 597,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978753.7403427139,
+        "y" : 4171561.3287361516
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 598,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978764.3204331808,
+        "y" : 4171550.2902056193
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 599,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978774.1100360919,
+        "y" : 4171539.4422672568
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 600,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978784.4288067296,
+        "y" : 4171531.2401675191
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 601,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978788.1329808049,
+        "y" : 4171523.0380677814
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 602,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978783.1091514528,
+        "y" : 4171517.2755230451
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 603,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978773.8454522304,
+        "y" : 4171520.3922291566
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 604,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978762.8684859704,
+        "y" : 4171531.1661758265
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 605,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978754.534094302,
+        "y" : 4171540.6911948766
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 606,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978741.0403173137,
+        "y" : 4171552.9943444831
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 607,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978729.1340435017,
+        "y" : 4171565.6943698828
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 608,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978723.1809065957,
+        "y" : 4171572.4412583769
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 609,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978718.0182572417,
+        "y" : 4171569.6048275819
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 610,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978716.4340181015,
+        "y" : 4171562.1224877392
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 611,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978721.9902792145,
+        "y" : 4171552.2005928955
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 612,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978732.3090498522,
+        "y" : 4171539.5005674954
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 613,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978742.8891403172,
+        "y" : 4171532.0339191067
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 614,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978753.4724948164,
+        "y" : 4171519.3338937066
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 615,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978761.9391784165,
+        "y" : 4171512.4547132817
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 616,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978770.9350297432,
+        "y" : 4171509.5442907941
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 617,
+        "SprayWidth" : 50,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978776.3622629587,
+        "y" : 4171510.925510345
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 618,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978783.1091514528,
+        "y" : 4171517.2755230451
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 619,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978789.4426276498,
+        "y" : 4171519.2874628315
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 620,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978801.0975900684,
+        "y" : 4171521.4505646066
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 621,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978807.4343303014,
+        "y" : 4171518.7582951067
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 622,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978816.959349351,
+        "y" : 4171512.4082824066
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 623,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978823.5872183796,
+        "y" : 4171507.1630360321
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 624,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978821.1926911511,
+        "y" : 4171499.1790892817
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 625,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978815.2560907472,
+        "y" : 4171492.669223832
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 626,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978809.3029538393,
+        "y" : 4171486.3192111319
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 627,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978801.762313759,
+        "y" : 4171474.809813113
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 628,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978787.8716609776,
+        "y" : 4171462.9035393004
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 629,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978777.949766133,
+        "y" : 4171449.8066381067
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 630,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978763.6622375585,
+        "y" : 4171434.3284821501
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 631,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978753.3434669208,
+        "y" : 4171418.850326194
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 632,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978746.5965784267,
+        "y" : 4171407.7378039691
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 633,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978754.9309700951,
+        "y" : 4171397.0221575378
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 634,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978761.9391784165,
+        "y" : 4171398.1544846813
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 635,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978768.8183588423,
+        "y" : 4171403.9753296566
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 636,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978779.4017133433,
+        "y" : 4171414.2941002939
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 637,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978787.8683969416,
+        "y" : 4171426.7295418316
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 638,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978793.0310462955,
+        "y" : 4171435.9159853254
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 639,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978802.1591895521,
+        "y" : 4171449.0128865191
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 640,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978810.8904570155,
+        "y" : 4171462.1097877128
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 641,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978820.8123518582,
+        "y" : 4171474.0160615253
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 642,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978829.4080633558,
+        "y" : 4171483.8796561318
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 643,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978839.4655141644,
+        "y" : 4171482.3504531942
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 644,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978839.4655141644,
+        "y" : 4171471.6348067629
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 645,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978832.7186256722,
+        "y" : 4171461.7129119192
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 646,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978827.1623645592,
+        "y" : 4171449.8066381067
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 647,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978814.8592149522,
+        "y" : 4171432.3441031817
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 648,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978806.5248232838,
+        "y" : 4171419.6440777816
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 649,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978795.4123010579,
+        "y" : 4171408.9284313503
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 650,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978786.2841578033,
+        "y" : 4171396.6252817437
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 651,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978776.7591387518,
+        "y" : 4171387.8940142812
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 652,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978775.5685113706,
+        "y" : 4171379.1627468187
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 653,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978782.3153998647,
+        "y" : 4171371.6221067375
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 654,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978790.6497915331,
+        "y" : 4171375.1939888811
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 655,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978801.3654379658,
+        "y" : 4171383.52838055
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 656,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978808.1123264581,
+        "y" : 4171393.0533996001
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 657,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978815.6529665403,
+        "y" : 4171404.165921825
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 658,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978825.17798559,
+        "y" : 4171416.8659472251
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 659,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978831.131122496,
+        "y" : 4171427.1847178629
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 660,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978838.6717625782,
+        "y" : 4171439.0909916754
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 661,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978850.1811605971,
+        "y" : 4171453.7753960444
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 662,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978856.1342975032,
+        "y" : 4171462.9035393004
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 663,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978863.6749375835,
+        "y" : 4171467.2691730317
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 664,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978873.5968324281,
+        "y" : 4171462.5066635069
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 665,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978874.7874598093,
+        "y" : 4171455.3628992192
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 666,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978868.8343229033,
+        "y" : 4171443.4566254066
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 667,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978861.2936828211,
+        "y" : 4171432.3441031817
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 668,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978853.3561669458,
+        "y" : 4171417.2628230192
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 669,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978843.434272103,
+        "y" : 4171406.1503007938
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 670,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978834.7030046396,
+        "y" : 4171391.8627722189
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 671,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978823.5904824156,
+        "y" : 4171379.9564984064
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 672,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978813.2717117779,
+        "y" : 4171366.8595972126
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 673,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978803.3498169333,
+        "y" : 4171355.7470749873
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 674,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978804.9373201095,
+        "y" : 4171348.206434906
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 675,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978815.6529665403,
+        "y" : 4171348.206434906
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 676,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978827.1623645592,
+        "y" : 4171355.3501991937
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 677,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978835.0998804346,
+        "y" : 4171365.668969831
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 678,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978843.037396308,
+        "y" : 4171379.1627468187
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 679,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978852.9592911527,
+        "y" : 4171391.8627722189
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 680,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978860.896807028,
+        "y" : 4171406.1503007938
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 681,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978868.4374471083,
+        "y" : 4171417.6596988128
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 682,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978877.1687145717,
+        "y" : 4171431.9472273877
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 683,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978886.2968578283,
+        "y" : 4171444.6472527878
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 684,
+        "SprayWidth" : 60,
+        "Spraying" : 1
+      },
+      "geometry" : {
+        "x" : -8978889.4553276766,
+        "y" : 4171453.1414972064
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 685,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978885.2219858766,
+        "y" : 4171466.8998580566
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 686,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978868.8177864011,
+        "y" : 4171478.5415480062
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 687,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978848.1802451257,
+        "y" : 4171493.3582443064
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 688,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978837.5968906265,
+        "y" : 4171503.4124310818
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 689,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978831.2468779255,
+        "y" : 4171513.9957855814
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 690,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978838.655226076,
+        "y" : 4171530.3999850568
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 691,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978851.3552514762,
+        "y" : 4171546.8041845318
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 692,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978877.813637726,
+        "y" : 4171565.854222632
+      }
+    },
+    {
+      "attributes" : {
+        "FID" : 693,
+        "SprayWidth" : 0,
+        "Spraying" : 0
+      },
+      "geometry" : {
+        "x" : -8978898.9803467263,
+        "y" : 4171585.433428457
+      }
+    }
+  ]
+}

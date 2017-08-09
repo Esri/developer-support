@@ -1,0 +1,18 @@
+{
+  "name": "creating-coverage-area-from-points",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/arcgis-js-api": "^4.4.0"
+  },
+  "devDependencies": {
+    "dojo-typings": "^1.11.7"
+  }
+}
