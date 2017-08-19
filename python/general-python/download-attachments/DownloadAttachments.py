@@ -1,14 +1,7 @@
-
-# coding: utf-8
-
-# In[ ]:
-
-
 # Version 1.2
 
-import logging, os, re
+import logging, os, re, datetime
 from IPython.display import display
-from datetime import datetime
 from arcgis.gis import GIS
 
 ''' ********************** SCRIPT CONFIGURATION START ********************** '''
@@ -22,7 +15,8 @@ PortalPassword = ''
 PortalUrl = 'https://www.arcgis.com'
 
 #Where do you want your attachments stored?
-SaveAttachmentsTo = 'Downloads'
+SaveAttachmentsTo = 'C:\ScriptDownloads'
+SaveLogsTo = 'Logging'
 
 #How do you want your attachments stored? Options are GroupedFolder and IndividualFolder
 #GroupedFolder - Attachments from every feature in each layer is stored in the same folder - attachments are renamed in the format OBJECTID-ATTACHMENTID-OriginalFileName
@@ -55,18 +49,19 @@ def renameFile(currentAttachmentPath, newAttachmentPath):
         logger.warning('Not able to rename {} as {} because file already exists. Removing {}'.format(currentAttachmentPath, newAttachmentPath, currentAttachmentPath))
         os.remove(currentAttachmentPath)
 
+#Create specified folder if it does not exist already
+createFolder(SaveAttachmentsTo)
+createFolder(SaveLogsTo)
+        
 #Logging level specified in script configuration
 logger = logging.getLogger(__name__)
-logFileName = datetime.now().strftime('%Y-%m-%d %H-%M-%S')
-fileHandler = logging.handlers.RotatingFileHandler('Logging/{}.log'.format(logFileName), maxBytes=100000, backupCount=5)
+logFileName = datetime.datetime.now().strftime('%Y-%m-%d %H-%M-%S')
+fileHandler = logging.handlers.RotatingFileHandler('{}/{}.log'.format(SaveLogsTo, logFileName), maxBytes=100000, backupCount=5)
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(relativeCreated)d \n%(filename)s %(module)s %(funcName)s %(lineno)d \n%(message)s\n')
 fileHandler.setFormatter(formatter)
 logger.addHandler(fileHandler)
 
-logger.info('Script Starting at {}'.format(str(datetime.now())))
-
-#Create specified folder if it does not exist already
-createFolder(SaveAttachmentsTo)
+logger.info('Script Starting at {}'.format(str(datetime.datetime.now())))
 
 #Connect to GIS, and get Feature Layer information
 if PortalUserName == '' and PortalPassword == '':
@@ -97,7 +92,7 @@ for i in range(len(itemObject.layers)):
         featureObjectIds = featureLayer.query(where='1=1', return_ids_only=True)
 
         #Provide some updates to user...
-        logger.info('Time: {}'.format(str(datetime.now())))
+        logger.info('Time: {}'.format(str(datetime.datetime.now())))
         logger.info('Currently looping through feature attachments in layer {} of {}: storing in folder named "{}"'.format(str(i + 1), str(len(itemObject.layers)), featureLayerName))
         logger.info('There are {} features to iterate in this layer'.format(str(len(featureObjectIds['objectIds']))))
 
@@ -157,4 +152,3 @@ for i in range(len(itemObject.layers)):
 
 logger.info('Summary: {} new files have been downloaded totalling {}MB in size'.format(downloadCounter, (downloadSizeCounter/1000000)))
 logger.info('Summary: {} attachments already existed so were not downloaded again'.format(nonDownloadCounter))
-

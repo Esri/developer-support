@@ -20,6 +20,7 @@ For this reason, I created a script using the new [ArcGIS API for Python](https:
 
 1. Follow the ArcGIS API for Python [Install and set up](https://developers.arcgis.com/python/guide/install-and-set-up/) guide
 	1. If using Anaconda, you can use the .yml file to create appropriate environment
+1. If using Startup.bat file, edit (in a text editor) to reference appropriate folders
 1. Once you get a Jupyter Notebook open, paste the attached .zip file below in an accessible location (and unzip it)
 1. Open the DownloadAttachments.ipynb file via Jupyter Notebooks and run (click into code and press Crtl+Enter)
 1. The script will run on a the specified public Feature Layer and download the attachments to the specified Downloads folder
