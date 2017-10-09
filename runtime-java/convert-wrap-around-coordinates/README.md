@@ -1,9 +1,9 @@
-#Convert coordinates to a useable value when the map is in wrap around mode
-##About
+# Convert coordinates to a useable value when the map is in wrap around mode
+## About
 There are many cases when you may need to get the map coordinates of the location where a user has clicked on the map. Normally you are able to do this without issue. However if the JMap has wrap around mode enabled you may see som e strange behavior. In this mode you are able to pan the map left or right into infinity. As you pan left the x coordinate values increase into infinity and as you pan to the right the x coordinate values decrease into infinity. Converting the click location into map coordinates will result in coordinates that are impossibly large or small and are completely unusable in calculations. This application demonstrates how to convert these unusable values into usable ones.
-##Usage Notes
+## Usage Notes
 In this sample you are able to click on the map and have the coordinates display in the IDE console in 4326 coordinates. The spatial refernce of JMap is 102100 and I have not tested my logic against other spatial references. Note I developed the logic to convert these coordinates. There may very well be a more efficient way to perform the conversion.
-##The Logic
+## The Logic
 This is part of the application that performs the conversions:
 ```Java
 //Convert the screen coordinates of the click location to a map point

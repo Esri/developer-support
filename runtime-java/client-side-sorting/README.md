@@ -1,9 +1,9 @@
-#Sort The Results of a Query on The Client
-##About
+# Sort The Results of a Query on The Client
+## About
 When a query is performed on an ArcGIS Server service it is possible to sort the results of the query if the server supports advanced queries. However many runtime applications are created to work in an offline environment and are used to query offline geodatabases. While it is possible to query an offline geodatabase the setOrderByFields parameter of the QueryParameters class is not supported. This sample shows how to query an offline geodatabase and sort the results of the query on the client.
-##Usage Notes
+## Usage Notes
 This sample is designed to work with a geodatabase from a specific service. An offline geodatabase is included to allow this sample to be downloaded and used more easily. Change the path to the geodatabase on line 21 to use this sample.
-##The Logic
+## The Logic
 Access the result of the query operation and create an array of unsorted features
 ```Java
 featureTable.queryFeatures(queryParams, new CallbackListener<FeatureResult>(){

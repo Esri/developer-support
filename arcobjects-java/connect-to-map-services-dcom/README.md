@@ -1,4 +1,4 @@
-#Connect to your 10.0 SP5 and Under ArcGIS Server and Services
+# Connect to your 10.0 SP5 and Under ArcGIS Server and Services
 
 Proof of concept Java console sample that uses ArcObjects to connect to ArcGIS Server 10.0 SP5 or older.  
 

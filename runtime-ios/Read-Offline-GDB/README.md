@@ -1,4 +1,4 @@
-#ArcGIS Runtime for iOS Sample to change symbology based on a map scale range
+# ArcGIS Runtime for iOS Sample to change symbology based on a map scale range
 
 
 [ArcGIS Runtime SDK for iOS](https://developers.arcgis.com/ios/)

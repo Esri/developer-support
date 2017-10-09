@@ -1,18 +1,18 @@
-#Multiple Attribute Inspector - AMD
+# Multiple Attribute Inspector - AMD
 -----------------------------------------------------------------------------------------------------
-##Use Case
+## Use Case
 The [Multiple Attribute Inspector](https://developers.arcgis.com/javascript/jssamples/ed_multipleAttrInspector.html) sample is converted from Legacy to AMD. In addition to this, we are using the new [on style events](http://blogs.esri.com/esri/supportcenter/2014/09/29/javascript-events-advocating-for-on-style-event-programming/).
 
 In this sample, the attribute inspector for the existing features are in 'read only' mode. For the newly created features, the attribute inspector will be in read/write mode, and allow us to modify the attributes. 
 
 [Live Sample](http://esri.github.io/developer-support/web-js/multiple-attribute-inspector-AMD/multipleAttrInspectorAMD.html)
-##Resources
+## Resources
 [More information about the Attribute Inspector](https://developers.arcgis.com/javascript/jsapi/attributeinspector-amd.html)
 
 [Another attribute inspector sample](https://developers.arcgis.com/javascript/jssamples/ed_attribute_inspector.html)
 
 
-##About the Sample
+## About the Sample
 Display the read-only infoWindow when we click on a feature by setting the 'isEditable' fieldInfo specification to false
 
 Please keep in mind that "objectid" in line 166 of the html is associated with the field name in your particular service. So in most of the cases [evt.graphic.attributes.objectid] would be [evt.graphic.attributes.OBJECTID] since "OBJECTID" is in capital letters for most of the FeatureLayers unless you are using a specific field for unique Ids.

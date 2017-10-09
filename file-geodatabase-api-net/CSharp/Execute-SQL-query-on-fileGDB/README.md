@@ -1,4 +1,4 @@
-#How to execute a SQL query on a file geodatabase using the File GDB API for .NET
+# How to execute a SQL query on a file geodatabase using the File GDB API for .NET
 
 This sample shows how to execute a simple SQL query using the File GDB API for .NET.
 
@@ -10,7 +10,3 @@ Author: Sami E.
 ## Features
 
 *Uses Esri.FileGDB.Geodatabase
-
-
-
-

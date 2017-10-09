@@ -1,6 +1,6 @@
-#Legend and Editor
+# Legend and Editor
 
-##About
+## About
 This sample combines the legend widget and editor widget in an accordion pane.
 
 [Legend widget sample](https://developers.arcgis.com/javascript/jssamples/widget_legend.html)
@@ -9,7 +9,7 @@ This sample combines the legend widget and editor widget in an accordion pane.
 
 [Live Sample](http://esri.github.io/developer-support/web-js/legend-Editor/legendEditor.html)
 
-##Usage notes:
+## Usage notes:
 This sample demonstrates how include the editor widget in the second accordion pane of the the legend sample.
 
 Add the legend:

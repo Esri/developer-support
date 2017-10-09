@@ -1,12 +1,12 @@
-#USING setRequestPreCallback Function
+# USING setRequestPreCallback Function
 
 This sample uses [esriRequest.setRequestPreCallback()](https://developers.arcgis.com/javascript/jsapi/esri.request-amd.html#esrirequest.setrequestprecallback)
 to modify the parameters that are sent out to print task in Web_Map_as_JSON request and modifies the Legend Layer Name displayed on the print output.
 
-##Requirements
+## Requirements
 * You will need to [set up a proxy page](http://blogs.esri.com/esri/supportcenter/2015/04/07/setting-up-a-proxy/) in order to get print widget to work.
 
-##Function Highlights and Explanation
+## Function Highlights and Explanation
 * Function Intercepts every request sent to server which includes "execute" (Print Task)
 * Grabs the JSON Text from Web_Map_as_JSON
 * Converts string to an object using JSON.parse()
@@ -15,7 +15,7 @@ to modify the parameters that are sent out to print task in Web_Map_as_JSON requ
 * Return this to the request that is being sent.
 * This will now get sent to the server to get the print output.
 
-##Important Code
+## Important Code
 ```javascript
 function myCallbackFunction(ioArgs) {
                 // inspect ioArgs to see if we sent execute request

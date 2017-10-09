@@ -1,4 +1,4 @@
-#RequireJS with ArcGIS API for JavaScript
+# RequireJS with ArcGIS API for JavaScript
 
 RequireJS helps developers load multiple files and JavaScript libraries.  Dojo has this framework built-in but cases may arrise where there is a need to put the two together, like we did here.
 

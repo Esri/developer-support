@@ -1,16 +1,16 @@
-#Add Attachments To FeatureService with JavaScript 4.2
+# Add Attachments To FeatureService with JavaScript 4.2
 
-##About
+## About
 FeatureServices can be configured to allow files to be attached to individual features in the service. In the 3.x JavaScript API methods to retrieve, add and delete attachments were provided as part of the FeatureLayer class. Additionally widgets such as the attachment and attribute inspector allowed attachments to be viewed and edited. In the 4.2 API no widgets or methods have been provided to work with attachments. However it is still possible to directly query and edit attachments using the ArcGIS REST API. This sample shows how to work with attachments within a 4.2 application.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](AddAttachments.gif "Application Demo")
 
 [Live Sample](https://esri.github.io/add-attachments-with-42/index.html)
 
-##Usage Notes
+## Usage Notes
 This sample allows the user to click on a feature in the map to view a popup. At the bottom of the popup is a button called "Add Attachments". Clicking this button allows attachments to be added using a file picker dialog. Attachments currently attached to the feature will be shown in the popup. These attachments can be downloaded or deleted by clicking the buttons beside them.
 
-##How It Works
+## How It Works
 When a new feature is shown in the popup a request is sent to get any attachments associated with that feature. This is a GET request made with jQuery.
 ```javascript
 var url = feature.layer.url + "/" + feature.layer.layerId + "/" + feature.attributes.objectid;

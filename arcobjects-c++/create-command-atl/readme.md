@@ -1,9 +1,9 @@
-#Creating a Simple Command using ATL Using Visual Studio 2013
-##Use Case
+# Creating a Simple Command using ATL Using Visual Studio 2013
+## Use Case
 This is for anyone planning to create a command or COM component using the C++ libraries.  This command will be a tutorial for creating a command and will present users with a good foundation to grow their skills.
-##Resources
+## Resources
 [Creating a simple command](http://resources.arcgis.com/en/help/arcobjects-net/conceptualhelp/#/Walkthrough_Creating_a_simple_command/000100000n9z000000/)
-##Instructions
+## Instructions
 1)  Start a new project in Visual Studio and select under the Visual C++ Option ATL and then select ATL Project and press ok.
 
 ![alt text](../../repository-images/atl=project.png "ATL Project")

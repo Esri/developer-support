@@ -1,8 +1,8 @@
-##Notice
+## Notice
 These samples are for the ArcGIS API for JavaScript 4.0 Beta. Multiple betas are planned for this product. Applications are intended to demonstrate new functionality (proof of concept) with the JavaScript API, and may not be fully functional. For more information, please visit the links below:
 
 
-##Product Resources
+## Product Resources
 
 * [ArcGIS API for JavaScript Beta](https://developers.arcgis.com/javascript/beta/ )
 

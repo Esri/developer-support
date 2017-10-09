@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript - Take 2D feature layer and make it 3D
+# ArcGIS API for JavaScript - Take 2D feature layer and make it 3D
 
 * [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/beta/)
 

@@ -1,4 +1,4 @@
-#ArcGIS Runtime for iOS Sample to create AGSGeometry
+# ArcGIS Runtime for iOS Sample to create AGSGeometry
 
 
 [ArcGIS Runtime SDK for iOS](https://developers.arcgis.com/ios/)

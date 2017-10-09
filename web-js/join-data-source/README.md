@@ -1,4 +1,4 @@
-#Join Data Source Sample by using ArcGIS API for JavaScript 
+# Join Data Source Sample by using ArcGIS API for JavaScript 
 
 This is a sample shows how to use Join Data Source ("esri/layers/JoinDataSource") to perform join operation on the fly with a registed workspace ID from another feature class. 
 

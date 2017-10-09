@@ -1,4 +1,4 @@
-#Client Side Heatmap using the ArcGIS API for JavaScript
+# Client Side Heatmap using the ArcGIS API for JavaScript
 
 This is a sample shows how to use the Heatmap Renderer against a layer completely constructed on the client.
 

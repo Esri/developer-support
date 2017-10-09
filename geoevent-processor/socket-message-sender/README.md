@@ -1,4 +1,4 @@
-#Send TCP and UPD messages via Java
+# Send TCP and UPD messages via Java
 
 This sample when run will send TCP (transmission control protocol) and UDP (user datagram protoco) data / messages which the GeoEvent Processor can handle to show data in real time.
 

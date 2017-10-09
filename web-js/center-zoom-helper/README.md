@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript Center Zoom Helper
+# ArcGIS API for JavaScript Center Zoom Helper
 
 This is a sample app that displays the current basemap, zoom level and centerpoint (in WGS84) for ease of copy/paste into your own map constructor within your application.
 

@@ -1,8 +1,8 @@
-#Connect to a FeatureClass in SDE using Java Runtime
-##About
+# Connect to a FeatureClass in SDE using Java Runtime
+## About
 ArcGIS Server allows connections to different data sources through the use of dynamic workspaces. The ArcGIS Runtime SDKs use a scaled down version of ArcGIS Server 10.2.1 to read MPKs, TPKs and GPKs. This "Local Server" also supports dynamic workspaces but how it interacts with dynamic workspaces is a little different. In the full ArcGIS Server, dynamic workspaces must be configured when the service is published using an SDE connection file. After the service is published the dynamic workspace cannot be changed. Local Server behaves differently as you cannot publish layers to it. Instead Local Server is started with a LocalMapService pointing to a specfic data package which serves as the data source for the service. As the service is created at runtime it is possible to set or change the dynamic workspace connection string each time the Local Server is launched. While it is true that ArcGIS Runtime does not support direct connections to SDE, it is possible to connect to an SDE using dynamic workspaces and Local Server.
 
-##The Logic
+## The Logic
 Create the WorkspaceInfo object using the SDE connection file. This file is found in the following location in Windows: "C:\Users\<USER>\AppData\Roaming\ESRI\Desktop10.4\ArcCatalog"
 
 Create the LocalMapService used to launch local server with a blank map package, enable dynamic workspaces and set the dynamic workspace information. Next add an event listener to call the addLocalLayer function after the service has started. Finally start the local server instance.

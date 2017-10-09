@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript CSS Code to Stylize Map Attribution Widget
+# ArcGIS API for JavaScript CSS Code to Stylize Map Attribution Widget
 
 Shows the CSS code to adjust the appearance of the map attribution (sometimes referred to as data credits) found in the
 bottom right corner of the map.  

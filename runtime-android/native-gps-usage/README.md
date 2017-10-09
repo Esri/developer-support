@@ -1,4 +1,4 @@
-#How to use Android's Native GPS Feature
+# How to use Android's Native GPS Feature
 
 The sample shows how to work with the LocationManager object and the Criteria object.
 

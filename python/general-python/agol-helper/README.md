@@ -1,14 +1,14 @@
-#Usage notes
+# Usage notes
 This section aims to aid developers who are looking for REST API python code samples. For an existing API that uses python and the ArcGIS Online REST API, see ArcREST: https://github.com/esri/arcrest
 ##agol.py: ArcGIS Online (AGOL) Superclass
 agol-helper includes the AGOL superclass that retrieves a token, the organization short url and organization ID. The methods used to grab these attributes are commonly used for any workflow.
 ```python
 >>> me = AGOL("username", "password")
->>> me.token #Grabs the token.
->>> me.short #Grabs the organization short url.
->>> me.orgID #Grabs the organization ID.
+>>> me.token # Grabs the token.
+>>> me.short # Grabs the organization short url.
+>>> me.orgID # Grabs the organization ID.
 ```
-##Subclass templates
+## Subclass templates
 The subclasses (i.e. community, geocodeService, portals) mimic the structure of the ArcGIS Online REST API help: http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#//02r300000054000000
 
 For example, community.py contains Group Search and User Search, which are resources accessed using the community root url. These resources are documented in *Managing your organization > Community* in the REST API help.

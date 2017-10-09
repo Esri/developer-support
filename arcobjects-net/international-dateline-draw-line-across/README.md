@@ -1,4 +1,4 @@
-#How to Draw a Polyline Across the International Dateline
+# How to Draw a Polyline Across the International Dateline
 
 This is an ArcObjects Add-In that shows how to draw a polyline across the international dateline using IPoint.PutCoords method.
 

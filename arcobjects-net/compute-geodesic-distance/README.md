@@ -1,4 +1,4 @@
-#Compute Geodesic distance
+# Compute Geodesic distance
 This code snippet shows how to compute geodetic distance of a polyline.
 
 

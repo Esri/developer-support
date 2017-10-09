@@ -1,4 +1,4 @@
-#Insert Cursor Example
+# Insert Cursor Example
 This sample shows how to do an insert cursor using a feature class.
 
 ## Things to Know

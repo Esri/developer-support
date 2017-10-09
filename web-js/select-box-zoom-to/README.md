@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript Zoom to Feature via Dropdown
+# ArcGIS API for JavaScript Zoom to Feature via Dropdown
 
 This is a sample app that creates a dropdown of features that when selected, are zoomed to, and a pop is shown.
 

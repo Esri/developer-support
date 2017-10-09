@@ -1,16 +1,16 @@
-#Upload Zipped Shapefile to ArcGIS Online
+# Upload Zipped Shapefile to ArcGIS Online
 
-##About
+## About
 ArcGIS Online allows users to upload shapefiles and store them in their content. It is also possible to create a FeatureService hosted in ArcGIS Online from the shapefile. This sample was written at the request of a customer and shows how to upload a zipped shapefile to ArcGIS Online using JavaScript and the REST API. Additionally this application allows users to programmatically publish the shapefile as a FeatureService and then view the FeatureService within the application as a FeatureLayer.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](UploadShapefile.gif "Application Demo")
 
 [Live Sample](https://nhaney90.github.io/upload-shapefile-to-agol/index.html)
 
-##Usage Notes
+## Usage Notes
 Before a shapefile can be uploaded you must sign into ArcGIS Online (this application should work with a Portal instance as well). Enter your organization's domain (without including "http" or "https") and your username and password then click the "Sign In" button. You should now be shown as signed in at the top right. Now enter the title of the shapefile and then select a zipped shapefile with the file picker. The check boxes allow you to create a FeatureService from the shapefile and add the service to the map. Next press the "Submit" button. If you select the "Add Service to Map" option this step may take some time depending on the size of the shapefile. Finally the FeatureLayer should appear in the map. Please view the above gif.
 
-##How It Works
+## How It Works
 A token must be used to access the ArcGIS Online account. This can be done by using EsriRequest to send a request to the generateToken endpoint of ArcGIS Online.
 ```javascript
 var layersRequest = esri.request({

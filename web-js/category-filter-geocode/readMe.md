@@ -1,11 +1,11 @@
-#Single output from World Geocoding Service
+# Single output from World Geocoding Service
 
-##About
+## About
 This sample will show how to return the results of one locator from the World Geocoding Service.
-##ArcGIS Online World Geocode
+## ArcGIS Online World Geocode
 The [ArcGIS Online World Geocoding Service](https://developers.arcgis.com/rest/geocode/api-reference/overview-world-geocoding-service.htm) is a composite geocoding serivice which means that it will contain multiple address locators. In turn, when consumed in an application it will return numerous addresses based on the matches of multiple locators.
 
-##Prerequisites
+## Prerequisites
 In order to determine which locator you would like to use, we need to make a rest call to see which locators are returned. In the [findAddressCandidates](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-find-address-candidates.htm) REST request add outFields=*. This will return the Loc_Name (locator name).
 
 ```html
@@ -15,7 +15,7 @@ http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/findAddressCa
 ```
 In this example, [Category filtering](https://developers.arcgis.com/rest/geocode/api-reference/geocoding-category-filtering.htm) selects the point address locator from the World Geocoding Service. This only returns one candidate from the point address locator.
 
-##Usage notes:
+## Usage notes:
 This shows how to implement category filtering for the addressToLocations method.
 
 ```javascript

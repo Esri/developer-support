@@ -1,9 +1,9 @@
 POPULATE DGRID WITH QUERRIED RESULTS
 
-#Requirements
+# Requirements
 	- Need to use your own proxy url in esriConfig.defaults.io.proxyUrl
 
-#Description
+# Description
 This sample is been a combination of multiple samples. The workflow of the sample is as follows
 	1. This takes a user selected point.
 	2. It selects the parcel layer

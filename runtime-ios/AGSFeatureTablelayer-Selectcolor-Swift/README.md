@@ -2,10 +2,10 @@
 
 ## About
 
-ArcGIS Runtime SDK for iOS provides the user multiple ways to interact with data on the map view. 
+ArcGIS Runtime SDK for iOS provides the user multiple ways to interact with data on the map view.
 Typically, selecting features by tapping a location or a feature on the map to show more information. Using [AGSMapViewTouchDelegate](https://developers.arcgis.com/ios/api-reference/protocol_a_g_s_map_view_touch_delegate-p.html) will help the developer to trigger those touch event related actions happening on the map.
 
-This sample will guide you how to add selection color around the features when you click on AGSFeatureTableLayer. 
+This sample will guide you how to add selection color around the features when you click on AGSFeatureTableLayer.
 
 Demo:
 
@@ -37,13 +37,13 @@ var ftLayer: AGSFeatureTableLayer!
 
 //init AGSGDBFeatureServiceTable based on ArcGIS Feature service or Map service URL
 featureServiceTable = AGSGDBFeatureServiceTable.init(serviceURL: url, credential: nil, spatialReference: AGSSpatialReference.webMercatorSpatialReference())
-        
+
 //create a local FeatureTableLayer based on featureServiceTable
 ftLayer = AGSFeatureTableLayer.init(featureTable: featureServiceTable)
-        
+
 //define the selectionColor
 ftLayer.selectionColor = UIColor.greenColor()
-        
+
 //add the AGSFeatureTableLayer to map
 self.mapView.addMapLayer(ftLayer, withName: "FeatureLayer")
 ```
@@ -68,7 +68,7 @@ Within the AGSMapViewTouchDelegate function [mapView:didClickAtPoint:mapPoint:fe
 
 Normally, if you want features with selection color in offline mode, you should use AGSFeatureTableLayer. The reason is because AGSFeatureTableLayer displays features from a local dataset to the map view. Whereas, if you want to use online mode, you should use AGSGraphicsLayer or AGSFeatureTableLayer. It depends on whether the features need to be editable or just view-only.
 
-For AGSGraphicsLayer, you can either use this selectionColor , or follow this sample from Runtime Quartz [Feature layer selection](https://developers.arcgis.com/ios/beta/swift/sample-code/feature-layer-selection.htm). However, this sample is using another method "[selectFeaturesWithQuery:selectionMethod](https://developers.arcgis.com/ios/api-reference/interface_a_g_s_feature_layer.html#aee0dc946527a8e43930639dc8b6c176d)" 
+For AGSGraphicsLayer, you can either use this selectionColor , or follow this sample from Runtime Quartz [Feature layer selection](https://developers.arcgis.com/ios/beta/swift/sample-code/feature-layer-selection.htm). However, this sample is using another method "[selectFeaturesWithQuery:selectionMethod](https://developers.arcgis.com/ios/api-reference/interface_a_g_s_feature_layer.html#aee0dc946527a8e43930639dc8b6c176d)"
 from AGSFeatureLayer.
 
 ## Resources
@@ -77,5 +77,3 @@ from AGSFeatureLayer.
 * [Select features - ArcGIS Runtime SDK for iOS](https://developers.arcgis.com/ios/objective-c/guide/edit-features.htm#ESRI_SECTION1_4213B7F672304847B13FD6F9E38622B3)
 * [ArcGIS Blog](http://blogs.esri.com/esri/arcgis/)
 * [twitter@esri](http://twitter.com/esri)
-
-

@@ -1,14 +1,14 @@
-#Map With Loading and Splash Screens
+# Map With Loading and Splash Screens
 
-##About
+## About
 I have been asked by at least a dozen customers to help them implement a loading or splash screen in their mapping application. This sample shows how to implement a simple loading screen and a splash screen using Bootstrap, jQuery and Javascript.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](SplashScreen.gif "Application Demo")
 
-##Usage Notes
+## Usage Notes
 The progress bar on the loading screen is not hooked up to any events in the application. It simply takes two seconds to fill the progress bar and this gives the layers in the map enough time to load. If you wanted to listen for events in the application you could use a spinner instead of a progress bar and wait until all layers have fully loaded.
 
-##How It Works
+## How It Works
 Create your loading and splash screens in the HTML. Apply an event handler to your splash screen button to remove the screen.
 ```javascript
 $(".btn-primary").click(function() {

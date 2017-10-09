@@ -1,4 +1,4 @@
-#Search Widget with custom geocoding service by using ArcGIS API for JavaScript
+# Search Widget with custom geocoding service by using ArcGIS API for JavaScript
 
 This is a sample that shows how to use Search Widget (esri/dijit/Search) to perform search on a custom geocoding service since geocoder widget is going to be deprecated in the future release.
 

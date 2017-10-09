@@ -1,4 +1,4 @@
-#Create Points Feature Class from a Polyline Feature Class
+# Create Points Feature Class from a Polyline Feature Class
 This code snippet shows how to extract points out of a polyline feature class and add them to an existing Points feature class.
 
 Author: Sami E.

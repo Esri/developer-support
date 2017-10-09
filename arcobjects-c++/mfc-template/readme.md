@@ -1,5 +1,5 @@
-#MFC Template
-##Use Case
+# MFC Template
+## Use Case
 Trying to figure out how to get started with an MFC Dialog using C++ can be tough and leaves many users wondering how to get started.
 
 ![alt text](http://i.giphy.com/wSCAy1zJbcUG4.gif "Confusion GIF")
@@ -7,7 +7,7 @@ Trying to figure out how to get started with an MFC Dialog using C++ can be toug
 
 This is supposed to be a sample showing you what needs to be added to the blank MFC template to get started quickly and easily.  In addition, the solution file is attached so users can download and get started right away.
 
-##Steps
+## Steps
 1) The first step is to open Visual Studio and then select MFC Application.
 
 2) Upon selecting MFC Application you are presented with a wizard.  The relevant pages in the wizard are where you select your application type.  The user should select Dialog Based and make sure that Use MFC in a shared DLL is selected.
@@ -46,10 +46,10 @@ This is supposed to be a sample showing you what needs to be added to the blank 
 
 From here, you should be able to proceed with creating your application.
 
-##Additional Resources
+## Additional Resources
 * [MFC and the ActiveX Controls](http://resources.arcgis.com/en/help/arcobjects-net/conceptualhelp/index.html#/MFC_and_the_ActiveX_Controls/000100000nn9000000/)
 * [Video Documenting the process](http://screencast.com/t/eeD5HwvjsVu)
 
-######Authors
+###### Authors
 * Alexander N.
 * Andrew W.

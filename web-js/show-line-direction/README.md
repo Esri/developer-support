@@ -1,14 +1,14 @@
-#Show Line Direction
+# Show Line Direction
 
-##About
+## About
 This sample shows a simple way to place an arrow on the end of a line showing the direction. The bearing of the line is calculated and can also be displayed as a text symbol.
 
 [Live Sample](http://nhaney90.github.io/add-line-direction/index.html)
 
-##Usage notes
+## Usage notes
 This sample uses a feature layer as input. It is assumed in the sample the feature layer will have a spatial reference of 102100. However this workflow could mork with any spatial reference but I would suggest you convert the coordinates to lat long when calculating the bearing.
 
-##How it works:
+## How it works:
 The following code snippets show how the code works:
 
 Create an svg arrow symbol:

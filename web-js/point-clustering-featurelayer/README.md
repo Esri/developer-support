@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript Point Clustering with a FeatureLayer
+# ArcGIS API for JavaScript Point Clustering with a FeatureLayer
 
 This is a sample app that modifies the Point Clustering sample to use a featureLayer instead of a JSON request to create dynamically clustering point features.
 

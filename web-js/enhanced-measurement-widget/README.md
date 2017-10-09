@@ -1,10 +1,10 @@
-#Enhanced Measurement Widget
+# Enhanced Measurement Widget
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](EnhancedMeasurementWidget.gif "Application Demo")
 
-##About
+## About
 This widget subclasses the default Measurement Widget included in the JavaScript API. It measures the distance of each line segment drawn with the distance and area tools using the currently selected distance unit. These distances are displayed in the map as text symbols. The text symbols are added to a separate graphics layer and can use a user defined text symbol via a method included in the widget. The idea for this widget came from a several questions from customers asking how to recreate functionality found in the WebADF API.
 
-##Usage notes:
+## Usage notes:
 Due to a bug with the base Measurement widget I reported when developing this widget, the EnhancedMeasure widget requires the use of version 3.15 of the ArcGIS Javascript API or higher. The following code snippets show how to use the widget in your application
 
 Configure the dojo loader to pull from the widget's location:

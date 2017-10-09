@@ -1,11 +1,11 @@
-#Set Map Center and Zoom with URL Parameters
+# Set Map Center and Zoom with URL Parameters
 
-##About
+## About
 ArcGIS Online allows a user to specify the zoom level and where to center the map as url parameters. This sample shows how to implement similar functionality in your standalone JavaScript application. Following this workflow you could specify almost any parameter in the url.
 
 [Live Sample](https://nhaney90.github.io/url-center-and-zoom/index.html?center=-86,33&zoom=8)
 
-##Usage Notes
+## Usage Notes
 
 The order of the center and zoom properties does not matter. URLs can be specified like this:
 
@@ -25,7 +25,7 @@ https://nhaney90.github.io/url-center-and-zoom/index.html?center=-86,33
 
 Work without issue.
 
-##How it works:
+## How it works:
 The following snippets highlight the important portions of the code.
 
 Pass the name of the parameter to the getParameterByName function. Remove any escape characters from the name. Create a new regular expression and use this expression to search the url's query string (location.search is the query string). If the search returns a value decode the URI component and return the value.

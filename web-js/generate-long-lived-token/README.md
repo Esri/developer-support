@@ -1,7 +1,7 @@
-#Generate a long-lived token with esriRequest
+# Generate a long-lived token with esriRequest
 [Generate Long-lived Token Sample](http://esri.github.io/developer-support/web-js/generate-long-lived-token/index.html)
-##About
+## About
 The Identity Manager included with the JavaScript API will allow you to generate a short-lived token from ArcGIS Server or ArcGIS Online(which usually have a life span of 60 minutes). If you need to generate a token with a longer or shorter life span you will need to use esriRequest as it will allow you to explicitly set the life span of the token. Generating a token with a specified life span requires the request to include a Client ID that is associated with the token using either an IP address or an HTTP Referer. This token will only be valid when used with requests originating from that IP or Referer and is required as an extra security precaution. This sample uses an HTTP Referer and retrieves the application address from the browser window to avoid hard-coding the Referer into the application.
-##Caution
+## Caution
 It is always a bad idea to hard-code a username and password into a JavaScript application as anyone can view the source of the application and obtain your login credentials. You should prompt the user to enter credentials in a form, access those credentials and then use them to generate the token. Please view this sample as a demonstration of how to use esriRequest with the generate token endpoint of ArcGIS Server and not a recommendation on application security.
 

@@ -1,4 +1,4 @@
-#Change selection color and persist labels
+# Change selection color and persist labels
 
 This code is a proof of concept for two things (1) How to interject in ArcGIS Drawing process and draw polygons on the screen (2) How to make the selection color not to overlap labels when using fill symbol polygon.  
 In ArcMap, there is a option to change the symbol of polygon selection to a fill symbol but it overlaps labels because these selected polygons are drawn at GeoSelection stage which a over the top of labelling phase (esriViewGraphics).

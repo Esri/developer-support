@@ -1,9 +1,9 @@
-#Create Feature Layer Using Custom FeatureCollection
+# Create Feature Layer Using Custom FeatureCollection
 
-##About
+## About
 There are many REST API's floating around the internet that return geographic data. Unfortunately relatively few of these return information in Esri's REST format. Most simply return lat long values. How to display this information and render it effectively using the Esri JavaScript API can be challenging. This application demonstrates how to do this. In this sample a request is sent to the SpotCrime API. The data returned is reorganized into a feature collection which is used to create a feature layer.
 
-##How it works:
+## How it works:
 The following code snippets show how the code works:
 
 Create the featureSet object. We will set the "features" property of the featureSet latter.

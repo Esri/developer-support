@@ -19,6 +19,6 @@ Please note that the member's full name, username, and email will be made availa
 
 Use to enable MyEsri for all users of the organization.
 
-#Additions
+# Additions
 
 You can download and the following item in ArcGIS Online to get the script with the needed requests library in order to access a ready to use script: https://www.arcgis.com/home/item.html?id=f448101c080d4edb8991fb79da818915

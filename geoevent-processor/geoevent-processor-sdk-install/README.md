@@ -1,5 +1,5 @@
 
-#How to Setup GeoEvent Processor SDK Development Environment
+# How to Setup GeoEvent Processor SDK Development Environment
 
 
 [ArcGIS GeoEvent Processor SDK](http://pro.arcgis.com/en/share/geoevent-processor/administer/extending-geoevent-processor.htm)
