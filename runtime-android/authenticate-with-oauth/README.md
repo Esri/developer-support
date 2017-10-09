@@ -33,6 +33,6 @@ The scheme is the redirect uri we specified in OAuthManagement.java.  The browsa
 ## Useful References:
 
 * Android Programming: The Big Nerd Ranch Guide (Chapter 26: Background Services) (ISBN-13: 978-0134171456)
-* [Category_Browsable](https://developer.android.com/reference/android/content/Intent.html# CATEGORY_BROWSABLE)
+* [Category_Browsable](https://developer.android.com/reference/android/content/Intent.html#CATEGORY_BROWSABLE)
 * [ArcGIS Runtime Version 100](https://developers.arcgis.com/android/)
 * [License your app](https://developers.arcgis.com/android/latest/guide/license-your-app.htm)
