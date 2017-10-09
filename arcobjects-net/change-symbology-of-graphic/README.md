@@ -1,4 +1,4 @@
-#Change Symbology of a Graphic
+# Change Symbology of a Graphic
 
 1. Run the sample, then turn on the drawing toolbar
 2. Pick the rectangle drawing tool and draw a graphic (a rectangle)

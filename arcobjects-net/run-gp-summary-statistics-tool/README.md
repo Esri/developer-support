@@ -1,4 +1,4 @@
-#Sample code for running Geoprocessing summary statistics tool.
+# Sample code for running Geoprocessing summary statistics tool.
 
 Three inputs parameters
 (1)input layer location

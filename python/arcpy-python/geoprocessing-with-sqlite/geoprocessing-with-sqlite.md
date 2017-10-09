@@ -21,7 +21,7 @@ poly2 = "AOI"
 gdbName = "MySqliteGdb"
 sqliteFcName = "new_sqlite_fc"
 
-#Create a spatialite enabled sqlite database with the arcpy gp function
+# Create a spatialite enabled sqlite database with the arcpy gp function
 sqlite_db_spatialite = r'D:\Data\sqlite\{}.sqlite'.format(gdbName)
 arcpy.gp.CreateSQLiteDatabase(sqlite_db_spatialite,'ST_GEOMETRY')
 print("Created - {} as st_geometry".format(sqlite_db_spatialite))
@@ -42,12 +42,12 @@ print(arcpy.GetMessages())
 in_fc = r"{}/main.{}".format(wrkspc, poly1)
 aoi = r"{}/main.{}".format(wrkspc, poly2)
 
-#Verify the correct string format with path
+# Verify the correct string format with path
 in_features = [aoi,in_fc]
 for f in in_features:
     print f
 
-#Use sqlite3 functions for some SQL fun
+# Use sqlite3 functions for some SQL fun
 conn = sqlite3.connect(sqlite_db_spatialite)
 print("connected")
 
@@ -65,7 +65,7 @@ try:
     arcpy.analysis.Intersect(in_features,new_sl_fc)
     print("Intersect finished")
 
-    #Run the update cursor to calculate the acres field using the shape_area field
+    # Run the update cursor to calculate the acres field using the shape_area field
     with arcpy.da.UpdateCursor(new_sl_fc,['acres','SHAPE@LENGTH']) as acre_crsr:
         for ac in acre_crsr:
             ac[0] = ac[1] / 4046.856

@@ -1,4 +1,4 @@
-#Gets ArcGIS Online Item Thumbnails with Esri Request
+# Gets ArcGIS Online Item Thumbnails with Esri Request
 
 This sample gets ArcGIS Online Thumbnails with Esri Request and then displays the thumbnail on the web page.
 

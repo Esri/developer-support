@@ -1,7 +1,7 @@
-#Sample to add shapeFile as a feature layer on Mapview.
+# Sample to add shapeFile as a feature layer on Mapview.
 
 
-##Steps to run the sample:
+## Steps to run the sample:
 1. Create a shapefile in ArcMap:
 http://resources.arcgis.com/en/help/main/10.1/index.html#//005600000004000000
 

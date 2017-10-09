@@ -1,6 +1,6 @@
 get-polygon-si-grid-cells.sql
 ===================
-###SQL Server - TSQL
+### SQL Server - TSQL
 
 
 
@@ -8,7 +8,7 @@ Use built-in SQL Server stored procedures and spatial functions to reveal polygo
 
 
 
-####REQUIRED:
+#### REQUIRED:
 SQL Server2008R2 database or later.
 Update your user and table names in the necessary places.
 

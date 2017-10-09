@@ -1,11 +1,11 @@
-#Display Custom Zoom Levels with Esri Basemaps
+# Display Custom Zoom Levels with Esri Basemaps
 
-##About
+## About
 The ArcGIS Javascript API comes with preset zoom levels. However some customers encounter a situation where the map must be displayed at certain preset zoom levels or that the preset zoom levels are inadequate to display their data. When using an ArcGISDynamicMapServiceLayer as the basemap these zoom levels can be customized. When using an tiled layer as the basemap these zoom levels are determined by the levels at which tiles have been cached. Thus you cannot customize zoom levels when using a tiled basemap because no tiles will be available at that scale. In this case it is recommended you either create your own basemap with a custom tiling scheme or use an ArcGISDynamicMapServiceLayer in your application. Both of these approaches have drawbacks. Creating your own basemap can be very time consuming, require large amounts of storage space and much trial and error to create the custom theme. Using an ArcGISDynamicMapServiceLayer hurts the performance of the application. This application tries to combine the strengths of both tiled layers and dynamic layers to allow users to specify custom zoom levels at larger scales. This sample uses two basemaps, one tiled and one dynamic. The dynamic basemap displays at the custom zoom levels while the tiled layer displays at all other levels.
 
 [Live Sample](https://nhaney90.github.io/custom-levels-of-detail/index.html)
 
-##How It Works
+## How It Works
 Specify the custom zoom levels you would like to use in the application. A level of detail must include the zoom level, the scale to display at and the resolution. However in this application since the tiled basemap is not shown at these zoom levels the resolution parameter is not used. A variable is also needed to hold the zoom level at which the custom zoom levels begin to be used.
 ```javascript
 var customLODS = [

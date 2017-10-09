@@ -1,9 +1,9 @@
-#Display An Image With a World File in the Correct Location
-##About
+# Display An Image With a World File in the Correct Location
+## About
 In the Silverlight API it is possible to display georeferenced images using the ElementLayer control. However to use this layer you must hard code the coordinates for the layer. This would create problems if you needed an application which allowed the customer to upload images to display. To solve this problem I created an application that would load and parse a world file.
-##Usage Notes
+## Usage Notes
 This application makes the assumption the image and the world file have the same file name and are in the same location. In the code behind the path to the file and the world file extension must be set.
-##The Logic
+## The Logic
 Wait for the ElementLayer control to initialize, generate a bitmap image from the image file, and set the content of the element layer.
 ```C#
 //Wait for the element layer to initialize

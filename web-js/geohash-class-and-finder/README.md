@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript Geohash Class w/ Example Geohash Finder Sample
+# ArcGIS API for JavaScript Geohash Class w/ Example Geohash Finder Sample
 
 Samples uses a Geohash Class with various methods on it like: encode, decode, neighbor, neighbors, and bboxes to help
 understand and use geohashes.
@@ -15,7 +15,7 @@ understand and use geohashes.
 * Encode geohashes
 * Decode geohashes
 
-##Credits
+## Credits
 
 [http://www.movable-type.co.uk/scripts/geohash.html](http://www.movable-type.co.uk/scripts/geohash.html)
 

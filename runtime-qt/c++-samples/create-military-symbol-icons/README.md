@@ -1,7 +1,7 @@
-#Generate icons from military symbols
-##About
+# Generate icons from military symbols
+## About
 The MessageProcessor class of Qt Runtime API can create thousands of different military symbols based on the attributes of a message sent to it. The Symbol class can also create images based on the symbol that created it. This sample shows how to spin these two pieces of functionality together to create button icons for military symbols. Included in this sample is a video showing the application in action.
-##The Logic
+## The Logic
 Creating images from Military Symbols is a bit more complicated than creating an image from say a SimpleMarkerSymbol.
 First create the message group layer and access the message processor
 ```C++

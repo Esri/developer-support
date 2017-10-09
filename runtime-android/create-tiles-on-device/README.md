@@ -1,4 +1,4 @@
-#How to perform a tile cache task
+# How to perform a tile cache task
 
 This sample demonstrates how to perform a tile cache task. It first performs an estiamte of how big the cache will 
 be and returns it in bytes (in Log Cat) using estimateTileCacheSize.

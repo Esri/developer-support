@@ -1,10 +1,10 @@
-#Print Service Loading Spinner
+# Print Service Loading Spinner
 
-##Background
+## Background
 This sample shows how to add a jQuery spinner when the print request is fired off. It stops spinning when the print job has completed. This can inform users that the print task is in the process of executing and will be completed soon.
 
 
-##Requirements
+## Requirements
 Please note that this sample requires you to download and host the following.
 
 1. jquery-spin
@@ -13,7 +13,7 @@ Please note that this sample requires you to download and host the following.
 
 [Download jquery-spin](http://ksylvest.github.io/jquery-spin/)
 
-##Usage notes:
+## Usage notes:
 
 
 ```html

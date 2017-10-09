@@ -1,4 +1,4 @@
-#ORE README#
+# ORE README#
 ORE (ONLINE RELATIONSHIP EDITOR)
 
 ![alt text](ORE_Small.png "Sample App UI screenshot")
@@ -7,25 +7,25 @@ This sample application demonstrates the customizability of ArcGIS AppStudio.
 This app allows the user to perform online relationship editing
 using feature services that has both feature to table relations and feature to feature relations.
 
-##Setup
+## Setup
 1. Create a new blank project in ArcGIS AppStudio
 2. Launch QtCreator (AppStudio)
 3. Copy ContentBLock.qml into your application
 4. Replace the contents of your main.qml(or empty.qml) file with the contents of MyApp.qml
 5. Save, and run the App through AppStudio
 
-##Known Limitations
+## Known Limitations
 1. Plain table updates are not working, due to a possible API bug. Feature service updates are working.
 2. Table scroll not working on mobile devices
 
-##Key Concepts
+## Key Concepts
 
-####Check for Relationships####
+#### Check for Relationships####
 ```
 var relationships = wellsFeatureServiceTable.relationships
 ```
 
-####Query for Related Records####
+#### Query for Related Records####
 ```
 QueryTask{
 	id: relationshipQueryTask
@@ -61,7 +61,7 @@ relationshipQueryTask.executeRelationshipQuery(relatedQueryParam)
 ```
 
 
-####Obtain Related Records####
+#### Obtain Related Records####
 ```
 onRelationshipQueryResultChanged: {
 	if(relationshipQueryTaskStatus == Enums.RelationshipQueryTaskStatusCompleted){
@@ -75,7 +75,7 @@ onRelationshipQueryResultChanged: {
 }
 ```
 
-####Update Value####
+#### Update Value####
 ```
 var feat = wellsFeatureServiceTable.feature(id)
 feat.setAttributeValue(fieldName, value)
@@ -84,7 +84,7 @@ wellsFeatureServiceTable.applyFeatureEdits()
 ```
 
 
-##Resources
+## Resources
 [QML Relationship Reference](https://developers.arcgis.com/qt/qml/api-reference/class_relationship.html)
 
 [QML GeodatabaseFeatureServiceTable Reference](https://developers.arcgis.com/qt/qml/api-reference/class_geodatabase_feature_service_table.html)

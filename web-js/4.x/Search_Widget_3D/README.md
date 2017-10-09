@@ -1,11 +1,11 @@
-#Search Widget 3D
+# Search Widget 3D
 
-##About
+## About
 This is a sample 3D application focusing on the Search widget, to be discussed in the Esri Support Blog: https://blogs.esri.com/esri/supportcenter/
 
 [Live Sample](http://noashx.github.io/blog/Search_Widget_3D.html)
 
-##Usage Notes
+## Usage Notes
 
 You can input a location in the Search widget and either select a result from the drop-down suggestions, or press Enter on the keyboard to go to the first place on the list.
 Then, the view will zoom to that location and place a picture marker symbol on the map. If you open the Developer Tools in the web browser, you will see some helpful console log messages indicating the progress of the Search widget.
@@ -16,7 +16,7 @@ One of the new awesome features of 4.0 is the separation of the styling and the 
 A typical widget constructor has some basic properties, and the ViewModel handles the styling and configurations.
 
 
-##How it works:
+## How it works:
 The following snippets highlight the important portions of the code.
 
 One of the new awesome features of 4.0 is the separation of the styling and the business logic. Similar to the Map and View concept described previously, all widgets have their own version of the view, called the ViewModel. A typical widget constructor has some basic properties, and the ViewModel handles the styling and configurations. For example, let’s look at the Search widget in the code:

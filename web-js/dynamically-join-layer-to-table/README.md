@@ -1,10 +1,10 @@
-#Join a Table in SDE to a Map Service Layer Using Dynamic Workspaces
+# Join a Table in SDE to a Map Service Layer Using Dynamic Workspaces
 
-##About
+## About
 ArcGIS Server allows connections to different data sources through the use of dynamic workspaces. This functionality can be used to display multiple datasets using only one map service. This can reduce the number of services on your ArcGIS Server and allow your JavaScript applications to be more flexible. What makes dynamic workspaces even more powerful is that they can be used to join non-spatial tables to spatial data. Thus you can publish a service without performing multiple joins to non-spatial tables in ArcMap and instead perform the joins dynamically. In addition to supporting dynamic workspaces ArcGIS Server also supports dynamic layers. Dynamic layers allow the symbology of the layer to be changed on the fly. More information on how to enable dynamic workspaces and dynamic layers for a map service [can be found here](http://server.arcgis.com/en/server/latest/publish-services/windows/about-dynamic-layers.htm). This sample uses dynamic layers and dynamic workspaces to join non-spatial tables to a mapservice and symbolize the layer with a ClassbreaksRenderer using dynamic layers.
 
 
-##How It Works
+## How It Works
 Because this sample allows the user to select one of two non-spatial tables to join to the map serivce, create two objects containing the join information.
 ```javascript
 var join1 = {'leftTableKey':'JoinField', 'rightTableKey':'JoinField', 'rightTableName':'Editing.DBO.FakeData1','renderingField':'Editing.DBO.FakeData1.TheDatas', 'popupField':'TheDatas'};

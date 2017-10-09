@@ -1,15 +1,15 @@
-#Keyboard "Flight" Controls
+# Keyboard "Flight" Controls
 
-##About
+## About
 This is a simple application showing how to control the position of the camera in a SceneView with keyboard commands.
 
 [Live Sample](http://nhaney90.github.io/flight-controls/index.html)
 
-##Usage Notes
+## Usage Notes
 
 The keyboard commands can be shown by clicking the "Show Map Controls" button. The map MUST be in focus to use keyboard commands. Click the map to bring it into focus. The range slider allows you to increase the map movement speed. There are 7 preset locations which can be reached by clicking the buttons in the two button groups.
 
-##How it works:
+## How it works:
 The following snippets highlight the important portions of the code.
 
 Access the selected location from the places object. Create a new camera using the position, tilt and heading properties of the selected location. Call the animateTo method of the view to set the camera to the new location.

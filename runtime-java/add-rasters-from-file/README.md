@@ -27,7 +27,7 @@ Supported raster formats:
 
 =======
 
-###Reference:
+### Reference:
 
 [FileRasterSource](https://developers.arcgis.com/java/api-reference/com/esri/core/raster/FileRasterSource.html)
 

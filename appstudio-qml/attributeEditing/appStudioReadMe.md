@@ -1,11 +1,11 @@
-#Attribute Editing in AppStudio
+# Attribute Editing in AppStudio
 
-##Background
+## Background
 This sample demonstrates how to add a add features to the map using the "add" button.  
 
 When we click on a feature, attributes can be edited in a Dialog Box.
 
-##Usage notes:
+## Usage notes:
 
 Create a button to add features to the map
 ```javascript

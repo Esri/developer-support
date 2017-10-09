@@ -1,4 +1,4 @@
-#Maps with linked extents using Leaflet and the ArcGIS Leaflet plugin
+# Maps with linked extents using Leaflet and the ArcGIS Leaflet plugin
 
 This is a sample app with multiple maps that have linked extents.  The application can be easily modified to increase or decrease the default number of maps displayed in the browser, as well as the layers and functionality of each individual map.
 

@@ -84,7 +84,7 @@ Finally, we need to register the provider inside the Android Manifest.  This is 
 #### Searchable.xml
 This is how we specify the properties of the search widget that is declared in the ```mainmenu.xml``` file.  This has a searchSuggestAuthority which is the class that the content provider comes from.  This also has a searchSuggestIntentAction which is what intent will be fired when the search suggestion is clicked on.
 
-##Known Issues:
+## Known Issues:
 A few of these classes could be refactored to simplify the searching.  i.e., the singleton SuggestionHolder can be replaced with another class or static method.
 
 ## Useful References:

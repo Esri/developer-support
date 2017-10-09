@@ -1,4 +1,4 @@
-##FolderConnectionManager
+## FolderConnectionManager
 
 <!-- TODO: Write a brief abstract explaining this sample -->
 Allows saving and loading folder connections to a Project.   
@@ -15,7 +15,7 @@ ArcGIS Pro:    1.1
 Visual Studio: 2013, 2015
 ```
 
-##Resources
+## Resources
 
 * [API Reference online](http://pro.arcgis.com/en/pro-app/sdk/api-reference)
 * <a href="http://pro.arcgis.com/en/pro-app/sdk/" target="_blank">ArcGIS Pro SDK for .NET (pro.arcgis.com)</a>
@@ -24,7 +24,7 @@ Visual Studio: 2013, 2015
 * [ArcGIS Pro SDK icons](https://github.com/Esri/arcgis-pro-sdk/releases/tag/1.1.0.3308)
 * [ProConcepts: ArcGIS Pro Add in Samples](https://github.com/Esri/arcgis-pro-sdk-community-samples/wiki/ProConcepts-ArcGIS-Pro-Add-in-Samples)
 
-##How to use the sample
+## How to use the sample
 <!-- TODO: Explain how this sample can be used. To use images in this section, create the image file in your sample project's screenshots folder. Use relative url to link to this image using this syntax: ![My sample Image](FacePage/SampleImage.png) -->
    
 1. Open ArcGIS Pro and either a new or existing Project.

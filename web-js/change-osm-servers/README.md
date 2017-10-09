@@ -1,14 +1,14 @@
-#Change Open Street Map Servers
+# Change Open Street Map Servers
 
-##About
+## About
 Esri's default basemaps include an Open Street Map basemap. However this basemap is only one of many different Open Street Map basemaps that are available. Quite frankly most of these basemaps look awesome and are definately worth exploring! You can access these basemaps by adding an OpenStreetMapLayer to your application and setting the tileServer's property to the servers that provide the basemap you want. You can [read about the different Open Street Map servers here](http://wiki.openstreetmap.org/wiki/Tile_servers). In this sample I have aggregated most of the Open Street Maps and allow you to explore the different options.
 
 [Live Sample](http://nhaney90.github.io/change-osm-servers/index.html)
 
-##Usage notes
+## Usage notes
 While Open Street Map basemaps are free and publically available some do have specific attribution and use requirements. Please research the requirement for each basemap before including it in your project. This application uses so many basemaps that the server information was cluttering the code. I moved this information to a seperate JSON file which I query and then use to populate the different basemap options.
 
-##How it works:
+## How it works:
 The following snippets highlight the important portions of the code.
 
 Make a get request to retrieve the server information. Use the first basemap in the response as the default basemap in the application.

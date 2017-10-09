@@ -15,7 +15,7 @@ This snippet code basically show two major ways that how to trigger Attribute In
 
 2. Choose one of the tools from "Draw tool" panel to create a graphic on map and attribute inspector will pop up
 
-##Extended based on the sample
+## Extended based on the sample
 This sample is extended based on this sample [Using the attribute inspector](https://developers.arcgis.com/javascript/jssamples/ed_attribute_inspector.html)
 
 

@@ -1,8 +1,8 @@
-#License Utiltiies
-##Use Case
+# License Utiltiies
+## Use Case
 These are the utilities present in most samples to get the tools licensed.  These are also frequently cited in other ESRI Samples.
 
-##Instructions
+## Instructions
 In order to use these utilities, include them with your project:
 ```cpp
 #include "LicenseUtilities.h"

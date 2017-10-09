@@ -1,4 +1,4 @@
-#Join stand alone table to feature layer and display data attributes in Data Grid by using the ArcGIS API for JavaScript
+# Join stand alone table to feature layer and display data attributes in Data Grid by using the ArcGIS API for JavaScript
 
 This is a sample shows how to use the JoinDataSource to join stand alone table to a layer completely constructed "on the fly".
 

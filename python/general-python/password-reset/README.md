@@ -20,6 +20,6 @@ Sets a specified password for a specified user in an ArcGIS Online organization
 Use to reset a members password in your organization to something specific
 
 
-#Additions
+# Additions
 
 You can download and the following item in ArcGIS Online to get the script with the needed requests library in order to access a ready to use script: https://www.arcgis.com/home/item.html?id=4384753ec0a34f25bda190eff3deaea4

@@ -1,4 +1,4 @@
-#Converts Raster Image to Feature Data (Lines)
+# Converts Raster Image to Feature Data (Lines)
 
 This C++ sample converts a Raster Image to lines.
 

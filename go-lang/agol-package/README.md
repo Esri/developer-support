@@ -10,7 +10,7 @@ package main
 
 import (
 	"fmt"
-	
+
 	//This will change based upon your installation path and where you downloaded it from.
 	"github.com/nohe427/agol"
 )

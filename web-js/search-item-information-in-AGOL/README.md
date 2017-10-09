@@ -1,9 +1,9 @@
-#Query Organization Item Information with JavaScript
+# Query Organization Item Information with JavaScript
 
-##About
+## About
 I wrote this sample as a way to quickly retrieve and analyze information about items hosted in ArcGIS Online. This application sends a REST request to the search endpoint of an ArcGIS Online organization. The results are returned and converted to a comma separated list. This list is then converted to a csv file and downloaded to the user's computer to facilitate analysis. A standalone Python or Ruby script might make more sense if you only want to return the item information. However if you want to integrate this functionality into a larger web based application then this workflow would be useful.
 
-##How it works:
+## How it works:
 The following code snippets show how the application works:
 
 Use esriRequest send a simple get request to the search REST endpoint of your organization

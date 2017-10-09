@@ -1,4 +1,4 @@
-#Selection Widget / Dijit POC
+# Selection Widget / Dijit POC
 
 This is a working sample that applies the dojo dijit framework making it possible to search for location and then define a
 distance or a drive time to generate a useful geometry to then query a layer or layers of interest.  This tool is designed to
@@ -34,7 +34,7 @@ selectionWidget.startup();
 
 ```
 
-#Screen Grab
+# Screen Grab
 
 ![Image of Selection Widget](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/selection-widget.png "Selection widget screenshot")
 

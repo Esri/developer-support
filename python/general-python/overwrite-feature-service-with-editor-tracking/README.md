@@ -20,7 +20,7 @@ https://services.arcgis.com/6tVsHR2ERRUR1RFd/arcgis/rest/services/2015_Total_Pop
 
 If you want to overwrite a service with data in which editor tracking was already collected, use this tool.
 
-#Additions
+# Additions
 You can modify the publish parameters in paramDict further to include more capabilities by referring to the following documentation:
 http://resources.arcgis.com/en/help/arcgis-rest-api/index.html#/Publish_Item/02r300000080000000/
 

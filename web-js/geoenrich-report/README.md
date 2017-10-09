@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript GeoEnrichment Tasks (Get Report)
+# ArcGIS API for JavaScript GeoEnrichment Tasks (Get Report)
 
 this sample was provided by JS team to demonstrate how to work with Geoenrichment Tasks to make calls to generate reports.  
 

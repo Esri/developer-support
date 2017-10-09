@@ -1,4 +1,4 @@
-#Create TIN
+# Create TIN
 This code snippet shows how to create a TIN from a height dataset, for example, a polyline dataset of contour lines.
 
 

@@ -1,4 +1,4 @@
-#Android Location Tracking Sample Mindful of Battery Consumption
+# Android Location Tracking Sample Mindful of Battery Consumption
 
 This code mixes two important SDKs - ArcGIS Runtime SDK for Android and Geotrigger SDK for Android.  It also shows how to create an Android Java class that extends Service.
 
@@ -10,11 +10,11 @@ This code mixes two important SDKs - ArcGIS Runtime SDK for Android and Geotrigg
 * Shows how to use / implement GeotriggerBroadcastReceiver's LocationUpdateListener, specifically in the class that extends Service (MyService.java)
 * Code shows how to save location updates to a Feature Service (the ArcGIS Runtime SDK for Android piece)
 
-##Notes
+## Notes
 
 To visualize the location updates that get sent to the Feature Service, create a Map in ArcGIS Online and add the Feature Service as a layer.
 
-##Screen Shot
+## Screen Shot
 
 ![alt text](https://raw.githubusercontent.com/Esri/developer-support/master/repository-images/location-tracking.png "Location tracking w/ Android and Esri")
 

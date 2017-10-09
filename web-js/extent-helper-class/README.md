@@ -1,4 +1,4 @@
-#Extent Helper Class for the ArcGIS API for JavaScript
+# Extent Helper Class for the ArcGIS API for JavaScript
 
 Sample contains an extent helper class that chops up extents into different quadrants and finds bounding box corners and midpoints.
 

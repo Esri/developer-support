@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript Point Clustering with a FeatureLayer
+# ArcGIS API for JavaScript Point Clustering with a FeatureLayer
 
 This is a sample app with multiple maps that have linked extents.  The application can be easily modified to increase or decrease the number of maps displayed in the browser.
 

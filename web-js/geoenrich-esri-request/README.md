@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript GeoEnrichment with Esri Request
+# ArcGIS API for JavaScript GeoEnrichment with Esri Request
 
 This sample generates random points around Seattle, Washington and then geoenriches them with Key Global Facts data.  In the process the points are randomly buffered, so the results of the geoenrichment process pertain to the buffered area. The new enriched attributes are displayed as text to confirm successful geoenrichment.
 

@@ -1,4 +1,4 @@
-#Authenticate to ArcGIS Online / ArcGIS Portal using OAuth
+# Authenticate to ArcGIS Online / ArcGIS Portal using OAuth
 
 Shows how to signin to ArcGIS Online / Portal using built in ArcGIS iOS SDK OAuth components.  It's important that the redirect uri value contains this string once the application has been created
 on the ArcGIS for Developer's website contains this string urn:ietf:wg:oauth:2.0:oob.

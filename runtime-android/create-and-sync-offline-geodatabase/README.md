@@ -1,4 +1,4 @@
-#Sample to generate an offline geodatabase and then synchronize the content back to a Feature Service and enterprise geodatabase
+# Sample to generate an offline geodatabase and then synchronize the content back to a Feature Service and enterprise geodatabase
 
 This sample has two buttons.  One makes a call to a Feature Service to download an offline
 geodatabase.  The other button synchronizes the geodatabase back to a Feature Service.

@@ -20,6 +20,6 @@ If removing users who created testing content, this can help to remove thier use
 
 Any content deleted is permenantly deleted!
 
-#Additions
+# Additions
 
 You can download and the following item in ArcGIS Online to get the script with the needed requests library in order to access a ready to use script: https://www.arcgis.com/home/item.html?id=ff0e8a1b546d42eab1c4fc39b36019af

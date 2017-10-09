@@ -1,4 +1,4 @@
-#Usage notes
+# Usage notes
 - This script uses the REST API to add a tile package as an item and publish that tile package.
 - We are also able to find an existing hosted tile package and publish that package.
 - Finally, we are able to update sharing. We can share/unshare with everyone and with the org.
@@ -7,7 +7,7 @@
 - Please note that storing services consumes credits.
 - Always test modestly. For example, to ensure tiles are created, test with the top level (0) first, instead of all levels.
 
-#Required modules and data
+# Required modules and data
 - The requets module is needed.
    Get it here: http://www.lfd.uci.edu/~gohlke/pythonlibs/#requests
    Or here: http://docs.python-requests.org/en/latest/user/install/
@@ -15,7 +15,7 @@
    How to create a tile package:
    http://desktop.arcgis.com/en/desktop/latest/map/working-with-arcmap/how-to-create-a-tile-package.htm
 
-#Example workflow
+# Example workflow
 ```python
 # Instantiate the object
 >>> test = AGOL(username, password)
@@ -34,5 +34,5 @@
 >>> test.shareItems("true", "true")
 ```
 
-#What this script needs
+# What this script needs
 - A bit more logic is needed if you want to share with a specific group. You would add that logic to groupSearch and unshareItems.

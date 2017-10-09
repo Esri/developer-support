@@ -1,7 +1,7 @@
-#Re-order sublayers of an ArcGISDynamicMapServiceLayer
-##About
+# Re-order sublayers of an ArcGISDynamicMapServiceLayer
+## About
 Re-ordering the sublayers of an ArcGISDynamicMapServiceLayer is sometimes necessary to display data in a visual pleasing manner. However the workflow to do this is not intuitive. This sample demonstrates how to successful re-order sublayers.
-##The Logic
+## The Logic
 Create a List of DynamicLayerInfos containing the current DynamicLayer information for the sublayers.
 ```Java
 //Get the sublayers of the map service

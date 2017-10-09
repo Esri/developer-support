@@ -1,5 +1,5 @@
-#Bootstrapper Class
-##Use Case
+# Bootstrapper Class
+## Use Case
 Since all ArcGIS Engine Java applications reference class files from the arcobjects.jar library, arcobjects.jar should be present in the Java classpath when the applications are run. In some cases, the location of arcobjects.jar is not known relative to the application JAR. This is the case with Web Start applications and executable JARs. In such cases, the following helper can dynamically load arcobjects.jar from its location on disk.
 
 ## Instructions

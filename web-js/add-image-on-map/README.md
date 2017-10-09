@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript - Add image file on to map using MapImageLayer
+# ArcGIS API for JavaScript - Add image file on to map using MapImageLayer
 This is a sample app which directly adds an image ( gif | jpg | png | bmp) from your local drive or online resources onto the map without publishing the image as an imageservices.
 
 ## Additional Resources

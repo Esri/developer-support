@@ -1,4 +1,4 @@
-#ArcGIS API for JavaScript Retrieve all features
+# ArcGIS API for JavaScript Retrieve all features
 
 This is a sample app that retrieves all records from a service.
 

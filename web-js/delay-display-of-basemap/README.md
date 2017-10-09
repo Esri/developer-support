@@ -1,8 +1,8 @@
-#Delay the Display of the Basemap Until All Tiles Are Loaded
+# Delay the Display of the Basemap Until All Tiles Are Loaded
 [Live Sample](http://esri.github.io/developer-support/web-js/delay-display-of-basemap/index.html)
-##About
+## About
 The default behavior of the basemap is for tiles to appear on the screen one at a time as requests for individual tiles are sent to the server and responses are received. This can (especially in high latency environments) create a situation where tiles are loaded in a piece mail fashion showing a "checker board" of tiles momentarily. To combat this behavior you can hide the basemap until all tiles are loaded. Thus everytime the map is panned the basemap will be hidden until the new set of tiles has been populated. This sample demonstrates one way to do this.
-##The Logic
+## The Logic
 When each layer is loaded into the map add an on load event to the layer.
 ```javascript
 /Wait for the map to load

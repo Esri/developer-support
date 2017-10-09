@@ -1,15 +1,15 @@
-#Save Map State Using LocalStorage
+# Save Map State Using LocalStorage
 
-##About
+## About
 This sample shows how to use LocalStorage to store the current state of the map. This is useful if you need to redirect the user from the mapping application to another webpage and then back to the mapping application and you wish to have the application have the same "look" as before. This application saves the extent of the map, the currently selected feature and launches the selected popup.
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](SaveMapState.gif "Application Demo")
 
-##Usage Notes
+## Usage Notes
 While this sample only stores the currently selected features and the map extent you could store any information about the map. However data is stored as a string in LocalStorage. Thus any JSON objects will need to be converted to strings. For this I would suggest using JSON.stringify(). A downside of converting JSON to strings is that you will not be able to store ArcGIS JavaScript API objects directly as they will lose all associated methods. This is why you cannot simply store the "map" object to save the map state.
 
 
-##How It Works
+## How It Works
 Create an object to store the information that will be placed in LocalStorage.
 ```javascript
 var storageData = {};

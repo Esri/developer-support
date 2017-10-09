@@ -1,4 +1,4 @@
-#How to make labels on a Map
+# How to make labels on a Map
 
 This is a sample app that creates labels from a Map Service 
 

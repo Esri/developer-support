@@ -1,11 +1,11 @@
 ## Append (Insert cursor)
 ### Move rows from a spatial table into a non-versioned feature class table
 
-###Target table
+### Target table
 Use ArcGIS to create a feature class in an SQL Server geodatabase.  Add a varchar(n) column called Name.  
 The objectid and shape column are created automagically.
 
-###Generate the input table
+### Generate the input table
 ```sql
 CREATE TABLE [dbo].[InputTable2](
 	[OBJECTID] [int] NOT NULL,
