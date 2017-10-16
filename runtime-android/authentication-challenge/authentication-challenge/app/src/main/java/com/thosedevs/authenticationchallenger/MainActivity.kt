@@ -24,9 +24,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Uncomment to see default behavior
+        //Uncomment to see default behavior.  If uncommented comment out line below to start default behavior
         //setUpDefaultChallengeHandler()
 
+        //Comment this out to see default behavior and uncomment the line above this one.
         AuthenticationManager.setAuthenticationChallengeHandler(CustomAuthenticationChallengeHandler(this))
 
         map.map = ArcGISMap(Basemap.createDarkGrayCanvasVector())
