@@ -1,4 +1,4 @@
-# Graphic Extensions
+# Graphic Overlay Extensions
 ## What are these extension functions for?
 These extension functions are for the [GraphicsOverlay class](https://developers.arcgis.com/android/latest/api-reference/reference/com/esri/arcgisruntime/mapping/view/GraphicsOverlay.html)
 
