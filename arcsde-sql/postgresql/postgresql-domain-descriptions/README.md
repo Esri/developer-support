@@ -2,7 +2,7 @@
 Examples exist for linking the description of a coded value domain to the assigned value.  There are two examples in the current documentation.  One for SQL Server and one for Oracle.
 
 Example: Resolving domain codes to description values using SQL
-http://desktop.arcgis.com/en/arcmap/10.3/manage-data/using-sql-with-gdbs/example-resolving-domain-codes-to-description-values.htm
+http://desktop.arcgis.com/en/arcmap/latest/manage-data/using-sql-with-gdbs/example-resolving-domain-codes-to-description-values.htm
 
 
 >In many cases, the codes in a coded value domain are arbitrarily assigned; for example, in a coded value domain of pipe materials, the domain's description values may be Copper, PVC, and Steel, but the domain's codes could be 1, 2, and 3, which are of little use to users executing a SQL query on a table that uses the domain.
