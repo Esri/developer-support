@@ -22,12 +22,13 @@ with codeVal_CTE as (
 )
 
 SELECT a.objectid, a.type, cdval.code, a.shape
-FROM sde.bloomfield_parcels a
+FROM sde.bloomfield_parcels a   -- feature class
 LEFT OUTER JOIN (
     select code, 
     		val 
     FROM codeVal_CTE 
-	WHERE name = 'lrParcelType') as cdval
+	WHERE name = 'lrParcelType' -- domain name
+    ) as cdval
 ON CAST(a.type as text) = cdval.val
 ```
 
