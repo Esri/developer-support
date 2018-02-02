@@ -1,6 +1,6 @@
 # Usage:
 
-.\FGDB-Crawler-CSVGen.exe targetPath outputFile.csv
+**.\FGDB-Crawler-CSVGen.exe targetPath outputFile.csv**
 
 This program will take a folder 'targetPath' that contains file geodatabases (\*.gdbs) and generates a CSV file 'outputFile.csv' that contains information about various data contained in the file geodatabases. Non-file-geodatabase (files without a .gdb file extension) will be skipped.
 
