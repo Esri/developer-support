@@ -1,6 +1,6 @@
 # Usage:
 
-This program is a console application that uses ArcObjects. It can be called from the command line in two ways **Note: Either the -p or the -r option MUST be specified**:
+This program is a console application that uses ArcObjects. It can be called from the command line in two ways **(Note: Either the -p or the -r option MUST be specified)**:
 
 ### 1.) Specifying a folder that contains File GeoDatabases:
 
