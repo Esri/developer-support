@@ -3,15 +3,7 @@ using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.esriSystem;
 using System.Runtime.InteropServices;
 using ESRI.ArcGIS.DataSourcesGDB;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-using System.Diagnostics;
 
 namespace FGDB_Crawler_CSVGen
 {
@@ -29,11 +21,9 @@ namespace FGDB_Crawler_CSVGen
 
             // The user must specify the root path to be explored (i.e. a path containing File GeoDatabases (*.gdb)
             // as well as an output csv file
-            if (args.Length != 2)
+            if (args.Length != 3)
             {
-                Console.WriteLine("Usage: .\\FGDB-Crawler-CSVGen.exe targetPath outputFile.csv");
-                Console.WriteLine("Aborting.");
-                System.Environment.Exit(1);
+                usageExit();
             }
             else
             {
@@ -43,50 +33,95 @@ namespace FGDB_Crawler_CSVGen
                 ESRI.ArcGIS.esriSystem.IAoInitialize ao = new ESRI.ArcGIS.esriSystem.AoInitialize();
                 esriLicenseStatus status = ao.Initialize(ESRI.ArcGIS.esriSystem.esriLicenseProductCode.esriLicenseProductCodeStandard);
 
-                // Print all *.gdb in the path
+                string option = args[0];
+                string rootPath = args[1]; // Target path is the first argument of the console application
+                string outfile = args[2]; // Output CSV file is the second argument
+
+                switch (option)
                 {
-                    string rootPath = args[0]; // Target path is the first argument of the console application
-                    string outfile = args[1]; // Output CSV file is the second argument
-
-                    string[] folders = null;
-                    try
-                    {
-                        folders = Directory.GetDirectories(rootPath);
-                    }catch (Exception exc)
-                    {
-                        Console.WriteLine("Error: Could not find the specified path: \"" + rootPath + "\"");
-                        Console.WriteLine(exc.InnerException.Message);
-                        System.Environment.Exit(1);
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("Processing... please wait.");
-                    // Print the CSV Header
-                    printCSVHeader(outfile);
-
-                    foreach (string folder in folders) // For each folder in the root path
-                    {
-                        try
-                        {
-                            string fileExt = Path.GetExtension(folder); // Get this folder's file extension
-                            if (fileExt != ".gdb") continue; // If the folder is not a File GeoDatabase, skip it
-                            exploreFGDB(folder, outfile); // Process the File GeoDatabase
-                        }
-                        catch (Exception)
-                        {
-                            continue;
-                        }
-
-                    }
+                    case "-p": // Path to a File GeoDatabase
+                        testFGDBPath(rootPath);
+                        Console.WriteLine("Processing... please wait.");
+                        printCSVHeader(outfile);
+                        exploreFGDB(rootPath, outfile);
+                        break;
+                    case "-r": // Root directory that contains File GeoDatabases
+                        exploreRootDirectory(rootPath, outfile);
+                        break;
+                    default:
+                        usageExit();
+                        break;
                 }
+
                 Console.WriteLine("Done Processing.");
                 System.Environment.Exit(0);
             }
+        }
+        private static void testFGDBPath(string path)
+        {
+            string fileExt = Path.GetExtension(path); // Get this folder's file extension
+            if (fileExt != ".gdb")
+            {
+                Console.Error.WriteLine("Error: \"" + path + "\" : No .gdb extension found!");
+                Console.Error.WriteLine("Aborting.");
+                System.Environment.Exit(1);
+            }
+
+            if (!(Directory.Exists(path)))
+            {
+                Console.Error.WriteLine("Error: \"" + path + "\" : No such directory!");
+                Console.Error.WriteLine("Aborting.");
+                System.Environment.Exit(1);
+            }
+        }
+
+        private static void exploreRootDirectory(string rootPath, string outfile)
+        {
+            string[] folders = null;
+            try
+            {
+                folders = Directory.GetDirectories(rootPath);
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine("Error: Could not find the specified path: \"" + rootPath + "\"");
+                Console.WriteLine(exc.InnerException.Message);
+                System.Environment.Exit(1);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Processing... please wait.");
+            // Print the CSV Header
+            printCSVHeader(outfile);
+
+            foreach (string folder in folders) // For each folder in the root path
+            {
+                try
+                {
+                    string fileExt = Path.GetExtension(folder); // Get this folder's file extension
+                    if (fileExt != ".gdb") continue; // If the folder is not a File GeoDatabase, skip it
+                    exploreFGDB(folder, outfile); // Process the File GeoDatabase
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+
+            }
+        }
+
+        private static void usageExit()
+        {
+            Console.Error.WriteLine("Usage: Use one of the following:");
+            Console.Error.WriteLine("\t.\\FGDB-Crawler-CSVGen.exe -p path.gdb outputFile.csv");
+            Console.Error.WriteLine("\t.\\FGDB-Crawler-CSVGen.exe -r targetPath outputFile.csv");
+            Console.Error.WriteLine("Aborting.");
+            System.Environment.Exit(1);
         }
 
         // Print the CSV Header to the output CSV file 'outfile'
         private static void printCSVHeader(string outfile)
         {
-            string csvHeader = "Full Path,Local Path,Name,Category,Type,Full Name,Last Accessed,Time Created,Date Modified,File Size on Disk";
+            string csvHeader = "Full Path,Local Path,Name,Category,Type,Full Name,Last Accessed (GMT),Time Created (GMT),Date Modified (GMT),File Size on Disk";
             csvHeader += Environment.NewLine;
             System.IO.File.WriteAllText(outfile, csvHeader);
         }
