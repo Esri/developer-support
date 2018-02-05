@@ -1,8 +1,20 @@
 # Usage:
 
-    .\FGDB-Crawler-CSVGen.exe targetPath outputFile.csv
+This program is a console application that uses ArcObjects. It can be called from the command line in two ways:
 
-This program will take a folder 'targetPath' that contains file geodatabases (\*.gdbs) and generates a CSV file 'outputFile.csv' that contains information about various data contained in the file geodatabases. Non-file-geodatabase (files without a .gdb file extension) will be skipped.
+### 1.) Specifying a folder that contains File GeoDatabases:
+
+    .\FGDB-Crawler-CSVGen.exe -r C:\directorythatcontainsfgdbs outputFile.csv
+
+If the '-r' option is specified, program will take a folder 'directorythatcontainsfgdbs' that contains file geodatabases (\*.gdbs) and generates a CSV file 'outputFile.csv' that contains information about various data contained in the file geodatabases. Non-file-geodatabase (files without a .gdb file extension) will be skipped.
+
+### 2.) Specifying a path to a specific File GeoDatabase:
+
+    .\FGDB-Crawler-CSVGen.exe -p C:\filegeodatabase.gdb outputFile.csv
+
+If the '-p' option is specified, the program will take 'filegeodatabase.gdb' and generate a CSV file 'outputFile.csv' that contains information about that specific file geodatabase.
+
+# What is in the output:
 
 The output CSV file contains information such as:
 * The paths of the .gdb folders found
