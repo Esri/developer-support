@@ -36,6 +36,7 @@ namespace FGDB_Crawler_CSVGen
                 string option = args[0];
                 string rootPath = args[1]; // Target path is the first argument of the console application
                 string outfile = args[2]; // Output CSV file is the second argument
+                outfile = toCSVPath(outfile);
 
                 switch (option)
                 {
@@ -57,6 +58,16 @@ namespace FGDB_Crawler_CSVGen
                 System.Environment.Exit(0);
             }
         }
+
+        // If there is no '.csv' file extension, then append '.csv' to the end of the path.
+        // Otherwise, return the original string
+        private static string toCSVPath(string path)
+        {
+            string fileExt = Path.GetExtension(path); // Get this folder's file extension
+            if (fileExt != ".csv") return path + ".csv";
+            else return path;
+        }
+
         private static void testFGDBPath(string path)
         {
             string fileExt = Path.GetExtension(path); // Get this folder's file extension
