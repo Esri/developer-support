@@ -46,7 +46,16 @@ namespace FGDB_Crawler_CSVGen
                         printCSVHeader(outfile);
                         exploreFGDB(rootPath, outfile);
                         break;
+                    case "-P": // Path to a File GeoDatabase
+                        testFGDBPath(rootPath);
+                        Console.WriteLine("Processing... please wait.");
+                        printCSVHeader(outfile);
+                        exploreFGDB(rootPath, outfile);
+                        break;
                     case "-r": // Root directory that contains File GeoDatabases
+                        exploreRootDirectory(rootPath, outfile);
+                        break;
+                    case "-R": // Root directory that contains File GeoDatabases
                         exploreRootDirectory(rootPath, outfile);
                         break;
                     default:
