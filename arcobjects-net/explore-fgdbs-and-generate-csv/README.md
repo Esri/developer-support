@@ -14,7 +14,9 @@ If the '-r' option is specified, program will take a folder 'directorythatcontai
 
 If the '-p' option is specified, the program will take 'filegeodatabase.gdb' and generate a CSV file 'outputFile.csv' that contains information about that specific file geodatabase.
 
-# What is in the output:
+# About the .csv output:
+
+Regardless of whether or not the '.csv' is ommitted from the output file (third argument) when the program is called from the command line, the output that is generated will have the '.csv' file extension.
 
 The output CSV file contains information such as:
 * The paths of the .gdb folders found
