@@ -1,0 +1,42 @@
+﻿<ArcGIS defaultAssembly="GeodatabaseConnection.dll" defaultNamespace="GeodatabaseConnection" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{5bad51ed-14a1-4f26-8fc5-92bea08e5d34}" version="1.0" desktopVersion="2.1.10257">
+    <Name>GeodatabaseConnection</Name>
+    <Description>GeodatabaseConnection description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>ken6574</Author>
+    <Company>Acme</Company>
+    <Date>4/30/2018 8:41:53 AM, 2018</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="GeodatabaseConnection_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="GeodatabaseConnection_Tab1" caption="New Tab">
+          <group refID="GeodatabaseConnection_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="GeodatabaseConnection_Group1" caption="Group 1" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <button refID="GeodatabaseConnection_Dockpane1_ShowButton" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="GeodatabaseConnection_Dockpane1_ShowButton" caption="Enterprise DB Connection Test" className="Dockpane1_ShowButton" loadOnClick="true" smallImage="Images\GenericButtonPurple16.png" largeImage="Images\GenericButtonPurple32.png">
+          <tooltip heading="Show Dockpane">Show Dockpane<disabledText /></tooltip>
+        </button>
+      </controls>
+      <dockPanes>
+        <dockPane id="GeodatabaseConnection_Dockpane1" caption="Enterprise DB Connection Test" className="Dockpane1ViewModel" dock="group" dockWith="esri_core_contentsDockPane">
+          <content className="Dockpane1View" />
+        </dockPane>
+      </dockPanes>
+    </insertModule>
+  </modules>
+</ArcGIS>
