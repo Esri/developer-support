@@ -8,7 +8,7 @@ This AddIn allows one to test multiple enterprise geodatabase connections with A
 - Will activate SDE Intercepts and DBMS tracing.
 - Opens any SDE connection file (.sde).
 
-```
+```c#
 QueuedTask.Run(() =>
 {
     var start = DateTime.Now.ToLocalTime();
