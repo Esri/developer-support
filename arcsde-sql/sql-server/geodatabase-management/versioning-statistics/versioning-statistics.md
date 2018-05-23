@@ -87,7 +87,18 @@ DECLARE @delta_table_info TABLE
 DECLARE @ver_count int = (SELECT COUNT(*) FROM sde.SDE_versions)
 DECLARE @state_count int = (SELECT COUNT(*) FROM sde.sde_states)
 DECLARE @state_lineages_count int = (SELECT COUNT(*) cnt FROM sde.SDE_state_lineages)
-DECLARE @last_compress DATE = (SELECT MAX(compress_start) FROM sde.SDE_compress_log)
+
+-- If the geodatabase has never been compressed, the SDE_compress_log table will not exist.
+-- This will check for its existence and provide a fake date if it does not.
+DECLARE @last_compress DATE
+IF EXISTS (SELECT table_name FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = 'SDE' AND table_name = 'compress_log')
+BEGIN
+    SET @last_compress = (SELECT MAX(compress_start) FROM sde.SDE_compress_log)
+END
+ELSE
+    BEGIN
+	       SET @last_compress = '9/9/9999';
+END
 
 DECLARE @ver_info_state_id int, @message varchar(100) = '', @source_lin int, 
         @com_anc_id int, @lin_name int, @state_id int, @ver_blocking int = 0,
