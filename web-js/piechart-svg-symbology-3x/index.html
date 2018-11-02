@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>piechart-svg-symbology-3x</title>
+        <link rel="stylesheet" href="https://js.arcgis.com/3.24/dijit/themes/claro/claro.css">
+        <link rel="stylesheet" href="https://js.arcgis.com/3.24/esri/css/esri.css">
+        <style>
+        html, body, #map {
+            height:100%;
+            width:100%;
+            margin:0;
+            padding:0;
+        }
+        </style>
+
+        <script src="https://js.arcgis.com/3.24/"></script>
+        <!-- I'm using v3.x because this code will eventually reside in a 2D web
+        app created by WAB, which still uses our 3.x JS API -->
+
+        <script>
+
+        require([
+            "esri/map",
+            "esri/Color",
+            "esri/geometry/Point",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/symbols/PictureMarkerSymbol",
+            "esri/symbols/SimpleLineSymbol",
+            "esri/graphic",
+            "dojo/_base/array",
+            "dojo/domReady!"
+        ], function(
+            Map, Color, Point, SimpleMarkerSymbol, PictureMarkerSymbol, SimpleLineSymbol, Graphic, arrayUtils
+        ) {
+
+            const colorRed = "#ff4444"; // make these a little pale
+            const colorGrn = "#44ff44";
+            const colorBlu = "#4444ff";
+            const colorYel = "#ffff44";
+
+            var map = new Map("map",{
+                basemap: "gray",
+                center: [-74, 40.725],
+                zoom: 11
+            });
+
+            // crosshair marker for testing, matches the map point x,y exactly
+            var smsCrs = new SimpleMarkerSymbol;
+            smsCrs.setSize(45);
+            smsCrs.setStyle(SimpleMarkerSymbol.STYLE_CROSS);
+            smsCrs.setOutline(new SimpleLineSymbol({color: new Color("#000000"), width: 1.2}));
+
+            // ---------------------------------------------------------------------------
+
+
+            function createPieSliceFillPath(arcStartX, arcStartY, arcEndX, arcEndY) {
+
+                var pathPieSliceFill = "M" + arcStartX + "," +
+                arcStartY + "A5,5,0,0,1," +
+                arcEndX + "," +
+                arcEndY + "L6,6z";
+
+                return pathPieSliceFill; //returns "Mx,yA5,5,0,0,1,x,yL6,6z"
+            }
+            // end of function createPieSlicePath() --------------------------------------
+
+
+            function createPieSliceOutlinePath(arcStartX, arcStartY, arcEndX, arcEndY) {
+
+                var pathPieSliceOutline;
+                //
+                // TO DO ^^^^^^
+                //
+                // RIGHT NOW I'M **FAKING** IT WITH THE BLACK CROSSHAIRS SimpleMarkerSymbol ABOVE
+                //
+                return pathPieSliceOutline;
+            }
+            // end of function createPieSliceOutlinePath() -------------------------------
+
+
+            function getPieSliceFill(strSvgPath, strColorHex) {
+
+                // IMPORTANT
+                //
+                // Notice that the <svg>'s viewBox parameter is "0 0 12 12".
+                // This allow us to create a pie with a radius of 5, with enough
+                // buffer to support an outline.
+                // The map point on which the SVG graphic will draw will be at the center
+                // of the viewBox. So in this case: 6,6.
+                var svgDataURI =
+                    '<?xml version="1.0" encoding="iso-8859-1"?>' +
+                    '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' +
+                    '<svg version="1.1" ' +
+                    'xmlns="http://www.w3.org/2000/svg" ' +
+                    'xmlns:xlink="http://www.w3.org/1999/xlink" ' +
+                    'x="0px" y="0px" width="12px" height="12px" viewBox="0 0 12 12" ' +
+                    'style="enable-background:new 0 0 12 12;" ' +
+                    'xml:space="preserve">' +
+                    '<g>' +
+                    '<path style="fill:' +
+                    strColorHex +
+                    '" d="' +
+                    strSvgPath +
+                    '" />' +
+                    '</g>' +
+                    '</svg>';
+
+                // String -> Base64 encoded string
+                return btoa(svgDataURI);
+            }
+            // end of function getImageData() -------------------------------------------
+
+
+            function getPieOutline() {
+
+                var svgDataURI =
+                    '<?xml version="1.0" encoding="iso-8859-1"?>' +
+                    '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' +
+                    '<svg version="1.1" ' +
+                    'xmlns="http://www.w3.org/2000/svg" ' +
+                    'xmlns:xlink="http://www.w3.org/1999/xlink" ' +
+                    'x="0px" y="0px" width="12px" height="12px" viewBox="0 0 12 12" ' +
+                    'style="enable-background:new 0 0 12 12;" ' +
+                    'xml:space="preserve">' +
+                    '<g>' +
+                    '<circle cx="6" cy="6" r="5.1" fill="none" style="stroke: black; stroke-width: 0.4" />' +
+                    '</g>' +
+                    '</svg>';
+
+                // String -> Base64 encoded string
+                return btoa(svgDataURI);
+            }
+            // end of function getPieOutline() ------------------------------------------
+
+
+            function mapLoaded(){
+
+                // Map Points
+                var ptsBoros = [[-74.15,40.6],[-73.97,40.62],[-73.9,40.84],[-73.99,40.75],[-73.84,40.73]];
+
+                // SVG Paths - IMPORTANT
+                // Given that the **center** of the viewBox will be aligned with the map point, and
+                // the viewBox in this case is 0 0 12 12, that means that, in order to align the entire
+                // pie so that it is centered on the map point, the "pointy" end of each pie slice must be at 6,6.
+                var pathYel = createPieSliceFillPath(6, 1, 11, 6);   //returns "M6,1A5,5,0,0,1,11,6L6,6z";  //upper right
+                var pathGrn = createPieSliceFillPath(11, 6, 6, 11);  //returns "M11,6A5,5,0,0,1,6,11L6,6";  //lower right
+                var pathBlu = createPieSliceFillPath(6, 11, 1, 6);   //returns "M6,11A5,5,0,0,1,1,6L6,6";   //lower left
+                var pathRed = createPieSliceFillPath(1, 6, 6, 1);    //returns "M1,6A5,5,0,0,1,6,1L6,6";    //upper left
+
+                var pmsYel = new PictureMarkerSymbol({
+                    imageData: getPieSliceFill(pathYel, colorYel),
+                    contentType: "image/svg+xml",
+                    width: 40,
+                    height: 40
+                })
+
+                var pmsGrn = new PictureMarkerSymbol({
+                    imageData: getPieSliceFill(pathGrn, colorGrn),
+                    contentType: "image/svg+xml",
+                    width: 40,
+                    height: 40
+                })
+
+                var pmsBlu = new PictureMarkerSymbol({
+                    imageData: getPieSliceFill(pathBlu, colorBlu),
+                    contentType: "image/svg+xml",
+                    width: 40,
+                    height: 40
+                })
+
+                var pmsRed = new PictureMarkerSymbol({
+                    imageData: getPieSliceFill(pathRed, colorRed),
+                    contentType: "image/svg+xml",
+                    width: 40,
+                    height: 40
+                })
+
+                var pmsOut = new PictureMarkerSymbol({
+                    imageData: getPieOutline(),
+                    contentType: "image/svg+xml",
+                    width: 40,
+                    height: 40
+                });
+
+                ////
+                // draw the quarters
+                arrayUtils.forEach(ptsBoros, function(point) {
+                    var grRed = new Graphic(new Point(point), pmsRed);
+                    var grGrn = new Graphic(new Point(point), pmsGrn);
+                    var grBlu = new Graphic(new Point(point), pmsBlu);
+                    var grYel = new Graphic(new Point(point), pmsYel);
+                    var grCrs = new Graphic(new Point(point), smsCrs);
+                    var grOut = new Graphic(new Point(point), pmsOut);
+                    map.graphics.add(grRed);
+                    map.graphics.add(grGrn);
+                    map.graphics.add(grBlu);
+                    map.graphics.add(grYel);
+                    map.graphics.add(grOut);
+                    map.graphics.add(grCrs); // crosshairs on the exact map point, for testing
+                });
+
+            } // end fucntion mapLoaded() -----------------------------------------------
+
+
+            // when the map is fully loaded, draw the pies
+            map.on("load", mapLoaded);
+
+        }); // end of require ---------------------------------------------------------
+
+        </script>
+    </head>
+    <body class="claro">
+        <div id="map"></div>
+    </body>
+    </html>
