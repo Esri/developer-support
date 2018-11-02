@@ -1,17 +1,5 @@
-"""
-
-Warning: SSL Cert Verification not verified. See: http://docs.python-requests.org/en/latest/user/advanced/#ssl-cert-verification
-
-Warning: Open Data API is not documented and therefore the endpoints may change at any point : http://ideas.arcgis.com/ideaView?id=087E0000000blPIIAY
-
-Not supported by Esri Support Services.
-
-Requests module is needed, download it here: http://docs.python-requests.org/en/latest/
-
-"""
-print(__doc__)
-
 import requests
+
 
 class OpenData(object):
 
@@ -23,7 +11,7 @@ class OpenData(object):
     """
 
     def __init__(self, username, password, OpenDataSite):
-        
+
         self.username = username
         self.password = password
         self.token = self.generateToken()
@@ -49,17 +37,27 @@ class OpenData(object):
         Finds and returns all item IDs in an Open Data site. \
         Will receive error if the Open Data site is not public.
         """
-        url = "https://opendata.arcgis.com/api/sites/{0}/datasets.json?token={1}".format(self.OpenDataSite, self.token)
-        info = requests.get(url, verify=False).json()['datasets']
-        return [x['id'] for x in info]
+        r = requests.get('https://opendata.arcgis.com/api/v2/sites/{0}/datasets?token={1}'.format(self.OpenDataSite, self.token)).json()
+        dataset_list = []
+        num_of_datasets = r['meta']['stats']['totalCount']
+        while len(dataset_list) != num_of_datasets:
+            try:
+                [dataset_list.append(item) for item in r['data']]
+                r = requests.get(r['links']['next']).json()
+            except:
+                pass
+
+        return [x['id'] for x in dataset_list]
 
     def refresh(self):
         """
         Refreshes all Open Data datasets and download cache.
         """
         for dataset in self.OpenDataItems:
+            print("Refreshed: {}".format(dataset))
             url = "https://opendata.arcgis.com/api/datasets/{0}/refresh.json?token={1}".format(dataset, self.token)
             requests.put(url, verify=False)
+
 
 if __name__ == "__main__":
     """Example workflow that refreshes all datasets in an Open Data site."""
