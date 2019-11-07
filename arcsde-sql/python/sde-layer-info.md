@@ -1,7 +1,8 @@
+### Sample output from script
 ```
 Connection and Feature Class Description:
-	Server:     kgalliher
-	Instance:   sde:sqlserver:kgalliher
+	Server:     <server>
+	Instance:   sde:sqlserver:<server>
 	Database:   copyfds
 	Layer ID: 286
 	Layer Description: None
