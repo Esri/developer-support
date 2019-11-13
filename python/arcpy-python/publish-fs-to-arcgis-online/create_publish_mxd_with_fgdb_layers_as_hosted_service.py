@@ -78,7 +78,7 @@ def createDocumentWithFileGeodatabaseLayers(name):
     doc = os.path.join(mxd_path,mxdName)
     message_doc = '{} {}'.format("Current mxd path is: ", doc)
     print message_doc
-    mxd.saveACopy(doc);
+    mxd.saveACopy(doc)
     publishMXDDocumentAsHostedFeatureService(doc, name)
     del doc
     del mxd
