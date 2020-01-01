@@ -1,5 +1,4 @@
 # Welcome to Developer Support
-=========================
 
 This is a place to collaborate and support GIS developers working with Esri's developer libraries.
 
@@ -27,7 +26,7 @@ For more information regarding the technology platforms, languages, APIs, and SD
 Esri welcomes contributions from anyone and everyone. Please do not contribute code you did not write yourself, unless you are certain you have the legal ability to do so. Also ensure all code contributed can be licensed under the Apache License 2.0. For more details please see our [guidelines for contributing](https://github.com/Esri/developer-support/blob/master/CONTRIBUTING.md).
 
 ## Licensing
-©2015-2019 Esri
+©2015-2020 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
