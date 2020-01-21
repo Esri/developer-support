@@ -68,6 +68,7 @@ namespace XYResolutionTests
             mapSpatialReferenceResolution = mapSpatialReference as ISpatialReferenceResolution;
             double mapResolution2 = mapSpatialReferenceResolution.XYResolution[false];
 
+            // Show results in a message box.
             MessageBox.Show(
                 $"Map Resolution Before:  {mapResolution}\n" +
                 $"Dataset Resolution: {datasetResolution}\n" +
