@@ -6,7 +6,7 @@
 <!-- TODO: Fill this section below with metadata about this sample-->
 ```
 Language:              C#
-Subject:               Resolution
+Subject:               Map Resolution
 Organization:          Esri, http://www.esri.com
 Date:                  01/21/2020
 ArcObjects SDK:        10.7
@@ -33,7 +33,6 @@ Visual Studio:         2015, 2017
 ---------------------------------
 
 ### Licensing
-
 ```
 Copyright 2017-2018 by Esri
 
@@ -49,6 +48,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-## [FAQ](https://github.com/Esri/contributing/issues?q=label%3Afaq+sort%3Aupdated-desc+is%3Aclosed)
 
