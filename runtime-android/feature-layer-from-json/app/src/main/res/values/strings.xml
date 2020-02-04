@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FeatureLayer from JSON</string>
+    <!-- UI components -->
+    <string name="action_settings">Settings</string>
+    <!-- query components -->
+
+    <string name="features_json">Colorado_Surface_Ownership_simplified.json</string>
+    <string name="layerinfo_json">ColoradoSurface_LayerInfo.json</string>
+
+    <string name="damage_field_name">typdamage</string>
+    <string name="cause_field_name">primcause</string>
+    <string name="add_layer_text">Add Layer</string>
+</resources>
