@@ -1,9 +1,8 @@
 ## Notice
-These samples are for the ArcGIS API for JavaScript 4.0 Beta. Multiple betas are planned for this product. Applications are intended to demonstrate new functionality (proof of concept) with the JavaScript API, and may not be fully functional. For more information, please visit the links below:
+These samples are for the ArcGIS API for JavaScript version 4.x. Changes may need to be made to the CDN being referenced to make sure you are using the latest version.
 
-
-## Product Resources
-
-* [ArcGIS API for JavaScript Beta](https://developers.arcgis.com/javascript/beta/ )
-
-* [ArcGIS API for JavaScript 4.0 beta 1 – available](http://blogs.esri.com/esri/arcgis/2015/07/16/arcgis-api-for-javascript-version-4-0-beta-1-released/)
+## Resources for the ArcGIS API for JavaScript version 4.x
+* [ArcGIS API for JavaScript Main Page](https://developers.arcgis.com/javascript/)
+* [Latest Release Notes](https://developers.arcgis.com/javascript/latest/guide/release-notes/)
+* [Guide](https://developers.arcgis.com/javascript/latest/guide/)
+* [Sample Code](https://developers.arcgis.com/javascript/latest/sample-code/)
