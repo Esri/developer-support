@@ -36,28 +36,29 @@ Visual Studio:         2017, 2019
 <!--* Tab 1 is declared in the Managed configuration project, Tab 2 is declared in the
   first Add-In project and Tab 3 is declared in the second Add-In project.-->
 
-7.  The modules containing Tab 2 and Tab 3 are referenced in the Managed Configuration project config.daml file and Tab 1 is declared in this 
-    file. The DAML and business logic for these tabs are in difference are contained in there respective projects. 
-  ![UI](screenshots/damlfileconfig.png)
+7.  The modules containing Tab 2 and Tab 3 are referenced in the Managed Configuration project config.daml file using insertModule tags. Tab 1 is declared in this file. The DAML code and business logic for each tab are contained in there respective projects. 
+![UI](screenshots/damlfileconfig.png)
 
 
 
 ---------------------------------
 
-### Licensing
-```
-Copyright 2017-2018 by Esri
+## Licensing
+Copyright 2019 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+You may obtain a copy of the License at:
 
-   http://www.apache.org/licenses/LICENSE-2.0
+   http://www.apache.org/licenses/LICENSE-2.0.
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-```
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="http://esri.github.io/arcgis-pro-sdk/images/ArcGISPro.png"  alt="ArcGIS Pro SDK for Microsoft .NET Framework" height = "20" width = "20" align="top"  >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[Home](https://github.com/Esri/arcgis-pro-sdk/wiki) | <a href="http://pro.arcgis.com/en/pro-app/sdk/api-reference" target="_blank">API Reference</a> | [Requirements](https://github.com/Esri/arcgis-pro-sdk/wiki#requirements) | [Download](https://github.com/Esri/arcgis-pro-sdk/wiki#installing-arcgis-pro-sdk-for-net) | <a href="http://github.com/esri/arcgis-pro-sdk-community-samples" target="_blank">Samples</a>
 
