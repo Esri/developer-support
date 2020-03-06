@@ -29,12 +29,8 @@ Visual Studio:         2017, 2019
 3.  Click Start button to open ArcGIS Pro.
 4.  ArcGIS Pro will open.
 5.  Open any project with at least one feature layer.  
-6.  Notice the following customization made to the Pro UI:
-
-* There is three tabs: Tab1, Tab 2, and Tab3. Each tab contain a group and each group contain a button.
+6.  Notice the following customization made to the Pro UI. There is three tabs: Tab1, Tab 2, and Tab3. Each tab contain a group and each group contain a button.
 ![UI](screenshots/proUI-Ribbon.png)
-<!--* Tab 1 is declared in the Managed configuration project, Tab 2 is declared in the
-  first Add-In project and Tab 3 is declared in the second Add-In project.-->
 
 7.  The modules containing Tab 2 and Tab 3 are referenced in the Managed Configuration project config.daml file using insertModule tags. Tab 1 is declared in this file. The DAML code and business logic for each tab are contained in there respective projects. 
 ![UI](screenshots/damlfileconfig.png)
