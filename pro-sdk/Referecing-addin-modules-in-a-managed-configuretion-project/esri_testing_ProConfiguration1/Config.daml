@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArcGIS defaultAssembly="esri_testing_ProConfiguration1.dll"
+        defaultNamespace="esri_testing_ProConfiguration1" 
+        xmlns="http://schemas.esri.com/DADF/Registry"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+
+  <AddInInfo id="{45d773d9-6137-4dc7-9d57-e77f3da2cdbc}" version="1.0" desktopVersion="2.5.22081">
+    <Name>esri_testing_ProConfiguration1</Name>
+    <Description>esri_testing_ProConfiguration1 description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>cla10676</Author>
+    <Company>Acme</Company>
+    <Date>3/4/2020 3:31:43 PM, 2020</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+
+  <Configuration>
+    <ConfigurationManager className="ConfigurationManager1"/>
+  </Configuration>
+
+  <modules>
+    <insertModule id="esri_testing_ProConfiguration1_Module" className="Module1" autoLoad="false" caption="ProConfig Module">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <tab id="esri_testing_ProConfiguration1_Tab1" caption="Tab 1">
+          <group refID="esri_testing_ProConfiguration1_Group1"/>
+        </tab>
+      </tabs>
+
+      <groups>
+        <group id="esri_testing_ProConfiguration1_Group1" caption="Group 1" appearsOnAddInTab="false">
+          <button refID ="esri_mapping_bookmarksNavigateGallery" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+      </controls>
+    </insertModule>
+
+    <insertModule id ="esri_testing_ProApp1" className="esri_testing_ProAppModule1.Module1" autoLoad ="false" caption="Add-In Module 1">   
+    </insertModule>
+
+    <insertModule id ="esri_testing_ProApp2" className="esri_testing_ProAppModule2.Module1" autoLoad ="false" caption="Add-In Module 2">
+    </insertModule>
+    
+  </modules>
+</ArcGIS>

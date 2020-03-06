@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esri_testing_ProConfiguration1", "esri_testing_ProConfiguration1\esri_testing_ProConfiguration1.csproj", "{45D773D9-6137-4DC7-9D57-E77F3DA2CDBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esri_testing_ProAppModule1", "esri_testing_ProAppModule1\esri_testing_ProAppModule1.csproj", "{68480EB4-65BC-4D39-8B88-B2A6A1087AF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "esri_testing_ProAppModule2", "esri_testing_ProAppModule2\esri_testing_ProAppModule2.csproj", "{6D3F07D0-B639-473C-9742-DE25D2FBDA71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45D773D9-6137-4DC7-9D57-E77F3DA2CDBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45D773D9-6137-4DC7-9D57-E77F3DA2CDBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45D773D9-6137-4DC7-9D57-E77F3DA2CDBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45D773D9-6137-4DC7-9D57-E77F3DA2CDBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68480EB4-65BC-4D39-8B88-B2A6A1087AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68480EB4-65BC-4D39-8B88-B2A6A1087AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68480EB4-65BC-4D39-8B88-B2A6A1087AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68480EB4-65BC-4D39-8B88-B2A6A1087AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3F07D0-B639-473C-9742-DE25D2FBDA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3F07D0-B639-473C-9742-DE25D2FBDA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3F07D0-B639-473C-9742-DE25D2FBDA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3F07D0-B639-473C-9742-DE25D2FBDA71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {170E5C9B-CF87-4CC9-80DE-9D3F6D2161D5}
+	EndGlobalSection
+EndGlobal
