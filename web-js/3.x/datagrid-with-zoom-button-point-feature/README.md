@@ -4,7 +4,7 @@
 
 This sample shows how to use the data from a point geometry feature layer to a Dojo DataGrid. In addition to this, there is a zoom button for each of the records in the DataGrid. Essentially, when the zoom button is selected the map zooms to the appropriate feature.
 
-[Live Sample](http://esri.github.io/developer-support/web-js/datagrid-with-zoom-button-point-feature/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/datagrid-with-zoom-button-point-feature/index.html)
 
 # Resources
 [DataGrid With Zoom Button Sample](https://developers.arcgis.com/javascript/jssamples/fl_zoomgrid.html)

@@ -12,4 +12,4 @@
 
 5. Uses simpleMarkerSymbol to rendre the point.
 
-## [Live Sample](http://esri.github.io/developer-support/web-js/Add-XY-as-Graphics/AddXYasGraphics.html)
+## [Live Sample](http://esri.github.io/developer-support/web-js/3.x/Add-XY-as-Graphics/AddXYasGraphics.html)

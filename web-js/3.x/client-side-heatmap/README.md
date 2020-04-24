@@ -20,4 +20,4 @@ This is a sample shows how to use the Heatmap Renderer against a layer completel
 
 NOTE: Feel free to update to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/client-side-heatmap/heatmap.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/client-side-heatmap/heatmap.html)

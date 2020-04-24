@@ -6,7 +6,7 @@
 3. After you have create an application select the 'Authentication' tab and add the following redirect URIs:
 <br>http://esri.github.io/developer-support/web-js/fs-viewer/oauth-callback.html<br>
 ![Image of Allowed Domains](https://dl.dropboxusercontent.com/u/343305078/AllowedDomains.png)
-4. <a href="http://esri.github.io/developer-support/web-js/fs-viewer/#?">View Live Sample</a>
+4. <a href="http://esri.github.io/developer-support/web-js/3.x/fs-viewer/#?">View Live Sample</a>
 
 
 ## About

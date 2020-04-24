@@ -16,4 +16,4 @@ Sample contains an extent helper class that chops up extents into different quad
 
 NOTE: Feel free to update to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/extent-helper-class/example.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/extent-helper-class/example.html)

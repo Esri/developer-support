@@ -15,4 +15,4 @@ This is a sample app that displays the current basemap, zoom level and centerpoi
 
 NOTE: Feel free to contribute new templates to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/center-zoom-helper/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/center-zoom-helper/index.html)

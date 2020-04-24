@@ -18,4 +18,4 @@ This is a sample app with multiple maps that have linked extents.  The applicati
 
 NOTE: Feel free to update to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/multiple-maps/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/multiple-maps/index.html)

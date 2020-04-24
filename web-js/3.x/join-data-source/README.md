@@ -27,5 +27,5 @@ http://desktop.arcgis.com/en/desktop/latest/map/publish-map-services/enabling-dy
 NOTE: Feel free to update to this repo!
 
 **EXPLICIT: The demo server within this sample is not intended for use for anything other than testing!**
-[Live Sample](http://esri.github.io/developer-support/web-js/join-data-source/JoinDataSource_Final.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/join-data-source/JoinDataSource_Final.html)
 

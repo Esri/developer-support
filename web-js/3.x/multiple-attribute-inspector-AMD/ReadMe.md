@@ -5,7 +5,7 @@ The [Multiple Attribute Inspector](https://developers.arcgis.com/javascript/jssa
 
 In this sample, the attribute inspector for the existing features are in 'read only' mode. For the newly created features, the attribute inspector will be in read/write mode, and allow us to modify the attributes. 
 
-[Live Sample](http://esri.github.io/developer-support/web-js/multiple-attribute-inspector-AMD/multipleAttrInspectorAMD.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/multiple-attribute-inspector-AMD/multipleAttrInspectorAMD.html)
 ## Resources
 [More information about the Attribute Inspector](https://developers.arcgis.com/javascript/jsapi/attributeinspector-amd.html)
 

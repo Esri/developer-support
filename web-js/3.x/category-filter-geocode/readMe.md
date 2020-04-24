@@ -32,4 +32,4 @@ This shows how to implement category filtering for the addressToLocations method
 locator.addressToLocations(params);
   }
 ```
-[Live sample](http://esri.github.io/developer-support/web-js/category-filter-geocode/geocode_LocName.html)
+[Live sample](http://esri.github.io/developer-support/web-js/3.x/category-filter-geocode/geocode_LocName.html)

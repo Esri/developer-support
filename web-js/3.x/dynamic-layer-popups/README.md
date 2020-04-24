@@ -4,7 +4,7 @@
 ## Use Case
 This sample shows how to enable popups with a ArcGISDynamicMapServiceLayer. This is just one of the possibilities to enable popups.
 
-[ArcGISDynamicMapServiceLayer Popups Live Sample](http://esri.github.io/developer-support/web-js/dynamic-layer-popups/)
+[ArcGISDynamicMapServiceLayer Popups Live Sample](http://esri.github.io/developer-support/web-js/3.x/dynamic-layer-popups/)
 
 ## About the sample
 First thing we want to use the InfoTemplate class to define the information that will be added to the popup.
