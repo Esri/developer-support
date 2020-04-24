@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Date Filter</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.15/esri/themes/light/main.css"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+
+    <script src="https://js.arcgis.com/4.15/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      .center {
+        position: absolute;
+        left: 35%;
+        right: 50%;
+        width: 650px;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+      ], function(Map, MapView, FeatureLayer) {
+
+        // the client-side layer
+        let featureLayerView;
+
+        // filter ui buttons
+        const calendar = document.getElementById("segmentDiv");
+        const dateForm = document.getElementById("dateForm");
+        const resetBtn = document.getElementById("resetBtn");
+
+        const serviceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/FeatureServer/0";
+        const dateField = "date_";
+      
+        const map = new Map({
+          basemap: "dark-gray-vector"
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-41.34, 26.274],
+          zoom: 3
+        });
+
+        const featureLayer = new FeatureLayer({
+          url: serviceUrl,
+          outFields: ["*"]
+        });
+
+        map.add(featureLayer);
+
+        view.when(()=> {
+          view.ui.add(calendar, "manual");
+          view.whenLayerView(featureLayer)
+            .then((layerView) => {
+              // set up the featureLayerView as the client-side layer
+              featureLayerView = layerView;
+            });
+        });
+
+        resetBtn.onclick = function(){resetLayer()};
+
+        const handleFormSubmit = (evt) => {
+            //filters the layer by date 
+            evt.preventDefault(); // prevent a form submit, we only need the form values
+            const startDate = dateForm.elements[0].value;
+            const endDate = dateForm.elements[1].value;
+
+            if (startDate.length > 0 && endDate.length > 0) {
+              featureLayerView.filter = {
+                where: `${dateField} > DATE '${startDate}' AND ${dateField} < DATE '${endDate}'`
+              }
+            } else {
+              console.log('Please provide a start and end date');
+            }    
+        }
+
+        dateForm.addEventListener('submit', handleFormSubmit);
+
+        // reset the client-side layer by filtering to return all the features
+        const resetLayer = () => {
+          featureLayerView.filter = {
+            where: '1=1'
+          }
+        }
+
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div class="ui olive inverted segment center" id="segmentDiv">
+        <form id="dateForm">
+            <label name="start">Start Date</label>
+            <input name ="start" type="date" id="startDateDiv"/>
+            <label name="start">End Date</label>
+            <input type="date" name="end" id="enddateDiv"/>
+            <button class="positive ui button" type="submit" id="submitBtn">Submit</button>
+        </form>
+        <button class="ui button" id="resetBtn">Reset</button>
+    </div>
+    
+  </body>
+</html>
