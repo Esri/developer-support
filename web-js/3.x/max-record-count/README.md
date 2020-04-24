@@ -16,4 +16,4 @@ This is a sample app that retrieves all records from a service.
 
 NOTE: Feel free to update to this repo, especially if you are aware of any methods to make the zooming smoother!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/max-record-count/max-record-count.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/max-record-count/max-record-count.html)

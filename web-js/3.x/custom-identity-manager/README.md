@@ -1,6 +1,6 @@
 # Custom Identity Manager
 
-[Live Sample](http://esri.github.io/developer-support/web-js/custom-identity-manager/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/custom-identity-manager/index.html)
 
 ## About
 

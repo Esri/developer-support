@@ -3,7 +3,7 @@
 ## About
 This widget attempts to recreate ArcMap's select by attributes tool as accurately as possible within a JavaScript application. This widget only works with feature layers and these must be passed to the widget's constructor as an array.
 
-[Live Sample](http://esri.github.io/developer-support/web-js/select-by-attribute-widget/SelectByAtt/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/select-by-attribute-widget/SelectByAtt/index.html)
 
 ## Usage notes:
 The following code snippets show how to use the widget in your application

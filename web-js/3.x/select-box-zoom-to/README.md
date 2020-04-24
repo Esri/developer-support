@@ -8,7 +8,7 @@ This is a sample app that creates a dropdown of features that when selected, are
 
 [expand()](https://developers.arcgis.com/javascript/jsapi/extent-amd.html#expand)
 
-* [Live Sample](http://esri.github.io/developer-support/web-js/select-box-zoom-to/index.html)
+* [Live Sample](http://esri.github.io/developer-support/web-js/3.x/select-box-zoom-to/index.html)
 
 ## Features
 

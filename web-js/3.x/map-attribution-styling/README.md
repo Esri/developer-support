@@ -16,4 +16,4 @@ bottom right corner of the map.
 
 NOTE: Feel free to contribute new templates to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/map-attribution-styling/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/map-attribution-styling/index.html)

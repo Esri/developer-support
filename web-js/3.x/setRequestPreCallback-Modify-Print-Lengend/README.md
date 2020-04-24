@@ -39,4 +39,4 @@ function myCallbackFunction(ioArgs) {
             } 
 
 ```
-##[Live Sample](http://esri.github.io/developer-support/web-js/setRequestPreCallback-Modify-Print-Lengend/ModifyPrintLegend_preCallback.html)
+##[Live Sample](http://esri.github.io/developer-support/web-js/3.x/setRequestPreCallback-Modify-Print-Lengend/ModifyPrintLegend_preCallback.html)

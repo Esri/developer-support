@@ -17,4 +17,4 @@ RequireJS helps developers load multiple files and JavaScript libraries.  Dojo h
 
 NOTE: Feel free to contribute new templates to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/requirejs-with-jsapi/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/requirejs-with-jsapi/index.html)

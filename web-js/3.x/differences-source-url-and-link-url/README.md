@@ -16,4 +16,4 @@ Please note that the linkURL is optional but the sourceURL is mandatory to displ
 
 With the use of sourceURL and linkURL, we can also display other contents such as PDF via pop-up. As mentioned above, you can display an image in the pop-up by providing sourceURL of the image. Then, you can point to the PDF’s hyperlink in the linkURL. This way you will be able to click the image and open the associated PDF in a new tab.
 
-[Live Sample](http://esri.github.io/developer-support/web-js/differences-source-url-and-link-url/popup.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/differences-source-url-and-link-url/popup.html)
