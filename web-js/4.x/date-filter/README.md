@@ -31,3 +31,5 @@ One can deploy the application over a local web server (example: ISS), but it ca
 * Map
 * MapView
 * FeatureLayerView
+
+## [Live Sample](https://banuelosj.github.io/jsapi-samples/4x/date-filter/)
