@@ -32,4 +32,4 @@ One can deploy the application over a local web server (example: ISS), but it ca
 * MapView
 * FeatureLayerView
 
-## [Live Sample](https://banuelosj.github.io/jsapi-samples/4x/date-filter/)
+## [Live Sample](https://esri.github.io/developer-support/web-js/4.x/date-filter/)
