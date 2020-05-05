@@ -3,7 +3,6 @@
 This sample demonstrates how to reference Add-In projects in a Managed Configuration project DAML file.
 
 
-<!-- TODO: Fill this section below with metadata about this sample-->
 ```
 Language:              C#
 Subject:               Framework
