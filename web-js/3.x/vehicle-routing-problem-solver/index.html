@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Vehicle Routing Problem Application</title>
+
+<h2>Vehicle Routing Problem Solver using Esri Request</h2>
+
+<link rel="stylesheet" href="https://js.arcgis.com/3.32/esri/css/esri.css">
+
+<script src="https://js.arcgis.com/3.32/"></script>
+
+<style>
+html, body, #map {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+</style>
+
+<script>
+require([
+    "esri/map",
+    "esri/layers/FeatureLayer",
+    "esri/geometry/Polyline",
+    "esri/geometry/Point",
+    "esri/graphic",
+    "esri/layers/GraphicsLayer",
+    "esri/symbols/SimpleLineSymbol",
+    "esri/SpatialReference",
+    "esri/Color",
+    "esri/request",
+    "esri/urlUtils",
+    "esri/config",
+    "dojo/domReady!"
+  ],
+  function(
+    Map,
+    FeatureLayer, Polyline, Point, Graphic, 
+    GraphicsLayer,
+    SimpleLineSymbol,
+    SpatialReference,
+    Color,
+    esriRequest,
+    urlUtils,
+    esriConfig
+  ) {
+
+    const vrpServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/GPServer/SolveVehicleRoutingProblem";
+
+    const spatialRef = new SpatialReference({wkid: 4326});
+    const routePolylineSymbol = new SimpleLineSymbol(
+          SimpleLineSymbol.STYLE_SOLID,
+          new Color([255,0,0]),
+          8.0
+        );
+
+    const map = new Map("map", {
+      basemap: "dark-gray",
+      center: [-117.45380401611328, 33.903983780581655],
+      zoom: 6
+    });
+
+    const graphicsLayer = new GraphicsLayer();
+    map.addLayer(graphicsLayer);
+
+    const resultNode = document.getElementById("result");
+    document.getElementById("requestButton").onclick = function() {requestFunction()};
+
+    /**** Params for the vehicle routing problem ****/
+    const orders = `{"features":[{"geometry":{"x":-117.15492010116579,"y":32.707460475225176},"attributes":{"DeliveryQuantities":1706,"Name":"Store_1","ServiceTime":25,"TimeWindowStart1":1355245200000,"TimeWindowEnd1":1355274000000,"MaxViolationTime1":0}},{"geometry":{"x":-117.05833911895752,"y":32.73822149105837},"attributes":{"DeliveryQuantities":1533,"Name":"Store_2","ServiceTime":23,"TimeWindowStart1":1355245200000,"TimeWindowEnd1":1355274000000,"MaxViolationTime1":0}},{"geometry":{"x":-117.26085662841794,"y":32.84275475764822},"attributes":{"DeliveryQuantities":1580,"Name":"Store_3","ServiceTime":24,"TimeWindowStart1":1355245200000,"TimeWindowEnd1":1355274000000,"MaxViolationTime1":0}},{"geometry":{"x":-117.15595006942746,"y":32.82030715512063},"attributes":{"DeliveryQuantities":1289,"Name":"Store_4","ServiceTime":20,"TimeWindowStart1":1355245200000,"TimeWindowEnd1":1355274000000,"MaxViolationTime1":0}}]}`;
+    const depots = `{"features":[{"geometry":{"x":-117.06778049468996,"y":32.775088223692805},"attributes":{"Name":"San Diego State","TimeWindowStart1":1355241600000,"TimeWindowEnd1":1355274000000}}]}`;
+    const routes = `{"features":[{"attributes":{"Name":"Truck_1","StartDepotName":"San Diego State","EndDepotName":"San Diego State","StartDepotServiceTime":60,"EarliestStartTime":1355241600000,"LatestStartTime":1355241600000,"Capacities":"15000","CostPerUnitTime":0.2,
+    "CostPerUnitDistance":1.5,"MaxOrderCount":2,"MaxTotalTime":360,"MaxTotalTravelTime":120,"MaxTotalDistance":80}},
+    {"attributes":{"Name":"Truck_2","StartDepotName":"San Diego State","EndDepotName":"San Diego State","StartDepotServiceTime":60,"EarliestStartTime":1355241600000,"LatestStartTime":1355241600000,"Capacities":"15000","CostPerUnitTime":0.2,
+    "CostPerUnitDistance":1.5,"MaxOrderCount":2,"MaxTotalTime":360,"MaxTotalTravelTime":120,"MaxTotalDistance":80}},
+    {"attributes":{"Name":"Truck_3","StartDepotName":"San Diego State","EndDepotName":"San Diego State","StartDepotServiceTime":60,"EarliestStartTime":1355241600000,"LatestStartTime":1355241600000,"Capacities":"15000","CostPerUnitTime":0.2,
+    "CostPerUnitDistance":1.5,"MaxOrderCount":2,"MaxTotalTime":360,"MaxTotalTravelTime":120,"MaxTotalDistance":80}}]}`;
+
+    const time_units = "Minutes";
+    const distance_units = "Miles";
+    const date = "1593206376";
+
+    
+    const requestFunction = ()=>{
+      //building the esri esriRequest
+      var params = {
+        "f":"json",
+        "orders": orders,
+        "depots": depots,
+        "routes": routes,
+        "time_units": time_units,
+        "distance_units": distance_units,
+        "default_date": date
+      }
+
+      var requestHandle = esriRequest({
+        url: vrpServiceUrl + "/submitJob?",
+        content:params
+      },{usePost:true});
+
+      requestHandle.then((response)=>{
+        checkJobStatus(response.jobId);
+      }).catch((err)=>{
+        console.log("failed request with: " + err);
+      });
+    }
+
+    function checkJobStatus(jobId){
+        var jobCheckId = vrpServiceUrl + "/jobs/" + jobId;
+        
+        var requestHandle = esriRequest({
+            url: jobCheckId,
+            content:{
+                "f":"json",
+                "returnMessages": true
+            },
+        },{usePost:true});
+
+        requestHandle.then((response)=>{
+            resultNode.innerHTML = response.jobStatus;
+            switch(response.jobStatus){
+                case 'esriJobSubmitted':
+                    checkJobStatus(jobId); //keep checking the job status
+                    break;
+                case 'esriJobExecuting':
+                    checkJobStatus(jobId); //keep checking the job status
+                    break;
+                case 'esriJobSucceeded':
+                    populateResults(response);
+                    returnRoutes(jobId);
+                    break;
+                default:
+                    console.log("did not complete or failed...");
+                    break;
+            }
+        }).catch((err)=>{
+            console.log("failed job status with: " + err);
+        });
+    }
+
+
+    //returns the routes from the successfull response
+    function returnRoutes(jobId){
+        //construct the url with the job id
+        let checkJobUrl = vrpServiceUrl + '/jobs/' + jobId +'/results/out_routes?f=json';
+
+        fetch(checkJobUrl)
+        .then(function(response){
+            return response.json();  
+        })
+        .then(function(json){
+            displayRoute(json.value);
+        })
+        .catch(function(err){
+            console.log("failed to return route with: ", err);
+        });
+    }
+
+    function displayRoute(featureSet){
+        const routePath = createPolylinesFromPaths(featureSet.features, routePolylineSymbol);
+        
+        // get a point in the polyline and zoom to it
+        const zoomPoint = new Point(routePath.getPoint(0,0));
+        map.centerAndZoom(zoomPoint, 12);
+    }
+
+    function createPolylinesFromPaths(features, symbol){
+        const graphics = [];
+
+        if(features.length > 0) {
+            features.forEach(function(feature){
+                //check to make sure the features have a geometry property as well
+                if(feature.geometry){
+                    const polyline = new Polyline(spatialRef);
+                    polyline.paths = feature.geometry.paths;
+                    const graphic = new Graphic(polyline, symbol, feature.attributes);
+                    graphicsLayer.add(graphic);
+                    graphics.push(polyline);
+                }
+            });
+            // return first graphic to zoom to the graphic
+           return graphics[0];
+        } else {
+            console.log("No features returned");
+        }
+    }
+
+     //populate the result for job succeeded or failed
+    function populateResults(result){
+        resultNode.innerHTML = result.jobStatus;
+        //check if there are any warning messages, and print them out.
+        if(result.jobStatus === "esriJobFailed"){
+            //go through each message and find the first messagetype error
+            //can't use for each since you can't break from it
+            for(let i = 0; i < result.messages.length; i++){
+                if(result.messages[i].type === "esriJobMessageTypeError"){
+                    resultNode.innerHTML = `
+                        <p>${result.jobStatus}<br>Failed: ${result.messages[i].description}</p>
+                    `;
+                    break;
+                }
+            }
+            
+        }
+        else if(result.messages.length > 0){ //check if there are any messages if it does not fail
+            resultNode.innerHTML = `
+                <p>${result.jobStatus}<br>Warning: ${result.messages[0].description}</p>
+            `;
+        }
+    }
+
+  });
+</script>
+</head>
+
+<body>
+    <button id="requestButton" style="padding: 1em;">Solve VRP</button>
+    <div id="result"></div>
+    <div id="map"></div>
+    
+</body>
+
+</html>
