@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Points to CSV</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.15/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.15/"></script>
+  </head>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    
+    #sampleInstructions {
+        padding: 10px;
+        background-color: white;
+        width: 300px;
+      }
+
+  </style>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer",
+      "esri/layers/FeatureLayer",
+      "esri/views/draw/Draw",
+      "esri/widgets/Expand"
+    ], function (Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Draw, Expand) {
+      
+      const map = new Map({
+        basemap: "gray"
+      });
+      
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        zoom: 5,
+        center: [-99, 37]
+      });
+      
+      // county layer
+      const countiesLayer = new FeatureLayer({
+        url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/3",
+        outFields: "*",
+        visible: false
+      });
+      
+      // add layer
+      map.add(countiesLayer);
+      
+      // create a new instance of draw
+      const draw = new Draw({
+        view: view
+      });
+
+      // draw point button
+      view.ui.add("draw-point", "top-right");
+      document.getElementById("draw-point").addEventListener("click", () => { 
+        var action = draw.create("point");
+        action.on("draw-complete", function (evt) {
+          createPointGraphic(evt.coordinates);
+        });
+      });
+       
+      // crete point graphic and add to map
+      function createPointGraphic(coordinates) {
+        var point = {
+          type: "point", // autocasts as Point
+          x: coordinates[0],
+          y: coordinates[1],
+          spatialReference: view.spatialReference
+        };
+        
+        var graphic = new Graphic({
+          geometry: point,
+          symbol: {
+            type: "simple-marker", // autocasts as SimpleMarkerSymbol
+            style: "x",
+            //color: "red",
+            size: "10px",
+            outline: { // autocasts as SimpleLineSymbol
+              color: 'red',
+              width: 4
+            }
+          }
+        });
+        view.graphics.add(graphic);
+      }
+      
+       // erase button
+      view.ui.add("erase", "top-right");
+      document.getElementById("erase").addEventListener("click", () => {                  
+        view.graphics.removeAll(); // reset graphics
+      });
+      
+      // init csv header
+      let csv = 'lat,lon,county,state,pop\n';
+      
+      /* When clicking the save button,
+       * for each graphic (drawn point)
+       * perform a spatial query on the county layer
+       * on the last graphic download the csv
+       */
+      view.ui.add("download", "top-right");
+      document.getElementById("download").addEventListener("click", () => {
+        const gras = view.graphics; // sketch points
+        gras.forEach((gra, i) => {
+          if (gras.length == (i+1)) {  // if last point
+            queryCounties(gra.geometry, true);  // download the csv once done
+          }
+          else {
+            queryCounties(gra.geometry);  // add point to csv with fields from county
+          }
+        });
+      });
+      
+      /* 
+       * @param {Geometry} g: a graphic geometry
+       * @param {bool} d: true if last graphic
+       * @return: A spatial query promise that adds to the csv string
+       */
+      function queryCounties(g, d = false) {
+        // set up query options
+        const query = countiesLayer.createQuery();
+        query.geometry = g; // graphic geometry from drawn points
+        query.spatialRelationship = "intersects"; // find which county the point geometry is in
+        query.outFields = ["NAME", "STATE_NAME", "POP2000"]; // the fields to add to the csv
+        return countiesLayer.queryFeatures(query)
+          .then((response) => { // after query is done, add the point to the csv
+            csv += g.latitude + "," + g.longitude + "," + // will be undefined for lines/polygons
+              response.features[0].attributes.name + ',' +
+              response.features[0].attributes.state_name + ',' +
+              response.features[0].attributes.pop2000 + '\n'
+            if (d) {
+              download(csv)
+              view.graphics.removeAll(); // reset graphics
+              csv = 'lat,lon,county,state,pop\n'; // reset the csv
+            }
+          });
+      }
+
+      /* 
+       * @param {String} text: the text to be downloaded
+       * Downloads a csv file
+       */
+      function download(text) {
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', "data.csv");
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+      }
+      
+       const sampleInstructions = document.createElement("div");
+          sampleInstructions.id = "sampleInstructions";
+          sampleInstructions.innerHTML = `
+         Click the marker symbol in the top right to draw points. <br>
+        - trash symbol to clear previous points. <br>
+        - download symbol for a csv with coordinates and county information. `;
+
+          const instructionsExpand = new Expand({
+            expandIconClass: "esri-icon-question",
+            expandTooltip: "How to use this sample",
+            view: view,
+            content: sampleInstructions,
+            expanded: true
+          });
+          view.ui.add(instructionsExpand, "top-left");
+    }); 
+  </script>
+  <body>
+    <div id="viewDiv">
+      <div id="draw-point" class="esri-widget--button esri-widget esri-interactive" title="Draw points">
+        <span class="action-button esri-icon-map-pin"></span>
+      </div>
+      <div id="erase" class="esri-widget--button esri-widget esri-interactive" title="Remove points">
+        <span class="action-button esri-icon-trash"></span>
+      </div>
+      <div id="download" class="esri-widget--button esri-widget esri-interactive" title="Download CSV">
+        <span class="action-button esri-icon-download"></span>
+      </div>
+    </div>
+  </body>
+</html>
