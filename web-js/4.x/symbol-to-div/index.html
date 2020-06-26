@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Display Symbols </title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.15/"></script>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 90%;
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/geometry/SpatialReference",
+        "esri/Graphic",
+        "esri/geometry/Point",
+        "esri/geometry/Polygon",
+        "esri/symbols/support/symbolUtils",
+        "esri/Graphic",
+        "esri/symbols/SimpleMarkerSymbol",
+        "esri/symbols/SimpleFillSymbol",
+        "dojo/domReady!"
+      ],
+      function(
+        Map, MapView,SpatialReference,
+        Graphic, Point, Polygon, symbolUtils, Graphic,
+        SimpleMarkerSymbol, SimpleFillSymbol
+      ) {
+
+        const map = new Map({
+          basemap: "dark-gray"
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-117,34],
+          zoom: 10
+        });
+
+        // the symbols for the graphics
+        const fillSymbol = {
+          "type": "esriSFS",
+          "style": "esriSFSHorizontal",
+          "color": [0,185,255, 255],
+          "outline": {
+            "type": "esriSLS",
+            "style": "esriSLSSolid",
+            "color": [0, 0, 0, 255],
+            "width": 0.4
+          }
+        };
+
+
+        const markerSymbol = {
+          "type": "esriSMS",
+          "style": "esriSMSCircle",
+          "color": [255,0,0],
+          "size": 4,
+          "angle": 0,
+          "xoffset": 0,
+          "yoffset": 0,
+          "outline": {
+            "color": [0,0,0,255],
+            "width": 1
+          }
+        };
+
+        // create the actual symbols from the json objects
+        const sfs = SimpleFillSymbol.fromJSON(fillSymbol);
+        const sms = SimpleMarkerSymbol.fromJSON(markerSymbol);
+
+        const sr = new SpatialReference({wkid:3857});
+
+        const polygon = new Polygon(sr);
+
+      //  type: "polygon", // autocasts as new Polygon()
+        const polyRings = [
+          [-13058456.214, 4023231.565],
+          [-13078468.214, 4025281.565],
+          [-13069474.214, 4023290.565],
+          [-13058456.214, 4023231.565]
+        ];
+
+        polygon.rings = polyRings;
+
+        const point = new Point(-13059446.214,4023221.565, sr);
+
+        const fillSymbolGraphic = new Graphic({
+          geometry: polygon,
+          symbol: sfs
+        });
+
+        var markerSymbolGraphic = new Graphic({
+          geometry: point,
+          symbol: sms
+        });
+
+        // add the graphics to the mapview
+        view.graphics.add(fillSymbolGraphic);
+        view.graphics.add(markerSymbolGraphic);
+
+        // generates a preview image of the given symbol that will be 
+        // displayed as a div element with the given nodes
+        symbolUtils.renderPreviewHTML(sms,{
+          node: document.getElementById("smsNode"),
+          size: 20
+        }).then(function(result){
+          console.log("success!");
+        });
+
+        symbolUtils.renderPreviewHTML(sfs,{
+          node: document.getElementById("sfsNode"),
+          size: 20
+        }).then(function(result){
+          console.log("success!");
+        });
+      });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  <div id="sfsNode"></div>
+  <div id="smsNode"></div>
+</body>
+
+</html>
