@@ -48,3 +48,7 @@ c. Call select() to set the default basemap.
 - [BasemapGallery](https://developers.arcgis.com/javascript/3/jsapi/basemapgallery-amd.html)
 - [Basemap](https://developers.arcgis.com/javascript/3/jsapi/basemap-amd.html)
 - [BasemapLayer](https://developers.arcgis.com/javascript/3/jsapi/basemaplayer-amd.html)
+
+
+## [Live Sample](https://esri.github.io/developer-support/web-js/3.x/switch-basemaps-in-BasemapGallery/)
+
