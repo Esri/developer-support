@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>
+    Get Polygon Centroids | ArcGIS API for JavaScript 4.16
+  </title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.16/"></script>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/Graphic",
+      "esri/layers/GraphicsLayer",
+      "esri/widgets/Legend"
+    ], function (Map, MapView, FeatureLayer, Graphic, GraphicsLayer, Legend) {
+
+      var map = new Map({
+        basemap: "gray"
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-95.7, 37.1],
+        zoom: 4
+      });
+
+      // 1 - Create a polygon FeatureLayer and add to the map
+      const featureLayer = new FeatureLayer({
+        url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2"
+      });
+      map.add(featureLayer);
+
+      // 2 - Create a SimpleMarkerSymbol for the polygon centroids
+      const centroidSymbol = {
+        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+        style: "square",
+        color: "blue",
+        size: "8px", // pixels
+        outline: { // autocasts as new SimpleLineSymbol()
+          color: [255, 255, 0],
+          width: 3 // points
+        }
+      };
+
+      // 3 - Create a query that returns each feature (where: "1 = 1") with a centroid (returnCentroid: true)
+      var query = featureLayer.createQuery();
+      query.where = "1 = 1";
+      query.outFields = ["objectid", "state_abbr"];
+      query.returnCentroid = true;
+
+
+      // 4 - Create a GraphicsLayer to store the centroids
+      var graphicsLayer = new GraphicsLayer();
+
+      // 5 - Query the polygon FeatureLayer    
+      featureLayer.queryFeatures(query)
+        .then(function (response) {
+          // 6 - Loop through the query result, store each centroid in a Graphic, and add the Graphics to the GraphicsLayer
+          response.features.forEach(feature => {
+            var graphic = new Graphic({
+              geometry: feature.geometry.centroid,
+              symbol: centroidSymbol,
+              attributes: feature.attributes
+            });
+            graphicsLayer.add(graphic);
+          });
+
+          // 7.1 - Add the GraphicsLayer to the map
+          // map.add(graphicsLayer);
+
+          // 7.2 - Alternatively, create a FeatureLayer based on the GraphicsLayer, and add this FeatureLayer to the map
+          var centroidFeatureLayer = new FeatureLayer({
+            source: graphicsLayer.graphics, // array of graphics objects
+            objectIdField: "objectid",
+            fields: [{
+              name: "objectid",
+              type: "oid"
+            }, {
+              name: "state_abbr",
+              type: "string"
+            }],
+            title: "Centroid FeatureLayer"
+          });
+          map.add(centroidFeatureLayer);
+
+          var legend = new Legend({
+            view: view
+          });
+
+          view.ui.add(legend, "bottom-right");
+        });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
