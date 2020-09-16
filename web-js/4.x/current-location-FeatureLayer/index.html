@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Create a FeatureLayer Based on Current Location | ArcGIS API for JavaScript 4.16</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/themes/light/main.css" />
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <script src="https://js.arcgis.com/4.16/"></script>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/Graphic",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Legend",
+    ], function (Map, MapView, Graphic, FeatureLayer, Legend) {
+
+      var map = new Map({
+        basemap: "gray"
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-56.049, 38.485, 78],
+        zoom: 3
+      });
+
+      function showPosition(position) {
+        var pointGraphic = new Graphic({
+          geometry: {
+            type: "point",
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        });
+
+        var layer = new FeatureLayer({
+          source: [pointGraphic],
+          fields: [{
+            name: "ObjectID",
+            alias: "ObjectID",
+            type: "oid"
+          }],
+          objectIdField: "ObjectID",
+          title: "Located Point",
+          popupEnabled: false,
+          labelingInfo: {
+            labelExpressionInfo: {
+              expression: "'You Are Here'"
+            },
+            labelPlacement: "below-center"
+          }
+        });
+        map.add(layer);
+      }
+
+      view.when(() => {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      });
+
+      var legend = new Legend({
+        view: view
+      });
+      view.ui.add(legend, "bottom-right");
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>
