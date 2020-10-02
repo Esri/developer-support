@@ -1,0 +1,122 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+  <title>Show Loading Icon</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .loader {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border: 20px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 20px solid blue;
+      border-right: 20px solid green;
+      border-bottom: 20px solid red;
+      width: 60px;
+      height: 60px;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.16/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.16/"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/SceneView",
+      "esri/layers/SceneLayer",
+      "esri/core/watchUtils"
+    ], function (Map, SceneView, SceneLayer, watchUtils) {
+      // Create Map
+      var map = new Map({
+        basemap: "dark-gray-vector",
+        ground: "world-elevation"
+      });
+      // Create the SceneView
+      var view = new SceneView({
+        container: "viewDiv",
+        map: map,
+        camera: {
+          position: [-74.0338, 40.6913, 707],
+          tilt: 81,
+          heading: 50
+        }
+      });
+      // Create SceneLayer and add to the map
+      var sceneLayer = new SceneLayer({
+        portalItem: {
+          id: "2e0761b9a4274b8db52c4bf34356911e"
+        },
+        popupEnabled: false
+      });
+      map.add(sceneLayer);
+      // Create MeshSymbol3D for symbolizing SceneLayer
+      var symbol = {
+        type: "mesh-3d", // autocasts as new MeshSymbol3D()
+        symbolLayers: [{
+          type: "fill", // autocasts as new FillSymbol3DLayer()
+          // If the value of material is not assigned, the default color will be grey
+          material: {
+            color: [244, 247, 134]
+          }
+        }]
+      };
+      // Add the renderer to sceneLayer
+      sceneLayer.renderer = {
+        type: "simple", // autocasts as new SimpleRenderer()
+        symbol: symbol
+      };
+      // Display the loading icon when the view is updating
+      watchUtils.whenTrue(view, "updating", function (evt) {
+        $("#loader_0").show();
+      });
+      // Hide the loading icon when the view stops updating
+      watchUtils.whenFalse(view, "updating", function (evt) {
+        $("#loader_0").hide();
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv">
+    <div class="loader" id="loader_0"></div>
+  </div>
+</body>
+
+</html>
