@@ -62,11 +62,13 @@
       "esri/layers/SceneLayer",
       "esri/core/watchUtils"
     ], function (Map, SceneView, SceneLayer, watchUtils) {
+
       // Create Map
       var map = new Map({
         basemap: "dark-gray-vector",
         ground: "world-elevation"
       });
+
       // Create the SceneView
       var view = new SceneView({
         container: "viewDiv",
@@ -77,6 +79,7 @@
           heading: 50
         }
       });
+
       // Create SceneLayer and add to the map
       var sceneLayer = new SceneLayer({
         portalItem: {
@@ -85,6 +88,7 @@
         popupEnabled: false
       });
       map.add(sceneLayer);
+
       // Create MeshSymbol3D for symbolizing SceneLayer
       var symbol = {
         type: "mesh-3d", // autocasts as new MeshSymbol3D()
@@ -96,19 +100,23 @@
           }
         }]
       };
+
       // Add the renderer to sceneLayer
       sceneLayer.renderer = {
         type: "simple", // autocasts as new SimpleRenderer()
         symbol: symbol
       };
+
       // Display the loading icon when the view is updating
       watchUtils.whenTrue(view, "updating", function (evt) {
         $("#loader_0").show();
       });
+
       // Hide the loading icon when the view stops updating
       watchUtils.whenFalse(view, "updating", function (evt) {
         $("#loader_0").hide();
       });
+      
     });
   </script>
 </head>
