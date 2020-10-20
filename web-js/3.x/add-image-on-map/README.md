@@ -6,4 +6,4 @@ This is a sample app which directly adds an image ( gif | jpg | png | bmp) from 
 
 NOTE: Feel free to update to this repo!
 
-### [Live Sample](http://esri.github.io/developer-support/web-js/add-image-on-map/imageMap.html)
+### [Live Sample](http://esri.github.io/developer-support/web-js/3.x/add-image-on-map/imageMap.html)

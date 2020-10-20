@@ -16,5 +16,5 @@ these methods have not been documented in Resource Center yet and are subject to
 
 NOTE: Feel free to contribute new templates to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/geoenrich-report/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/geoenrich-report/index.html)
 * Live sample requires user to sign in and will consume credits

@@ -5,7 +5,7 @@ FeatureServices can be configured to allow files to be attached to individual fe
 
 ![This is where an GIF should be. Sorry you can't see it. Try using Chrome](AddAttachments.gif "Application Demo")
 
-[Live Sample](https://esri.github.io/add-attachments-with-42/index.html)
+[Live Sample](https://esri.github.io/developer-support/web-js/4.x/add-attachments-with-42/)
 
 ## Usage Notes
 This sample allows the user to click on a feature in the map to view a popup. At the bottom of the popup is a button called "Add Attachments". Clicking this button allows attachments to be added using a file picker dialog. Attachments currently attached to the feature will be shown in the popup. These attachments can be downloaded or deleted by clicking the buttons beside them.

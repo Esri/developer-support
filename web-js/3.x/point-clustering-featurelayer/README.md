@@ -23,4 +23,4 @@ This is a sample app that modifies the Point Clustering sample to use a featureL
 
 NOTE: Feel free to update to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/point-clustering-featurelayer/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/point-clustering-featurelayer/index.html)

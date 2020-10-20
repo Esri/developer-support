@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Display Query Results in FeatureTable</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.33/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.33/esri/css/esri.css">
+  <script src="https://js.arcgis.com/3.33/"></script>
+
+  <style>
+    html,
+    body,
+    #map {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <script>
+    require([
+      "esri/layers/FeatureLayer",
+      "esri/dijit/FeatureTable",
+      "esri/tasks/query",
+      "esri/geometry/Extent",
+      "esri/symbols/SimpleFillSymbol",
+      "esri/symbols/SimpleLineSymbol",
+      "esri/Color",
+      "esri/map",
+      "esri/geometry/Circle",
+      "esri/graphic",
+      "dojo/parser",
+      "dojo/ready",
+      "dojo/on",
+      "dijit/layout/ContentPane",
+      "dijit/layout/BorderContainer"
+    ], function (
+      FeatureLayer, FeatureTable, Query, Extent, SimpleFillSymbol, SimpleLineSymbol, Color, Map, Circle,
+      Graphic,
+      parser, ready, on,
+      ContentPane, BorderContainer
+    ) {
+
+      parser.parse();
+
+      ready(function () {
+
+        var map = new Map("map", {
+          basemap: "topo",
+          extent: new Extent({
+            xmax: -13158092.546668783,
+            xmin: -13160901.607458338,
+            ymax: 4035066.907666304,
+            ymin: 4033294.524072895,
+            "spatialReference": {
+              "wkid": 102100,
+              "latestWkid": 3857
+            }
+          })
+        });
+
+        var myFeatureLayer = new FeatureLayer(
+          "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1", {
+            outFields: ["*"],
+            visible: true,
+            id: "fLayer"
+          });
+
+        map.addLayer(myFeatureLayer);
+
+        map.on("load", loadTable);
+
+        function loadTable() {
+
+          var graphics = new Graphic();
+          map.graphics.add(graphics);
+
+          var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+            new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+              new Color([98, 194, 204]), 2), new Color([98, 194, 204, 0.5])
+          );
+          graphics.setSymbol(symbol);
+
+          // create new FeatureTable and set its properties 
+          var myFeatureTable = new FeatureTable({
+            featureLayer: myFeatureLayer,
+            map: map,
+            showFeatureCount: false,
+            // outfields 
+            outFields: ["objectid", "type", "admn_class"],
+          }, 'myTableNode');
+
+          myFeatureTable.startup();
+
+          // apply the selection symbol for the layer 
+          var selectionSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([
+            0, 0, 255, 0.35
+          ]), 4);
+          myFeatureLayer.setSelectionSymbol(selectionSymbol);
+
+          map.on("click", function (evt) {
+            let circle = new Circle({
+              center: evt.mapPoint,
+              radius: 400
+            });
+            graphics.setGeometry(circle);
+
+            query = new Query();
+            query.where = "1=1";
+            query.returnGeometry = false;
+            query.geometry = circle;
+
+            myFeatureLayer.selectFeatures(query, FeatureLayer.SELECTION_NEW,
+              function (features) {
+                let objectIds = [];
+                features.forEach(feature => {
+                  objectIds.push(feature.attributes.objectid);
+                })
+                myFeatureTable.filterRecordsByIds(objectIds);
+              });
+          });
+        }
+      });
+    });
+  </script>
+</head>
+
+<body class="claro esri">
+  <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'"
+    style="width:100%; height:100%;">
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center', splitter:true" style="height:60%">
+      <div id="map"></div>
+    </div>
+    <div id="bot" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom', splitter:true"
+      style="height:40%">
+      <div id="myTableNode"></div>
+    </div>
+  </div>
+</body>
+
+</html>

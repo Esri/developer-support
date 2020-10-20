@@ -17,4 +17,4 @@ https://developers.arcgis.com/javascript/jssamples/fl_dynamic.html
 
 NOTE: Feel free to update to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/join-data-source-show-attributes-DataGrid/joinDataSource_show_All_data_fromDataGrid.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/join-data-source-show-attributes-DataGrid/joinDataSource_show_All_data_fromDataGrid.html)

@@ -27,4 +27,4 @@ Key Global Facts data revealing population statistics .ie total population, tota
 NOTE: This sample should include OAuth Functionality (named user or application pattern).  
 Currently, it does not and relies on a hard coded token with a fallback being the JSAPI Identity Manager prompt. 
 
-[Live Sample](http://esri.github.io/developer-support/web-js/geoenrich-drivetimes/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/geoenrich-drivetimes/index.html)
