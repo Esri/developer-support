@@ -1,6 +1,9 @@
 package com.example.storecredentials;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +31,8 @@ import com.esri.arcgisruntime.security.SharedPreferencesCredentialPersistence;
 import com.esri.arcgisruntime.security.UserCredential;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,14 +40,6 @@ import java.util.Map;
  * available at 100.9 ArcGIS Android Runtime SDK.
  * This class allows you to store the credentials of a user (with permission), so that they do not
  * have to login every time they close out of the application.
- *
- * Only issue with this sample, is that once you store the credentials in the Android SharedPreferences xml,
- * then you have to restart the app for the app to recognize the changes.
- * At the moment, when you store the credentials, you are redirected to the MainActivity, and it prompts again for
- * credentials, but a user can just cancel and the data will still load with the code below.
- *
- * Gave up finding a workaround, as the purpose of this app is to demonstrate how to set this up in the first
- * place. The workflow is what matters and that is demonstrated in the storeCache method
  * **/
 
 public class MainActivity extends AppCompatActivity {
@@ -52,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private UserCredential storedCred;
     private Boolean isStored = false;
 
+    public static FragmentManager fragmentManager;
+    public LoginFragment loginFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +60,13 @@ public class MainActivity extends AppCompatActivity {
         mapview = findViewById(R.id.mapViewTest);
         btnCache = findViewById(R.id.buttonCache);
 
+        // initialize fragment manager
+        fragmentManager = getSupportFragmentManager();
+
         btnCache.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openLoginActivity();
+                openLoginFragment();
             }
         });
 
@@ -141,22 +144,19 @@ public class MainActivity extends AppCompatActivity {
         mapImageLayer.addDoneLoadingListener(() -> {
             if(mapImageLayer.getLoadStatus() == LoadStatus.LOADED) {
                 Log.i(TAG, "No sharedPreferences found, please click the button to store credentials!");
-                Toast.makeText(this, "please click the button to store credentials!", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    public void openLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+    public void openLoginFragment() {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        loginFragment = new LoginFragment();
+        fragmentTransaction.add(R.id.fragment_container, loginFragment, null);
+        fragmentTransaction.commit();
     }
 
-    public void getCreds() {
+    public void getCreds(String username, String password) {
         // Grab credentials sent from the LoginActivity
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("uname");
-        String password = intent.getStringExtra("pwd");
-
         if(username != null && password != null) {
             storeCache(username, password);
             // hide stored credentials button
@@ -164,15 +164,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void closeLoginFragment() {
+        Log.i(TAG, "closing....");
+        //Here we are clearing back stack fragment entries
+        List<Fragment> fragments = fragmentManager.getFragments();
+        fragmentManager.beginTransaction().remove(fragments.get(0)).commit();
+    }
+
 
     @Override protected void onResume() {
-        Log.i(TAG, "resumming....");
-        // call get creds once redirected back to the MainActivity
-        // from the LoginActivity
-        if(!isStored) {
-            // only gets called if the credentials are not already stored
-            getCreds();
-        }
         mapview.resume();
         super.onResume();
     }
@@ -187,3 +187,4 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 }
+

@@ -10,19 +10,25 @@
         android:id="@+id/mapViewTest"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="222dp">
+        >
 
         <Button
             android:id="@+id/buttonCache"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="50dp"
-            android:paddingLeft="50dp"
             android:background="@drawable/rounded_corners"
             android:backgroundTint="@color/colorAccent"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
             android:text="Store Credentials"
             android:textColor="#ffffff" />
+
+
     </com.esri.arcgisruntime.mapping.view.MapView>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
