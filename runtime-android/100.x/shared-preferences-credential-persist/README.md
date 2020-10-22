@@ -5,7 +5,7 @@ This class allows you to store the credentials of a user (with permission), so t
 Only issue with this sample, is that once you store the credentials in the Android SharedPreferences xml, then you have to restart the app for the app to recognize the changes.
 At the moment, when you store the credentials, you are redirected to the MainActivity, and it prompts again for credentials, but a user can just cancel and the data will still load.
 
-![SharedPreferences](https://github.com/banuelosj/developer-support/tree/master/runtime-android/100.x/shared-preferences-credential-persist/demo.gif)
+![SharedPreferences](https://github.com/banuelosj/developer-support/blob/master/runtime-android/100.x/shared-preferences-credential-persist/demo.gif)
 
 ## How to use the sample
 1. Once the application loads, it will prompt for sign in.
