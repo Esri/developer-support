@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>LayerList with Attribute Table Toggle</title>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #appContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+      }
+
+      #viewDiv {
+        flex: 1;
+        width: 100%;
+      }
+
+      .container {
+        display: flex;
+        flex: 1;
+        width: 100%;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
+    />
+
+    <script src="https://js.arcgis.com/4.17/"></script>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/Expand",
+        "esri/widgets/FeatureTable",
+        "esri/widgets/LayerList",
+      ], function (
+        Map,
+        MapView,
+        FeatureLayer,
+        Expand,
+        FeatureTable,
+        LayerList
+      ) {
+        let featureTable, tableDiv;
+
+        var featureLayer_states = new FeatureLayer({
+          url:
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2",
+          id: "states",
+          title: "USA States",
+        });
+
+        var featureLayer_highways = new FeatureLayer({
+          url:
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1",
+          id: "highways",
+          title: "USA Highways",
+        });
+
+        var featureLayer_cities = new FeatureLayer({
+          url:
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
+          id: "cities",
+          title: "USA Cities",
+        });
+
+        var map = new Map({
+          basemap: "gray",
+          layers: [
+            featureLayer_states,
+            featureLayer_highways,
+            featureLayer_cities,
+          ],
+        });
+
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-79.0193, 35.7596],
+          zoom: 8,
+        });
+
+        // **********
+        // LayerList Widget
+        // **********
+
+        function defineActions(event) {
+          // The event object contains an item property.
+          // is is a ListItem referencing the associated layer
+          // and other properties. You can control the visibility of the
+          // item, its title, and actions using this object.
+          let item = event.item;
+
+          // An array of objects defining actions to place in the LayerList.
+          // By making this array two-dimensional, you can separate similar
+          // actions into separate groups with a breaking line.
+          item.actionsSections = [
+            [
+              {
+                title: "Attribute Table",
+                className: "esri-icon-table",
+                id: "attributes",
+                type: "toggle",
+              },
+            ],
+            [
+              {
+                title: "Layer information",
+                className: "esri-icon-description",
+                id: "information",
+              },
+            ],
+          ];
+        }
+
+        view.when(function () {
+          var layerList = new LayerList({
+            view: view,
+            listItemCreatedFunction: defineActions,
+          });
+
+          const tableContainer = document.getElementById("tableContainer");
+
+          // -------------------------
+          // Create the FeatureTable
+          // -------------------------
+
+          async function createTable(layer) {
+            const tableDiv = document.createElement("div");
+            tableContainer.appendChild(tableDiv);
+
+            featureTable = new FeatureTable({
+              view: view,
+              layer: layer,
+              container: tableDiv,
+            });
+          }
+
+          layerList.on("trigger-action", function (event) {
+            const item = event.item;
+            // Capture the action id.
+            const id = event.action.id;
+
+            if (id === "attributes") {
+              // Toggle the feature table widget based on the selected table,
+              // If the toggled on
+              if (event.action.value) {
+                // Check if the Feature Table is already created if so, don't recreate
+                if (featureTable) {
+                  // If the table is already created, make sure that the featuretable toggle reflects the correct layer.
+                  // If toggling on a different layer, create the featuretable for that layer and toggle on
+                  if (item.layer.title != featureTable.layer.title) {
+                    // destroy the featuretable and recreate with new tablediv
+                    featureTable.destroy();
+
+                    // Load the FeatureTable based on whatever is clicked
+                    createTable(item.layer).then(function () {
+                      toggleFeatureTable(true);
+                    });
+                  } else {
+                    // if the table is the same one stored in featureTable, i.e. toggling on/of the same table, no need to recreate.
+                    toggleFeatureTable(true);
+                  }
+
+                  // If the featuretable is not already created, create a new one and toggle it on
+                } else {
+                  // Create the table if not already created
+                  createTable(item.layer).then(function () {
+                    toggleFeatureTable(true);
+                  });
+                }
+              } else {
+                // Toggle the table off
+                toggleFeatureTable(false);
+              }
+              // If the information button is clicked, open the layer's url in a separate page
+            } else if (id === "information") {
+              window.open(item.layer.url);
+            }
+          });
+
+          // Toggle feature table on/off
+          function toggleFeatureTable(showTable) {
+            // Check if the table is displayed, if so, toggle off. If not, display.
+            showTable
+              ? tableContainer.classList.remove("hidden")
+              : tableContainer.classList.add("hidden");
+          }
+
+          const llExpand = new Expand({
+            view: view,
+            content: layerList,
+            expandTooltip: "Layer List",
+            expanded: true,
+          });
+
+          view.ui.add(llExpand, "top-right");
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="appContainer">
+      <div id="viewDiv"></div>
+      <div id="tableContainer" class="container hidden"></div>
+    </div>
+  </body>
+</html>
