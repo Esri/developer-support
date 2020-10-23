@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/login_gradient"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/usernameInput"
+        android:background="@drawable/rounded_corners"
+        android:hint = "Username"
+        android:textColorHint="#FFFFFF"
+        android:layout_above="@+id/pswdInput"
+        android:layout_marginRight="75dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginBottom="30dp"
+        android:padding="10dp" />
+
+    <EditText
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:id = "@+id/pswdInput"
+        android:background="@drawable/rounded_corners"
+        android:hint = "Password"
+        android:textColorHint="#FFFFFF"
+        android:layout_above="@+id/saveBtn"
+        android:layout_marginRight="75dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginBottom="100dp"
+        android:padding="10dp" />
+
+    <Button
+        android:id="@+id/saveBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancelBtn"
+        android:background="@drawable/rounded_corners"
+        android:layout_marginRight="75dp"
+        android:layout_marginLeft="75dp"
+        android:backgroundTint="#2657eb"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="10dp"
+        android:text="@string/saveBtnText" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="100dp"
+        android:layout_marginRight="75dp"
+        android:layout_marginLeft="75dp"
+        android:backgroundTint="#2657eb"
+        android:textColor="#FFFFFF"
+        android:text="Cancel" />
+</RelativeLayout>
