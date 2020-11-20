@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <title>Create Buffer Based on Attributes (Server-Side Query)</title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.17/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/layers/GraphicsLayer",
+        "esri/Graphic",
+        "esri/geometry/geometryEngine",
+      ], function (
+        Map,
+        MapView,
+        FeatureLayer,
+        GraphicsLayer,
+        Graphic,
+        geometryEngine
+      ) {
+        var map = new Map({
+          basemap: "gray",
+        });
+
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-79.0193, 35.7596],
+          zoom: 8,
+        });
+
+        var featureLayer = new FeatureLayer({
+          url:
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
+        });
+
+        var bufferLayer = new GraphicsLayer();
+
+        var bufferSym = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [140, 140, 222, 0.5],
+          outline: {
+            color: [0, 0, 0, 0.5],
+            width: 2,
+          },
+        };
+
+        map.addMany([featureLayer, bufferLayer]);
+
+        var geometries = [];
+        var distances = [];
+
+        var query = {
+          outFields: ["pop2000"],
+          returnGeometry: true,
+          where: "st = 'NC'",
+        };
+
+        featureLayer.queryFeatures(query).then(function (results) {
+          results.features.forEach((feature) => {
+            geometries.push(feature.geometry);
+            distances.push(feature.attributes.pop2000 / 10000);
+          });
+
+          var buffer = geometryEngine.geodesicBuffer(
+            geometries,
+            distances,
+            "kilometers",
+            true
+          );
+
+          console.log(buffer);
+
+          bufferLayer.add(
+            new Graphic({
+              geometry: buffer[0],
+              symbol: bufferSym,
+            })
+          );
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
