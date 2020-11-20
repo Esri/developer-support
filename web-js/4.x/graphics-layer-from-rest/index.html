@@ -1,0 +1,141 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.18/"></script>
+  <title>GraphicsLayer from REST</title>
+</head>
+<style>
+  html,
+  body,
+  #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<script>
+  require(["esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer"],
+    function (Map, MapView, Graphic, GraphicsLayer) {
+      // CREATE MAP
+      const map = new Map({
+        basemap: "topo"
+      });
+
+      // CREATE VIEW
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-122.42, 37.75], // SF
+        zoom: 13
+      });
+
+      // CREATE GRAPHICS LAYER
+      const gl = new GraphicsLayer();
+      map.add(gl);
+
+      // CONSTRUCT REQUEST
+      let url = 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0/query?'
+
+      const geometry = `{
+        "xmin":-122.41004045973307,
+        "ymin":37.778673128079184,
+        "xmax":-122.40277120636026,
+        "ymax":47.785240440455276,
+        "spatialReference":{
+          "wkid":4326,
+          "latestWkid":4326
+        }
+      }`;
+
+      // uncomment geometry or objectIds to visualize different queries
+      const data = {
+        "where": "1=1",
+        "outFields": "*",
+        //"objectIds": "8242976, 8235148",
+        //"geometry": geometry,
+        // "returnGeometry": true,
+        // "spatialRel": "esriSpatialRelIntersects",
+        // "geometryType": "esriGeometryEnvelope",
+        // "inSR": 4326, // WGS84
+        // "outSR": 4326,
+        // "token": ""
+        "f": "json"
+      };
+
+      const query = Object.keys(data)
+        .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+        .join('&');
+
+      url = url + query;
+
+      // REQUEST
+      fetch(url)
+        .then((response) => {
+          if (response.status === 200) {
+            // CHECK RESPONSE
+            console.log("200 ok");
+            return response.json();
+          }
+        })
+        .then((results) => {
+          // DO STUFF WITH RESPONSE JSON
+          console.log("adding points")
+          for (let i = 0; i < results.features.length; i++) {
+            // CREATE POINT
+            const x = results.features[i].geometry.x;
+            const y = results.features[i].geometry.y;
+
+            const point = {
+              type: "point", // autocasts as Point
+              longitude: x,
+              latitude: y,
+              spatialReference: view.spatialReference
+            };
+
+            // CREATE GRAPHIC
+            var graphic = new Graphic({
+              geometry: point,
+              symbol: {
+                type: "simple-marker", // autocasts as SimpleMarkerSymbol
+                style: "x",
+                //color: "red",
+                size: "6px",
+                outline: { // autocasts as SimpleLineSymbol
+                  color: 'red',
+                  width: 2
+                }
+              }
+            });
+
+            // ADD ATTRIBUTES TO GRAPHIC
+            const attr = results.features[i].attributes;
+            for (const [key, value] of Object.entries(attr)) {
+              graphic.setAttribute(key, value)
+            }
+
+            // CREATE POPUP
+            var popup = {  // specific to the attributes in this example
+              "title": "{req_type}",
+              "content": "{address} on {req_date}"
+            }
+            graphic.popupTemplate = popup;
+
+            // ADD GRAPHIC TO LAYER
+            gl.add(graphic);
+          }
+        })
+        .catch((err) => {
+          console.log("failed with: ", err);
+        });
+    });
+</script>
+
+<body>
+  <div id="viewDiv"></div>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Show Pan Arrows</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.34/esri/css/esri.css">
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #info {
+      top: 20px;
+      right: 10px;
+      position: absolute;
+      z-index: 98;
+      background: transparent;
+      padding: 5px;
+      text-align: center;
+    }
+
+    .pan {
+      background-color: white;
+      border: none;
+      text-align: center;
+      text-color: black;
+      text-decoration: none;
+      border-radius: 12px;
+      border: 1px solid gray;
+      -webkit-user-select: none;
+      /* Safari */
+      -moz-user-select: none;
+      /* Firefox */
+      -ms-user-select: none;
+      /* IE10+/Edge */
+      user-select: none;
+      /* Standard */
+    }
+  </style>
+  <script src="https://js.arcgis.com/3.34/"></script>
+  <script>
+
+    var map;
+
+    require(["esri/map", "esri/geometry/Extent", "dojo/domReady!"], function (Map, Extent) {
+      map = new Map("map", {
+        basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
+        center: [-122.45, 37.75], // longitude, latitude
+        zoom: 13
+      });
+
+      map.disablePan()
+
+      //UNCOMMENT FOR CONTROL OVER HOW FAR THE BUTTON PANS
+      var panIncr = 500;
+
+      document.getElementById('panRight').onclick = function () {
+        //panIncr = (40/map.getZoom() * 1000) - 200;
+        var xMin = map.extent.xmin + panIncr;
+        var xMax = map.extent.xmax + panIncr;
+        var extent = new Extent(xMin, map.extent.ymin, xMax, map.extent.ymax, map.spatialReference)
+        map.setExtent(extent)
+      };
+
+      document.getElementById('panLeft').onclick = function () {
+        // panIncr = (40/map.getZoom() * 1000) - 200;
+        var xMin = map.extent.xmin - panIncr;
+        var xMax = map.extent.xmax - panIncr;
+        var extent = new Extent(xMin, map.extent.ymin, xMax, map.extent.ymax, map.spatialReference)
+        map.setExtent(extent)
+      };
+
+      document.getElementById('panUp').onclick = function () {
+        // panIncr = (40/map.getZoom() * 1000) - 200;
+        var yMin = map.extent.ymin + panIncr;
+        var yMax = map.extent.ymax + panIncr;
+        var extent = new Extent(map.extent.xmin, yMin, map.extent.xmax, yMax, map.spatialReference)
+        map.setExtent(extent)
+      };
+
+      document.getElementById('panDown').onclick = function () {
+        //  panIncr = (40/map.getZoom() * 1000) - 200;
+        var yMin = map.extent.ymin - panIncr;
+        var yMax = map.extent.ymax - panIncr;
+        var extent = new Extent(map.extent.xmin, yMin, map.extent.xmax, yMax, map.spatialReference)
+        map.setExtent(extent)
+      };
+
+
+      // BUILT IN PAN VALUES
+      // document.getElementById('panRight').onclick = function () {
+      //   map.panRight()
+      // };
+      // document.getElementById('panLeft').onclick = function () {
+      //   map.panLeft()
+      // };
+      // document.getElementById('panUp').onclick = function () {
+      //   map.panUp()
+      // };
+      // document.getElementById('panDown').onclick = function () {
+      //   map.panDown()
+      // };
+
+
+      // CAN ADD DIAGONAL IF NECESSARY (lower left, lower right, upper left, upper right)
+      // https://developers.arcgis.com/javascript/3/jsapi/map-amd.html#panlowerleft
+      // https://developers.arcgis.com/javascript/3/jsapi/map-amd.html#panlowerright
+      // https://developers.arcgis.com/javascript/3/jsapi/map-amd.html#panupperleft
+      // https://developers.arcgis.com/javascript/3/jsapi/map-amd.html#panupperright
+    });
+  </script>
+</head>
+
+<body>
+  <div id="map"></div>
+  <div id="info">
+    <button type="button" class="pan" id="panUp">Pan Up</button>
+    <br>
+    <button type="button" class="pan" id="panLeft">Pan Left</button>
+    <button type="button" class="pan" id="panRight">Pan Right</button>
+    <br>
+    <button type="button" class="pan" id="panDown">Pan Down</button>
+  </div>
+</body>
+
+</html>

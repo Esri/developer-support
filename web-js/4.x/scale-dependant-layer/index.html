@@ -1,0 +1,74 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>layer scale</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.18/"></script>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    #info {
+      top: 20px;
+      right: 10px;
+      position: absolute;
+      z-index: 98;
+      border: .1px solid lightgray;
+      color: gray;
+      background: white;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer"
+    ], function (Map, MapView, FeatureLayer) {
+      var map = new Map({
+        basemap: "streets"
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        zoom: 16,
+        center: [-117.195685, 34.057209]
+      });
+
+      var points = new FeatureLayer({
+        url: "https://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/BufferQuery/FeatureServer/0"
+      });
+
+      var line = new FeatureLayer({
+        url: "https://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/BufferQuery/FeatureServer/1"
+      });
+      // zoom scales 
+      // https://www.esri.com/arcgis-blog/products/product/mapping/web-map-zoom-levels-updated/
+      points.minScale = 9027.977410;
+      line.maxScale = 9027.977411;
+      map.add(points);
+      map.add(line);
+    });
+  </script>
+</head>
+
+<body>
+  <div id="info">
+    Zoom in to see the layer switch
+  </div>
+  <div id="viewDiv"></div>
+</body>
+
+</html>

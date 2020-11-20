@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.17/"></script>
+
+    <script>
+      function runCode(id) {
+        alert(id);
+      }
+      require([
+        "esri/Map",
+        "esri/layers/FeatureLayer",
+        "esri/views/MapView",
+      ], function (Map, FeatureLayer, MapView) {
+        // Create the map
+        var map = new Map({
+          basemap: "gray",
+        });
+
+        // Create the MapView
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-73.95, 40.702],
+          zoom: 11,
+        });
+
+        
+// Two examples of the HTML sanitzer breaking popups     
+// 1) BUTTON DOESN'T APPEAR BUT ARCADE WORKS
+/*
+        var template = {
+          title:  "{OBJECTID}",
+          content: `<i>The Name of this feature is {Name}</i><br>
+                    <b><a href='https://www.arcgis.com/home/index.html'>ArcGIS</a></b><br>
+                    <img src='https://www.w3schools.com/images/w3schools_green.jpg' alt='W3Schools.com'>
+                    <input id='buttonId' type='button' onclick=runCode({OBJECTID}) value='Click Me'>`
+        }
+*/
+
+// 2) BUTTON APPEARS BUT ARCADE DOESN'T WORK 
+/*
+        var template = {
+          content: function () {
+            var div = document.createElement("div");
+            div.className = "myClass";
+            div.innerHTML =
+              "<input id='buttonId' type='button' onclick=runCode({OBJECTID}) value='Click Me'>";
+            return div;
+          },
+        };
+*/
+
+
+// how to create popups since the addition of the HTML sanitizer
+        var template = {
+          outFields: ["*"],
+          content: function (feature) {
+            var id = feature.graphic.attributes.OBJECTID;
+            var div = document.createElement("div");
+            div.className = "myClass";
+            div.innerHTML = `<h4>${id}</h4><input id='buttonId' class='btn btn-primary btn-block' type='button' onclick=runCode(${id}) value='Click Me' title='Clickable button in popup'>`;
+            return div;
+          },
+        };
+
+        
+        var featureLayer = new FeatureLayer({
+          url:
+            "https://services.arcgis.com/P3ePLMYs2RVChkJx/ArcGIS/rest/services/ACS_Marital_Status_Boundaries/FeatureServer/2",
+          popupTemplate: template,
+        });
+        map.add(featureLayer);
+      });
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>

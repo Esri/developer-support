@@ -1,0 +1,206 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.18/"></script>
+  <title>Markers From JSON</title>
+</head>
+<style>
+  html,
+  body,
+  #viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+  }
+</style>
+<script>
+  require(["esri/Map", "esri/views/MapView", "esri/Graphic", "esri/layers/GraphicsLayer"],
+    function (Map, MapView, Graphic, GraphicsLayer) {
+      // CREATE MAP
+      const map = new Map({
+        basemap: "streets"
+      });
+
+      // CREATE VIEW
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-122.42, 37.75], // SF
+        zoom: 13
+      });
+
+      // CREATE GRAPHICS LAYER
+      const gl = new GraphicsLayer();
+      map.add(gl);
+
+      // JSON
+      const json = {
+        "features": [
+          {
+            "attributes": {
+              "objectid": 8203811,
+              "req_id": "467130",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/12/2009",
+              "req_time": "22:41",
+              "address": "19TH AVE and CALIFORNIA ST",
+              "district": "1",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.47857960500005,
+              "y": 37.784174072999974
+            }
+          },
+          {
+            "attributes": {
+              "objectid": 8203812,
+              "req_id": "467961",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/13/2009",
+              "req_time": "21:51",
+              "address": "1470 HAIGHT ST",
+              "district": "5",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.44649134899998,
+              "y": 37.770175567000024
+            }
+          },
+          {
+            "attributes": {
+              "objectid": 8203813,
+              "req_id": "467303",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/13/2009",
+              "req_time": "10:17",
+              "address": "16TH ST and GUERRERO ST",
+              "district": "8",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.42410259999997,
+              "y": 37.764783394000006
+            }
+          },
+          {
+            "attributes": {
+              "objectid": 8203814,
+              "req_id": "467358",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/13/2009",
+              "req_time": "11:15",
+              "address": "1957 UNION ST",
+              "district": "2",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.431474912,
+              "y": 37.797400062000008
+            }
+          },
+          {
+            "attributes": {
+              "objectid": 8203815,
+              "req_id": "467973",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/13/2009",
+              "req_time": "22:38",
+              "address": "26TH AVE and GEARY BLVD",
+              "district": "1",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.48580838099997,
+              "y": 37.780037866999976
+            }
+          },
+          {
+            "attributes": {
+              "objectid": 8203816,
+              "req_id": "468589",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/14/2009",
+              "req_time": "21:06",
+              "address": "19TH AVE and 19",
+              "district": "7",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.47590260499999,
+              "y": 37.746782092999979
+            }
+          },
+          {
+            "attributes": {
+              "objectid": 8203818,
+              "req_id": "468037",
+              "req_type": "Graffiti Complaint - Public Property",
+              "req_date": "07/14/2009",
+              "req_time": "08:16",
+              "address": "HAIGHT ST and OCTAVIA ST",
+              "district": "8",
+              "status": 1
+            },
+            "geometry": {
+              "x": -122.42375892099994,
+              "y": 37.772957249000001
+            }
+          }
+        ]
+      }
+
+
+      for (let i = 0; i < json.features.length; i++) {
+        // CREATE POINT
+        const x = json.features[i].geometry.x;
+        const y = json.features[i].geometry.y;
+
+        const point = {
+          type: "point", // autocasts as Point
+          longitude: x,
+          latitude: y
+        };
+
+        // CREATE GRAPHIC
+        const graphic = new Graphic({
+          geometry: point,
+          symbol: {
+            type: "picture-marker",  // autocasts as new PictureMarkerSymbol()
+            url: "https://image.flaticon.com/icons/svg/2135/2135002.svg",
+            width: "20px",
+            height: "24px"
+          }
+        });
+
+        // ADD ATTRIBUTES TO GRAPHIC
+        const attr = json.features[i].attributes;
+        for (const [key, value] of Object.entries(attr)) {
+          graphic.setAttribute(key, value)
+        }
+
+        // CREATE POPUP
+        const popup = {  // specific to the attributes in this example
+          "title": "{req_type}",
+          "content": "{address} on {req_date}"
+        }
+        graphic.popupTemplate = popup;
+
+        // ADD GRAPHIC TO LAYER
+        gl.add(graphic);
+
+      }
+    });
+</script>
+
+<body>
+  <div id="viewDiv">
+  </div>
+</body>
+
+</html>
