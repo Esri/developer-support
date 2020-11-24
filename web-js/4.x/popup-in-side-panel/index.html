@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Popup in Side Panel</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.17/"></script>
+
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #viewDiv {
+            float: left;
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 70%;
+        }
+
+        #sidePanel {
+            float: left;
+            width: 30%;
+            height: 100%;
+            padding: 1em;
+        }
+    </style>
+
+    <script>
+        require([
+            "esri/Map",
+            "esri/layers/FeatureLayer",
+            "esri/views/MapView",
+            "esri/widgets/Feature",
+        ], function (Map, FeatureLayer, MapView, Feature) {
+            
+            var map = new Map({
+                basemap: "gray",
+            });
+
+            var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [-79.0193, 35.7596],
+                zoom: 8,
+                popup: {
+                    autoOpenEnabled: false,
+                },
+            });
+
+            const polygonLayer = new FeatureLayer({
+                url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/3",
+                popupTemplate: {
+                    title: "USA County: {name}",
+                    content: "Population: {pop2000}",
+                },
+            });
+
+            const lineLayer = new FeatureLayer({
+                url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1",
+                popupTemplate: {
+                    title: "USA Highway: {route}",
+                    content: "Length: {length}",
+                },
+            });
+
+            const pointLayer = new FeatureLayer({
+                url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
+                popupTemplate: {
+                    title: "USA City: {areaname}",
+                    content: "Population: {pop2000}",
+                },
+            });
+
+            map.addMany([polygonLayer, lineLayer, pointLayer]);
+
+            // Create symbols for selected features
+            var polygonSymbol = {
+                type: "simple-fill", // autocasts as new SimpleMarkerSymbol()
+                style: "none",
+                outline: {
+                    // autocasts as new SimpleLineSymbol()
+                    color: "cyan",
+                    width: 2,
+                },
+            };
+
+            var lineSymbol = {
+                type: "simple-line", // autocasts as new SimpleLineSymbol()
+                color: "cyan",
+                width: 2,
+            };
+
+            var pointSymbol = {
+                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                outline: {
+                    // autocasts as new SimpleLineSymbol()
+                    color: "cyan",
+                    width: 2,
+                },
+            };
+
+            view.when().then(function () {
+                // Create a default graphic for when the application starts
+                const graphic = {
+                    popupTemplate: {
+                        content: "Click features to show details...",
+                    },
+                };
+
+                // Provide graphic to a new instance of a Feature widget
+                const feature = new Feature({
+                    container: "sidePanel",
+                    graphic: graphic,
+                    map: view.map,
+                    spatialReference: view.spatialReference,
+                });
+
+                // listen for the click event on the View
+                view.on("click", function (event) {
+                    view.graphics = [];
+                    // Perform a hitTest on the View
+                    view.hitTest(event).then(function (event) {
+                        // Make sure graphic has a popupTemplate
+                        let results = event.results.filter(function (result) {
+                            return result.graphic.layer.popupTemplate;
+                        });
+                        let result = results[0];
+                        // Update the graphic of the Feature widget
+                        // on click with the result
+                        if (result) {
+                            feature.graphic = result.graphic;
+                            let geometryType = result.graphic.geometry.type;
+                            if (geometryType == "polygon") {
+                                result.graphic.symbol = polygonSymbol;
+                            } else if (geometryType == "polyline") {
+                                result.graphic.symbol = lineSymbol;
+                            } else if (geometryType == "point") {
+                                result.graphic.symbol = pointSymbol;
+                            }
+                            view.graphics.add(result.graphic);
+                        } else {
+                            feature.graphic = graphic;
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="sidePanel" class="esri-widget"></div>
+    <div id="viewDiv"></div>
+</body>
+
+</html>

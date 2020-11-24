@@ -13,7 +13,7 @@ and deliver them in a single widget, see tool usage section below.
 
 [Writing widgets](http://dojotoolkit.org/reference-guide/1.9/quickstart/writingWidgets.html)
 
-[Live Sample](http://esri.github.io/developer-support/web-js/selection-dijit/index.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/selection-dijit/index.html)
 
 ## Features
 

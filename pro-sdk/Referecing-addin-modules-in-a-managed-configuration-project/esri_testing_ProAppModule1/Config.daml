@@ -1,0 +1,37 @@
+﻿<ArcGIS defaultAssembly="esri_testing_ProAppModule1.dll" defaultNamespace="esri_testing_ProAppModule1" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{68480eb4-65bc-4d39-8b88-b2a6a1087af6}" version="1.0" desktopVersion="2.5.22081">
+    <Name>esri_testing_ProAppModule1</Name>
+    <Description>esri_testing_ProAppModule1 description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>cla10676</Author>
+    <Company>Acme</Company>
+    <Date>3/4/2020 3:41:30 PM, 2020</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="esri_testing_ProAppModule1_Module" className="Module1" autoLoad="false" caption="Module1" >
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <tab id="esri_testing_ProAppModule1_Tab1" caption="Tab 2">
+          <group refID="esri_testing_ProAppModule1_Group1"/>
+        </tab>
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="esri_testing_ProAppModule1_Group1" caption="Add In Group 1" appearsOnAddInTab="false">
+          <!-- host controls within groups -->
+          <button refID="esri_testing_ProAppModule1_Button1" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="esri_testing_ProAppModule1_Button1" caption="From Add-In 1" className="Button1" loadOnClick="true" smallImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonBlue16.png" largeImage="pack://application:,,,/ArcGIS.Desktop.Resources;component/Images/GenericButtonBlue32.png">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+</ArcGIS>

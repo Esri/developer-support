@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Switch Basemaps in BasemapGallery</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.33/esri/css/esri.css">
+
+  <style>
+    html,
+    body,
+    #map {
+      height: 85%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+  <script src="https://js.arcgis.com/3.33/"></script>
+
+  <script>
+    require([
+      "esri/map",
+      "esri/dijit/Basemap",
+      "esri/dijit/BasemapLayer",
+      "esri/dijit/BasemapGallery",
+      "dojo/domReady!"
+    ], function(
+      Map,
+      Basemap,
+      BasemapLayer,
+      BasemapGallery
+    ) {
+      var light_1 = new Basemap({
+        layers: [
+          new BasemapLayer({
+            url: "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer",
+          })
+        ],
+        title: "Light_1",
+        id: "light_1"
+      });
+      
+      var light_2 = new Basemap({
+        layers: [
+          new BasemapLayer({
+            url: "https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer"
+          })
+        ],
+        title: "Light_2",
+        id: "light_2"
+      });
+      
+      var dark_1 = new Basemap({
+        layers: [
+          new BasemapLayer({
+            url: "https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer",
+          })
+        ],
+        title: "Dark_1",
+        id: "dark_1"
+      });
+      
+      var dark_2 = new Basemap({
+        layers: [
+          new BasemapLayer({
+            url: "https://services.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer",
+          })
+        ],
+        title: "Dark_2",
+        id: "dark_2"
+      });
+      
+      var x;
+
+      function Light() {
+        basemapGallery.remove("dark_1");
+        basemapGallery.remove("dark_2");
+        basemapGallery.add(light_1);
+        basemapGallery.add(light_2);
+        basemapGallery.select("light_1");
+        x = "light";
+      }
+
+      function Dark() {
+        basemapGallery.remove("light_1");
+        basemapGallery.remove("light_2");
+        basemapGallery.add(dark_1);
+        basemapGallery.add(dark_2);
+        basemapGallery.select("dark_1");
+        x = "dark";
+      }
+      var map = new Map("map", {});
+      
+      var basemapGallery = new BasemapGallery({
+        map: map,
+        showArcGISBasemaps: false,
+        basemaps: []
+      }, "gallery");
+      
+      Light();
+      
+      var button = document.getElementById("button");
+      if (button) {
+        button.addEventListener("click", function() {
+          if (x == "light") {
+            Dark();
+          } else if (x == "dark") {
+            Light();
+          }
+        });
+      }
+    });
+  </script>
+
+</head>
+
+<body>
+
+  <div id="map"></div>
+  <div id="gallery"></div>
+  <button type="button" name="button" id="button">Switch</button>
+
+</body>
+
+</html>

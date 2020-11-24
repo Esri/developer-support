@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">StoreCredentials</string>
+    <string name="serviceUrl">https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync_secured/MapServer</string>
+
+
+    <string name="loginBtnText">Log In</string>
+    <string name="saveBtnText">Save</string>
+</resources>

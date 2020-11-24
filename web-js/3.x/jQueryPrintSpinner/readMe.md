@@ -53,4 +53,4 @@ console.log('The url to the print image is : ' + evt.result.url);
 <div class="spin" data-spin ></div>
 
 ```
-### [LiveSample](http://esri.github.io/developer-support/web-js/jQueryPrintSpinner/print1.html)
+### [LiveSample](http://esri.github.io/developer-support/web-js/3.x/jQueryPrintSpinner/print1.html)

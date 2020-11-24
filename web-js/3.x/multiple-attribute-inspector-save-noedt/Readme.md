@@ -16,4 +16,4 @@ Akshay H.
 
 *** IMPORTANT
 
-[Live Sample](http://esri.github.io/developer-support/web-js/multiple-attribute-inspector-save-noedt/MultipleAttributeInspector_AMD_save.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/multiple-attribute-inspector-save-noedt/MultipleAttributeInspector_AMD_save.html)

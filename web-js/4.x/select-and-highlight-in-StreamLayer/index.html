@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,
+      maximum-scale=1,user-scalable=no" />
+
+    <title>StreamLayer | Sample | ArcGIS API for JavaScript 4.17</title>
+    <style>
+        html,
+        body,
+        #viewDiv {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #streamLayerDiv {
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.17/"></script>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/StreamLayer",
+            "esri/geometry/Polygon",
+            "esri/Graphic",
+            "esri/tasks/support/Query"
+        ], function (Map, MapView, StreamLayer, Polygon, Graphic, Query) {
+
+            var streamLayer, streamLayerView;
+
+            /***************************************
+             * Set up map view with initial extent
+             ***************************************/
+
+            const map = new Map({
+                basemap: "gray-vector"
+            });
+
+            const view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [-122.6801, 45.5216],
+                zoom: 14
+            });
+
+            view.ui.add("streamLayerDiv", "top-right");
+
+            // Connect click events to UI buttons
+            const toggleLayerButton = document.getElementById(
+                "toggleStreamLayerButton"
+            );
+
+            /*************************************************
+             * Functions to add and remove Stream Layer
+             *************************************************/
+            toggleLayerButton.addEventListener("click", function () {
+                if (streamLayer) {
+                    map.remove(streamLayer);
+                    streamLayer.destroy();
+                    streamLayer = null;
+                    view.graphics.removeAll();
+                    processDisconnect();
+                } else {
+                    addStreamLayer();
+                }
+            });
+
+            function addStreamLayer() {
+                // URL to stream service
+                var svcUrl = document.getElementById("streamUrlText").value;
+                // Construct Stream Layer
+                streamLayer = new StreamLayer({
+                    url: svcUrl,
+                    purgeOptions: {
+                        displayCount: 10000
+                    }
+                });
+                map.add(streamLayer);
+
+                view.on("click", function (event) {
+                    view.hitTest(event).then(function (response) {
+                        if (response.results.length) {
+                            var graphic = response.results.filter(function (result) {
+                                return result.graphic.layer === streamLayer;
+                            })[0].graphic;
+
+                            console.log(graphic.attributes.TrackID);
+                            
+                            var query = new Query({
+                                where: "TrackID = " + graphic.attributes.TrackID
+                            });
+                        }
+
+                        view.whenLayerView(streamLayer).then(function (layerView) {
+                            layerView.watch("updating", function (val) {
+                                if (!val) {
+                                    layerView.queryFeatures(query).then(
+                                        function (results) {
+                                            layerView.highlight(results
+                                                .features);
+                                        });
+                                }
+                            });
+                        });
+                    });
+                });
+
+                // When graphics controller created, register listeners for events
+                view.whenLayerView(streamLayer).then(function (layerView) {
+                    streamLayerView = layerView;
+                    processConnect();
+                    layerView.watch("connectionStatus", function (value) {
+                        if (value === "connected") {
+                            processConnect();
+                        } else {
+                            processDisconnect();
+                        }
+                    });
+                });
+            }
+
+            /*********************************************************
+             * Stream layer event handlers
+             *********************************************************/
+            function processConnect() {
+                toggleLayerButton.value = "Remove stream layer";
+            }
+
+            function processDisconnect() {
+                toggleLayerButton.value = "Add stream layer";
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <div id="streamLayerDiv" class="esri-widget">
+        <div class="esri-editor__controls">
+            <label class="esri-feature-form__label">Stream service url:
+                <input class="esri-input esri-feature-form__input" type="text" id="streamUrlText"
+                    value="https://geoeventsample1.esri.com:6443/arcgis/rest/services/PortlandVehicles/StreamServer" /></label>
+            <input type="button" id="toggleStreamLayerButton" value="Add stream layer" class="esri-button" />
+        </div>
+        <br />
+    </div>
+</body>
+
+</html>

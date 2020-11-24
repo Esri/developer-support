@@ -28,4 +28,4 @@ understand and use geohashes.
 
 NOTE: Feel free to update to this repo!
 
-[Live Sample](http://esri.github.io/developer-support/web-js/geohash-class-and-finder/example.html)
+[Live Sample](http://esri.github.io/developer-support/web-js/3.x/geohash-class-and-finder/example.html)
