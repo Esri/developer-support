@@ -7,8 +7,8 @@ This sample demonstrates how to create an edited raster file from a blank raster
 ```
 Language:				C#
 Subject:				Framework
-Date:					3/16/2020
-ArcGIS Pro:				2.5
+Date:					11/24/2020
+ArcGIS Pro:				2.6
 Visual Studio:			2017, 2019
 .NET Target Framework:	4.8
 ```
