@@ -4,7 +4,7 @@
 
 This sample shows how to change the cursor while the MapView is being panned/zoomed (navigating).
 
-![Demo](https://github.com/Esri/developer-support/blob/WPFCursor/runtime-net/100.x/WPF/change-cursor-when-navigating-view/demo-gif.gif)
+![Demo](https://github.com/Esri/developer-support/blob/master/runtime-net/100.x/WPF/change-cursor-when-navigating-view/demo-gif.gif)
 
 ## How It Works
 
