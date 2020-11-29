@@ -1,9 +1,8 @@
 //
 //  ViewController.swift
-//  Licensing Sample app
+//  DisplayEnterpriseMemberLevel
 //
-//  Created by Raj on 23/08/19.
-//  Copyright © 2019 Raj. All rights reserved.
+//  Created by Kavish Ghime on 11/28/20.
 //
 
 import UIKit
@@ -14,7 +13,7 @@ class ViewController: UIViewController {
     var licenseLevel = 0
     var portal: AGSPortal?
     
-    let portalURL:String = "https://kghime.esri.com/portal"
+    let portalURL:String = ""
     let userName:String = ""
     let password:String = ""
     
@@ -22,6 +21,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(self.logout), name: NSNotification.Name(rawValue: "Logout"), object: nil)
     }
+    
     
     @IBAction func loginAction(_ sender: Any) {
         self.portalAuthenticateCall(completion: {(status) in
@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     func portalAuthenticateCall(completion:@escaping (Bool)->()){
         
         do {
-            let portal = AGSPortal(url: URL(string: self.portalURL)!, loginRequired: true)
+            let portal = AGSPortal(url: URL(string: self.portalURL)!, loginRequired: false)
             self.portal = portal
             self.portal!.requestConfiguration?.requestCachePolicy = .reloadIgnoringLocalCacheData
             self.portal!.requestConfiguration?.shouldCacheResponse = false
@@ -80,11 +80,11 @@ class ViewController: UIViewController {
                 default:
                     break
                 }
-                print("Licence level ------> ",AGSArcGISRuntimeEnvironment.license().licenseLevel.rawValue)
+                print("Enterprise member Licence level ------> ",AGSArcGISRuntimeEnvironment.license().licenseLevel.rawValue)
                 self.licenseLevel = AGSArcGISRuntimeEnvironment.license().licenseLevel.rawValue
                 var licenseDictionary: NSDictionary?
                 do {licenseDictionary = try licenseInfo?.toJSON() as! NSDictionary?
-                    print("License String ------>",licenseDictionary as! NSDictionary)
+                    print("Enterprise member License String ------>",licenseDictionary as! NSDictionary)
                 } catch {
                     print("LicenseInfo not available")
                 }
@@ -99,4 +99,3 @@ class ViewController: UIViewController {
         }
     }
 }
-
