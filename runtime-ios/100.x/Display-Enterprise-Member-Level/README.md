@@ -25,3 +25,11 @@ default:
 print("Enterprise member Licence level ------> ",AGSArcGISRuntimeEnvironment.license().licenseLevel.rawValue)
 self.licenseLevel = AGSArcGISRuntimeEnvironment.license().licenseLevel.rawValue
 ```
+
+## How to run the sample
+1. Open the sample in XCode
+2. Add your portal on line #16 of "ViewController.swift" file
+3. Add the credentials on line #17 and #18
+4. Run the app
+5. After clicking the "login" button, the app will display the license level
+6. Also, in the XCode`s console, you can see the license string and portal access token 
