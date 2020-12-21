@@ -7,8 +7,8 @@
          on iOS devices-->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
     <title>Find Address</title>
- <link rel="stylesheet" href="http://js.arcgis.com/3.14/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="http://js.arcgis.com/3.14/esri/css/esri.css">
+ <link rel="stylesheet" href="https://js.arcgis.com/3.35/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.35/esri/css/esri.css">
     <style>
         html,
         body {
@@ -35,7 +35,7 @@
             /*letter-spacing: 0.05em;*/
         }
     </style>
-    <script src="http://js.arcgis.com/3.14/"></script>
+    <script src="https://js.arcgis.com/3.35/"></script>
     <script>
         var map, locator;
         require([
@@ -53,7 +53,7 @@
                 center: [-117.18402, 34.05330],
                 zoom: 14
             });
-            var featureLayer = new FeatureLayer("http://sampleserver6.arcgisonline.com/arcgis/rest/services/RedlandsEmergencyVehicles/MapServer/0", {
+            var featureLayer = new FeatureLayer("https://sampleserver6.arcgisonline.com/arcgis/rest/services/RedlandsEmergencyVehicles/MapServer/0", {
                 outFields: ["*"]
             });
             var symbol = new SimpleMarkerSymbol(
@@ -73,7 +73,7 @@
                 ),
                 new Color([255, 255, 0, 0.25])
             );
-            locator = new Locator("http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+            locator = new Locator("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
             locator.on("address-to-locations-complete", showResults);
             // listen for button click then geocode
             registry.byId("locate").on("click", locate);
