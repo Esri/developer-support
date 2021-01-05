@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.18/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.18/"></script>
+
+    <script>
+      require([
+        "esri/portal/Portal",
+        "esri/portal/PortalQueryParams",
+        "esri/identity/IdentityManager",
+        "esri/request",
+      ], function (Portal, PortalQueryParams, esriId, esriRequest) {
+        var portalUrl = "https://www.arcgis.com/";
+
+        portal = new Portal(portalUrl);
+        portal.authMode = "immediate";
+
+        portal.load().then(function () {
+          var queryParams = {
+            query: "access: org"
+          };
+
+          portal.queryUsers(queryParams).then(function (queryResults) {
+            // console.log(queryResults.results);
+
+            queryResults.results.forEach((user) => {
+              // console.log(user.username);
+
+              var requestUrl =
+                portalUrl + "/sharing/rest/community/users/" + user.username;
+
+              esriRequest(requestUrl, {
+                query: {
+                  f: "json"
+                }
+              })
+                .then((response) => {
+                  console.log(response.data);
+                })
+                .catch((err) => {
+                  if (err.name === "AbortError") {
+                    console.log("Request aborted");
+                  } else {
+                    console.error("Error encountered", err);
+                  }
+                });
+            });
+          });
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
