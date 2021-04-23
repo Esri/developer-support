@@ -38,7 +38,7 @@ class LayerDesc:
     def getConnectionProps(self):
         try:
             wkspc_desc = arcpy.Describe(self.workspace)
-            if not hasattr(desc, 'workspaceFactoryProgID'):
+            if not hasattr(wkspc_desc, 'workspaceFactoryProgID'):
                 raise AttributeError(
                     "Missing property in arcpy.Describe object.  Check connection file and geodatabase connectivity.")
             if not wkspc_desc.workspaceFactoryProgID.startswith("esriDataSourcesGDB.SdeWorkspaceFactory"):
