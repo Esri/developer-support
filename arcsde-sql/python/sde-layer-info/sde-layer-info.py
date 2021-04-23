@@ -79,22 +79,10 @@ class LayerDesc:
             sql = "SELECT * FROM {0} WHERE table_name = '{1}'".format(
                 self.layer_table, self.feature_class_name)
             sde_return = conn.execute(sql)
-        except:
-            try:
-                conn = arcpy.ArcSDESQLExecute(workspace)
-                sql = "SELECT * FROM {0} WHERE table_name = '{1}'".format(
-                    self.layer_table, self.feature_class_name)
-                sde_return = conn.execute(sql)
-            except:
-                try:
-                    conn = arcpy.ArcSDESQLExecute(workspace)
-                    sqlOra = "SELECT * FROM {0} WHERE table_name = '{1}'".format(
-                        self.layer_table, self.feature_class_name)
-                    sde_return = conn.execute(sqlOra)
-                except Exception as err:
-                    print(sql)
-                print(err)
-                sde_return = False
+        except Exception as err:
+            print("ERROR:  Geodatabase table '{0}' was not found. See docstring for possible 'Layers' table names.".format(
+                self.layer_table))
+            exit()
 
         if len(str(sde_return)) > 0:
             if sde_return == True:
@@ -162,6 +150,6 @@ class LayerDesc:
 
 if __name__ == "__main__":
     workspace = r"E:\share\forLauren\krennic_gdb1091_gis.sde"
-    test = LayerDesc(workspace, "sde.sde_layers", "Tax")
+    test = LayerDesc(workspace, "dbo.sde_layers", "Tax")
     test.printConnectionProps()
     test.querySDELayer()
