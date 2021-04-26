@@ -1,4 +1,12 @@
+### SDE Layer Info
+
+Simple class containing methods to describe a feature class
+
+The methods in this class display SDE connection info and detailed feature
+class info similar to the sdelayer -o info ArcSDE command.
+
 ### Sample output from script
+
 ```
 Connection and Feature Class Description:
 	Server:     <server>
