@@ -1,0 +1,297 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Sketch widget event explorer</title>
+
+    <script type="module" src="https://js.arcgis.com/calcite-components/1.0.0-beta.52/calcite.esm.js"></script>
+    <script nomodule="" src="https://js.arcgis.com/calcite-components/1.0.0-beta.52/calcite.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/1.0.0-beta.52/calcite.css" />
+    <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.7.2/highlight.min.js"></script>
+
+
+    <script src="https://hhkaos.github.io/mercator-geographic-converter/json-stringify-pretty-compact.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="assets/css/jsonview.bundle.css">
+    <script type="text/javascript" src="assets/js/jsonview.bundle.js"></script>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+
+        body,
+        .row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            /* flex-basis: 100%; */
+            flex: 1;
+        }
+
+        #viewDiv {
+            width: 30%;
+        }
+
+        #consoleDiv {
+            background-color: rgb(238, 238, 238, .8);
+            padding: 1rem;
+            width: 70%;
+            max-height: 100vh;
+            overflow: auto;
+
+        }
+
+        calcite-notice {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        calcite-button {
+            margin-bottom: 1rem;
+        }
+
+        div[slot="notice-message"] {
+            overflow: auto;
+            max-height: 250px;
+        }
+
+        .json-container .fa-caret-down {
+            margin-top: 8px;
+        }
+
+        .json-container .fa-caret-right {
+            margin-top: 4px;
+        }
+
+        .json-container {
+            background-color: #f7f7f7;
+            padding: .5rem;
+            font-size: .9rem;
+            border: 1px solid #ccc;
+        }
+
+        #consoleDiv .column {
+            padding: .5rem;
+        }
+
+        #clearMsgs {
+            height: 35px;
+        }
+
+        [data-filter="events"] [msg-type="properties"] {
+            display: none;
+        }
+
+        [data-filter="properties"] [msg-type="events"] {
+            display: none;
+        }
+    </style>
+    <script type="module">
+        import MapView from "https://js.arcgis.com/4.20/@arcgis/core/views/MapView.js";
+        import esriConfig from "https://js.arcgis.com/4.20/@arcgis/core/config.js";
+        import GraphicsLayer from "https://js.arcgis.com/4.20/@arcgis/core/layers/GraphicsLayer.js";
+        import Sketch from "https://js.arcgis.com/4.20/@arcgis/core/widgets/Sketch.js";
+        
+        let eventCounter = 0;
+        const graphicsLayer = new GraphicsLayer();
+        
+        const calciteLegend = {
+            create: {
+                color: "green",
+                icon: "plus-square"
+            },
+            update: {
+                color: "blue",
+                icon: "pencil-mark"
+            },
+            undo: {
+                color: "blue",
+                icon: "pencil-mark"
+            },
+            properties: {
+                color: "yellow",
+                icon: "legend"
+            },
+            delete: {
+                color: "red",
+                icon: "trash"
+            },
+        }
+        
+        const view = new MapView({
+            container: "viewDiv",
+            map: {
+                basemap: "streets-navigation-vector",
+                layers: [graphicsLayer]
+            },
+            center: {
+                latitude: 40.7353,
+                longitude: -3.149945
+            },
+            zoom: 5
+        });
+
+        const renderNotice = (config) => {
+            const el = document.createElement("calcite-notice");
+            el.setAttribute("active","")
+            
+            const state = config.event.type;
+            el.setAttribute("color", calciteLegend[state].color);
+            el.setAttribute("icon", calciteLegend[state].icon);
+            // debugger
+            if(state === "properties"){
+                el.setAttribute("msg-type", state);
+            }else{
+                el.setAttribute("msg-type", "events");
+            }
+            
+            
+            for (const prop in config){
+                let elType = "div";
+                if(prop === "link"){
+                    elType = "calcite-link";
+                }
+                const element = Object.assign(document.createElement(elType), {
+                    slot: 'notice-' + prop,
+                    innerHTML: config[prop],
+                });
+                el.appendChild(element);
+            }
+            return el;  
+        };
+        
+        view.when(() => {
+            const sketch = new Sketch({
+                layer: graphicsLayer,
+                view: view,
+                creationMode: "update"
+            });
+            window.sketch = sketch
+            const consoleDiv = document.getElementById('messages');
+            
+            view.ui.add(sketch, "top-right");
+            
+            const logMessages = function(event, properties, where) {
+                // const details = `<pre><code class="language-javascript">${stringify(event)}</code></pre>`;
+                
+                // JSON.stringify(event, null, 2)
+                
+                const dateObject = new Date()
+                const humanDateFormat = dateObject.toLocaleString()
+                console.log("event = ", event);
+
+                let propStr = "";
+                
+                properties = properties.map(prop => {
+                    return `<b>${prop.capitalize()}</b>: ${event[prop]}`;
+                });
+
+                let msg = `
+                    <b>Change #${eventCounter}</b>: ${where} | <b>When</b>: ${humanDateFormat}<br>
+                    ${properties.join(' | ')}
+                    
+                `;
+
+                if(event.type !== "properties"){
+                    msg +=  `<br><b>Event details:</b> <br><div id="eventObj${eventCounter}"></div>`;
+                }
+
+                const el = renderNotice({
+                    message: msg,
+                    event 
+                });
+                
+                consoleDiv.prepend(el);
+                
+                // hljs.highlightAll(el);
+// debugger
+                if(event.type !== "properties"){
+                    const tree = JsonView.createTree(JSON.parse(JSON.stringify(event)));
+                    JsonView.render(tree, document.querySelector('#eventObj'+eventCounter))
+                }
+                
+                
+                
+                eventCounter++;
+            }
+
+            const handle = sketch.watch(['activeTool', 'state', 'defaultCreateOptions', 'defaultUpdateOptions', 'snappingOptions.enabled'], (newValue, oldValue, property, object) => {
+                const event = {
+                    property,
+                    newValue, 
+                    oldValue, 
+                    // object,
+                    type: "properties"
+                }
+                logMessages(event, ["property", "oldValue", "newValue"], "sketch property changed")
+                // debugger
+                console.log(`property = ${property} | newValue = ${newValue} | oldValue = ${oldValue}`);
+                
+            });
+
+                
+            sketch.on(["create", "delete", "redo", "undo", "update"], function(event){
+                logMessages(event, ["type", "state", "tool"], "event triggered at sketch (model)")
+            });
+
+            // sketch.viewModel.on(["create", "delete", "redo", "undo", "update"], function(event){
+            //     logMessages(event, "view")
+            // });
+        });
+
+        // debugger
+        String.prototype.capitalize = function() {
+            return this.charAt(0).toUpperCase() + this.slice(1)
+        }
+
+        document.getElementById("clearMsgs").addEventListener("click", (e)=>{
+            document.getElementById('messages').innerHTML = "";
+        });
+
+        document.getElementById("filterSelect").addEventListener("calciteSelectChange", (e)=>{
+            const filter = document.querySelector("#filterSelect [selected]").value
+            document.getElementById("messages").setAttribute("data-filter", filter)
+        });            
+        
+        
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv" class="column"></div>
+    <div id="consoleDiv" class="column">
+        <div class="row">
+            <div class="column">
+                <calcite-button id="clearMsgs" icon-start="erase" scale="s" width="full">Clear messages
+                </calcite-button>
+            </div>
+            <div class="column">
+                <calcite-select id="filterSelect" width="full">
+                    <calcite-option value="none" selected>No filter</calcite-option>
+                    <calcite-option value="properties">Show only property changes</calcite-option>
+                    <calcite-option value="events">Show only events</calcite-option>
+                </calcite-select>
+            </div>
+        </div>
+        <div id="messages" data-filter="none"></div>
+    </div>
+</body>
+
+</html>
