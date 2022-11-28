@@ -6,6 +6,8 @@ This sample shows how to project between different spatial references using geom
 
 ## How It Works
 
+Select a point on the Equal Earth projection map. The point will then be projected into WGS84 then Web Mercator.
+
 ### Using geometryService.project()
 
 1. Define your ProjectParameters
