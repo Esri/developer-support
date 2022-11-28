@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Projection using geometryService and webMercatorUtils</title>
+
+    <script
+      type="module"
+      src="https://js.arcgis.com/calcite-components/1.0.0-beta.86/calcite.esm.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://js.arcgis.com/calcite-components/1.0.0-beta.86/calcite.css"
+    />
+
+    <script src="https://js.arcgis.com/4.25/"></script>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.25/esri/themes/light/main.css"
+    />
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/Graphic",
+        "esri/geometry/SpatialReference",
+        "esri/rest/support/ProjectParameters",
+        "esri/rest/geometryService",
+        "esri/geometry/support/webMercatorUtils",
+      ], function (
+        Map,
+        MapView,
+        Graphic,
+        SpatialReference,
+        ProjectParameters,
+        geometryService,
+        webMercatorUtils
+      ) {
+        var inp = document.getElementById("input");
+        var outGS = document.getElementById("outGS");
+        var outWMU = document.getElementById("outWMU");
+        var btn = document.getElementById("submitbtn");
+
+        const map = new Map({
+          basemap: {
+            portalItem: {
+              id: "de3e8ab9c5374793963cbd8db280290f",
+            },
+          },
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-100, 35],
+          zoom: 4,
+        });
+
+        view.on("click", function (event) {
+          const point = view.toMap(event);
+          addGraphic(point);
+
+          var geoServiceURL =
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer";
+
+          var outSR = new SpatialReference();
+          outSR.wkid = 4326; // WGS84
+
+          var projectParameters = new ProjectParameters();
+          projectParameters.geometries = [point];
+          projectParameters.outSpatialReference = outSR;
+
+          // Using geometry.project() to convert from Equal Earth projection to WGS84
+          // Returns a promise of an array of all projected geometries
+          geometryService
+            .project(geoServiceURL, projectParameters)
+            .then((projectedOutput) => {
+              var long = projectedOutput[0].longitude;
+              var lat = projectedOutput[0].latitude;
+
+              // Printing long/lat value of the projected results
+              outGS.innerHTML =
+                "Equal Earth " + getPrintResult(point.x, point.y, long, lat);
+
+              // Using webMercatorUtils to convert from WGS84 to Web Mercator
+              var webMercatorGeometry =
+                webMercatorUtils.geographicToWebMercator(projectedOutput[0]);
+
+              // Printing X,Y and Long/Lat values of the projection
+              outWMU.innerHTML =
+                "WebMercator " +
+                getPrintResult(
+                  webMercatorGeometry.x,
+                  webMercatorGeometry.y,
+                  webMercatorGeometry.longitude,
+                  webMercatorGeometry.latitude
+                );
+            });
+        });
+
+        function addGraphic(point) {
+          view.graphics.removeAll();
+          const graphic = new Graphic({
+            symbol: {
+              type: "simple-marker",
+              color: "red",
+              size: "10px",
+            },
+            geometry: point,
+          });
+          view.graphics.add(graphic);
+        }
+
+        function getPrintResult(x, y, long, lat) {
+          var outputString =
+            "(x, y):<br>(" +
+            x +
+            ", " +
+            y +
+            ")<br><br>" +
+            "Longitude:<br>" +
+            long +
+            "<br><br>Latitude:<br>" +
+            lat;
+          return outputString;
+        }
+      });
+    </script>
+  </head>
+
+  <body>
+    <calcite-shell>
+      <calcite-shell-panel slot="primary-panel">
+        <calcite-panel heading="Projection Sample">
+          <calcite-block open>
+            WKID = <b>54035</b> <br /><br />
+            This sample uses:<br /><br />
+            - geometryService.project() to convert from
+            <b>Equal Earth (EE)</b> projection to <b>WGS84</b>.<br /><br />
+            - webMercatorUtils to convert from <b>WGS84</b> projection to
+            <b>Web Mercator</b>.<br /><br />
+            Click on the map to see the results.
+          </calcite-block>
+          <calcite-block
+            collapsible
+            heading="EE To WGS84"
+            id="result-block"
+            open
+          >
+            <div id="outGS">No results</div>
+          </calcite-block>
+          <calcite-block
+            collapsible
+            heading="Web Mercator Values (from WGS84)"
+            id="result-block"
+            open
+          >
+            <div id="outWMU">No results</div>
+          </calcite-block>
+        </calcite-panel>
+      </calcite-shell-panel>
+
+      <div id="viewDiv"></div>
+    </calcite-shell>
+  </body>
+</html>
