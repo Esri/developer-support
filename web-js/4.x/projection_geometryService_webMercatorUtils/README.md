@@ -43,7 +43,7 @@ var webMercatorGeometry = webMercatorUtils.geographicToWebMercator(
 
 - [geometryService.project()](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-geometryService.html#project)
 - [webMercatorUtils.geographicToWebMercator()](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-support-webMercatorUtils.html#geographicToWebMercator)
-- [ProjectParameters] (https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-support-ProjectParameters.html)
+- [ProjectParameters](https://developers.arcgis.com/javascript/latest/api-reference/esri-rest-support-ProjectParameters.html)
 
 ## Live Samples
 https://esri.github.io/developer-support/web-js/4.x/projection_geometryService_webMercatorUtils
