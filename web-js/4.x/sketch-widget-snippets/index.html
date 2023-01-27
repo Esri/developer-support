@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Sketch widget | Snippets | ArcGIS API for JavaScript 4.x</title>
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/4.20/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.20/"></script>
+    
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+    <script>
+        require([
+        "esri/widgets/Sketch",
+        "esri/layers/GraphicsLayer",
+        "esri/views/MapView",
+        "esri/geometry/geometryEngine",
+        "esri/geometry/support/jsonUtils"
+        ], (Sketch, GraphicsLayer, MapView, geometryEngine, geometryJsonUtils) => {
+            
+            window.geometryJsonUtils=geometryJsonUtils
+            let selectedGraphics;
+            const graphicsLayer = new GraphicsLayer();
+            
+            const view = new MapView({
+                container: "viewDiv",
+                map: {
+                    basemap: "topo",
+                    layers: [graphicsLayer]
+                },
+                zoom: 5,
+                center: [90, 45]
+            });
+            
+            const sketch = new Sketch({
+                layer: graphicsLayer,
+                view: view,
+                creationMode: "update"
+            });
+
+            view.ui.add(sketch, "top-right");
+
+            /*********************************************
+            // Get last selected graphics
+            *********************************************/
+            sketch.on(["update"], function(event) {
+                console.log("last selected graphics", event.graphics);
+            }); 
+            // END get last selected graphics
+            
+
+
+            /*********************************************
+            // Disable zoom 
+            *********************************************/
+            view.constraints.minZoom = view.constraints.maxZoom = view.zoom;
+            // END disable zoom  
+            
+
+
+            /*********************************************
+            // Disable drag basemap but allow drag sketched geometries
+            *********************************************/            
+            view.on("drag", ["Shift"], function (event) {
+                if (sketch.state !== "active") {
+                event.stopPropagation();
+                }
+            });
+
+            view.on("drag", function (event) {
+                event.stopPropagation();
+            }, -1);
+            // End disable drag basemap but allow drag sketched geometries
+
+
+
+
+            /*********************************************
+            // Remove default box outline (orange) in the active geometry
+            *********************************************/            
+            sketch.viewModel.watch('activeTool', (tool) => {
+                if (tool === "transform") {
+                    sketch.viewModel.activeComponent.backgroundGraphic.symbol.outline.color = [0, 0, 0, 0];
+                }
+            });
+            // End remove default box outline (orange) in the active geometry
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+</body>
+</html>
