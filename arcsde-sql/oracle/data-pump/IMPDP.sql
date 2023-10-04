@@ -98,7 +98,7 @@ grant RESTRICTED SESSION to sde;
 grant UNLIMITED TABLESPACE to sde;
 grant ALTER SYSTEM to sde;
 grant SELECT_CATALOG_ROLE to sde;
-
+GRANT INHERIT ANY PRIVILEGES TO "SDE";
 
 --8. Create a directory for the SYSTEM user to access:
 
