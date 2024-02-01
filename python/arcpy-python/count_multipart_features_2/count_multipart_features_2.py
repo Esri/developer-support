@@ -71,7 +71,10 @@ class Feature:
                 yield (cursor, dict(zip(cursor.fields, row)))
         return
 
-def count_multipart(fc_path: os.PathLike, field_name: str="PartCount", overwrite: bool=False):
+def count_multipart(fc_path: os.PathLike, *,
+                    field_name: str="PartCount", 
+                    overwrite: bool=False,
+                    report_only=False):
     """This function will take an input feature class and add a new field
     featureclass: The path to the feature class
     field_name: The name of the count field to be added ("PartCount" by default)
@@ -99,38 +102,37 @@ def count_multipart(fc_path: os.PathLike, field_name: str="PartCount", overwrite
         print("No multipart features found")
         return
     
-    # Set up the output field
-    if field_name in features.field_names:
-        if not overwrite:
-            raise ValueError(f"The field {field_name} already exists in {fc_path}")
-        else:
-            arcpy.DeleteField_management(fc_path, field_name)
+    if not report_only:  # Only set up the output field and update the rows if we are not just reporting
+        # Set up the output field
+        if field_name in features.field_names:
+            if not overwrite:
+                raise ValueError(f"The field {field_name} already exists in {fc_path}")
+            else:
+                arcpy.DeleteField_management(fc_path, field_name)
+
+        arcpy.AddField_management(fc_path, field_name, 'SHORT')  # Add the field
     
-    arcpy.AddField_management(fc_path, field_name, 'SHORT')  # Add the field
-    
-    # Update the rows with part counts
-    with arcpy.da.Editor(features.workspace_path):
-        upd_keys = [str(k) for k in multipart_counts.keys()]
-        # Use the OIDFieldName to build the SQL query, OBJECTID and OID@ dont work in queries
-        update_query = f"{features.OIDFieldName} IN ({','.join(upd_keys)})"  # Only update the rows that are in the dictionary
-        # Use _update_rows to get a row dictionary so we can update the row using field names
-        for cursor, row in features.update_rows([features.id_field, field_name], query=update_query):
-            row[field_name] = multipart_counts[row[features.id_field]]  # Get the part count from the dictionary
-            cursor.updateRow(list(row.values()))  # Convert the dictionary to a list and update the row
-            
-    print(f"Wrote {len(multipart_counts)} multipart counts to {features.baseName}")
+        # Update the rows with part counts
+        with arcpy.da.Editor(features.workspace_path):
+            upd_keys = [str(k) for k in multipart_counts.keys()]
+            # Use the OIDFieldName to build the SQL query, OBJECTID and OID@ dont work in queries
+            update_query = f"{features.OIDFieldName} IN ({','.join(upd_keys)})"  # Only update the rows that are in the dictionary
+            # Use _update_rows to get a row dictionary so we can update the row using field names
+            for cursor, row in features.update_rows([features.id_field, field_name], query=update_query):
+                row[field_name] = multipart_counts[row[features.id_field]]  # Get the part count from the dictionary
+                cursor.updateRow(list(row.values()))  # Convert the dictionary to a list and update the row
+                     
+    print(f"{len(multipart_counts)} multipart features found in {features.baseName}")
 
 def main():
+    
+    # Set these
     feature_class = r'path\to\your\feature_class'
     count_field = 'PartCount'
-    overwrite = 'y'
+    overwrite = True
+    report_only = False
     
-    overwrite = True if overwrite.lower() in ['y', 'yes'] else False
-    count_field = count_field if count_field else 'PartCount'
-    if not feature_class:
-        raise ValueError("No feature class provided")
-    
-    count_multipart(feature_class, count_field, overwrite)
+    count_multipart(feature_class, count_field=count_field, overwrite=overwrite, report_only=report_only)
     
     # Example of an iterative call (uncomment and fill out to use)
     #
