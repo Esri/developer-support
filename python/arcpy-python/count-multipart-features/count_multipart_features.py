@@ -11,7 +11,6 @@
 
 import arcpy
 import os
-import sys
 from typing import Generator, Any
 
 class Feature:
