@@ -74,13 +74,13 @@ class Feature:
 def count_multipart(fc_path: os.PathLike, *,
                     field_name: str="PartCount", 
                     overwrite: bool=False,
-                    report_only=False):
+                    report_only: bool=False):
     """This function will take an input feature class and add a new field
     featureclass: The path to the feature class
     field_name: The name of the count field to be added ("PartCount" by default)
     """
     # Get the Feature object
-    features = Feature(fc_path)
+    features: Feature = Feature(fc_path)
     
     # Set the workspace to the feature class workspace
     arcpy.env.workspace = features.workspace_path
@@ -90,7 +90,7 @@ def count_multipart(fc_path: os.PathLike, *,
         raise ValueError("This is not a supported geometry shape type. Please select a Multipoint, Polyline, or Polygon")
     
     # Count the number of parts for each multipart feature and add it to a dictionary
-    multipart_counts = \
+    multipart_counts: dict[str, Any] = \
         {
             row[features.id_field]: row[features.shape_field].partCount  # Get the number of parts for each multipart
             for row in features.get_rows([features.id_field, features.shape_field])
@@ -114,7 +114,7 @@ def count_multipart(fc_path: os.PathLike, *,
     
         # Update the rows with part counts
         with arcpy.da.Editor(features.workspace_path):
-            upd_keys = [str(k) for k in multipart_counts.keys()]
+            upd_keys: list[str] = [str(k) for k in multipart_counts.keys()]
             # Use the OIDFieldName to build the SQL query, OBJECTID and OID@ dont work in queries
             update_query = f"{features.OIDFieldName} IN ({','.join(upd_keys)})"  # Only update the rows that are in the dictionary
             # Use _update_rows to get a row dictionary so we can update the row using field names
