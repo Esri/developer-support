@@ -71,7 +71,7 @@ class Feature:
                 yield (cursor, dict(zip(cursor.fields, row)))
         return
 
-def count_multipart(fc_path: os.PathLike, *,
+def count_multipart(feature_path: os.PathLike, *,
                     field_name: str="PartCount", 
                     overwrite: bool=False,
                     report_only: bool=False):
@@ -80,21 +80,21 @@ def count_multipart(fc_path: os.PathLike, *,
     field_name: The name of the count field to be added ("PartCount" by default)
     """
     # Get the Feature object
-    features: Feature = Feature(fc_path)
+    feature_class: Feature = Feature(feature_path)
     
     # Set the workspace to the feature class workspace
-    arcpy.env.workspace = features.workspace_path
+    arcpy.env.workspace = feature_class.workspace_path
     
     # MultiPatch is not supported for multipart features
-    if features.shape_type == "MultiPatch":
+    if feature_class.shape_type == "MultiPatch":
         raise ValueError("This is not a supported geometry shape type. Please select a Multipoint, Polyline, or Polygon")
     
     # Count the number of parts for each multipart feature and add it to a dictionary
     multipart_counts: dict[str, Any] = \
         {
-            row[features.id_field]: row[features.shape_field].partCount  # Get the number of parts for each multipart
-            for row in features.get_rows([features.id_field, features.shape_field])
-            if row[features.shape_field] and row[features.shape_field].isMultipart  # Only get the rows that are multipart
+            row[feature_class.id_field]: row[feature_class.shape_field].partCount  # Get the number of parts for each multipart
+            for row in feature_class.get_rows([feature_class.id_field, feature_class.shape_field])
+            if row[feature_class.shape_field] and row[feature_class.shape_field].isMultipart  # Only get the rows that are multipart
         }
     
     # Don't bother updating the rows if there are no multipart features
@@ -104,25 +104,25 @@ def count_multipart(fc_path: os.PathLike, *,
     
     if not report_only:  # Only set up the output field and update the rows if we are not just reporting
         # Set up the output field
-        if field_name in features.field_names:
+        if field_name in feature_class.field_names:
             if not overwrite:
-                raise ValueError(f"The field {field_name} already exists in {fc_path}")
+                raise ValueError(f"The field {field_name} already exists in {feature_path}")
             else:
-                arcpy.DeleteField_management(fc_path, field_name)
+                arcpy.DeleteField_management(feature_path, field_name)
 
-        arcpy.AddField_management(fc_path, field_name, 'SHORT')  # Add the field
+        arcpy.AddField_management(feature_path, field_name, 'SHORT')  # Add the field
     
         # Update the rows with part counts
-        with arcpy.da.Editor(features.workspace_path):
+        with arcpy.da.Editor(feature_class.workspace_path):
             upd_keys: list[str] = [str(k) for k in multipart_counts.keys()]
             # Use the OIDFieldName to build the SQL query, OBJECTID and OID@ dont work in queries
-            update_query = f"{features.OIDFieldName} IN ({','.join(upd_keys)})"  # Only update the rows that are in the dictionary
+            update_query = f"{feature_class.OIDFieldName} IN ({','.join(upd_keys)})"  # Only update the rows that are in the dictionary
             # Use _update_rows to get a row dictionary so we can update the row using field names
-            for cursor, row in features.update_rows([features.id_field, field_name], query=update_query):
-                row[field_name] = multipart_counts[row[features.id_field]]  # Get the part count from the dictionary
+            for cursor, row in feature_class.update_rows([feature_class.id_field, field_name], query=update_query):
+                row[field_name] = multipart_counts[row[feature_class.id_field]]  # Get the part count from the dictionary
                 cursor.updateRow(list(row.values()))  # Convert the dictionary to a list and update the row
                      
-    print(f"{len(multipart_counts)} multipart features found in {features.baseName}")
+    print(f"{len(multipart_counts)} multipart features found in {feature_class.baseName}")
 
 def main():
     
