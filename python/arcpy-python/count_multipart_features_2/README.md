@@ -53,7 +53,7 @@ multipart_counts = \
     {
         row[features.id_field]: row[features.shape_field].partCount  # Get the number of parts for each multipart
         for row in features.get_rows([features.id_field, features.shape_field])
-        if row[features.shape_field].isMultipart  # Only get the rows that are multipart
+        if row[features.shape_field] and row[features.shape_field].isMultipart  # Only get the rows that are multipart
     }
 ```
 This block is the primary work done by the function. It uses a dictionary comprehension to write the partcount of multipart features to an update dictionary

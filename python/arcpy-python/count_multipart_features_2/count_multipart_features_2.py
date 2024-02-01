@@ -94,7 +94,7 @@ def count_multipart(fc_path: os.PathLike, *,
         {
             row[features.id_field]: row[features.shape_field].partCount  # Get the number of parts for each multipart
             for row in features.get_rows([features.id_field, features.shape_field])
-            if row[features.shape_field].isMultipart  # Only get the rows that are multipart
+            if row[features.shape_field] and row[features.shape_field].isMultipart  # Only get the rows that are multipart
         }
     
     # Don't bother updating the rows if there are no multipart features
@@ -127,7 +127,7 @@ def count_multipart(fc_path: os.PathLike, *,
 def main():
     
     # Set these
-    feature_class = r"C:\Users\hwelch\Downloads\EzeeFiber_Hunters_Glen_1_7_LLD COH012\Serving_Area.shp"
+    feature_class = r"path\to\feature_class"
     count_field = 'PartCount'
     overwrite = True
     report_only = False
@@ -136,13 +136,14 @@ def main():
     
     # Example of an iterative call (uncomment and fill out to use)
     #
-    # workspace = r'path\to\your\workspace'
-    # count_field = 'PartCount'
-    # overwrite = True
-    # dataset = 'your_dataset'
-    # wildcard = 'your_wildcard'
-    # for fc in arcpy.ListFeatureClasses(dataset=dataset, wildcard=wildcard):
-    #     count_multipart(fc, count_field, overwrite)
+    #workspace = r'path\to\workspace'
+    #count_field = 'PartCount'
+    #overwrite = True
+    #dataset = 'Landbase'
+    #wildcard = None
+    #arcpy.env.workspace = workspace
+    #for fc in arcpy.ListFeatureClasses(feature_dataset=dataset, wild_card=wildcard):
+    #    count_multipart(fc, field_name=count_field, overwrite=True, report_only=True)
 
 if __name__ == "__main__": 
     main()
