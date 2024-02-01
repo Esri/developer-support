@@ -127,12 +127,12 @@ def count_multipart(fc_path: os.PathLike, *,
 def main():
     
     # Set these
-    feature_class = r'path\to\your\feature_class'
+    feature_class = r"C:\Users\hwelch\Downloads\EzeeFiber_Hunters_Glen_1_7_LLD COH012\Serving_Area.shp"
     count_field = 'PartCount'
     overwrite = True
     report_only = False
     
-    count_multipart(feature_class, count_field=count_field, overwrite=overwrite, report_only=report_only)
+    count_multipart(feature_class, field_name=count_field, overwrite=overwrite, report_only=report_only)
     
     # Example of an iterative call (uncomment and fill out to use)
     #
