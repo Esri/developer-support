@@ -1,7 +1,7 @@
 # Dynamic Table with Calcite Design System
 
 ## About
-This sample shows how to create and manipulate a dynamic table created using Calcite Design System.
+This sample shows how to create and manipulate a dynamic table created with Calcite Design System.
 
 ## How It Works
 Manually add to the table based on your own inputs or use the 'Autofill table' button to automatically populate the table
@@ -20,7 +20,7 @@ Manually add to the table based on your own inputs or use the 'Autofill table' b
 </calcite-table>
 ```
 
-2. Add a <slot> for new rows to be dynamically added.
+2. Add a slot for new rows to be dynamically added.
 
 ```html
 <calcite-table id="results">
@@ -32,7 +32,7 @@ Manually add to the table based on your own inputs or use the 'Autofill table' b
 </calcite-table>
 ```
 
-3. Add a template for new rows to follow
+3. Add a template for new rows to copy
 
 ```html
 <calcite-table id="results">
@@ -104,5 +104,5 @@ if (cityTextValue.toLowerCase().startsWith(filter) || countryTextValue.toLowerCa
 - [calcite-button](https://developers.arcgis.com/calcite-design-system/components/button/)
 - [Using templates and slots](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
 
-## Live Samples
+## Live Sample
 https://esri.github.io/developer-support/calcite-design-system/dynamic-table
