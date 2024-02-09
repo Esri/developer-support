@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dynamic Table with Calcite</title>
+		<script type="module" src="https://js.arcgis.com/calcite-components/2.4.0/calcite.esm.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.4.0/calcite.css"/>
+        <link rel="stylesheet" type="text/css" href="main.css"/>
+        <script src="functions.js"></script>
+    
+    </head>
+	<body>
+        <h2>Dynamic Table with Calcite</h2>
+        <div id="main">
+            <div id="panelAdd" onkeypress="checkEnter(event)">
+                <calcite-input id="city" class="panelInput" icon="urban-model" placeholder="Enter a city..."></calcite-input>
+                <calcite-input id="country" class="panelInput" icon="globe" placeholder="Enter a country..."></calcite-input>
+                <calcite-button onclick="add()" icon-start="plus">Add to table</calcite-button>
+            </div>
+    
+            <div id="tableControls">
+                <calcite-button id="autofill" class="controls" onclick="autofill()" icon-start="camera-flash-on">Autofill table</calcite-button>
+                <calcite-button id="clear" class="controls" onclick="clearTable()" icon-start="trash" disabled="true">Clear table</calcite-button>
+                <calcite-input id="filter" onkeyup="filterTable()" icon="filter" placeholder="Filter table..."></calcite-input>
+            </div>
+    
+            <calcite-table id="results">
+                <calcite-table-row slot="table-header">
+                    <calcite-table-header heading="City"></calcite-table-header>
+                    <calcite-table-header heading="Country"></calcite-table-header>
+                </calcite-table-row>
+
+                <!-- New rows to be added here -->
+                <slot></slot>
+
+                <!-- Row template -->
+                <template id="rowContent">
+                    <calcite-table-row>
+                        <calcite-table-cell>{{ city }}</calcite-table-cell>
+                        <calcite-table-cell>{{ country }}</calcite-table-cell>
+                    </calcite-table-row>
+                </template>
+                <!--  -->
+                
+            </calcite-table>
+        </div>
+	</body>
+</html>
