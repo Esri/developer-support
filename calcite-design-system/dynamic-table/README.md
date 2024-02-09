@@ -25,13 +25,14 @@ Manually add to the table based on your own inputs or use the 'Autofill table' b
 ```html
 <calcite-table id="results">
     ...
-    <!-- New rows to be added here -->
-    <slot></slot>
+    <slot>
+        <!-- New rows to be added here -->
+    </slot>
 
 </calcite-table>
 ```
 
-3. Add a <template> for new rows to follow
+3. Add a template for new rows to follow
 
 ```html
 <calcite-table id="results">
@@ -98,9 +99,9 @@ if (cityTextValue.toLowerCase().startsWith(filter) || countryTextValue.toLowerCa
 
 ## Related Documentation
 
-- [<calcite-table>](https://developers.arcgis.com/calcite-design-system/components/table/)
-- [<calcite-input>](https://developers.arcgis.com/calcite-design-system/components/input/)
-- [<calcite-button>](https://developers.arcgis.com/calcite-design-system/components/button/)
+- [calcite-table](https://developers.arcgis.com/calcite-design-system/components/table/)
+- [calcite-input](https://developers.arcgis.com/calcite-design-system/components/input/)
+- [calcite-button](https://developers.arcgis.com/calcite-design-system/components/button/)
 - [Using templates and slots](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
 
 ## Live Samples

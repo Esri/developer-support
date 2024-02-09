@@ -29,8 +29,9 @@
                     <calcite-table-header heading="Country"></calcite-table-header>
                 </calcite-table-row>
 
-                <!-- New rows to be added here -->
-                <slot></slot>
+                <slot>
+                    <!-- New rows to be added here -->
+                </slot>
 
                 <!-- Row template -->
                 <template id="rowContent">
@@ -39,7 +40,6 @@
                         <calcite-table-cell>{{ country }}</calcite-table-cell>
                     </calcite-table-row>
                 </template>
-                <!--  -->
                 
             </calcite-table>
         </div>
