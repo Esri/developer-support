@@ -1,0 +1,32 @@
+#main {
+    width: 800px;
+    background-color: #F8F8F8;
+    padding: 10px;
+    margin:auto;
+    margin-top: 0px;
+    box-shadow: 0 4px 8px 0 #6a6a6a, 0 6px 20px 0 #6a6a6a;
+}
+h2 {
+    width: 800px;
+    color: #FFFFFF;
+    background-color: #007AC2;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 0px;
+    box-shadow: 0 4px 8px 0 #6a6a6a, 0 6px 20px 0 #6a6a6a;
+}
+calcite-input.panelInput {
+    width: 200px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+calcite-button.controls {
+    margin-bottom: 10px;
+}
+
+#filter {
+    display: none;
+    margin-bottom: 10px;
+    margin-left: 0px;
+}
