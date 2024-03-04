@@ -1,0 +1,349 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Branch Version Management Service in ArcGIS Maps SDK for JavaScript 4x
+    </title>
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/next/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/next/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #paneDiv {
+        position: absolute;
+        bottom: 40px;
+        width: 100%;
+        text-align: center;
+        background-color: transparent;
+        color: white;
+      }
+
+      .esri-button-overwrite {
+        width: auto;
+        display: table-cell;
+        margin: 4px;
+        background-color: white;
+        color: #0079c1;
+      }
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/versionManagement/VersionManagementService",
+        "esri/widgets/Editor",
+      ], (Map, MapView, FeatureLayer, VersionManagementService, Editor) => {
+        const map = new Map({
+          basemap: "dark-gray",
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [-95.7129, 37.0902],
+          zoom: 5,
+        });
+
+        /********************
+         * Credentials to access a sample branch versioning data
+              Username: editor01
+              Password: S7#i2LWmYH75
+        ********************/
+
+        /********************
+         * Add feature layer
+         ********************/
+        const featureLayer = new FeatureLayer({
+          url: "https://sampleserver7.arcgisonline.com/server/rest/services/DamageAssessment/FeatureServer/0",
+        });
+        /********************
+         * Add version management layer
+         ********************/
+        const versionManagementService = new VersionManagementService({
+          url: "https://sampleserver7.arcgisonline.com/server/rest/services/DamageAssessment/VersionManagementServer",
+        });
+
+        view.when(() => {
+          map.add(featureLayer);
+          /********************
+           * Add Editor widget
+           ********************/
+          const editor = new Editor({
+            view: view,
+          });
+          view.ui.add(editor, "top-right");
+
+          /********************
+           * Add function for a button click.
+           * The code snippet to create a switch case based on the ID of the button clicked is contributed by Stack Overflow, author, brk (https://stackoverflow.com/users/2181397/brk).
+           * Reference: https://stackoverflow.com/questions/47517769/javascript-creating-a-switch-case-based-on-the-id-of-the-button-clicked
+           ********************/
+          [...document.getElementsByTagName("button")].forEach(function (item) {
+            item.addEventListener("click", function () {
+              obj[this.id]();
+            });
+          });
+
+          var obj = {
+            /********************
+             * Add function to alter a version
+             * ('The alter operation allows you to change the geodatabase version's name, description, owner, and access permissions.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#alterVersion
+             ********************/
+            alter_version: function () {
+              console.log("Alter version");
+              alert("Alter version");
+              versionManagementService
+                .alterVersion(
+                  {
+                    name: "newVersion",
+                    guid: "{8CF5FE6A-142C-4AC8-BAF1-7B50B6CFAFB3}",
+                  },
+                  {
+                    versionName: "versionName",
+                    ownerName: "newOwner",
+                    description: "newDescription",
+                    access: "public",
+                  }
+                )
+                .then(
+                  (resolvedVal) => {
+                    console.log(resolvedVal);
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
+            },
+            /********************
+             * Add function to change a version
+             * ('Method used to change a layer's version/moment or network's version/moment. Method allows changing version from named version to named version, or from default version to a moment and vice versa.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#changeVersion
+             ********************/
+            change_version: function () {
+              console.log("Change version");
+              alert("Change version");
+              async function change() {
+                await versionManagementService.load();
+                const layer1 = await new FeatureLayer({
+                  url: "https://sampleserver7.arcgisonline.com/server/rest/services/DamageAssessment/FeatureServer/0",
+                });
+                const layer2 = await new FeatureLayer({
+                  url: "https://sampleserver7.arcgisonline.com/server/rest/services/DamageAssessment/FeatureServer/0",
+                });
+                const layers = [layer1, layer2];
+                const result = await versionManagementService.changeVersion(
+                  layers,
+                  {
+                    name: "sde.DEFAULT",
+                    guid: "{BD3F4817-9A00-41AC-B0CC-58F78DBAE0A1}",
+                  },
+                  {
+                    name: "editor01.___first_version",
+                    guid: "{8CF5FE6A-142C-4AC8-BAF1-7B50B6CFAFB3}",
+                  }
+                );
+                console.log(result);
+              }
+              change();
+            },
+            /********************
+             * Add function to create a new version
+             * (Creates a new version given the following parameters: https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#createVersion)
+             ********************/
+            create_version: function () {
+              console.log("Create version");
+              alert("Create version");
+              async function create() {
+                const version = await versionManagementService.createVersion({
+                  versionName: "___first_version_by_js_api",
+                  description: "description",
+                  access: "public",
+                });
+                console.log(version);
+              }
+              create();
+            },
+            /********************
+             * Add function to delete a version
+             * (Deletes a version given the following parameters: https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#deleteVersion)
+             ********************/
+            delete_version: function () {
+              console.log("Delete version");
+              alert("Delete version");
+              versionManagementService
+                .deleteVersion({
+                  name: "editor01.___first_version_by_js_api",
+                  guid: "{26A39DAF-6B22-4C01-86F4-0E5826498384}",
+                })
+                .then(
+                  (resolvedVal) => {
+                    console.log(resolvedVal);
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
+            },
+            /********************
+             * Add function to getLockType
+             * ('Returns the current client lock type on a given version.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#getLockType
+             ********************/
+            getLockType: function () {
+              console.log("getLockType");
+              alert("getLockType");
+              async function getLockType() {
+                const result = await versionManagementService.getLockType({
+                  name: "sde.DEFAULT",
+                  guid: "BD3F4817-9A00-41AC-B0CC-58F78DBAE0A1",
+                });
+                console.log(result);
+              }
+              getLockType();
+            },
+            /********************
+             * Add function to getVersionIdentifierFromGuid(guid)
+             * ('This method will return the versionIdentifier given the guid of the version.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#getVersionIdentifierFromGuid
+             ********************/
+            getVersionIdentifierFromGuid: function () {
+              console.log("getVersionIdentifierFromGuid");
+              alert("getVersionIdentifierFromGuid");
+              versionManagementService
+                .getVersionIdentifierFromGuid(
+                  "BD3F4817-9A00-41AC-B0CC-58F78DBAE0A1"
+                )
+                .then(
+                  (resolvedVal) => {
+                    console.log(resolvedVal);
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
+            },
+            /********************
+             * Add function to getVersionIdentifierFromName(name)
+             * ('This method will return the versionIdentifier given the name of the version.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#getVersionIdentifierFromGuid
+             ********************/
+            getVersionIdentifierFromName: function () {
+              console.log("getVersionIdentifierFromName");
+              alert("getVersionIdentifierFromName");
+              versionManagementService
+                .getVersionIdentifierFromName("sde.DEFAULT")
+                .then(
+                  (resolvedVal) => {
+                    console.log(resolvedVal);
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
+            },
+            /********************
+             * Add function to getVersionInfos
+             * ('Returns information about a version or versions. If no parameters are passed, all versions will be returned.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#getVersionInfos
+             ********************/
+            getVersionInfos: function () {
+              console.log("getVersionInfos");
+              alert("getVersionInfos");
+              const versionInfos = versionManagementService
+                .getVersionInfos({
+                  includeHidden: true,
+                })
+                .then(
+                  (resolvedVal) => {
+                    console.log(resolvedVal);
+                  },
+                  (error) => {
+                    console.log(error);
+                  }
+                );
+            },
+            /********************
+             * Add function to getVersionInfosExtended
+             * ('Method used to get extended information about a version.')
+             * https://developers.arcgis.com/javascript/latest/api-reference/esri-versionManagement-VersionManagementService.html#getVersionInfosExtended
+             ********************/
+            getVersionInfosExtended: function () {
+              console.log("getVersionInfosExtended");
+              alert("getVersionInfosExtended");
+              async function getVersionInfosExtended() {
+                const result =
+                  await versionManagementService.getVersionInfoExtended({
+                    guid: "{BD3F4817-9A00-41AC-B0CC-58F78DBAE0A1}",
+                    name: "sde.DEFAULT",
+                  });
+                console.log(result);
+              }
+              getVersionInfosExtended();
+            },
+          };
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+
+    <div id="paneDiv" class="esri-widget">
+      <h3>VersionManagementService</h3>
+      <button class="esri-button esri-button-overwrite" id="alter_version">
+        Alter version
+      </button>
+      <button class="esri-button esri-button-overwrite" id="change_version">
+        Change version
+      </button>
+      <button class="esri-button esri-button-overwrite" id="create_version">
+        Create version
+      </button>
+      <button class="esri-button esri-button-overwrite" id="delete_version">
+        Delete version
+      </button>
+      <button class="esri-button esri-button-overwrite" id="getLockType">
+        getLockType
+      </button>
+      <button
+        class="esri-button esri-button-overwrite"
+        id="getVersionIdentifierFromGuid"
+      >
+        getVersionIdentifierFromGuid
+      </button>
+      <button
+        class="esri-button esri-button-overwrite"
+        id="getVersionIdentifierFromName"
+      >
+        getVersionIdentifierFromName
+      </button>
+      <button class="esri-button esri-button-overwrite" id="getVersionInfos">
+        getVersionInfos
+      </button>
+      <button
+        class="esri-button esri-button-overwrite"
+        id="getVersionInfosExtended"
+      >
+        getVersionInfosExtended
+      </button>
+    </div>
+  </body>
+</html>
