@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "geoprocessing_get_error_messages": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\ArcGIS\\Pro\\bin\\ArcGISPro.exe"
+    }
+  }
+}

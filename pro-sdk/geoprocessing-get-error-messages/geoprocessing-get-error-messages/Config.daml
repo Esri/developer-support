@@ -1,0 +1,37 @@
+﻿<ArcGIS defaultAssembly="geoprocessing-get-error-messages.dll" defaultNamespace="geoprocessing_get_error_messages" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{1114e724-f744-4e94-81ae-d1a1d8bfd452}" version="1.0" desktopVersion="3.3.52636" product="ArcGISPro">
+    <Name>geoprocessing_get_error_messages</Name>
+    <Description>geoprocessing_get_error_messages description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Jonathan Key</Author>
+    <Company>Esri</Company>
+    <Date>8/20/2024 10:26:58 AM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="geoprocessing_get_error_messages_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="geoprocessing_get_error_messages_Tab1" caption="New Tab">
+          <group refID="geoprocessing_get_error_messages_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="geoprocessing_get_error_messages_Group1" caption="Get Better GP Tool Error Messages" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <button refID="GetGPErrorMessagesButton" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="GetGPErrorMessagesButton" caption="Get GP Tool Error Message" className="GetGPErrorMessagesButton" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+</ArcGIS>
