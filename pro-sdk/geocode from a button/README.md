@@ -1,4 +1,4 @@
-## Create Raster
+## Geocode from a button
 
 <!-- TODO: Write a brief abstract explaining this sample -->
 This sample demonstrates how to makes an http rest call to the geocoding service api via a pro sdk button. The request is sent off, response is handled, parsed, then added to the map as a graphic.
