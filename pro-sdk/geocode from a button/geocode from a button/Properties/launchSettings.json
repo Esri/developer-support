@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "geocode_from_a_button": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\ArcGIS\\Pro\\bin\\ArcGISPro.exe"
+    }
+  }
+}
