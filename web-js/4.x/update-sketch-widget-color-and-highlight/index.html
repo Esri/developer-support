@@ -1,0 +1,116 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Update the Drawing Symbols and Highlight of the Sketch Widget| Sample |
+      ArcGIS Maps SDK for JavaScript
+    </title>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.30/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.30/"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    <script>
+      require([
+        "esri/widgets/Sketch",
+        "esri/Map",
+        "esri/layers/GraphicsLayer",
+        "esri/views/MapView",
+        "esri/widgets/Sketch/SketchViewModel",
+      ], (Sketch, Map, GraphicsLayer, MapView, SketchViewModel) => {
+        const graphicsLayer = new GraphicsLayer();
+
+        const map = new Map({
+          basemap: "gray-vector",
+          layers: [graphicsLayer],
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 5,
+          center: [90, 45],
+          // Options for configuring the highlight
+          highlightOptions: {
+            color: [255, 255, 0, 1],
+            haloOpacity: 0.9,
+            fillOpacity: 0.2,
+          },
+        });
+
+        let pointSymbol = {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          style: "square",
+          color: "blue",
+          size: "18px", // pixels
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 0],
+            width: 3, // points
+          },
+        };
+        const polylineSymbol = {
+          type: "simple-line",
+          color: "#ADD8E6",
+          width: 12,
+        };
+        const polygonSymbol = {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: "#ADD8E6",
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: "#0000FF",
+            width: 6,
+          },
+        };
+
+        const sketchViewModel = new SketchViewModel({
+          view: view,
+          layer: graphicsLayer,
+          pointSymbol: pointSymbol,
+          polygonSymbol: polygonSymbol,
+          polylineSymbol: polylineSymbol,
+        });
+
+        view.when(() => {
+          const sketch = new Sketch({
+            layer: graphicsLayer,
+            view: view,
+            viewModel: sketchViewModel,
+            // graphic will be selected as soon as it is created
+            creationMode: "update",
+            /*
+            // Uncomment this code snippet to turn off highlights for update operations.
+            defaultUpdateOptions: {
+              highlightOptions: {
+                enabled: false,
+              },
+            },
+            */
+          });
+          view.ui.add(sketch, "top-right");
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
