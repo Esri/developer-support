@@ -1,0 +1,228 @@
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+    <title>Access ArcGIS Online items using OAuth 2.0 | Sample | ArcGIS Maps SDK for JavaScript 4.31</title>
+
+    <script type="module" src="https://js.arcgis.com/calcite-components/2.13.2/calcite.esm.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.13.2/calcite.css" />
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.31/"></script>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      calcite-card {
+        border: 2px solid gray;
+        border-radius: 5px;
+        height: 300px;
+        width: 250px;
+      }
+    </style>
+    <script>
+      require([
+
+        "esri/portal/Portal",
+        "esri/identity/OAuthInfo",
+        "esri/identity/IdentityManager",
+        "esri/portal/PortalQueryParams"
+
+      ], (Portal, OAuthInfo, esriId, PortalQueryParams) => {
+        // UI elements
+        const signInButton = document.getElementById("sign-in-button");
+        const navLogo = document.getElementById("nav-logo");
+        const navigationUser = document.getElementById("nav-user");
+        const galleryPanel = document.getElementById("item-panel");
+        const itemGallery = document.getElementById("item-gallery");
+        signInButton.addEventListener("click", signInOrOut);
+        navigationUser.addEventListener("click", signInOrOut);
+
+        var esriIdJSON = null;
+
+        //Create a new OAuthInfo object.
+        const info = new OAuthInfo({
+          // Swap this ID out with an app ID registered in your ArcGIS Organization.
+          appId: "gxYF1QoVE7wEjbbB"
+          //appId: "-----App ID Here-----"
+          // Add the portalUrl property if using your own portal.
+          // portalUrl: "https://<host>:<port>/<webadaptor>",
+          // Set the authNamespace property to prevent the user's signed in state
+          // from being shared with other apps on the same domain with the same authNamespace value.
+          // authNamespace: "portal_oauth_inline",
+          // Set popup to true to show the OAuth sign-in page in a separate popup window.
+          //popup: true
+        });
+
+        // Add the OAuthInfo to the IdentityManager.
+        esriId.registerOAuthInfos([info]);
+
+        // Call the checkSignIn function to see if the user is already signed in.
+        checkSignIn();
+
+        // Function to check the current sign in status and query the portal if signed in.
+        function checkSignIn() {
+          if(localStorage.getItem("OAuthCredential") != null)
+          {
+            // Obtain credential from localStorage and initialize the credential JSON with the Identity Manager
+            let cachedCredential = JSON.stringify(localStorage.getItem("OAuthCredential"));
+            esriId.initialize(localStorage.getItem("OAuthCredential"));
+          }
+          esriId
+          .checkSignInStatus(info.portalUrl + "/sharing")
+          .then(() => {
+            if(localStorage.getItem("OAuthCredential") == null)
+            {
+              // Obtain credential from Identity Manager and save it to localStorage
+              esriId.getCredential(info.portalUrl + "/sharing").then((credential)=>{
+                esriId.credentials.length = 0;
+                esriIdJSON = esriId.toJSON();
+                esriIdJSON.credentials.length = 0;
+                esriIdJSON.credentials.push(credential);
+                esriId.initialize(esriIdJSON)
+                localStorage.clear();
+                localStorage.setItem("OAuthCredential", JSON.stringify(esriId.toJSON()));
+              });
+            }
+            // If signed in, show the username in the UI.
+            navigationUser.hidden = false;
+            signInButton.hidden = true;
+            const portal = new Portal({
+              authMode: "immediate"
+            });
+            // Check if using a portal other than ArcGIS Online.
+            if (info.portalUrl !== "https://www.arcgis.com") {
+              portal.url = info.portalUrl;
+            }
+            // Load the portal, display the name and username, then call the query items function.
+            portal.load().then(() => {
+              navigationUser.fullName = portal.user.fullName;
+              navigationUser.username = portal.user.username;
+              navLogo.description =
+                "Gallery of queried portal items displayed below. To sign out, click on the logged in user button.";
+              queryItems(portal);
+            });
+          })
+          .catch(() => {
+              // If not signed in, then show the sign in button.
+              signInButton.hidden = false;
+              navigationUser.hidden = true;
+              navLogo.description = "Use OAuth to log in to an ArcGIS Organization to view your items.";
+          });
+        }
+
+        // Function to sign in or out of the portal used by the sign in/out button click event.
+        function signInOrOut() {
+          localStorage.clear();
+          esriId
+            .checkSignInStatus(info.portalUrl + "/sharing")
+            .then(() => {
+              // If already signed in, then destroy the credentials to sign out.
+              esriId.destroyCredentials();
+              window.location.reload();
+            })
+            .catch(() => {
+              // If the user is not signed in, generate a new credential.
+              esriId
+                .getCredential(info.portalUrl + "/sharing", {
+                  // Set the following property to false to not show a dialog
+                  // before the OAuth popup window is open.
+                  //oAuthPopupConfirmation: false,
+                })
+                .then(() => {
+                  // Once a credential is returned from the promise, check the
+                  // sign in status to query the portal for items.
+                  checkSignIn();
+                });
+            });
+        }
+
+
+
+        // Function to query for portal items.
+        function queryItems(portal) {
+          // Create query parameters for the portal search.
+          const queryParams = new PortalQueryParams({
+            query: "owner:" + portal.user.username,
+            sortField: "num-views",
+            sortOrder: "desc",
+            num: 20
+          });
+          // Query the items based on the queryParams created from the portal.
+          portal.queryItems(queryParams).then(createGallery);
+        }
+
+
+
+        // Function to build the UI for the gallery to display queried portal items.
+        function createGallery(items) {
+          items.results.forEach((item) => {
+            // Create a card for each item and add a thumbnail, title, subtitle,
+            // view count value, and a button to open the item in a new window.
+            const card = document.createElement("calcite-card");
+            const thumbnail = document.createElement("img");
+            thumbnail.slot = "thumbnail";
+            thumbnail.src = item.thumbnailUrl;
+
+            const title = document.createElement("span");
+            title.slot = "title";
+            title.style = "overflow: hidden; white-space: nowrap; text-overflow: ellipsis;";
+            title.innerHTML = item.title;
+
+            const type = document.createElement("span");
+            type.slot = "subtitle";
+            type.innerHTML = item.type;
+
+            const views = document.createElement("span");
+            views.slot = "footer-end";
+            views.innerHTML = "Views: " + item.numViews;
+
+            const openItemAction = document.createElement("calcite-action");
+            openItemAction.icon = "launch";
+            openItemAction.slot = "footer-end";
+            openItemAction.value = item;
+            // Add event listener to open the item details page in a new window.
+            openItemAction.addEventListener("click", (event) => {
+              window.open(event.target.value.itemPageUrl);
+            });
+
+            card.appendChild(thumbnail);
+            card.appendChild(title);
+            card.appendChild(type);
+            card.appendChild(views);
+            card.appendChild(openItemAction);
+
+            // Add each card to a new div with styling and add to the calcite panel.
+            const div = document.createElement("item");
+            div.style = "float: left; padding: 10px; display: inline-block;";
+            div.appendChild(card);
+            itemGallery.appendChild(div);
+          });
+        }
+
+      });
+    </script>
+  </head>
+
+  <body>
+    <calcite-shell>
+      <calcite-navigation slot="header">
+        <calcite-navigation-logo
+          id="nav-logo"
+          slot="logo"
+          heading="Access ArcGIS portal items using OAuth 2.0"
+          description="Use OAuth to log in to an ArcGIS Organization to view your items."
+        ></calcite-navigation-logo>
+        <calcite-button id="sign-in-button" slot="user">Sign in</calcite-button>
+        <calcite-navigation-user hidden id="nav-user" slot="user"> </calcite-navigation-user>
+      </calcite-navigation>
+      <calcite-panel id="item-panel">
+        <div id="item-gallery"></div>
+      </calcite-panel>
+    </calcite-shell>
+  </body>
+</html>

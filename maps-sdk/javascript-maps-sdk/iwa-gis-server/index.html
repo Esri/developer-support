@@ -1,0 +1,46 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Obtaining Service JSON data from a Stand-Alone IWA Enterprise Server</title>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.31/"></script>
+
+    <script>
+      require(["esri/identity/ServerInfo", "esri/identity/IdentityManager", "esri/request"], function(ServerInfo, esriId, esriRequest) {
+
+        let arcgisServerUrl = "https://example.domain.com/arcgis";
+        let serviceUrl = "https://example.domain.com/arcgis/rest/services/.../MapServer";
+        
+        let serverInfo = new ServerInfo();
+        serverInfo.server = arcgisServerUrl;
+        serverInfo.webTierAuth = true;
+        esriId.registerServers([serverInfo]);
+        
+        esriRequest(serviceUrl, {
+          query: {
+            f: "json"
+          },
+          responseType: "json"
+        }).then(function(response){
+          console.log(response);
+          document.getElementById("results").innerHTML = JSON.stringify(response);
+        });
+
+      });
+    </script>
+  </head>
+  <body>
+    <div id="results"></div>
+  </body>
+</html>
