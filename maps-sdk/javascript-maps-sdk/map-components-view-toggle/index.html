@@ -1,0 +1,92 @@
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Map Components</title>
+
+  <!-- Load required JS API stylesheets -->
+  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/dark/main.css" />
+
+  <!-- Load the ArcGIS JS API -->
+  <script src="https://js.arcgis.com/4.32"></script>
+
+  <!-- Load map components -->
+  <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+
+  <style>
+    /* Note: these CSS settings cause the map to fill the browser window */
+    html,
+    body {
+      margin: 0;
+    }
+
+    /* Container for the map and scene components */
+    #viewDiv {
+      display: block;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Style for the map and scene components to occupy full viewport */
+    #map,
+    #scene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Style for the toggle button */
+    #tv {
+      display: block;
+      position: absolute;
+      z-index: 2;
+      top: 10px;
+      left: 10px;
+      --calcite-button-background-color: purple;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Container for the map and scene components -->
+  <div id="viewDiv">
+    <!-- ArcGIS map component -->
+    <arcgis-map id="map" item-id="05e015c5f0314db9a487a9b46cb37eca"></arcgis-map>
+    <!-- ArcGIS scene component -->
+    <arcgis-scene id="scene" basemap="satellite" ground="world-elevation" camera-position="12.3808, 46.3959, 4400" camera-tilt="75" camera-heading="300">
+    </arcgis-scene>
+    <!-- Toggle button to switch between map and scene -->
+    <calcite-button id="tv" class="2D">Toggle View</calcite-button>
+  </div>
+
+  <script>
+    // Get references to the button, map, and scene elements
+    let button = document.getElementById("tv");
+    let map = document.getElementById("map");
+    let scene = document.getElementById("scene");
+    // Set initial state: show map and hide scene
+    map.style.display = "block";
+    scene.style.display = "none";
+    // Add click event listener to the button to toggle views
+    button.addEventListener("click", () => {
+      if (button.classList.contains("2D")) {
+        button.classList.remove("2D");
+        button.classList.add("3D");
+        button.style.setProperty('--calcite-button-background-color', 'green');
+        map.style.display = "none";
+        scene.style.display = "block";
+      } else {
+        button.classList.remove("3D");
+        button.classList.add("2D");
+        button.style.setProperty('--calcite-button-background-color', 'purple');
+        scene.style.display = "none";
+        map.style.display = "block";
+      }
+    });
+  </script>
+</body>
+
+</html>
