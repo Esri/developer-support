@@ -10,8 +10,6 @@ Find the ArcGIS Online portal item ID for a feature layer. Paste it into the inp
 
 This tool is useful when the service-level drawingInfo is different than the item-level drawingInfo.
 
-### Using geometryService.project()
-
 1. Create a featureLayer with associated portalID
 
 ```javascript
