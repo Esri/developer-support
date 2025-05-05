@@ -44,7 +44,7 @@ var buffer = geodesicBufferOperator.executeMany(
 
 ## Related Documentation
 
-- [geometryEngine.geodesicBuffer()](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-operators-geodesicBufferOperator.html#executeMany)
+- [geodesicBufferOperator.executeMany()](https://developers.arcgis.com/javascript/latest/api-reference/esri-geometry-operators-geodesicBufferOperator.html#executeMany)
 - [Query a feature layer](https://developers.arcgis.com/javascript/latest/tutorials/query-a-feature-layer-sql/)
 
 ## Live Samples
