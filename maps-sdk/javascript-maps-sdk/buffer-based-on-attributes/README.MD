@@ -15,10 +15,10 @@ This sample is a modification of an [older sample](https://github.com/Esri/devel
 1. Query the layer to be buffered. Add the result geometries and attributes (distances) to two arrays respectively. The query can be either server-side or client-side.
 
 ```javascript
-        result.features.forEach((feature) => {
-          geometries.push(feature.geometry);
-          distances.push(feature.attributes.pop2000 / 10000);
-        });
+result.features.forEach((feature) => {
+  geometries.push(feature.geometry);
+  distances.push(feature.attributes.pop2000 / 10000);
+});
 ```
 
 2. Verify that geodesicBufferOperator.isLoaded() returns true. If not, load it.
