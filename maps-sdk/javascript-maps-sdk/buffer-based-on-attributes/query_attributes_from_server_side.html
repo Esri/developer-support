@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <title>Create Buffer Based on Attributes (Server-Side Query)</title>
+
+    <script type="module" src="https://js.arcgis.com/calcite-components/3.1.0/calcite.esm.js"></script>
+
+    <script src="https://js.arcgis.com/4.32/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script type="module">
+
+      const [Map, FeatureLayer, GraphicsLayer, Graphic, geodesicBufferOperator, reactiveUtils] = await $arcgis.import([
+        "@arcgis/core/Map.js",
+        "@arcgis/core/layers/FeatureLayer.js",
+        "@arcgis/core/layers/GraphicsLayer.js",
+        "@arcgis/core/Graphic.js",
+        "@arcgis/core/geometry/operators/geodesicBufferOperator.js"
+      ])
+
+      const mapElement = document.querySelector("arcgis-map");
+
+      var featureLayer = new FeatureLayer({
+          url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
+      });
+
+      var bufferLayer = new GraphicsLayer();
+      mapElement.addLayers([featureLayer, bufferLayer]);
+
+      var geometries = [];
+      var distances = [];
+
+      var bufferSym = {
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+        color: [140, 140, 222, 0.5],
+        outline: {
+          color: [0, 0, 0, 0.5],
+          width: 2,
+        },
+      };
+
+      var query = {
+          outFields: ["pop2000"],
+          returnGeometry: true,
+          where: "st = 'NC'",
+      };
+
+      featureLayer.queryFeatures(query).then(async function (results) {
+        results.features.forEach((feature) => {
+          geometries.push(feature.geometry);
+          distances.push(feature.attributes.pop2000 / 10000);
+        });
+
+        // Verify that isLoaded() returns true before using this module.
+        if (!geodesicBufferOperator.isLoaded()) {
+          await geodesicBufferOperator.load();
+        }
+
+        var buffer = geodesicBufferOperator.executeMany(
+          geometries,
+          distances,
+          {
+            unit: "kilometers",
+            union: true
+          }
+        );
+
+        bufferLayer.add(
+          new Graphic({
+            geometry: buffer[0],
+            symbol: bufferSym,
+          })
+        );
+      });
+    </script>
+  </head>
+
+  <body>
+    <arcgis-map id="mapView" center="-79.0193, 35.7596" zoom=8 basemap="gray-vector">
+      <arcgis-home position="top-right"></arcgis-home>
+      <arcgis-zoom position="top-right"></arcgis-zoom>
+    </arcgis-map>
+  </body>
+</html>
