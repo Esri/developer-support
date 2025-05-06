@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Get Drawing Info Tool</title>
+
+    <script type="module" src="https://js.arcgis.com/calcite-components/3.1.0/calcite.esm.js"></script>
+
+    <script src="https://js.arcgis.com/4.32/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <script type="module">
+
+        var inp = document.getElementById("input");
+        var out = document.getElementById("output");
+        var btn = document.getElementById("submitbtn");
+
+        const [FeatureLayer, esriConfig] = await $arcgis.import([
+            "@arcgis/core/layers/FeatureLayer.js",
+            "@arcgis/core/config.js"
+        ])
+
+        // Uncomment if working with an API Key
+        // esriConfig.apiKey = "";
+
+        const mapElement = document.querySelector("arcgis-map");
+        var map = mapElement.map;
+
+        btn.onclick = () => {
+          mapElement.map.removeAll();
+
+          const val = inp.value;
+
+          var featureLayer = new FeatureLayer({
+              portalItem: {
+                  id: val,
+              },
+          });
+          mapElement.addLayer(featureLayer);
+
+          featureLayer.when(() => {
+            return featureLayer.queryExtent();
+          }).then((response) => {
+            mapElement.goTo(response.extent);
+            printResult(featureLayer);
+          })
+
+
+        };
+
+        function printResult(featureLayer) {
+          featureLayer.when(() => {
+            var outstring =
+              '{"drawingInfo":' +
+              JSON.stringify(
+                featureLayer.toJSON().layerDefinition.drawingInfo
+              ) +
+              "}";
+            outstring = outstring.replaceAll(",", ", ");
+            outstring = outstring.replaceAll(":", ": ");
+            out.innerHTML = outstring;
+          });
+        }
+    </script>
+  </head>
+
+  <body>
+    <calcite-shell>
+        <calcite-shell-panel slot="panel-start">
+            <calcite-panel heading="Get Drawing Info Tool">
+                <calcite-block collapsible heading="Enter PortalID" expanded="true">
+                    <calcite-input
+                      placeholder="PORTAL_ID"
+                      id="input"
+                    ></calcite-input>
+                    <br />
+                    <calcite-button icon-start="plus" id="submitbtn">Set Layer</calcite-button>
+                  </calcite-block>
+                  <calcite-block collapsible heading="Results" id="result-block" expanded="true">
+                    <div id="output">No results</div>
+                  </calcite-block>
+            </calcite-panel>
+        </calcite-shell-panel>
+        <arcgis-map id="mapView" basemap="gray-vector">
+            <arcgis-home position="top-right"></arcgis-home>
+            <arcgis-zoom position="top-right"></arcgis-zoom>
+        </arcgis-map>
+    </calcite-shell>
+  </body>
+</html>
