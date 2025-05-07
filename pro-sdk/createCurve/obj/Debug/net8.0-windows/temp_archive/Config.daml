@@ -1,0 +1,36 @@
+﻿<ArcGIS defaultAssembly="createCurve.dll" defaultNamespace="createCurve" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{e8f134cd-e96a-4b85-98dd-23a9b26786c9}" version="1.0" desktopVersion="3.4.55405" product="ArcGISPro">
+    <Name>createCurve</Name>
+    <Description>createCurve description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>pau11750</Author>
+    <Company>ESRI</Company>
+    <Date>5/5/2025 12:55:41 PM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="createCurve_Module" className="Module1" autoLoad="false" caption="Module1">
+      <tabs>
+        <tab id="createCurve_Tab1" caption="Curve Tools">
+          <group refID="Group_curve"/>
+        </tab>
+      </tabs>
+      <groups>
+        <group id="Group_curve" caption="Group curve">
+          <button refID="createCurve_Button1" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <button id="createCurve_Button1" caption="Button 1" className="Button1" loadOnClick="true"
+                smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
+          <tooltip heading="Tooltip Heading">
+            Tooltip text<disabledText />
+          </tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+
+</ArcGIS>

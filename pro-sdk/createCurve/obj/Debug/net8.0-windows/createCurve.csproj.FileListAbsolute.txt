@@ -1,0 +1,12 @@
+C:\Users\pau11750\source\repos\createCurve\createCurve\bin\Debug\net8.0-windows\createCurve.deps.json
+C:\Users\pau11750\source\repos\createCurve\createCurve\bin\Debug\net8.0-windows\createCurve.dll
+C:\Users\pau11750\source\repos\createCurve\createCurve\bin\Debug\net8.0-windows\createCurve.pdb
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.csproj.AssemblyReference.cache
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.AssemblyInfoInputs.cache
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.AssemblyInfo.cs
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.csproj.CoreCompileInputs.cache
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.dll
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\refint\createCurve.dll
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\createCurve.pdb
+C:\Users\pau11750\source\repos\createCurve\createCurve\obj\Debug\net8.0-windows\ref\createCurve.dll
