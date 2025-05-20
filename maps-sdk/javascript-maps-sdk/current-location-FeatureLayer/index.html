@@ -9,8 +9,7 @@
 
   <style>
     html,
-    body,
-    #viewDiv {
+    body{
       padding: 0;
       margin: 0;
       height: 100%;
@@ -58,12 +57,11 @@
           labelPlacement: "below-center"
         }
       });
+      
       mapElement.addLayer(layer);
     }
 
-    view.when(() => {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    });
+    navigator.geolocation.getCurrentPosition(showPosition);
   </script>
 </head>
 
