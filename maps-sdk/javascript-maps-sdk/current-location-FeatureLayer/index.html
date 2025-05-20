@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Create a FeatureLayer Based on Current Location | ArcGIS API for JavaScript 4.32</title>
+
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  
+  <script src="https://js.arcgis.com/4.32/"></script>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+  <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+
+  <script type="module">
+    const [Map, FeatureLayer, Graphic, MapView] = await $arcgis.import([
+      "@arcgis/core/Map.js",
+      "@arcgis/core/layers/FeatureLayer.js",
+      "@arcgis/core/Graphic.js",
+      "@arcgis/core/views/MapView.js"
+    ])
+
+    const mapElement = document.querySelector("arcgis-map");
+
+    function showPosition(position) {
+      var pointGraphic = new Graphic({
+        geometry: {
+          type: "point",
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }
+      });
+
+      var layer = new FeatureLayer({
+        source: [pointGraphic],
+        fields: [{
+          name: "ObjectID",
+          alias: "ObjectID",
+          type: "oid"
+        }],
+        objectIdField: "ObjectID",
+        title: "Located Point",
+        popupEnabled: false,
+        labelingInfo: {
+          labelExpressionInfo: {
+            expression: "'You Are Here'"
+          },
+          labelPlacement: "below-center"
+        }
+      });
+      mapElement.addLayer(layer);
+    }
+
+    view.when(() => {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    });
+  </script>
+</head>
+
+<body>
+  <arcgis-map id="mapView" center="-56.049, 38.485, 78" zoom=3 basemap="gray-vector">
+      <arcgis-home position="top-right"></arcgis-home>
+      <arcgis-zoom position="top-right"></arcgis-zoom>
+      <arcgis-legend position="bottom-right"></arcgis-legend>
+    </arcgis-map>
+</body>
+
+</html>

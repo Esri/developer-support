@@ -1,5 +1,14 @@
 # Add Attachments To FeatureService with JavaScript 4.2
 
+## RETIREMENT NOTICE
+This sample currently uses a retired version of the ArcGIS Maps SDK for JavaScript (4.2).
+
+In the latest version of the ArcGIS Maps SDK for JavaScript, it is possible to achieve this functionality using the [Editor](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Editor.html) widget.
+
+[Live Sample](https://developers.arcgis.com/javascript/latest/sample-code/widgets-editor-basic/)
+
+If you would like to learn more about retired versions of this product, visit the [ArcGIS Maps SDK for JavaScript Product Life Cycle page](https://support.esri.com/en-us/products/arcgis-maps-sdk-for-javascript/life-cycle). 
+
 ## About
 FeatureServices can be configured to allow files to be attached to individual features in the service. In the 3.x JavaScript API methods to retrieve, add and delete attachments were provided as part of the FeatureLayer class. Additionally widgets such as the attachment and attribute inspector allowed attachments to be viewed and edited. In the 4.2 API no widgets or methods have been provided to work with attachments. However it is still possible to directly query and edit attachments using the ArcGIS REST API. This sample shows how to work with attachments within a 4.2 application.
 
