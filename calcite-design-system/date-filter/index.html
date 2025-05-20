@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Date Filter</title>
+
+    <script type="module" src="https://js.arcgis.com/calcite-components/3.1.0/calcite.esm.js"></script>
+
+    <script src="https://js.arcgis.com/4.32/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+
+    <style>
+      html,
+      body{
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      form {
+        margin: 10px;
+      }
+
+      calcite-panel {
+        height: auto;
+        width: 325px;
+      }
+
+    </style>
+
+    <script type="module">
+
+      const [FeatureLayer] = await $arcgis.import(["@arcgis/core/layers/FeatureLayer.js"]);
+
+      const map = document.querySelector("arcgis-map");
+
+      const serviceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/FeatureServer/0";
+      const dateField = "date_";
+      
+      var featureLayer = new FeatureLayer({
+          url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/FeatureServer/0",
+          outFields: ["*"],
+      });
+
+      map.addLayer(featureLayer);
+
+      // the client-side layer
+      let featureLayerView;
+
+      // Save date values when reset
+      let prevStartDate;
+      let prevEndDate;
+
+      const startInput = document.getElementById("startInput");
+      const endInput = document.getElementById("endInput");
+
+      featureLayer.when(() => {
+        const minFullDate = featureLayer.timeInfo.fullTimeExtent.start.toISOString();
+        const maxFullDate = featureLayer.timeInfo.fullTimeExtent.end.toISOString();;
+
+        startInput.min = minFullDate;
+        startInput.max = maxFullDate;
+        prevStartDate = minFullDate;
+        startInput.value = prevStartDate;
+
+        endInput.min = minFullDate;
+        endInput.max = maxFullDate;
+        prevEndDate = maxFullDate;
+        endInput.value = prevEndDate;
+
+        map.whenLayerView(featureLayer)
+          .then((layerView) => {
+            // set up the featureLayerView as the client-side layer
+            featureLayerView = layerView;
+          });
+      })
+
+      // Handle button and panel events
+      const dateForm = document.getElementById("dateForm");
+      const panel = document.getElementById("panel");
+      const resetBtn = document.getElementById("resetBtn");
+
+      resetBtn.onclick = function(){
+        resetLayer()
+      };
+
+      const handleFormSubmit = (evt) => {
+          //filters the layer by date 
+          evt.preventDefault(); // prevent a form submit, we only need the form values
+          const startDate = startInput.value;
+          const endDate = endInput.value;
+
+          if (startDate.length > 0 && endDate.length > 0) {
+            featureLayerView.filter = {
+              where: `${dateField} > DATE '${startDate}' AND ${dateField} < DATE '${endDate}'`
+            }
+
+            prevStartDate = startDate;
+            prevEndDate = endDate;
+          } else {
+            console.log('Please provide a start and end date');
+          }    
+      }
+
+      dateForm.addEventListener('submit', handleFormSubmit);
+
+      // reset the client-side layer by filtering to return all the features
+      const resetLayer = () => {
+        featureLayerView.filter = {
+          where: '1=1'
+        }
+
+        startInput.value = prevStartDate;
+        endInput.value = prevEndDate;
+      }
+    </script>
+  </head>
+
+  <body>
+    <arcgis-map basemap="dark-gray-vector" center="-41.34, 26.274" zoom="3">
+      <arcgis-zoom position="top-left"></arcgis-zoom>
+      <arcgis-home position="top-left"></arcgis-home>
+        <arcgis-placement position="top-right">
+          <calcite-panel heading="Filter by date" id="panel">
+            <form id="dateForm">
+              <calcite-label id="startLabel" for="datePickerForm">
+                Start Date:
+                <calcite-input-date-picker overlay-positioning="fixed" id="startInput"></calcite-input-date-picker>
+              </calcite-label>
+              <calcite-label id="endLabel" for="datePickerForm">
+                End Date:
+                <calcite-input-date-picker overlay-positioning="fixed" id="endInput"></calcite-input-date-picker>
+              </calcite-label>
+              <calcite-button id="resetBtn" icon-end="reset" appearance="outline">Reset</calcite-button>
+              <calcite-button id="submitBtn" type="submit" icon-end="submit">Submit</calcite-button>
+            </form>
+          </calcite-panel>
+        </arcgis-placement>
+    </arcgis-map>
+  </body>
+</html>
