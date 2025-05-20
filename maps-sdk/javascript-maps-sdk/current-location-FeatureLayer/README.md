@@ -11,43 +11,41 @@ Created by Lingtao
 1. Acquire the user's current location using the getCurrentPosition() method.
 
 ```javascript
-      view.when(() => {
-        navigator.geolocation.getCurrentPosition(showPosition);
-      });
+navigator.geolocation.getCurrentPosition(showPosition);
 ```
 
 2. Create a point Graphic based on the result from getCurrentPosition().
 
 ```javascript
-        var pointGraphic = new Graphic({
-          geometry: {
-            type: "point",
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }
-        });
+var pointGraphic = new Graphic({
+  geometry: {
+    type: "point",
+    latitude: position.coords.latitude,
+    longitude: position.coords.longitude
+  }
+});
 ```
 
 3. Create a FeatureLayer based on the point Graphic if you need to label the location point.
 
 ```javascript
-        var layer = new FeatureLayer({
-          source: [pointGraphic],
-          fields: [{
-            name: "ObjectID",
-            alias: "ObjectID",
-            type: "oid"
-          }],
-          objectIdField: "ObjectID",
-          title: "Located Point",
-          popupEnabled: false,
-          labelingInfo: {
-            labelExpressionInfo: {
-              expression: "'You Are Here'"
-            },
-            labelPlacement: "below-center"
-          }
-        });
+var layer = new FeatureLayer({
+  source: [pointGraphic],
+  fields: [{
+    name: "ObjectID",
+    alias: "ObjectID",
+    type: "oid"
+  }],
+  objectIdField: "ObjectID",
+  title: "Located Point",
+  popupEnabled: false,
+  labelingInfo: {
+    labelExpressionInfo: {
+      expression: "'You Are Here'"
+    },
+    labelPlacement: "below-center"
+  }
+});
 ```
 
 ## Related Documentation
