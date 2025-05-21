@@ -1,5 +1,10 @@
 # Create a FeatureLayer Based on Current Location
 
+## RETIREMENT NOTICE
+This sample currently uses a retired version of the ArcGIS Maps SDK for JavaScript (4.16).
+
+If you would like to learn more about retired versions of this product, visit the [ArcGIS Maps SDK for JavaScript Product Life Cycle page](https://support.esri.com/en-us/products/arcgis-maps-sdk-for-javascript/life-cycle). 
+
 ## About
 
 The ArcGIS API for JavaScript 4.x provides an out-of-the-box [Locate widget](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html) that animates the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html) to the user's current location. This sample shows how to display the user's current location on the map using the Geolocation API and FeatureLayer instead of the Locate widget.  

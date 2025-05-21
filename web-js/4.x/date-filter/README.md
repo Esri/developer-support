@@ -2,6 +2,8 @@
 
 This project uses the ArcGIS JavaScript API 4.x to filter the client-side graphics on the screen using the FeatureLayerView, and the filter property. 
 
+There is a new version of this sample (see [here](https://github.com/Esri/developer-support/tree/master/calcite-design-system/date-filter)).
+
 <img src="date-filter.png" width="600"/>
 
 ## Getting Started
