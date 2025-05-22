@@ -8,6 +8,8 @@ This sample shows how to remove clustering information from the Legend. This sam
 - [Module loading via CDN](https://developers.arcgis.com/javascript/latest/get-started-cdn/#module-loading-via-cdn)
 - Replacing the SimpleRenderer with [ClassBreaksRenderers](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html)
 
+Main logic of the code is located inside index.html. unique-value-symbol-config.js contains symbology and renderer information for the layer.
+
 ## How It Works
 
 1. Create a function that hides cluster information
@@ -54,7 +56,13 @@ function hideClusterInformation() {
 } 
 ```
 
-4. Wait for layer to finish loading before calling the hideClusterInformation() function
+4. Replace the original layer's featureReduction property
+
+```javascript
+layer.featureReduction = featureReductionTemplate;
+```
+
+5. Wait for layer to finish loading before calling the hideClusterInformation() function
 
 ```javascript
 mapElement.whenLayerView(layer).then(() => {
@@ -62,7 +70,7 @@ mapElement.whenLayerView(layer).then(() => {
 });
 ```
 
-5. Add the same function to the toggle button functionality. It is important that you set the layer.featureReduction to clusterConfig before calling the hideClusterInformation() function.
+6. Add the same function to the toggle button functionality. It is important that you set the layer.featureReduction to clusterConfig before calling the hideClusterInformation() function.
 
 ```javascript
 toggleButton.addEventListener("click", () => {
