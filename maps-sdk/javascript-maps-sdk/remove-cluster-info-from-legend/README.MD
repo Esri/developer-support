@@ -12,25 +12,7 @@ Main logic of the code is located inside index.html. unique-value-symbol-config.
 
 ## How It Works
 
-1. Create a function that hides cluster information
-
-```javascript
-function hideClusterInformation() {
-    // Add code here
-
-} 
-```
-
-2. Inside the function, first clone the layer's featureReduction object
-
-```javascript
-function hideClusterInformation() {
-    const featureReductionTemplate = layer.featureReduction.clone();
-
-} 
-```
-
-3. Add the same renderer, but include a new visualVariables property. Set showLegend to false inside the legendOptions property
+1. Create a function that hides cluster information. This is achieved by overriding visualVariables and setting showLegend to false
 
 ```javascript
 function hideClusterInformation() {
@@ -53,16 +35,11 @@ function hideClusterInformation() {
         }]
     }
 
+    layer.featureReduction = featureReductionTemplate;
 } 
 ```
 
-4. Replace the original layer's featureReduction property
-
-```javascript
-layer.featureReduction = featureReductionTemplate;
-```
-
-5. Wait for layer to finish loading before calling the hideClusterInformation() function
+2. Wait for layer to finish loading before calling the hideClusterInformation() function
 
 ```javascript
 mapElement.whenLayerView(layer).then(() => {
@@ -70,7 +47,7 @@ mapElement.whenLayerView(layer).then(() => {
 });
 ```
 
-6. Add the same function to the toggle button functionality. It is important that you set the layer.featureReduction to clusterConfig before calling the hideClusterInformation() function.
+3. Add the same function to the toggle button functionality. It is important that you set the layer.featureReduction to clusterConfig before calling the hideClusterInformation() function.
 
 ```javascript
 toggleButton.addEventListener("click", () => {
