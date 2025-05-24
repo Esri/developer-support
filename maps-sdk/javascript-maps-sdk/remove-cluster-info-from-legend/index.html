@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="initial-scale=1,maximum-scale=1,user-scalable=no"
+  />
+
+    <title>Remove ClassBreak Clusters Symbology from Legend</title>
+
+    <style>
+      html,
+      body{
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(50,50,50);
+      }
+      #infoDiv {
+        padding: 10px;
+      }
+    </style>
+
+    <script type="text/javascript" src="unique-value-symbol-config.js"></script>
+
+    <script src="https://js.arcgis.com/4.32/"></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
+    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+
+    <script type="module">
+        const [Map, FeatureLayer, GeoJSONLayer, Extent, SpatialReference] = await $arcgis.import([
+            "@arcgis/core/Map.js",
+            "@arcgis/core/layers/FeatureLayer.js",
+            "@arcgis/core/layers/GeoJSONLayer.js",
+            "@arcgis/core/geometry/Extent.js",
+            "@arcgis/core/geometry/SpatialReference.js"
+        ])
+
+        const mapElement = document.querySelector("arcgis-map");
+
+        const clusterConfig = {
+          type: "cluster",
+          clusterRadius: "100px",
+          // {cluster_count} is an aggregate field containing
+          // the number of features comprised by the cluster
+          popupTemplate: {
+            title: "Cluster summary",
+            content: "This cluster represents {cluster_count} earthquakes.",
+            fieldInfos: [{
+              fieldName: "cluster_count",
+              format: {
+                places: 0,
+                digitSeparator: true
+              }
+            }]
+          },
+          clusterMinSize: "24px",
+          clusterMaxSize: "60px",
+          labelingInfo: [{
+            deconflictionStrategy: "none",
+            labelExpressionInfo: {
+              expression: "Text($feature.cluster_count, '#,###')"
+            },
+            symbol: {
+              type: "text",
+              color: "#004a5d",
+              font: {
+                weight: "bold",
+                family: "Noto Sans",
+                size: "12px"
+              }
+            },
+            labelPlacement: "center-center",
+          }]
+        };
+
+        const layer = new GeoJSONLayer({
+          title: "Earthquakes from the last month",
+          url: "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson",
+          copyright: "USGS Earthquakes",
+
+          featureReduction: clusterConfig,
+
+          // popupTemplates can still be viewed on
+          // individual features
+          popupTemplate: {
+            title: "Magnitude {mag} {type}",
+            content: "Magnitude {mag} {type} hit {place} on {time}",
+            fieldInfos: [
+              {
+                fieldName: "time",
+                format: {
+                  dateFormat: "short-date-short-time"
+                }
+              }
+            ]
+          },
+          renderer: layerRenderer // layerRenderer obtained from unique-value-symbol-config.js
+        });
+
+        // background layer for geographic context
+        // projected to Alaska Polar Stereographic
+        const baseLayer = new FeatureLayer({
+          portalItem: {
+            id: "2b93b06dc0dc4e809d3c8db5cb96ba69"
+          },
+          legendEnabled: false,
+          popupEnabled: false,
+          renderer: {
+            type: "simple",
+            symbol: {
+              type: "simple-fill",
+              color: [65, 65, 65, 1],
+              outline: {
+                color: [50, 50, 50, 0.75],
+                width: 0.5
+              }
+            }
+          },
+          spatialReference: {
+            wkid: 5936
+          }
+        });
+
+        mapElement.addLayers([baseLayer, layer]);
+
+        mapElement.extent = new Extent({
+            spatialReference: {
+                wkid: 5936
+            },
+            xmin: 1270382,
+            ymin: -1729511,
+            xmax: 2461436,
+            ymax: -953893
+        })
+
+        mapElement.spatialReference = new SpatialReference({
+            // WGS_1984_EPSG_Alaska_Polar_Stereographic
+            wkid: 5936
+        })
+
+        mapElement.constraints = {
+            minScale: 15469455
+        }
+
+        const toggleButton = document.getElementById("cluster");
+
+        // To turn off clustering on a layer, set the
+        // featureReduction property to null
+        toggleButton.addEventListener("click", () => {
+            let fr = layer.featureReduction;
+
+            if  (fr && fr.type === "cluster") {
+                layer.featureReduction = null;
+                toggleButton.innerText = "Enable Clustering";
+                      
+            } else {
+               layer.featureReduction = clusterConfig;
+               hideClusterInformation(); 
+               toggleButton.innerText = "Disable Clustering";
+            }
+        });
+
+        // Update visual variables to remove clustering information from legend
+        mapElement.whenLayerView(layer).then(() => {
+            hideClusterInformation();
+        });
+
+        function hideClusterInformation() {
+            const featureReductionTemplate = layer.featureReduction.clone();
+            featureReductionTemplate.renderer = {
+                type: "class-breaks",
+                field: "mag",
+                classBreakInfos: classBreakInfos, // classBreakInfos obtained from unique-value-symbol-config.js
+                visualVariables: [{
+                    type: "size",
+                    field: "cluster_count",
+                    legendOptions: {
+                        showLegend: false
+                    },
+                    minDataValue: 2,
+                    maxDataValue: 400,
+                    minSize: 18,
+                    maxSize: 54
+                }]
+            }
+
+            // Replace the featureReduction with the updated visual variables
+            layer.featureReduction = featureReductionTemplate;
+        } 
+
+    </script>
+  </head>
+
+  <body>
+    <arcgis-map id="mapView">
+      <arcgis-home position="top-left"></arcgis-home>
+      <arcgis-zoom position="top-left"></arcgis-zoom>
+      <arcgis-expand position="top-left">
+        <arcgis-placement>
+            <div id="infoDiv" class="esri-widget">
+                <button id="cluster" class="esri-button">Disable Clustering</button>
+                <arcgis-legend></arcgis-legend>
+            </div>
+        </arcgis-placement>
+      </arcgis-expand>
+    </arcgis-map>
+  </body>
+</html>
