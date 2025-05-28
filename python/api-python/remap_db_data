@@ -1,0 +1,53 @@
+from arcgis.gis import GIS, SharingLevel
+from arcgis.apps.itemgraph import create_dependency_graph
+
+# Connect to source and target organizations
+source = GIS(
+    profile="org1"
+)
+target = GIS(
+    profile="org2"
+)
+
+# Get the Dashboard item - in this case it contains a mobile view
+db_item = source.content.search(
+    query="test_db_mobile_view",
+    item_type="Dashboard"
+)[0]
+
+# Create a dependency graph of the Dashboard item
+source_db_dep_graph = create_dependency_graph(
+    gis=source,
+    item_list=[db_item],
+    outside_org=False
+)
+
+# Get all the items in the dependency graph and assign variable to source web map id
+source_db_dep_items = source_db_dep_graph.all_items(out_format="item")
+source_db_wm_id = [w.id for w in source_db_dep_items if w.type == "Web Map"][0]
+
+# Get the source web map and share it publicly (plan to remove this requirement in future releases)
+source_db_wm = source.content.get(source_db_wm_id)
+current_sharing = source_db_wm.sharing.sharing_level
+if not current_sharing == SharingLevel.EVERYONE:
+    source_db_wm.sharing.sharing_level = SharingLevel.EVERYONE
+
+# Clone the Dashboard item
+cloned_output = target.content.clone_items(
+    items=[db_item]
+)
+
+# Get the cloned Dashboard and extract the cloned web map id from cloned output
+cloned_db = [d for d in cloned_output if d.type == "Dashboard"][0]
+cloned_wm_id = [w.id for w in cloned_output if w.type == "Web Map"][0]
+
+# Configure the cloned dashboard to use the cloned web map in all components
+cloned_db.remap_data(
+    item_mapping={
+        db_wm_id: cloned_wm_id
+    },
+    force=True
+)
+
+# Reset the source web map to its original sharing level
+source_db_wm_id.sharing.sharing_level = current_sharing
