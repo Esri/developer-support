@@ -4,7 +4,7 @@
 
 This tool can be used to obtain extent by either drawing, inputting or adjusting the view. 
 
-Created and managed by the SDK team within Esri Support Services. If there are any issues or ideas, please submit an issue here or reach out to an SDK analyst directly.
+Created and managed by the SDK team within Esri Support Services. If there are any issues or ideas, please submit an issue [here](https://github.com/Esri/developer-support/issues) or reach out to an SDK analyst directly
 
 Created using ArcGIS Maps SDK for JavaScript and Calcite Design System
 Current versions:
