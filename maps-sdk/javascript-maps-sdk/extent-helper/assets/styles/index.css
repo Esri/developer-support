@@ -1,0 +1,53 @@
+arcgis-scene {
+    display: none;
+}
+
+calcite-carousel-item {
+    height: 170px;
+}
+
+calcite-carousel {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        margin: 0 auto;
+}
+
+calcite-panel[data-panel-id="input-extent"] calcite-input-text {
+    padding: 15px;
+}
+
+calcite-panel[data-panel-id="input-extent"] calcite-button, calcite-panel[data-panel-id="input-extent"] span {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+}
+
+calcite-panel[data-panel-id="get-extent"] calcite-button {
+    padding: 15px;
+    display: block;
+    margin: auto;
+}
+
+calcite-action[data-action-id="to-scene"]{
+    display: inline;
+}
+
+calcite-action[data-action-id="to-map"]{
+    display: none;
+}
+
+calcite-panel[data-panel-id="switch-projection"] calcite-radio-button-group{
+    padding: 15px;
+}
+
+calcite-panel[data-panel-id="about"] p{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+calcite-panel[data-panel-id="about"] i{
+    font-size: smaller;
+    font-style: italic;
+}

@@ -1,0 +1,121 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="./assets/images/esri-icon.png">
+    <title>Extent Helper</title>
+
+    <!-- When upgrading versions, please update the About section as well -->
+    <script type="module" src=https://js.arcgis.com/calcite-components/3.2.1/calcite.esm.js></script>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.33/"></script>
+    <script type="module" src="https://js.arcgis.com/4.33/map-components/"></script>
+
+    <link href="./assets/styles/index.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+    <calcite-shell content-behind>
+
+        <calcite-navigation slot="header">
+            <calcite-navigation-logo id="header-title" heading-level="1" slot="logo" heading="Extent Helper"></calcite-navigation-logo>
+        </calcite-navigation>
+
+        <calcite-shell-panel slot="panel-start" display-mode="float-content" id="shell-panel-start">
+
+            <calcite-action-bar slot="action-bar" expanded>
+                <calcite-action-group>
+                    <calcite-action data-action-id="draw-extent" text="Draw Extent" icon="rectangle-plus" text-enabled></calcite-action>
+                    <calcite-action data-action-id="input-extent" text="Input Extent" icon="brackets-curly" text-enabled></calcite-action>
+                    <calcite-action data-action-id="get-extent" text="Get Extent" icon="copy-to-clipboard" text-enabled></calcite-action>
+                    <calcite-action data-action-id="clear-drawing" text="Clear Drawing" disabled icon="erase" text-enabled></calcite-action>
+                </calcite-action-group>
+                <calcite-action-group>
+                    <calcite-action data-action-id="to-scene" text="Switch to Scene" icon="3d-building" text-enabled></calcite-action>
+                    <calcite-action data-action-id="to-map" text="Switch to Map" icon="map" text-enabled></calcite-action>
+                    <calcite-action data-action-id="switch-projection"  text="Switch Projection" icon="coordinate-system" text-enabled></calcite-action>
+                </calcite-action-group>
+                <calcite-action-group slot="bottom-actions">
+                    <calcite-action data-action-id="about" text="About" icon="question" data-action-id="about" text-enabled></calcite-action>
+                </calcite-action-group>
+            </calcite-action-bar>
+
+            <calcite-panel heading="Get extent" data-panel-id="get-extent" closed closable>
+
+                <calcite-carousel label="Get extents" arrow-type="inline">
+                    <calcite-carousel-item id="carouselContent" disabled label="extent-item">
+                        <h2><!-- Dynamic Title --></h2>
+                        <div class="custom-content">
+                            <span>
+                                <!-- Dynamically populated -->      
+                            </span>
+                        </div>
+                    </calcite-carousel-item>
+                </calcite-carousel>
+
+                <calcite-button icon-start="copy-to-clipboard" appearance="outline">Copy to clipboard</calcite-button>
+                <p slot="footer">
+                    Center: <span id="centerSpan"><!-- Dynamic Content --></span>;   
+                    Zoom: <span id="zoomSpan"><!-- Dynamic Content --></span>           
+                </p>
+            </calcite-panel>
+
+            <calcite-panel heading="Input extent" data-panel-id="input-extent" closed closable>
+                <calcite-input-text clearable="true" placeholder="Input JSON extent here"></calcite-input-text>
+                <span hidden>
+                    <!-- Dynamic Status Message -->
+                </span>
+                <calcite-button>Draw extent</calcite-button>
+            </calcite-panel>
+
+            <calcite-panel heading="About" data-panel-id="about" closed closable>
+                <p>
+                    Created and managed by the SDK team within Esri Support Services. If there are any issues or ideas, please submit an issue <a href="https://github.com/Esri/developer-support/issues" target="_blank" rel="noopener noreferrer">here</a> or reach out to an SDK analyst directly.
+                    <br><br>
+                    Created using <a href="https://developers.arcgis.com/javascript/latest/" target="_blank" rel="noopener noreferrer">ArcGIS Maps SDK for JavaScript</a> and <a href="https://developers.arcgis.com/calcite-design-system/" target="_blank" rel="noopener noreferrer">Calcite Design System</a>
+                    <br>
+                    <i>Current versions:</i><br>
+                    <i>ArcGIS Maps SDK for JavaScript version 4.33</i><br>
+                    <i>Calcite Design System version 3.2.1</i>
+                </p>
+            </calcite-panel>
+
+            <calcite-panel heading="Switch projection" data-panel-id="switch-projection" closed closable>
+                <calcite-radio-button-group name="Projections" layout="vertical" scale="l">
+                    <calcite-label layout="inline">
+                        <calcite-radio-button checked value="3857"></calcite-radio-button>
+                        Web Mercator
+                    </calcite-label>
+                    <calcite-label layout="inline">
+                        <calcite-radio-button value="4326"></calcite-radio-button>
+                        WGS84
+                    </calcite-label>
+                </calcite-radio-button-group>
+            </calcite-panel>
+
+        </calcite-shell-panel>
+
+        <calcite-panel>
+            <arcgis-map basemap="streets-navigation-vector" center="-100.4593, 36.9014" zoom="4">
+                <arcgis-zoom position="bottom-right"></arcgis-zoom>
+                <arcgis-search position="top-right" popup-disabled></arcgis-search>
+            </arcgis-map>
+            <arcgis-scene basemap="streets-navigation-vector" ground="world-elevation" center="-100.4593, 36.9014" zoom="4">
+                <arcgis-search position="top-right" popup-disabled></arcgis-search>
+                <arcgis-zoom position="bottom-right"></arcgis-zoom>
+                <arcgis-navigation-toggle position="bottom-right"></arcgis-navigation-toggle>
+                <arcgis-compass position="bottom-right"></arcgis-compass>
+            </arcgis-scene>
+        </calcite-panel>
+    </calcite-shell>
+    
+</body>
+
+<script type="module" src="./scripts/actions/actionBarHandler.js"></script>
+<script type="module" src="./scripts/actions/inputExtent.js"></script>
+<script type="module" src="./scripts/actions/getExtent.js"></script>
+<script type="module" src="./scripts/actions/switchProjection.js"></script>
+
+</html>
