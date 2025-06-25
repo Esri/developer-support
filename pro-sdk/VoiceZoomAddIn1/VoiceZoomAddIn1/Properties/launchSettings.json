@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VoiceZoomAddIn1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\ari12407\\AppData\\Local\\Programs\\ArcGIS\\Pro\\bin\\ArcGISPro.exe"
+    }
+  }
+}

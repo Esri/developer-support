@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E0745F4-CDAA-45A1-9A2C-2B6247366060}|VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj|c:\\users\\ari12407\\source\\test123\\voicezoomaddin1\\voicezoomaddin1\\voicezoombutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E0745F4-CDAA-45A1-9A2C-2B6247366060}|VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj|solutionrelative:voicezoomaddin1\\voicezoombutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E0745F4-CDAA-45A1-9A2C-2B6247366060}|VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj|c:\\users\\ari12407\\source\\test123\\voicezoomaddin1\\voicezoomaddin1\\config.daml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{9E0745F4-CDAA-45A1-9A2C-2B6247366060}|VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj|solutionrelative:voicezoomaddin1\\config.daml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E0745F4-CDAA-45A1-9A2C-2B6247366060}|VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj|c:\\users\\ari12407\\source\\test123\\voicezoomaddin1\\voicezoomaddin1\\voicezoomaddin1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{9E0745F4-CDAA-45A1-9A2C-2B6247366060}|VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj|solutionrelative:voicezoomaddin1\\voicezoomaddin1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0d88d125-84f9-49ef-ae2f-e54b55205e08}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "VoiceZoomAddIn1.csproj",
+              "DocumentMoniker": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj",
+              "RelativeDocumentMoniker": "VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj",
+              "ToolTip": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj",
+              "RelativeToolTip": "VoiceZoomAddIn1\\VoiceZoomAddIn1.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-06-12T16:41:44.079Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VoiceZoomButton.cs",
+              "DocumentMoniker": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\VoiceZoomAddIn1\\VoiceZoomButton.cs",
+              "RelativeDocumentMoniker": "VoiceZoomAddIn1\\VoiceZoomButton.cs",
+              "ToolTip": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\VoiceZoomAddIn1\\VoiceZoomButton.cs",
+              "RelativeToolTip": "VoiceZoomAddIn1\\VoiceZoomButton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-12T16:42:53.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Config.daml",
+              "DocumentMoniker": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\VoiceZoomAddIn1\\Config.daml",
+              "RelativeDocumentMoniker": "VoiceZoomAddIn1\\Config.daml",
+              "ToolTip": "C:\\Users\\ari12407\\source\\test123\\VoiceZoomAddIn1\\VoiceZoomAddIn1\\Config.daml",
+              "RelativeToolTip": "VoiceZoomAddIn1\\Config.daml",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-12T16:38:35.397Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+﻿<ArcGIS defaultAssembly="VoiceZoomAddIn1.dll" defaultNamespace="VoiceZoomAddIn1" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Users/ari12407/AppData/Local/Programs/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{c2b6d18a-3bc6-40f4-9ef3-2db6ebb8785c}" version="1.0" desktopVersion="3.5.57366" product="ArcGISPro">
+    <Name>VoiceZoomAddIn1</Name>
+    <Description>VoiceZoomAddIn1 description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>ari12407</Author>
+    <Company>ESRI</Company>
+    <Date>6/12/2025 12:38:31 PM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+	<modules>
+		<insertModule id="VoiceZoomAddIn1_Module" className="Module1" autoLoad="true" caption="Voice Zoom Module">
+			<groups>
+				<group id="VoiceZoomAddIn1_Group" caption="Voice Tools" appearsOnAddInTab="true">
+					<button refID="VoiceZoomAddIn1_VoiceZoomButton" size="large" />
+				</group>
+			</groups>
+			<controls>
+				<button id="VoiceZoomAddIn1_VoiceZoomButton" caption="Voice Zoom" className="VoiceZoomAddIn1.VoiceZoomButton" loadOnClick="true" smallImage="Images\Voice.png" largeImage="Images\Voice.png">
+					<tooltip heading="Voice Zoom">
+						Zoom to a country using voice recognition.<disabledText />
+					</tooltip>
+				</button>
+			</controls>
+		</insertModule>
+	</modules>
+</ArcGIS>
