@@ -1,8 +1,7 @@
-## FolderConnectionManager
+## VoicetoZoomintheMap
 
 <!-- TODO: Write a brief abstract explaining this sample -->
-Allows saving and loading folder connections to a Project.   
-  
+This add-in captures voice inputs and instantly focuses on the specified country, streamlining geographic searches.  
 
 <!-- TODO: Fill this section below with metadata about this sample-->
 ```
@@ -27,14 +26,17 @@ Visual Studio: 2013, 2015
 ## How to use the sample
 <!-- TODO: Explain how this sample can be used. To use images in this section, create the image file in your sample project's screenshots folder. Use relative url to link to this image using this syntax: ![My sample Image](FacePage/SampleImage.png) -->
    
-1. Open ArcGIS Pro and either a new or existing Project.
-2. Create a new Folder Connection in the Project window.
-![UI](Images/FolderConnect.png)  
-3. Click the "Save Connections" button in the "Folder Connection Manager" Add-In pane. The current Folder Connection's will be saved as a list in the text file.
-4. Remove the Folder Connection you just created by right-clicking on it in the Project window and selecting "Remove".
-![UI](Images/RemoveFolder.png)
-5. Load your saved Folder Connection by clicking the "Load Connection" button in the "Folder Connection Manager" Add-In pane. Select the text file you saved in step three.
-6. Verify that your Folder Connection has returned to the Project.
+1.In Visual Studio, click the Build menu, then select Build Solution.
+2.Click the Start button to open ArcGIS Pro.
+3.ArcGIS Pro will open.
+4.Open any project file. Click on the Catalog pane, select Portal, and then Living Atlas. Next, search for "World Countries" and add it to the map.
+![UI](Pictures/Addthedata.png)
+5.Click the Voice Zoom Add-in, and it will display a message: "Please say a country name (e.g., Canada, India)...". Click OK and say a country name from this list as those are queries for this sample: "India", "Barbados", "United States", "Canada", "Brazil", "France."
+![UI](Pictures/Addincommand.png)
+6.We can add queries for as many countries as possible from the attribute table.
+7.Now it should zoom to the country boundary on the map according to the recognized voice.
+8.For example, if we say "United States," it will zoom to the map boundary of the United States.
+![UI](Pictures/ZoomtotheCountryBoundary.png)
 
 
 [](Esri Tags: ArcGIS-Pro-SDK)
