@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <title>
+      Open Cluster popups with HitTest - 4.33
+    </title>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+
+    <!-- Load Calcite components from CDN -->
+    <script
+      type="module"
+      src="https://js.arcgis.com/calcite-components/3.2.1/calcite.esm.js"
+    ></script>
+
+    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.33/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.33/"></script>
+
+    <!-- Load Map components from CDN-->
+    <script
+      type="module"
+      src="https://js.arcgis.com/4.33/map-components/"
+    ></script>
+  </head>
+
+  <body>
+    <arcgis-map basemap="" center="-122.4194,37.7749" zoom="12">
+      <arcgis-zoom position="top-left"></arcgis-zoom>
+      <arcgis-home position="top-left"></arcgis-home>
+      <arcgis-placement position="bottom-left">
+        <div id="infoDiv">
+          <arcgis-layer-list></arcgis-layer-list>
+          <calcite-button id="cluster" secondary width="full">Disable Clustering</calcite-button>
+        </div>
+      </arcgis-placement>
+    </arcgis-map>
+
+    <script type="module">
+      const [Map, FeatureLayer, Popup] = await $arcgis.import([
+        "@arcgis/core/Map.js",
+        "@arcgis/core/layers/FeatureLayer.js",
+        "@arcgis/core/widgets/Popup.js",
+      ]);
+
+      // Configures clustering on the layer.
+      const clusterConfig = {
+        type: "cluster",
+        clusterRadius: "100px",
+        // {cluster_count} is an aggregate field containing
+        // the number of features comprised by the cluster
+        popupTemplate: {
+          title: "This is a cluster of incidents",
+          content: `<p>This cluster represents <b>{cluster_count}</b> incidents.`,
+        },
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "picture-marker",
+            url: "./pin.svg",
+            width: 20,
+            height: 20,
+            yoffset: 10,
+          },
+        },
+        clusterMinSize: "24px",
+        clusterMaxSize: "60px",
+        labelingInfo: [
+          {
+            deconflictionStrategy: "none",
+            labelExpressionInfo: {
+              expression: "Text($feature.cluster_count, '#,###')",
+            },
+            symbol: {
+              type: "text",
+              color: "white",
+              haloColor: "black",
+              haloSize: 1.5,
+              font: {
+                weight: "bold",
+                family: "Noto Sans",
+                size: "14px",
+              },
+            },
+            labelPlacement: "center-center",
+          },
+        ],
+      };
+
+      const layer = new FeatureLayer({
+        title: "Incidents",
+        url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0",
+        featureReduction: clusterConfig,
+        outfields: ["*"],
+        popupTemplate: {
+          title: "Incident",
+          content: "This is a <b>{req_type}</b> incident",
+        },
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "picture-marker",
+            url: "./pin.svg",
+            width: 20,
+            height: 20,
+            yoffset: 10,
+          },
+        },
+      });
+      
+      const layerNoCluster = new FeatureLayer({
+        title: "Incidents - No Cluster",
+        url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0",
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-marker",
+            size: 5,
+            color: "blue",
+          },
+        },
+        visible: false
+      });
+
+      // get the arcgis-map component element
+      const viewElement = document.querySelector("arcgis-map");
+      viewElement.map = new Map({
+        basemap: "gray-vector",
+        layers: [layer, layerNoCluster]
+      });
+
+      viewElement.popup = new Popup({
+        dockEnabled: true,
+        dockOptions: {
+          buttonEnabled: false,
+          position: "top-right",
+          breakpoint: false
+        },
+        visibleElements: {
+          actionBar: false,
+          closeButton: false,
+          collapseButton: false,
+          featureMenuHeading: false,
+          featureNavigation: false,
+        }
+      })
+
+      if (!viewElement.ready) {
+        viewElement.addEventListener("arcgisViewReadyChange", handleMapReady, {
+          once: true,
+        });
+      } else {
+        handleMapReady();
+      }
+
+      async function handleMapReady() {
+        // change the default highlight option object's color to orange
+        viewElement.highlights.forEach((highlightOption) => {
+          if (highlightOption.name === "default") {
+            highlightOption.color = "#00dfff";
+          }
+        });
+
+        const layerView = await viewElement.whenLayerView(layer);
+
+        // Set up an event handler for pointer-down (mobile) and pointer-move events
+        // and retrieve the screen x, y coordinates
+        viewElement.addEventListener("arcgisViewPointerDown", eventHandler);
+        viewElement.addEventListener("arcgisViewPointerMove", eventHandler);
+        viewElement.addEventListener("arcgisViewMouseWheel", eventHandler);
+
+        let highlight;
+        let graphics;
+
+        async function eventHandler(event) {
+          // only include graphics from feature layer
+          const opts = {
+            include: layer,
+          };
+
+          const response = await viewElement.hitTest(event.detail, opts);
+          if (!response.results.length) {
+            // no results returned from hittest, remove previous highlights
+            highlight?.remove();
+            viewElement.closePopup();
+            return;
+          }
+
+          graphics = response.results[0].graphic;
+
+          highlight?.remove();
+          highlight = layerView.highlight(graphics);
+          viewElement.openPopup({
+            features: [graphics]
+          })
+        }
+      }
+
+      const toggleButton = document.getElementById("cluster");
+
+      // To turn off clustering on a layer, set the
+      // featureReduction property to null
+      toggleButton.addEventListener("click", () => {
+        let fr = layer.featureReduction;
+        layer.featureReduction =
+          fr && fr.type === "cluster" ? null : clusterConfig;
+        toggleButton.innerText =
+          toggleButton.innerText === "Enable Clustering"
+            ? "Disable Clustering"
+            : "Enable Clustering";
+      });
+    </script>
+  </body>
+</html>
