@@ -1,5 +1,12 @@
 # Show Loading Icon
 
+## RETIREMENT NOTICE
+This sample currently uses a retired version of the ArcGIS Maps SDK for JavaScript (4.16).
+
+There is a new version of this sample (see [here](https://github.com/Esri/developer-support/tree/master/maps-sdk/javascript-maps-sdk/show-loading-icon)).
+
+If you would like to learn more about retired versions of this product, visit the [ArcGIS Maps SDK for JavaScript Product Life Cycle page](https://support.esri.com/en-us/products/arcgis-maps-sdk-for-javascript/life-cycle). 
+
 ## About
 
 For layers with a large number of features and details, sometimes it might take a bit while for them to be fully drawn on the view. This sample shows how to display a loading icon to indicate whether the view is updating. 
