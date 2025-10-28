@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Intro to map components - Create a 2D map | Sample | ArcGIS Maps SDK for JavaScript 4.33</title>
+
+    <style>
+      html,
+      body {
+        background-color: var(--calcite-ui-foreground-2);
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+    <!-- Load Calcite components from CDN -->
+    <script type="module" src=https://js.arcgis.com/calcite-components/3.3.3/calcite.esm.js></script>
+
+    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.33/"></script>
+
+    <!-- Load Map components from CDN-->
+    <script type="module" src="https://js.arcgis.com/4.33/map-components/"></script>
+  </head>
+
+  <body>
+    <calcite-scrim loading></calcite-scrim>
+    <arcgis-scene
+        basemap="satellite"
+        ground="world-elevation"
+        camera-position="-74.0338, 40.6913, 707"
+        camera-tilt="81"
+        camera-heading="50"
+    >
+        <arcgis-zoom position="top-left"></arcgis-zoom>
+        <arcgis-navigation-toggle position="top-left"></arcgis-navigation-toggle>
+        <arcgis-compass position="top-left"></arcgis-compass>
+    </arcgis-scene>
+    <script type="module">
+        const [reactiveUtils, SceneLayer] = await $arcgis.import(["@arcgis/core/core/reactiveUtils.js", "@arcgis/core/layers/SceneLayer.js"]);
+
+        // Get a reference to the map component
+        const viewElement = document.querySelector("arcgis-scene");
+        const scrim = document.querySelector("calcite-scrim");
+
+        var symbol = {
+            type: "mesh-3d", // autocasts as new MeshSymbol3D()
+            symbolLayers: [{
+                type: "fill", // autocasts as new FillSymbol3DLayer()
+                // If the value of material is not assigned, the default color will be grey
+                material: {
+                    color: [244, 247, 134]
+                }
+            }]
+        };
+
+        viewElement.addEventListener("arcgisViewReadyChange", (event) => {
+            var sceneLayer = new SceneLayer({
+                portalItem: {
+                    id: "2e0761b9a4274b8db52c4bf34356911e"
+                },
+                renderer: {
+                    type: "simple", // autocasts as new SimpleRenderer()
+                    symbol: symbol
+                },
+                popupEnabled: false
+            }); 
+            
+            viewElement.map.add(sceneLayer);
+
+            reactiveUtils.watch(
+                // getValue function
+                () => viewElement.updating,
+                // callback
+                (updating) => {
+                    scrim.style.display = 'none';
+                });
+        });
+
+
+
+        
+
+        
+
+
+    </script>
+  </body>
+</html>

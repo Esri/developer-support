@@ -5,7 +5,7 @@
 This sample shows how to remove clustering information from the Legend. This sample is a modification of [this sample](https://developers.arcgis.com/javascript/latest/sample-code/featurereduction-cluster/). Other minor modifications include:
 
 - Implementation of [Map components](https://developers.arcgis.com/javascript/latest/references/map-components/)
-- [Module loading via CDN](https://developers.arcgis.com/javascript/latest/get-started-cdn/#module-loading-via-cdn)
+- [Module loading via CDN](https://developers.arcgis.com/javascript/latest/4.32/#module-loading-via-cdn)
 - Replacing the SimpleRenderer with [ClassBreaksRenderers](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-ClassBreaksRenderer.html)
 
 Main logic of the code is located inside index.html. unique-value-symbol-config.js contains symbology and renderer information for the layer.

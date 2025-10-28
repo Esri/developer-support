@@ -1,5 +1,12 @@
 # Display Popups on Mouse Hover
 
+## RETIREMENT NOTICE
+This sample currently uses a retired version of the ArcGIS Maps SDK for JavaScript (4.16).
+
+There is a different version of this sample (see [here](https://github.com/Esri/developer-support/tree/master/maps-sdk/javascript-maps-sdk/open-popups-with-hittest)).
+
+If you would like to learn more about retired versions of this product, visit the [ArcGIS Maps SDK for JavaScript Product Life Cycle page](https://support.esri.com/en-us/products/arcgis-maps-sdk-for-javascript/life-cycle). 
+
 ## About
 
 This sample shows how to display popup upon mouse hover with ArcGIS API for JavaScript 4.x.
