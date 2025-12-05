@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>mykey.snk</AssemblyOriginatorKeyFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ESRI.Server.SOESupport">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.SOESupport.dll</HintPath>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.Server.Carto">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.Carto.dll</HintPath>
+      <EmbedInteropTypes>false</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ESRI.Server.DatasourcesFile">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.DatasourcesFile.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.DatasourcesGDB">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.DatasourcesGDB.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.DatasourcesRaster">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.DatasourcesRaster.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.Geodatabase">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.Geodatabase.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.GeoDatabaseDistributed">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.GeoDatabaseDistributed.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.GeoDatabaseExtensions">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.GeoDatabaseExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.Geometry">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.GISClient">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.GISClient.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.Server">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="ESRI.Server.System">
+      <HintPath>$(ENTDEVKITJAVA)\DotNet\ESRI.Server.System.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup />
+  <PropertyGroup>
+    <ZipFileExtension>soe</ZipFileExtension>
+    <AddInTargetProduct>Server</AddInTargetProduct>
+    <AddInTargetVersion>11.5</AddInTargetVersion>
+    <ServerProvider>ArcObjects11</ServerProvider>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\ESRI\ESRI.ArcGIS.Enterprise.SDK.targets" Condition="Exists('$(MSBuildExtensionsPath)\ESRI\ESRI.ArcGIS.Enterprise.SDK.targets')" />
+</Project>
