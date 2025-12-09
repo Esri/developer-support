@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Show Attribute Table from Layer List Component</title>
+
+  <style>
+    html,
+    body{
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    arcgis-map {
+      height: 100%;
+    }
+    arcgis-feature-table {
+      width: 100%;
+      height: 40%;
+      display: none;
+    }
+    p {
+      margin: 10px;
+      width: 400px;
+    }
+  </style>
+  
+  <script src="https://js.arcgis.com/4.34/"></script>
+  <script type="module" src="https://js.arcgis.com/calcite-components/3.3.3/calcite.esm.js"></script>
+  <script type="module" src="https://js.arcgis.com/4.34/map-components/"></script>
+
+  <script type="module">
+    const [Map, Collection, FeatureLayer, ActionButton, ActionToggle] = await $arcgis.import([
+        "@arcgis/core/Map.js",
+        "@arcgis/core/core/Collection.js",
+        "@arcgis/core/layers/FeatureLayer.js",
+        "@arcgis/core/support/actions/ActionButton.js",
+        "@arcgis/core/support/actions/ActionToggle.js"
+      ]);
+
+      // Reference and additional properties for the table component
+      const tableElement = document.querySelector("arcgis-feature-table");
+      let currentItemDisplayedOnTable;
+
+      // Create layer showing sample data for the United States.
+      var featureLayer_states = new FeatureLayer({
+        url:
+          "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2",
+        id: "states",
+        title: "USA States",
+      });
+
+      var featureLayer_highways = new FeatureLayer({
+        url:
+          "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/1",
+        id: "highways",
+        title: "USA Highways",
+      });
+
+      var featureLayer_cities = new FeatureLayer({
+        url:
+          "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0",
+        id: "cities",
+        title: "USA Cities",
+      });
+
+      // Get a reference to the arcgis-map component.
+      // Set its map property to a new Map instance containing the GroupLayer.
+      const viewElement = document.querySelector("arcgis-map");
+      viewElement.map = new Map({
+        basemap: "gray-vector",
+        layers: [featureLayer_states, featureLayer_highways, featureLayer_cities],
+      });
+
+      // Get a reference to the arcgis-layer-list component.
+      const arcgisLayerList = document.querySelector("arcgis-layer-list");
+
+      // A function that executes each time a ListItem is created for a layer.
+      arcgisLayerList.listItemCreatedFunction = (event) => {
+        // The event object contains an item property.
+        // It is a ListItem referencing the associated layer
+        // and other properties. You can control the visibility of the
+        // item, its title, and actions using this object.
+        const { item } = event;
+
+        // A collection of ActionButtons to place in the LayerList.
+        // By making this collection two-dimensional, you can separate similar
+        // actions into separate groups with a breaking line.
+        item.actionsSections = new Collection([
+          new Collection([
+            new ActionToggle({
+              title: "Show Table",
+              icon: "table",
+              id: "show-table",
+            }),
+            new ActionButton({
+              title: "Layer information",
+              icon: "information",
+              id: "information",
+            }),
+          ])
+        ]);
+
+      };
+
+      let previousAction;
+
+      // Event listener that fires each time an action is triggered
+      arcgisLayerList.addEventListener("arcgisTriggerAction", (event) => {
+        // Get a reference to the action id.
+        const actionItem = event.detail.action;
+
+        // Get a reference to the item the action was performed on
+        const layerItem = event.detail.item.layer;
+
+        // If the show-table action is triggered then
+        // open the feature table for the specific layer
+        if (actionItem.id === "show-table") {
+          if (layerItem == currentItemDisplayedOnTable) {
+            // Close the table, reset toggle text and clean currentItemDisplayedOnTable
+            tableElement.style = "display:none";
+            viewElement.style = "height: 100%";
+
+            actionItem.title = "Show table";
+            actionItem.icon = "table";
+
+            currentItemDisplayedOnTable = null;
+
+          } else {
+            // Set layer on table
+            tableElement.layer = layerItem;
+            currentItemDisplayedOnTable = layerItem;
+            actionItem.title = "Hide table";
+            actionItem.icon = "hide-empty";
+
+            // This ensures that the previous item's toggle is 
+            // turned off when the table displays a different layer
+            if (previousAction && previousAction != actionItem) {
+              previousAction.value = false;
+              previousAction.title = "Show table";
+              previousAction.icon = "table";
+            }
+
+            tableElement.style = "display:block";
+            viewElement.style = "height:60%";
+          }
+
+          // Remembers the previous action so that the toggle can be turned off
+          previousAction = actionItem;
+        }
+
+        // If the information action is triggered, then
+        // open the item details page of the service layer
+        if (actionItem.id === "information") {
+          window.open(layerItem.url);
+        }
+      });
+
+  </script>
+</head>
+
+<body class="calcite-mode-light">
+  <arcgis-map id="mapView" center="-79.0193, 35.7596" zoom=6>
+      <arcgis-home slot="top-left"></arcgis-home>
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-expand slot="top-right" mode="floating">
+        <arcgis-layer-list></arcgis-layer-list>
+      </arcgis-expand>
+      <arcgis-expand slot="top-left" expand-icon="information" collapse-icon="information">
+        <p>
+            To use this sample, open the Layer List widget located at the top right of the map. You can toggle the attribute table of each layer by selecting the '...' option and selecting 'Show Table'.
+            <br><br>
+            <i>Current versions:</i><br>
+            <i>ArcGIS Maps SDK for JavaScript version 4.34</i><br>
+            <i>Calcite Design System version 3.3.3</i>
+        </p>
+      </arcgis-expand>
+
+  </arcgis-map>
+  <arcgis-feature-table></arcgis-feature-table>
+</body>
+
+</html>
