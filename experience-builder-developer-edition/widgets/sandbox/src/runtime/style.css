@@ -1,0 +1,25 @@
+#main-widget-div {
+    height: 100%;
+    margin: 0;
+    background-color: #2D2670;
+    overflow-y: auto;
+}
+
+#header-div{
+  display: flex;
+  align-items: center;
+  padding: 1%;
+  gap: 20px;
+  height: 7vh;
+}
+
+#header-text{
+  color: #FFFFFF;
+  font-family: Avenir Next;
+}
+
+calcite-button {
+  --calcite-button-background-color: #007AC2;
+  --calcite-button-text-color: #FFFFFF;
+  --calcite-button-icon-color: #36DA43;
+ }

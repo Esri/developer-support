@@ -1,0 +1,20 @@
+{
+  "name": "editor-component",
+  "label": "Editor Component",
+  "type": "widget",
+  "version": "1.19.0",
+  "exbVersion": "1.19.0",
+  "author": "Esri R&D Center Beijing",
+  "description": "This is a sample widget that utilizes Map components from the ArcGIS Maps SDK for JavaScript to edit features in a web map.",
+  "copyright": "",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "properties": {},
+  "dependency": "jimu-arcgis",
+  "translatedLocales": [
+    "en"
+  ],
+  "defaultSize": {
+    "width": 800,
+    "height": 500
+  }
+}
