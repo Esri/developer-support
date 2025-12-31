@@ -35,8 +35,8 @@ Visual Studio:         2022
 4. Open the SimplePointJoinTest ArcGIS Pro Project located in the C:\PluginDatasourceWithJoin\SimplePointPluginTest\SimplePointData\SimplePointJoinTest folder.
 5. On the Add-In tab in the Ribbon there will be a group called Simple Point Plugin with two buttons, JoinWithPluginDatasource and RemovePluginDatasource.
 6. Click the JoinWithPluginDatasource button.
-7. A MessageBox will appear showing the location of the running ArcGIS Pro instance's temporary folder.
-8. Navigate to this temporary folder in File Explorer and open the tree_inspections.csv file in an editor.
+7. A MessageBox will appear showing the location of the tree_inspections.csv file.
+8. Navigate to this folder in File Explorer and open the tree_inspections.csv file in an editor.
 9. Also, notice that a join has been created adding the fields from the CSV file (via Plugin Datasource) to the fields from the FileGeodatabaseTable table. 
 10. In the tree_inspections CSV file, add a new field (column) and populate it for the single record in the file.
 11. Save the CSV file.
