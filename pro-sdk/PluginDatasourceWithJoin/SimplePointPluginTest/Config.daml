@@ -1,0 +1,59 @@
+﻿<!--
+
+   Copyright 2018 Esri
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+-->
+<ArcGIS defaultAssembly="SimplePointPluginTest.dll" defaultNamespace="SimplePointPluginTest" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{a42eec68-8da2-42ab-83e7-775f1b4bfbd7}" version="1.0" desktopVersion="3.3.48105">
+    <Name>SimplePointPluginTest</Name>
+    <Description>SimplePointPluginTest description</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>ArcGIS Pro SDK Team, arcgisprosdk@esri.com, with modifications from Chris K</Author>
+    <Company>esri, https://www.esri.com</Company>
+    <Date>12/31/2025</Date>
+    <Subject>Geodatabase</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="SimplePointPluginTest_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <!--<tab id="SimplePointPluginTest_Tab1" caption="New Tab">
+          <group refID="SimplePointPluginTest_Group1"/>
+        </tab>-->
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="SimplePointPluginTest_Group1" keytip="G1" caption="Simple Point Plugin" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <button refID="SimplePointPluginTest_JoinWithPluginDatasource" size="large" />
+          <button refID="SimplePointPluginTest_RemovePluginDatasource" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <button id="SimplePointPluginTest_JoinWithPluginDatasource" caption="JoinWithPluginDatasource" className="JoinWithPluginDatasource" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+        <button id="SimplePointPluginTest_RemovePluginDatasource" caption="RemovePluginDatasource" className="RemovePluginDatasource" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+</ArcGIS>
