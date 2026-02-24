@@ -160,15 +160,15 @@ shared.mapEl.addEventListener("arcgisViewReadyChange", (event) => {
         rotationEnabled: false,
     }
 
-    shared.mapEl.view.padding = {
-        left: 170
+    shared.mapEl.padding = {
+        left: 165
     };
 
-    shared.sceneEl.view.padding = {
-        left: 170
+    shared.sceneEl.padding = {
+        left: 165
     };
 
-    shared.mapEl.addLayer(layer);
+    shared.mapEl.map.add(layer);
 });
 
 var actionBarExpanded = true;
@@ -176,12 +176,17 @@ var actionBarExpanded = true;
 // Resize view element based on expanded status for Calcite Action Bar
 document.addEventListener("calciteActionBarToggle", event => {
     actionBarExpanded = !actionBarExpanded;
-    shared.mapEl.view.padding = {
-        left: actionBarExpanded ? 170 : 49
+    shared.mapEl.padding = {
+        left: actionBarExpanded ? 165 : 49
     };
 
-    shared.sceneEl.view.padding = {
-        left: actionBarExpanded ? 170 : 49
+    shared.sceneEl.padding = {
+        left: actionBarExpanded ? 165 : 49
     };
+
+    // Adjust the location of the attribution text at the bottom of the map
+    const copyrightText = actionBarExpanded ? 165 : 49;
+    shared.mapEl.style.setProperty("--arcgis-layout-overlay-space-left", `${copyrightText}`);
+    shared.sceneEl.style.setProperty("--arcgis-layout-overlay-space-left", `${copyrightText}`);
 });
 

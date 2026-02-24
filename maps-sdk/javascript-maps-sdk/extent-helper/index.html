@@ -7,10 +7,13 @@
     <title>Extent Helper</title>
 
     <!-- When upgrading versions, please update the About section as well -->
-    <script type="module" src=https://js.arcgis.com/calcite-components/3.3.3/calcite.esm.js></script>
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
+
+    <!-- <script type="module" src=https://js.arcgis.com/calcite-components/3.3.3/calcite.esm.js></script>
     <link rel="stylesheet" href="https://js.arcgis.com/4.33/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.33/"></script>
-    <script type="module" src="https://js.arcgis.com/4.33/map-components/"></script>
+    <script type="module" src="https://js.arcgis.com/4.33/map-components/"></script> -->
+    
 
     <link href="./assets/styles/index.css" type="text/css" rel="stylesheet">
 
@@ -37,7 +40,7 @@
                     <calcite-action data-action-id="to-map" text="Switch to Map" icon="map" text-enabled></calcite-action>
                     <calcite-action data-action-id="switch-projection"  text="Switch Projection" icon="coordinate-system" text-enabled></calcite-action>
                 </calcite-action-group>
-                <calcite-action-group slot="bottom-actions">
+                <calcite-action-group>
                     <calcite-action data-action-id="about" text="About" icon="question" data-action-id="about" text-enabled></calcite-action>
                 </calcite-action-group>
             </calcite-action-bar>
@@ -77,8 +80,8 @@
                     Created using <a href="https://developers.arcgis.com/javascript/latest/" target="_blank" rel="noopener noreferrer">ArcGIS Maps SDK for JavaScript</a> and <a href="https://developers.arcgis.com/calcite-design-system/" target="_blank" rel="noopener noreferrer">Calcite Design System</a>
                     <br>
                     <i>Current versions:</i><br>
-                    <i>ArcGIS Maps SDK for JavaScript version 4.33</i><br>
-                    <i>Calcite Design System version 3.3.3</i>
+                    <i>ArcGIS Maps SDK for JavaScript version 5.0</i><br>
+                    <i>Calcite Design System version 5.0</i>
                 </p>
             </calcite-panel>
 
@@ -99,14 +102,14 @@
 
         <calcite-panel>
             <arcgis-map basemap="streets-navigation-vector" center="-100.4593, 36.9014" zoom="4">
-                <arcgis-zoom position="bottom-right"></arcgis-zoom>
-                <arcgis-search position="top-right" popup-disabled></arcgis-search>
+                <arcgis-zoom slot="bottom-right"></arcgis-zoom>
+                <arcgis-search slot="top-right" popup-disabled></arcgis-search>
             </arcgis-map>
             <arcgis-scene basemap="streets-navigation-vector" ground="world-elevation" center="-100.4593, 36.9014" zoom="4">
-                <arcgis-search position="top-right" popup-disabled></arcgis-search>
-                <arcgis-zoom position="bottom-right"></arcgis-zoom>
-                <arcgis-navigation-toggle position="bottom-right"></arcgis-navigation-toggle>
-                <arcgis-compass position="bottom-right"></arcgis-compass>
+                <arcgis-search slot="top-right" popup-disabled></arcgis-search>
+                <arcgis-zoom slot="bottom-right"></arcgis-zoom>
+                <arcgis-navigation-toggle slot="bottom-right"></arcgis-navigation-toggle>
+                <arcgis-compass slot="bottom-right"></arcgis-compass>
             </arcgis-scene>
         </calcite-panel>
     </calcite-shell>
