@@ -4,7 +4,7 @@ import { clearDrawing } from './clearDrawing.js';
 export function toScene() {
     clearDrawing();
 
-    shared.sceneEl.addLayer(layer);
+    shared.sceneEl.map.add(layer);
 
     shared.mapEl.style.display = "none";
     shared.sceneEl.style.display = "inline";

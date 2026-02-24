@@ -1,3 +1,7 @@
+arcgis-map {
+    --arcgis-layout-overlay-space-left: 165px;
+}
+
 arcgis-scene {
     display: none;
 }

@@ -8,8 +8,8 @@ Created and managed by the SDK team within Esri Support Services. If there are a
 
 Created using ArcGIS Maps SDK for JavaScript and Calcite Design System
 Current versions:
-ArcGIS Maps SDK for JavaScript version 4.33
-Calcite Design System version 3.2.1
+ArcGIS Maps SDK for JavaScript version 5.0
+Calcite Design System version 5.0
 
 ## Live Samples
 
