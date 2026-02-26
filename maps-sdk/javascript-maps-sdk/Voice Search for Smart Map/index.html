@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Smart Map - Charlotte</title>
+    <!-- ArcGIS JS SDK -->
+    <script>var esriConfig = { apiKey: "" };</script>
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
+    <!-- Calcite Design System -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@esri/calcite-components/dist/calcite/calcite.css" />
+    <script type="module"
+        src="https://cdn.jsdelivr.net/npm/@esri/calcite-components/dist/calcite/calcite.esm.js"></script>
+    <style>
+        /* Full page sizing */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+        }
+
+        arcgis-map {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Spinner (if you use it anywhere) */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #333;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Calcite Panel Styling */
+        .top-panel {
+            --calcite-ui-background: #007ac2;
+            /* Blue panel background */
+            --calcite-ui-foreground-1: white;
+            /* White text */
+            --calcite-ui-border-1: #005a9e;
+            /* Darker border */
+            --calcite-block-header-font-size: 1.4rem;
+            /* Bigger heading */
+            border-radius: 12px;
+            /* Rounded corners */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            /* Floating shadow */
+            padding: 10px;
+            line-height: 1.5;
+            width: 320px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        /* Only style dropdowns to match panel color */
+        .top-panel calcite-select {
+            background-color: #005a9e;
+            color: white;
+            border-radius: 6px;
+        }
+
+        /* Keep the button default (outlined) */
+        .top-panel calcite-button {
+            /* Remove background override to keep default outline */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ArcGIS Map centered on Charlotte -->
+    <arcgis-map basemap="arcgis/navigation" center="-80.8431,35.2271" zoom="15">
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+    </arcgis-map>
+    <!-- Calcite Controls -->
+    <calcite-block class="top-panel" heading="Where to go in Charlotte?" slot="top-right" collapsible expanded>
+        <calcite-label>
+            Choose a place type
+            <calcite-select id="places-select">
+                <calcite-option value="Parks and Outdoors" icon="tree">Parks & Outdoors</calcite-option>
+                <calcite-option value="Coffee shop" icon="coffee">Coffee Shop</calcite-option>
+                <calcite-option value="Gas station" icon="fuel">Gas Station</calcite-option>
+                <calcite-option value="Food" icon="restaurant">Food</calcite-option>
+                <calcite-option value="Hotel" icon="hotel">Hotel</calcite-option>
+            </calcite-select>
+        </calcite-label>
+        <calcite-label>
+            Basemap
+            <calcite-select id="basemap-select">
+                <calcite-option value="arcgis/navigation">Navigation</calcite-option>
+                <calcite-option value="arcgis/dark-gray">Dark</calcite-option>
+                <calcite-option value="arcgis/light-gray">Light</calcite-option>
+                <calcite-option value="arcgis/topographic">Topographic</calcite-option>
+            </calcite-select>
+        </calcite-label>
+        <calcite-button id="voice-btn" scale="s" appearance="outline">🎤 Voice Search</calcite-button>
+    </calcite-block>
+    <script type="module">
+
+        const [Graphic, locator] = await $arcgis.import([
+            "@arcgis/core/Graphic",
+            "@arcgis/core/rest/locator",
+        ]);
+
+        const viewElement = document.querySelector("arcgis-map");
+        const placesSelectElement = document.querySelector("#places-select");
+        const basemapSelect = document.querySelector("#basemap-select");
+        const voiceBtn = document.querySelector("#voice-btn");
+        const locatorUrl = "https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+        // Basemap toggle
+        basemapSelect.addEventListener("calciteSelectChange", () => {
+            viewElement.basemap = basemapSelect.value;
+        });
+
+        // Detect view stationary
+        viewElement.addEventListener("arcgisViewChange", () => {
+            if (viewElement.stationary) findPlaces(placesSelectElement.value, viewElement.center);
+        });
+
+        // Calcite select change
+        placesSelectElement.addEventListener("calciteSelectChange", () => {
+            findPlaces(placesSelectElement.value, viewElement.center);
+        });
+
+        // Smart Voice Search
+
+        voiceBtn.addEventListener("click", () => {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = "en-US";
+            recognition.start();
+            recognition.onresult = (event) => {
+                const spokenText = event.results[0][0].transcript.toLowerCase();
+                let selectedCategory = null;
+                if (spokenText.includes("park")) selectedCategory = "Parks and Outdoors";
+                else if (spokenText.includes("coffee")) selectedCategory = "Coffee shop";
+                else if (spokenText.includes("gas")) selectedCategory = "Gas station";
+                else if (spokenText.includes("eat") || spokenText.includes("food") || spokenText.includes("restaurant")) selectedCategory = "Food";
+                else if (spokenText.includes("hotel") || spokenText.includes("stay")) selectedCategory = "Hotel";
+                if (selectedCategory) {
+                    placesSelectElement.value = selectedCategory;
+                    findPlaces(selectedCategory, viewElement.center);
+                } else {
+                    alert("Sorry, I didn't understand. Try saying 'coffee', 'hotel', 'park', 'food', or 'gas station'.");
+                }
+            };
+        });
+
+        // Calculate distance in km
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2;
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c;
+        }
+
+        function timeBasedRecommendation(category) {
+            const hour = new Date().getHours();
+            if (hour < 11 && category === "Coffee shop") return true;
+            if (hour >= 11 && hour < 14 && category === "Food") return true;
+            if (hour >= 14 && hour < 18 && category === "Parks and Outdoors") return true;
+            if (hour >= 18 && category === "Food") return true;
+            return false;
+        }
+
+        function getRouteUrl(lat, lon) {
+            const center = viewElement.center;
+            return `https://www.google.com/maps/dir/${center.latitude},${center.longitude}/${lat},${lon}`;
+        }
+
+        async function findPlaces(category, point) {
+            viewElement.closePopup();
+            viewElement.graphics.removeAll();
+            const results = await locator.addressToLocations(locatorUrl, {
+                location: point,
+                categories: [category],
+                maxLocations: 100,
+                outFields: ["Place_addr", "PlaceName"],
+            });
+
+            results.forEach((result) => {
+                const lat = result.location.latitude;
+                const lon = result.location.longitude;
+
+                viewElement.graphics.add(
+                    new Graphic({
+                        attributes: { ...result.attributes, lat, lon, Category: category },
+                        geometry: result.location,
+                        symbol: getTempMarkerSymbol(0),
+                        popupTemplate: {
+                            title: "{PlaceName}",
+                            content: async (event) => {
+                                const { lat, lon, Place_addr, PlaceName, Category } = event.graphic.attributes;
+                                const weather = await getWeather(lat, lon);
+                                const distance = calculateDistance(viewElement.center.latitude, viewElement.center.longitude, lat, lon).toFixed(2);
+                                event.graphic.symbol = getTempMarkerSymbol(weather.temp);
+                                const routeLink = getRouteUrl(lat, lon);
+                                const recommendation = timeBasedRecommendation(Category) ? "🌟 Recommended now!" : "";
+                                return `
+<b>${PlaceName}</b> ${recommendation}<br/>
+<b>Address:</b> ${Place_addr}<br/>
+<b>Distance:</b> ${distance} km from center<br/>
+<b>🌡 Temp:</b> ${weather.temp}°C<br/>
+<b>💨 Wind:</b> ${weather.wind} km/h<br/>
+<b>🌤 Condition:</b> ${weather.condition}<br/>
+<b>⏰ Time:</b> ${weather.time}<br/>
+<b>Forecast next 3 hours:</b> ${weather.forecast}<br/>
+<a href="${routeLink}" target="_blank">🚗 Get Route</a>
+
+                `;
+                            }
+                        }
+                    })
+                );
+            });
+        }
+
+        function getTempMarkerSymbol(temp) {
+            let color = "#0000FF";
+            if (temp > 30) color = "#FF4500";
+            else if (temp > 20) color = "#FFA500";
+            else if (temp > 10) color = "#00CED1";
+            return { type: "simple-marker", color, size: "14px", outline: { color: "#fff", width: 2 } };
+        }
+
+        async function getWeather(lat, lon) {
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&hourly=temperature_2m,weathercode&timezone=auto`;
+                const res = await fetch(url);
+                const data = await res.json();
+                const codeMap = { 0: "☀️ Clear", 1: "🌤 Mainly Clear", 2: "⛅ Partly Cloudy", 3: "☁️ Overcast", 45: "🌫 Fog", 48: "🌫 Rime Fog", 51: "🌦 Light Drizzle", 61: "🌧 Rain", 71: "❄️ Snow", 80: "🌦 Rain Showers" };
+                const c = data.current_weather;
+                const forecast = data.hourly.temperature_2m.slice(1, 4).map((t, i) => `${i + 1}h:${t}°C`).join(", ");
+                return { temp: c.temperature, wind: c.windspeed, condition: codeMap[c.weathercode] || "Unknown", time: c.time, forecast };
+            } catch (e) {
+                return { temp: "N/A", wind: "N/A", condition: "Unavailable", time: "", forecast: "" };
+            }
+        }
+    </script>
+</body>
+
+</html>
