@@ -5,9 +5,9 @@
 For layers with a large number of features and details, sometimes it might take a bit while for them to be fully drawn on the view. This sample shows how to display a loading icon to indicate whether the view is updating. 
 
 This sample is a modification of an [older sample](https://github.com/Esri/developer-support/tree/master/web-js/4.x/show-loading-icon). These modifications include:
-- Migration from version 4.16 to 4.32
+- Migration from version 4.16 to 5.0
 - Implementation of [Map components](https://developers.arcgis.com/javascript/latest/references/map-components/)
-- [Module loading via CDN](https://developers.arcgis.com/javascript/latest/4.32/#module-loading-via-cdn)
+- [Module loading via CDN](https://developers.arcgis.com/javascript/latest/v4-32/#module-loading-via-cdn)
 - Using [Calcite Design System](https://developers.arcgis.com/calcite-design-system/)
 
 ## How It Works

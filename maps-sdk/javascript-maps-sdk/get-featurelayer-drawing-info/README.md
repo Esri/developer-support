@@ -14,6 +14,7 @@ This tool is useful when the service-level drawingInfo is different than the ite
 
 ```javascript
 const mapElement = document.querySelector("arcgis-map");
+await mapElement.viewOnReady();
 var map = mapElement.map;
 ...
   var featureLayer = new FeatureLayer({
@@ -21,7 +22,7 @@ var map = mapElement.map;
           id: val,
       },
   });
-  mapElement.addLayer(featureLayer);
+  mapElement.map.add(featureLayer);
 ...
 ```
 

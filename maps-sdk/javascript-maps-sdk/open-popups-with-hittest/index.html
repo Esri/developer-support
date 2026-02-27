@@ -8,7 +8,7 @@
     />
 
     <title>
-      Open Cluster popups with HitTest - 4.33
+      Open Cluster popups with HitTest
     </title>
 
     <style>
@@ -19,31 +19,14 @@
       }
     </style>
 
-    <!-- Load Calcite components from CDN -->
-    <script
-      type="module"
-      src="https://js.arcgis.com/calcite-components/3.2.1/calcite.esm.js"
-    ></script>
-
-    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.33/esri/themes/light/main.css"
-    />
-    <script src="https://js.arcgis.com/4.33/"></script>
-
-    <!-- Load Map components from CDN-->
-    <script
-      type="module"
-      src="https://js.arcgis.com/4.33/map-components/"
-    ></script>
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
   </head>
 
   <body>
     <arcgis-map basemap="" center="-122.4194,37.7749" zoom="12">
-      <arcgis-zoom position="top-left"></arcgis-zoom>
-      <arcgis-home position="top-left"></arcgis-home>
-      <arcgis-placement position="bottom-left">
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-home slot="top-left"></arcgis-home>
+      <arcgis-placement slot="bottom-left">
         <div id="infoDiv">
           <arcgis-layer-list></arcgis-layer-list>
           <calcite-button id="cluster" secondary width="full">Disable Clustering</calcite-button>
@@ -139,6 +122,7 @@
 
       // get the arcgis-map component element
       const viewElement = document.querySelector("arcgis-map");
+
       viewElement.map = new Map({
         basemap: "gray-vector",
         layers: [layer, layerNoCluster]
