@@ -8,11 +8,7 @@
     />
     <title>Get Drawing Info Tool</title>
 
-    <script type="module" src="https://js.arcgis.com/calcite-components/3.1.0/calcite.esm.js"></script>
-
-    <script src="https://js.arcgis.com/4.32/"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
-    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
 
     <style>
       html,
@@ -40,6 +36,9 @@
         // esriConfig.apiKey = "";
 
         const mapElement = document.querySelector("arcgis-map");
+
+        await mapElement.viewOnReady();
+
         var map = mapElement.map;
 
         btn.onclick = () => {
@@ -52,7 +51,7 @@
                   id: val,
               },
           });
-          mapElement.addLayer(featureLayer);
+          mapElement.map.add(featureLayer);
 
           featureLayer.when(() => {
             return featureLayer.queryExtent();
@@ -84,7 +83,7 @@
     <calcite-shell>
         <calcite-shell-panel slot="panel-start">
             <calcite-panel heading="Get Drawing Info Tool">
-                <calcite-block collapsible heading="Enter PortalID" expanded="true">
+                <calcite-block collapsible heading="Enter AGOL PortalID" expanded="true">
                     <calcite-input
                       placeholder="PORTAL_ID"
                       id="input"
@@ -98,8 +97,8 @@
             </calcite-panel>
         </calcite-shell-panel>
         <arcgis-map id="mapView" basemap="gray-vector">
-            <arcgis-home position="top-right"></arcgis-home>
-            <arcgis-zoom position="top-right"></arcgis-zoom>
+            <arcgis-home slot="top-right"></arcgis-home>
+            <arcgis-zoom slot="top-right"></arcgis-zoom>
         </arcgis-map>
     </calcite-shell>
   </body>

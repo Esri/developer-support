@@ -2,9 +2,7 @@
 
 ## About
 
-The ArcGIS API for JavaScript 4.x provides an out-of-the-box [Locate widget](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html) that animates the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html) to the user's current location. This sample shows how to display the user's current location on the map using the Geolocation API and FeatureLayer instead of the Locate widget.  
-
-Created by Lingtao
+The ArcGIS Maps SDK for JavaScript provides an out-of-the-box [Locate component](https://developers.arcgis.com/javascript/latest/references/map-components/components/arcgis-locate/) that animates the [View](https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html) to the user's current location. This sample shows how to display the user's current location on the map using the Geolocation API and FeatureLayer instead of the Locate widget.  
 
 ## How It Works
 
@@ -55,8 +53,8 @@ var layer = new FeatureLayer({
 - [Geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API)
 - [FeatureLayer](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html)
 - [Graphic](https://developers.arcgis.com/javascript/latest/api-reference/esri-Graphic.html)
-- [Locate Widget](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Locate.html)
-- [Sample Code: Locate Widget](https://developers.arcgis.com/javascript/latest/sample-code/widgets-locate/)
+- [Locate Component](https://developers.arcgis.com/javascript/latest/references/map-components/components/arcgis-locate/)
+- [Sample Code: Locate Component](https://developers.arcgis.com/javascript/latest/sample-code/locate/)
 
 
 ## [Live Sample](https://esri.github.io/developer-support/maps-sdk/javascript-maps-sdk/current-location-FeatureLayer/)

@@ -2,7 +2,7 @@
 
 ## About
 
-This sample shows how to add an [ActionToggle](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-actions-ActionToggle.html) to the [Layerlist widget](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html) that toggles on and off the attribute table of layers.
+This sample shows how to add an [ActionToggle](https://developers.arcgis.com/javascript/latest/api-reference/esri-support-actions-ActionToggle.html) to the [Layerlist component](https://developers.arcgis.com/javascript/latest/references/map-components/arcgis-layer-list/) that toggles on and off the attribute table of layers.
 
 To use this sample, open the Layer List widget located at the top right of the map. You can toggle the attribute table of each layer by selecting the '...' option and selecting 'Show Table'.
 

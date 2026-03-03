@@ -5,9 +5,9 @@
 This sample shows how to use an attribute value as the distance when generating buffers.
 
 This sample is a modification of an [older sample](https://github.com/Esri/developer-support/tree/master/web-js/4.x/buffer-based-on-attributes). These modifications include:
-- Migration from version 4.17 to 4.32
+- Migration from version 4.17 to 5.0
 - Implementation of [Map components](https://developers.arcgis.com/javascript/latest/references/map-components/)
-- [Module loading via CDN](https://developers.arcgis.com/javascript/latest/4.32/#module-loading-via-cdn)
+- [Module loading via CDN](https://developers.arcgis.com/javascript/latest/v4-32/#module-loading-via-cdn)
 - Replacing the deprecated geometryEngine classes with [geometry operators](https://developers.arcgis.com/javascript/latest/spatial-analysis/intro-geometry-operators/)
 
 ## How It Works

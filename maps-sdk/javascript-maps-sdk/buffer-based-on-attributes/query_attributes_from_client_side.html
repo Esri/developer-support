@@ -10,9 +10,7 @@
 
     <title>Create Buffer Based on Attributes (Client-Side Query)</title>
 
-    <script src="https://js.arcgis.com/4.32/"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
-    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
 
     <style>
       html,
@@ -42,8 +40,10 @@
           outFields: ["st", "pop2000"],
       });
 
+      await mapElement.viewOnReady();
+
       var bufferLayer = new GraphicsLayer();
-      mapElement.addLayers([featureLayer, bufferLayer]);
+      mapElement.map.addMany([featureLayer, bufferLayer]);
 
       var geometries = [];
       var distances = [];
@@ -113,8 +113,8 @@
 
   <body>
     <arcgis-map id="mapView" center="-79.0193, 35.7596" zoom=8 basemap="gray-vector">
-      <arcgis-home position="top-right"></arcgis-home>
-      <arcgis-zoom position="top-right"></arcgis-zoom>
+      <arcgis-home slot="top-right"></arcgis-home>
+      <arcgis-zoom slot="top-right"></arcgis-zoom>
     </arcgis-map>
   </body>
 </html>

@@ -8,11 +8,7 @@
     />
     <title>Date Filter</title>
 
-    <script type="module" src="https://js.arcgis.com/calcite-components/3.1.0/calcite.esm.js"></script>
-
-    <script src="https://js.arcgis.com/4.32/"></script>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.32/esri/themes/light/main.css" />
-    <script type="module" src="https://js.arcgis.com/map-components/4.32/arcgis-map-components.esm.js"></script>
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
 
     <style>
       html,
@@ -48,7 +44,9 @@
           outFields: ["*"],
       });
 
-      map.addLayer(featureLayer);
+      await map.viewOnReady();
+
+      map.map.add(featureLayer);
 
       // the client-side layer
       let featureLayerView;
@@ -124,9 +122,9 @@
 
   <body>
     <arcgis-map basemap="dark-gray-vector" center="-41.34, 26.274" zoom="3">
-      <arcgis-zoom position="top-left"></arcgis-zoom>
-      <arcgis-home position="top-left"></arcgis-home>
-        <arcgis-placement position="top-right">
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-home slot="top-left"></arcgis-home>
+        <arcgis-placement slot="top-right">
           <calcite-panel heading="Filter by date" id="panel">
             <form id="dateForm">
               <calcite-label id="startLabel" for="datePickerForm">
