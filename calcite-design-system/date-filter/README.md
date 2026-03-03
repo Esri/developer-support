@@ -1,6 +1,6 @@
 # Filter with a date range, client-side FeatureLayer
 
-This sample uses the ArcGIS Maps SDK for JavaScript 4.x and Calcite Design System to filter the client-side graphics on the screen using the FeatureLayerView, and the filter property. 
+This sample uses the ArcGIS Maps SDK for JavaScript 5.0 to filter the client-side graphics on the screen using the FeatureLayerView, and the filter property. 
 
 This is an upgraded version of another sample. If you would like to learn more about the JavaScript logic of filtering the layer, please visit [this sample](https://github.com/Esri/developer-support/tree/master/web-js/4.x/date-filter). 
 
@@ -10,8 +10,7 @@ This html file is ready for deployment. This sample uses the [Earthquakes1970](h
 
 ## Built With
 
-* [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/latest/) - Using version 4.32
-* [Calcite Design System](https://developers.arcgis.com/calcite-design-system/) for the UI components
+* [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/latest/) - Using version 5.0
 
 ## Relevant Calcite Design System API
 * [Calcite panel](https://developers.arcgis.com/calcite-design-system/components/panel/)
