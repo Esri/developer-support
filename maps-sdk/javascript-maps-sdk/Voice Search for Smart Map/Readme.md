@@ -54,7 +54,16 @@ Locations may display **“🌟 Recommended now!”** depending on the time of d
 
 ### 🎨 Temperature‑Aware Map Symbols
 Markers automatically change color based on temperature:
-- 🔵 Cool
+- ☀️ Clear
+- 🌤 Mainly Clear
+- ⛅ Partly Cloudy
+- ☁️ Overcast
+- 🌫 Fog
+- 🌫 Rime Fog
+- 🌦 Light Drizzle
+- 🌧 Rain
+- ❄️ Snow
+- 🌦 Rain Shower
 
 
 <img width="1409" height="747" alt="Screenshot 2026-02-24 123105" src="https://github.com/user-attachments/assets/c05f97c1-ec59-4605-8d48-927f3b3f0491" />
