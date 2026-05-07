@@ -1,0 +1,39 @@
+{
+  "serviceParameters": [
+    {
+      "key": "remoteUrl",
+      "label": "Remote API Base URL",
+      "description": "Base URL for the remote data source, for example https://data.lacity.org."
+    },
+    {
+      "key": "datasetId",
+      "label": "Dataset ID",
+      "description": "Remote dataset identifier used to build the query URL."
+    },
+    {
+      "key": "layerName",
+      "label": "Layer Name",
+      "description": "Display name used in the custom data feature service metadata."
+    },
+    {
+      "key": "description",
+      "label": "Description",
+      "description": "Description used in the custom data feature service metadata."
+    },
+    {
+      "key": "geometryType",
+      "label": "Geometry Type",
+      "description": "Geometry type exposed by the provider, for example Point."
+    },
+    {
+      "key": "idField",
+      "label": "ID Field",
+      "description": "Stable numeric ID field used by the custom data feature service."
+    },
+    {
+      "key": "maxRecordCount",
+      "label": "Max Record Count",
+      "description": "Maximum number of records returned per request."
+    }
+  ]
+}
