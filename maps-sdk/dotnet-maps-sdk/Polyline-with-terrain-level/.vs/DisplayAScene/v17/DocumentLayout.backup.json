@@ -1,0 +1,84 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|c:\\users\\law12208\\downloads\\display-a-scene\\display-a-scene\\sceneviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|solutionrelative:sceneviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|c:\\users\\law12208\\downloads\\display-a-scene\\display-a-scene\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|c:\\users\\law12208\\downloads\\display-a-scene\\display-a-scene\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|c:\\users\\law12208\\downloads\\display-a-scene\\display-a-scene\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5F2AC47A-B042-4338-B54D-3DC6CB4B2B8E}|DisplayAScene.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T18:55:12.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-07-06T18:53:34.082Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACEAAABnAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T18:41:26.794Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SceneViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\SceneViewModel.cs",
+              "RelativeDocumentMoniker": "SceneViewModel.cs",
+              "ToolTip": "C:\\Users\\law12208\\Downloads\\display-a-scene\\display-a-scene\\SceneViewModel.cs*",
+              "RelativeToolTip": "SceneViewModel.cs*",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAYwDMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-06T18:29:53.123Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
