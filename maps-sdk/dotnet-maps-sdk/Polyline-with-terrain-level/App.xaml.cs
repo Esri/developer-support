@@ -31,7 +31,7 @@ namespace DisplayAScene
             base.OnStartup(e);
 
             // Set the access token for ArcGIS Maps SDK for .NET.
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "AAPTaDbRxZ8nJ-bWulQuv6_wisg..KUqFrP6hnzEwH0j0d1d17V9GPBhjjPZp_kfisbDV-CeQm-a4M5Ok4OdbFIf1XC24HsAyP3nq2NQSpQadQWovy8V36uo4nkAmjmhyhO9AdvYjpHpqPbjbgH1S_M_qRKdLanf36TfhjGfeKiQN5ZGfOOf24QqN_SKxP8HYRgNiXQWpTUcl4o8QVOn4vYU_nbhS9J0Sko44lPT0awVLLnsXyNPfOH0IciRIEHwn8DNLC9sthqt4D9OckYXLwfxbAT1_xHpKKDQH";
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "<API-Key>";
 
             // Call a function to set up the AuthenticationManager for OAuth.
             //UserAuth.ArcGISLoginPrompt.RegisterOAuthConfig();
