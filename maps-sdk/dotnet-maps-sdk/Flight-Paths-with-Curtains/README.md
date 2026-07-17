@@ -79,7 +79,3 @@ When you click **Create Curtain**:
 - **GraphicsOverlay** — Two overlays are used: one for flight paths and one for curtains, both set to `SurfacePlacement.Relative`.
 - **SurfacePlacement.Relative** — Positions graphics relative to the elevation surface, allowing altitudes and below-ground curtain bottoms to render correctly.
 - **Haversine distance** — Ensures curtain panels are spaced by true surface distance rather than by raw vertex count.
-
-## License
-
-Add your license information here.
