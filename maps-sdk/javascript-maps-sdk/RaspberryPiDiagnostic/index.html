@@ -1,0 +1,618 @@
+<!doctype html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <title>Pi Performance Diagnostic | ArcGIS Maps SDK for JavaScript</title>
+
+
+
+    <!--
+      RASPBERRY PI CPU (SOFTWARE) RENDERING NOTE
+      Some Raspberry Pi OpenGL/Mesa (VC4/V3D) drivers have rendering bugs that corrupt the
+      WebGL output used by the ArcGIS Maps SDK. This is fixed at the Chromium/OS level, NOT
+      from HTML/JS, by launching the kiosk browser with software (CPU) WebGL flags, e.g.:
+
+        chromium-browser --kiosk --use-gl=angle --use-angle=swiftshader --disable-gpu-compositing --enable-unsafe-swiftshader <url>
+
+      The performance panel below reports the ACTIVE WebGL renderer string so you can confirm
+      whether software (SwiftShader/llvmpipe) or hardware (V3D/VC4) rendering is actually in
+      effect after applying those flags.
+    -->
+
+    <!-- Capture the earliest possible timestamp, before anything else runs. -->
+    <script>
+      window.__perf = { start: performance.now(), marks: {} };
+      performance.mark("doc-start");
+    </script>
+
+    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+    <script id="arcgis-sdk" type="module" src="https://js.arcgis.com/5.1/"></script>
+    <script>
+      document.getElementById("arcgis-sdk").addEventListener("load", () => {
+        window.__perf.marks["sdk-loaded"] = performance.now();
+        performance.mark("sdk-loaded");
+      });
+    </script>
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      #perf-badge {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 999999;
+        background: rgba(20, 20, 20, 0.85);
+        color: #e8e8e8;
+        font: 12px/1.4 "Segoe UI", monospace;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        user-select: none;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      #perf-panel {
+        position: fixed;
+        top: 42px;
+        right: 10px;
+        z-index: 999999;
+        width: 360px;
+        max-height: 78vh;
+        overflow-y: auto;
+        background: rgba(15, 15, 15, 0.92);
+        color: #e8e8e8;
+        font: 12px/1.5 Consolas, monospace;
+        padding: 10px 12px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+      }
+
+      #perf-panel[hidden] {
+        display: none;
+      }
+
+      #perf-panel h3 {
+        margin: 10px 0 4px;
+        font-size: 12px;
+        color: #7fd1ff;
+        border-bottom: 1px solid #444;
+        padding-bottom: 2px;
+      }
+
+      #perf-panel h3:first-child {
+        margin-top: 0;
+      }
+
+      #perf-panel table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      #perf-panel td {
+        padding: 1px 0;
+        vertical-align: top;
+      }
+
+      #perf-panel td:first-child {
+        color: #9a9a9a;
+        padding-right: 6px;
+        white-space: nowrap;
+      }
+
+      #perf-panel .warn {
+        color: #ff8080;
+        font-weight: bold;
+      }
+
+      #perf-panel .ok {
+        color: #7fffa0;
+        font-weight: bold;
+      }
+
+      #perf-panel .history td {
+        padding: 1px 4px 1px 0;
+      }
+
+      #perf-panel .actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+
+      #perf-panel button {
+        background: #333;
+        color: #e8e8e8;
+        border: 1px solid #555;
+        border-radius: 4px;
+        padding: 4px 8px;
+        font: 11px monospace;
+        cursor: pointer;
+      }
+
+      #perf-panel button:hover {
+        background: #444;
+      }
+    </style>
+
+  </head>
+
+
+
+  <body>
+
+    <arcgis-map basemap="hybrid" center="-80, 35" zoom="3">
+
+      <arcgis-popup slot="popup"></arcgis-popup>
+
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+
+    </arcgis-map>
+
+    <div id="perf-badge">⏱ measuring…</div>
+    <div id="perf-panel" hidden></div>
+
+    <script type="module">
+
+      const [Graphic, reactiveUtils] = await $arcgis.import([
+        "@arcgis/core/Graphic.js",
+        "@arcgis/core/core/reactiveUtils.js",
+      ]);
+
+      const perf = window.__perf;
+      const mark = (name) => {
+        perf.marks[name] = performance.now();
+        performance.mark(name);
+      };
+
+      mark("module-import-done");
+
+      // Start the FPS sampler immediately; it runs independently of the
+      // awaits below so it captures frame rate from the very first paint.
+      const fps = { frames: 0, last: performance.now(), value: 0, samples: [] };
+      (function fpsLoop(t) {
+        fps.frames++;
+        const elapsed = t - fps.last;
+        if (elapsed >= 500) {
+          fps.value = Math.round((fps.frames * 1000) / elapsed);
+          fps.samples.push(fps.value);
+          if (fps.samples.length > 60) fps.samples.shift();
+          fps.frames = 0;
+          fps.last = t;
+        }
+        requestAnimationFrame(fpsLoop);
+      })(performance.now());
+
+      const viewElement = document.querySelector("arcgis-map");
+
+      // Wait for the component to be ready before adding graphics.
+
+      await viewElement.viewOnReady();
+      mark("view-ready");
+
+      const view = viewElement.view;
+
+
+
+      // Configure a point's geometry. This is the location of the Titanic.
+
+      const point = {
+
+        type: "point", // autocasts as new Point()
+
+        longitude: -49.97,
+
+        latitude: 41.73,
+
+      };
+
+
+
+      // Configure a line's geometry. This is the Keystone pipeline.
+
+      const polyline = {
+
+        type: "polyline", // autocasts as new Polyline()
+
+        paths: [
+
+          [-111.3, 52.68],
+
+          [-98, 49.5],
+
+          [-93.94, 29.89],
+
+        ],
+
+      };
+
+
+
+      // Configure a polygon's geometry. This is the Bermuda Triangle.
+
+      const polygon = {
+
+        type: "polygon", // autocasts as new Polygon()
+
+        rings: [
+
+          [-64.78, 32.3],
+
+          [-66.07, 18.45],
+
+          [-80.21, 25.78],
+
+          [-64.78, 32.3],
+
+        ],
+
+      };
+
+
+
+      // Create a symbol to define the point's style.
+
+      const markerSymbol = {
+
+        type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+
+        color: [226, 119, 40],
+
+        outline: {
+
+          color: [255, 255, 255], // autocasts as new SimpleLineSymbol()
+
+          width: 2,
+
+        },
+
+      };
+
+
+
+      // Create a symbol to define the line's style.
+
+      const lineSymbol = {
+
+        type: "simple-line", // autocasts as SimpleLineSymbol()
+
+        color: [226, 119, 40],
+
+        width: 4,
+
+      };
+
+
+
+      // Create a symbol to define the polygon's style.
+
+      const polygonFillSymbol = {
+
+        type: "simple-fill", // autocasts as new SimpleFillSymbol()
+
+        color: [227, 139, 79, 0.8],
+
+        outline: {
+
+          // autocasts as new SimpleLineSymbol()
+
+          color: [255, 255, 255],
+
+          width: 1,
+
+        },
+
+      };
+
+
+
+      // Create a point graphic with the point geometry and symbol.
+
+      const pointGraphic = new Graphic({
+
+        geometry: point,
+
+        symbol: markerSymbol,
+
+      });
+
+
+
+      // Create a line graphic with the line geometry and symbol.
+
+      const polylineGraphic = new Graphic({
+
+        geometry: polyline,
+
+        symbol: lineSymbol,
+
+        attributes: {
+
+          Name: "Keystone Pipeline",
+
+          Owner: "TransCanada",
+
+          Length: "3,456 km",
+
+        },
+
+        popupTemplate: {
+
+          // Add a popup so users can view the graphic's attributes
+
+          // when clicked. It autocasts as new PopupTemplate().
+
+          title: "{Name}",
+
+          content: [
+
+            {
+
+              type: "fields",
+
+              fieldInfos: [{ fieldName: "Name" }, { fieldName: "Owner" }, { fieldName: "Length" }],
+
+            },
+
+          ],
+
+        },
+
+      });
+
+
+
+      // Create a polygon graphic with the polygon geometry and symbol.
+
+      const polygonGraphic = new Graphic({
+
+        geometry: polygon,
+
+        symbol: polygonFillSymbol,
+
+      });
+
+
+
+      // Add the graphics to the map's graphics layer.
+
+      viewElement.graphics.addMany([pointGraphic, polylineGraphic, polygonGraphic]);
+      mark("graphics-added");
+
+      // ---- Performance instrumentation -------------------------------------------------
+
+      function getGLInfo() {
+        const canvas = document.createElement("canvas");
+        const gl = canvas.getContext("webgl2") || canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        if (!gl) return { supported: false };
+        const dbg = gl.getExtension("WEBGL_debug_renderer_info");
+        const vendor = dbg ? gl.getParameter(dbg.UNMASKED_VENDOR_WEBGL) : gl.getParameter(gl.VENDOR);
+        const renderer = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+        return {
+          supported: true,
+          vendor,
+          renderer,
+          isSoftware: /swiftshader|llvmpipe|software|basic render/i.test(renderer || ""),
+        };
+      }
+
+      function getMemoryInfo() {
+        return performance.memory
+          ? {
+              usedMB: Math.round(performance.memory.usedJSHeapSize / 1048576),
+              totalMB: Math.round(performance.memory.totalJSHeapSize / 1048576),
+              limitMB: Math.round(performance.memory.jsHeapSizeLimit / 1048576),
+            }
+          : null;
+      }
+
+      function getResourceSummary() {
+        const resources = performance.getEntriesByType("resource");
+        const totalBytes = resources.reduce((sum, r) => sum + (r.transferSize || 0), 0);
+        const slowest = [...resources]
+          .sort((a, b) => b.duration - a.duration)
+          .slice(0, 6)
+          .map((r) => ({
+            name: r.name.split("/").pop().split("?")[0] || r.name,
+            durationMs: Math.round(r.duration),
+            sizeKB: Math.round((r.transferSize || 0) / 1024),
+          }));
+        return { count: resources.length, totalKB: Math.round(totalBytes / 1024), slowest };
+      }
+
+      function getNavTiming() {
+        const nav = performance.getEntriesByType("navigation")[0];
+        if (!nav) return null;
+        return {
+          ttfbMs: Math.round(nav.responseStart - nav.requestStart),
+          domInteractiveMs: Math.round(nav.domInteractive),
+          domContentLoadedMs: Math.round(nav.domContentLoadedEventEnd),
+          loadEventMs: Math.round(nav.loadEventEnd),
+        };
+      }
+
+      const HISTORY_KEY = "pi-perf-history";
+
+      function loadHistory() {
+        try {
+          return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveHistory(entry) {
+        const history = loadHistory();
+        history.push(entry);
+        while (history.length > 20) history.shift();
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        return history;
+      }
+
+      function buildReport() {
+        const rel = (key) => (perf.marks[key] != null ? Math.round(perf.marks[key] - perf.start) : null);
+        return {
+          timestamp: new Date().toISOString(),
+          timeline: {
+            sdkScriptLoadedMs: rel("sdk-loaded"),
+            moduleImportDoneMs: rel("module-import-done"),
+            viewReadyMs: rel("view-ready"),
+            graphicsAddedMs: rel("graphics-added"),
+            viewStationaryMs: rel("view-stationary") ?? rel("view-stationary-timeout"),
+          },
+          navigation: getNavTiming(),
+          webgl: getGLInfo(),
+          memory: getMemoryInfo(),
+          resources: getResourceSummary(),
+          fps: {
+            current: fps.value,
+            average: fps.samples.length ? Math.round(fps.samples.reduce((a, b) => a + b, 0) / fps.samples.length) : null,
+          },
+        };
+      }
+
+      function renderPanel(report) {
+        const panel = document.getElementById("perf-panel");
+        const gl = report.webgl;
+        const glClass = gl.supported ? (gl.isSoftware ? "ok" : "warn") : "warn";
+        const glLabel = gl.supported ? (gl.isSoftware ? "CPU (software)" : "GPU (hardware)") : "unsupported";
+        const history = loadHistory();
+        panel.innerHTML = `
+          <h3>Load timeline (ms since doc start)</h3>
+          <table>
+            <tr><td>SDK script loaded</td><td>${report.timeline.sdkScriptLoadedMs ?? "--"}</td></tr>
+            <tr><td>Module import done</td><td>${report.timeline.moduleImportDoneMs ?? "--"}</td></tr>
+            <tr><td>View ready</td><td>${report.timeline.viewReadyMs ?? "--"}</td></tr>
+            <tr><td>Graphics added</td><td>${report.timeline.graphicsAddedMs ?? "--"}</td></tr>
+            <tr><td>View stationary</td><td>${report.timeline.viewStationaryMs ?? "--"}</td></tr>
+          </table>
+          <h3>Navigation</h3>
+          <table>
+            <tr><td>TTFB</td><td>${report.navigation?.ttfbMs ?? "--"} ms</td></tr>
+            <tr><td>DOM interactive</td><td>${report.navigation?.domInteractiveMs ?? "--"} ms</td></tr>
+            <tr><td>DOMContentLoaded</td><td>${report.navigation?.domContentLoadedMs ?? "--"} ms</td></tr>
+            <tr><td>window.onload</td><td>${report.navigation?.loadEventMs ?? "--"} ms</td></tr>
+          </table>
+          <h3>Rendering</h3>
+          <table>
+            <tr><td>Mode</td><td class="${glClass}">${glLabel}</td></tr>
+            <tr><td>Renderer</td><td>${gl.renderer ?? "--"}</td></tr>
+            <tr><td>Vendor</td><td>${gl.vendor ?? "--"}</td></tr>
+            <tr><td>FPS (current/avg)</td><td>${report.fps.current} / ${report.fps.average ?? "--"}</td></tr>
+          </table>
+          <h3>Memory / Resources</h3>
+          <table>
+            <tr><td>JS heap</td><td>${report.memory ? `${report.memory.usedMB} / ${report.memory.limitMB} MB` : "n/a"}</td></tr>
+            <tr><td>Requests</td><td>${report.resources.count} (${report.resources.totalKB} KB)</td></tr>
+          </table>
+          <h3>Slowest requests</h3>
+          <table>
+            ${report.resources.slowest.map((r) => `<tr><td>${r.name}</td><td>${r.durationMs} ms / ${r.sizeKB} KB</td></tr>`).join("")}
+          </table>
+          <h3>History (last ${history.length} runs)</h3>
+          <table class="history">
+            ${history
+              .slice()
+              .reverse()
+              .map(
+                (h) =>
+                  `<tr><td>${new Date(h.timestamp).toLocaleTimeString()}</td><td>${h.viewStationaryMs ?? "--"} ms</td><td class="${h.isSoftware ? "ok" : "warn"}">${h.isSoftware ? "CPU" : "GPU"}</td></tr>`
+              )
+              .join("")}
+          </table>
+          <div class="actions">
+            <button data-action="copy">Copy JSON</button>
+            <button data-action="download">Download JSON</button>
+            <button data-action="reload">Reload test</button>
+            <button data-action="clear-history">Clear history</button>
+          </div>
+        `;
+      }
+
+      let finalized = false;
+      function finalizeReport() {
+        if (finalized) return;
+        finalized = true;
+        const report = buildReport();
+        window.__perfReport = report;
+        console.log("%cPi performance report", "font-weight:bold;font-size:14px;");
+        console.table(report.timeline);
+        console.table(report.resources.slowest);
+        console.log(report);
+        saveHistory({
+          timestamp: report.timestamp,
+          viewStationaryMs: report.timeline.viewStationaryMs,
+          isSoftware: report.webgl.isSoftware,
+        });
+        renderPanel(report);
+        updateBadge(report);
+      }
+
+      function updateBadge(report) {
+        const badge = document.getElementById("perf-badge");
+        const gl = report?.webgl ?? getGLInfo();
+        const glTag = gl.supported ? (gl.isSoftware ? "CPU" : "GPU⚠" ) : "?";
+        if (finalized) {
+          badge.textContent = `⏱ ${report.timeline.viewStationaryMs} ms · FPS ${fps.value} · ${glTag}`;
+        } else {
+          badge.textContent = `⏱ ${Math.round(performance.now() - perf.start)} ms… · FPS ${fps.value} · ${glTag}`;
+        }
+      }
+
+      setInterval(() => updateBadge(finalized ? window.__perfReport : null), 500);
+
+      document.getElementById("perf-badge").addEventListener("click", () => {
+        const panel = document.getElementById("perf-panel");
+        panel.hidden = !panel.hidden;
+      });
+
+      document.getElementById("perf-panel").addEventListener("click", (event) => {
+        const action = event.target.dataset.action;
+        if (!action) return;
+        if (action === "copy") {
+          navigator.clipboard?.writeText(JSON.stringify(window.__perfReport, null, 2)).catch(() => {});
+        } else if (action === "download") {
+          const blob = new Blob([JSON.stringify(window.__perfReport, null, 2)], { type: "application/json" });
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = `pi-perf-${Date.now()}.json`;
+          a.click();
+          URL.revokeObjectURL(a.href);
+        } else if (action === "reload") {
+          location.reload();
+        } else if (action === "clear-history") {
+          localStorage.removeItem(HISTORY_KEY);
+          renderPanel(buildReport());
+        }
+      });
+
+      reactiveUtils.whenOnce(() => view.stationary && !view.updating).then(() => {
+        mark("view-stationary");
+        finalizeReport();
+      });
+
+      // Safety net in case the view never reports stationary quickly.
+      setTimeout(() => {
+        if (!perf.marks["view-stationary"]) {
+          mark("view-stationary-timeout");
+          finalizeReport();
+        }
+      }, 8000);
+
+    </script>
+
+  </body>
+
+</html>
+
